@@ -1,121 +1,87 @@
-import { BarChart } from '@mui/x-charts/BarChart';
+import { useState } from 'react';
 import './App.css'
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import { LineChart } from '@mui/x-charts/LineChart';
-import MixedChart from './components/mixtChart';
-import BasicComposition from './components/Basic';
-import Card from '@mui/material/Card';
-import Chip from '@mui/material/Chip';
-import Stack from '@mui/material/Stack';
-import Divider from '@mui/material/Divider';
-import Typography from '@mui/material/Typography';
+import { http } from './common/config/api'
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useQuery } from '@tanstack/react-query'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheck, faCircleNotch } from '@fortawesome/free-solid-svg-icons';
 
 const App = () => {
+
+  const [setData] = useState([]);
+
+  const fetchData = async () => {
+    try {
+      const response = await http.get('/dragon_treasures');
+      setData(response.data['hydra:member'] || []);
+
+      toast.success('Ok')
+    } catch (error) {
+      console.error('Error fetching data: ', error);
+      toast.error('error')
+    }
+  };
+
+  const { isPending, error, data, isFetching } = useQuery({
+    queryKey: ['todos'],
+    queryFn: async () => {
+      const response = await http.get('/dragon_treasures')
+      return await response.data['hydra:member']
+    },
+  })
+
+  if (error) return 'An error has occurred: ' + error.message
+
   return (
-    <div>
-      <div>
-        <BarChart
-          series={[
-            { data: [35, 44, 24, 34] },
-            { data: [51, 6, 49, 30] },
-            { data: [15, 25, 30, 50] },
-            { data: [60, 50, 15, 25] },
-          ]}
-          height={290}
-          xAxis={[{ data: ['Q1', 'Q2', 'Q3', 'Q4'], scaleType: 'band' }]}
-          margin={{ top: 10, bottom: 30, left: 40, right: 10 }}
+    <div className='flex justify-center h-[100vh]'>
+      <div className='w-[80%]'>
+        {/* Header */}
+        <div className='h-[80px]  text-black flex justify-between items-center font-bol'>
+          <div className='text-[2rem] font-bold'>
+            Te<span className='text-yellow-400'>St</span>
+          </div>
+          {/* Nav */}
+          <div className='flex space-x-4 font-semibold'>
+            <button className='nav_link'>HOME</button>
+            <button className='nav_link'>LOGIN</button>
+            <button className='nav_link'>LOGOUT</button>
+          </div>
+        </div>
+        {/* content */}
+        <div className=''>
+          <button className=' bg-indigo-500 font-semibold h-[50px] w-[200px] rounded-sm text-white hover:bg-yellow-500 flex items-center justify-center'
+            onClick={() => {
+              fetchData()
+            }}>fetchData {isPending ? (
+              <div className='animate-spin  ml-3 flex items-center justify-center'>
+                <FontAwesomeIcon size='xl' icon={faCircleNotch} style={{ color: "white", }} />
+              </div>)
+              : (
+                <div className=' ml-3 flex items-center justify-center'>
+                  <FontAwesomeIcon size='xl' icon={faCheck} style={{ color: "white", }} />
+                </div>)} </button>
+          <div>
+            {data && data.map(item => (
+              <div key={item.id}>
+                <li> id :{item.id}</li>
+                <li> name : {item.name}</li>
+                <li> value: {item.value}</li>
+                <li> description : {item.description}</li>
+                <li> date: {item.createdAt}</li>
+                <li> coolFactor : {item.coolFactor}</li>
+              </div> // Adjust based on your data structure
+            ))}
+            <div>{isFetching ? 'Updating...' : ''}</div>
+          </div>
+        </div>
 
-        />
-
-        <LineChart
-          xAxis={[{ data: [1, 2, 3, 5, 8, 10] }]}
-          series={[
-            {
-              data: [2, 5.5, 2, 8.5, 1.5, 5],
-            },
-          ]}
-          height={300}
-          margin={{ left: 30, right: 30, top: 30, bottom: 30 }}
-          grid={{ vertical: true, horizontal: true }}
-        />
-      </div>
-      <div>
-        <Box
-          component="form" sx={{ '& > :not(style)': { m: 1, width: '25ch' }, }}
-          noValidate
-          autoComplete="off"
-        >
-          <TextField id="outlined-basic" label="Outlined" variant="outlined" />
-          <TextField id="filled-basic" label="Filled" variant="filled" />
-          <TextField id="standard-basic" label="Standard" variant="standard" />
-        </Box>
-      </div>
-
-      <div className=' h-[50vh] flex justify-center'>
-        <MixedChart />
-      </div>
-
-      <div className=' h-[50vh] flex justify-around'>
-
-        <Card variant="outlined" sx={{ maxWidth: 360 }}>
-          <Box sx={{ p: 2 }}>
-            <Stack direction="row" justifyContent="space-between" alignItems="center">
-              <Typography gutterBottom variant="h5" component="div">
-                Toothbrush
-              </Typography>
-              <Typography gutterBottom variant="h6" component="div">
-                $4.50
-              </Typography>
-            </Stack>
-            <Typography color="text.secondary" variant="body2">
-              Pinstriped cornflower blue cotton blouse takes you on a walk to the park or
-              just down the hall.
-            </Typography>
-          </Box>
-          <Divider />
-          <Box sx={{ p: 2 }}>
-            <Typography gutterBottom variant="body2">
-              Select type
-            </Typography>
-            <Stack direction="row" spacing={1}>
-              <Chip color="primary" label="Soft" size="small" />
-              <Chip label="Medium" size="small" />
-              <Chip label="Hard" size="small" />
-            </Stack>
-          </Box>
-        </Card>  <Card variant="outlined" sx={{ maxWidth: 360 }}>
-          <Box sx={{ p: 2 }}>
-            <Stack direction="row" justifyContent="space-between" alignItems="center">
-              <Typography gutterBottom variant="h5" component="div">
-                Toothbrush
-              </Typography>
-              <Typography gutterBottom variant="h6" component="div">
-                $4.50
-              </Typography>
-            </Stack>
-            <Typography color="text.secondary" variant="body2">
-              Pinstriped cornflower blue cotton blouse takes you on a walk to the park or
-              just down the hall.
-            </Typography>
-          </Box>
-          <Divider />
-          <Box sx={{ p: 2 }}>
-            <Typography gutterBottom variant="body2">
-              Select type
-            </Typography>
-            <Stack direction="row" spacing={1}>
-              <Chip color="primary" label="Soft" size="small" />
-              <Chip label="Medium" size="small" />
-              <Chip label="Hard" size="small" />
-            </Stack>
-          </Box>
-        </Card>
+        {/* Footer */}
+        <div></div>
 
       </div>
-      <BasicComposition />
+      <ToastContainer />
     </div>
-
   )
 }
 
