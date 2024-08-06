@@ -18,6 +18,19 @@ module.exports = {
     },
     extend: {
       colors: {
+        //____Notre-chart-color------
+        primaryChart:"#F2505D",
+        MenuActiveBg:"#F2B3B3",
+        simpleText:"#637381",
+        importantText:"#212B36",
+        dangerText:"#B71D12",
+        successChart:"#36E73D",
+        actif:"#007867",
+        actifBg:"#00A76F",
+
+        //____Chart-color-par-defaut-----
+
+
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
