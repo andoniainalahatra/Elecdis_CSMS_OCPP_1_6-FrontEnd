@@ -1,8 +1,12 @@
 import React from 'react'
+import UserLogin from './components/user_login'
 
 const Login = () => {
     return (
-        <div>Login yes</div>
+
+        <div className='w-[80%] h-[100vh] flex justify-center items-center mx-auto'>
+            <UserLogin />
+        </div>
     )
 }
 
