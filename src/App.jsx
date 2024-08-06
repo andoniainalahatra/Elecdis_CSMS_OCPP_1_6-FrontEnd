@@ -1,15 +1,21 @@
-import { useState } from 'react'
+// ========Importation=====
+import { Routes, Route, BrowserRouter } from "react-router-dom";
+// ========CSS=============
 import './App.css'
-import { Button } from './components/ui/button'
-import Chart from './common/chart'
+
+import Login from './modules/Login/Login'
+import Inscription from "./modules/Inscription/Inscription";
+
 
 function App() {
   return (
     <>
-      <Button variant="destructive">Here</Button> <br /><br />
-      <Button variant="secondary">Secondary</Button> <br /><br />
-      <Button variant="ghost">Secondary</Button> <br /><br />
-      <Chart />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/inscription" element={<Inscription />} />
+        </Routes>
+      </BrowserRouter>
     </>
   )
 }
