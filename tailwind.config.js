@@ -1,3 +1,4 @@
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ["class"],
@@ -18,6 +19,8 @@ module.exports = {
     },
     extend: {
       colors: {
+        importantText: "#212B36",
+        textSimple: "#637381",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
