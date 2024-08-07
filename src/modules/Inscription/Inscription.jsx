@@ -1,4 +1,3 @@
-import * as React from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -8,10 +7,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+
 import { Checkbox } from "@/components/ui/checkbox";
 import logo from "/public/images/logo1.png";
+import FloatingLabelInput from "@/components/forms/FloatingLabelInput";
 
 const Inscription = () => {
   return (
@@ -29,21 +28,17 @@ const Inscription = () => {
             <div className="grid w-full items-center gap-4">
               <div className="flex space-x-4">
                 <div className="flex flex-col space-y-1.5 w-1/2">
-                  {/* <Label htmlFor="nom">Nom</Label> */}
-                  <Input id="nom" placeholder="Votre nom*" />
+                  <FloatingLabelInput id="nom" label="Votre nom *"/>
                 </div>
                 <div className="flex flex-col space-y-1.5 w-1/2">
-                  {/* <Label htmlFor="prenom">Prenom</Label> */}
-                  <Input id="prenom" placeholder="Votre prenom*" />
+                 <FloatingLabelInput id="prenom" label="Votre prenom *"/>
                 </div>
               </div>
               <div className="flex flex-col space-y-1.5">
-                {/* <Label htmlFor="email">Email</Label> */}
-                <Input id="email" type="email" placeholder="Votre email*" />
+                <FloatingLabelInput id="email" label="Votre email *" type="email"/>
               </div>
               <div className="flex flex-col space-y-1.5">
-                {/* <Label htmlFor="password">Mot de passe</Label> */}
-                <Input id="password" type="password" placeholder="Votre mot de passe" />
+                  <FloatingLabelInput id="password" label="Votre mot de passe" type="password"/>
               </div>
               <div className="flex items-center space-x-2 text-simpleText">
                 <Checkbox id="terms" className="border-simpleText" />
