@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button'
 import React from 'react'
 import logo from '/public/images/logo1.png'
+import { Input } from '@/components/ui/input'
 
 const UserLogin = () => {
     return (
@@ -15,12 +16,11 @@ const UserLogin = () => {
             <div className=' mt-[50px]'>
 
                 <div className='mt-[20px]'>
-                    <input placeholder='Adresse mail*' className=' h-[55px] w-full border rounded-md outline-none hover:ring-2 text-[20px] p-2' type="text" />
+                    <Input className=' focus-visible:ring-0 focus-visible:ring-whit' />
                 </div>
                 <div className='mt-[60px]'>
                     <input placeholder='Mots de passe' className=' h-[55px] w-full border rounded-md outline-none hover:ring-2 text-[20px] p-2' type="text" />
                 </div>
-
             </div>
 
             <div className=' flex space-x-3 text-[#666666] text-[18px] font-semibold mt-3'>
