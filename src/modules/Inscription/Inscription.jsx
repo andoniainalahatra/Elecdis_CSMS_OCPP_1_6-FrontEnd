@@ -11,8 +11,14 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import logo from "/public/images/logo1.png";
 import FloatingLabelInput from "@/components/forms/FloatingLabelInput";
+import { Controller,useForm } from "react-hook-form";
 
 const Inscription = () => {
+  const {handleSubmit,control}=useForm()
+  const Submit=(data)=>{
+    console.log(data);
+    
+  }
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-50">
       <Card className="w-[450px] shadow-lg">
@@ -23,22 +29,46 @@ const Inscription = () => {
           <CardTitle>Créer un compte</CardTitle>
           <CardDescription>Inscrivez-vous pour commencer.</CardDescription>
         </CardHeader>
+        <form onSubmit={handleSubmit(Submit)}>
         <CardContent>
-          <form>
+         
             <div className="grid w-full items-center gap-4">
               <div className="flex space-x-4">
                 <div className="flex flex-col space-y-1.5 w-1/2">
-                  <FloatingLabelInput id="nom" label="Votre nom *"/>
+                <Controller
+                  name="nom"
+                  control={control}
+                  defaultValue=""
+                  render={({field})=> <FloatingLabelInput {...field} id="nom" label="Votre nom *"/>}
+                />
                 </div>
                 <div className="flex flex-col space-y-1.5 w-1/2">
-                 <FloatingLabelInput id="prenom" label="Votre prenom *"/>
+                <Controller
+                  name="prenom"
+                  control={control}
+                  defaultValue=""
+                  render={({field})=> <FloatingLabelInput {...field} id="prenom" label="Votre prenom *"/>}
+                />
+                 
                 </div>
               </div>
               <div className="flex flex-col space-y-1.5">
-                <FloatingLabelInput id="email" label="Votre email *" type="email"/>
+              <Controller
+                  name="email"
+                  control={control}
+                  defaultValue=""
+                  render={({field})=> <FloatingLabelInput {...field} id="email" label="Votre email *" type="email"/>}
+                />
+                
               </div>
               <div className="flex flex-col space-y-1.5">
-                  <FloatingLabelInput id="password" label="Votre mot de passe" type="password"/>
+              <Controller
+                  name="password"
+                  control={control}
+                  defaultValue=""
+                  render={({field})=> <FloatingLabelInput {...field} id="password" label="Votre mot de passe" type="password"/>}
+                />
+                  
               </div>
               <div className="flex items-center space-x-2 text-simpleText">
                 <Checkbox id="terms" className="border-simpleText" />
@@ -50,12 +80,13 @@ const Inscription = () => {
                 </label>
               </div>
             </div>
-          </form>
+      
         </CardContent>
         <CardFooter className="flex justify-between">
           <Button variant="outline">Annuler</Button>
-          <Button className="bg-primaryChart hover:bg-red-600">S'inscrire</Button>
+          <Button className="bg-primaryChart hover:bg-red-600" type="submit">S'inscrire</Button>
         </CardFooter>
+      </form>
         <div className="flex justify-center mt-4 mb-6">
           <a className="text-primaryChart underline" href="#">
             Disposez-vous déjà d'un compte? Se connecter
