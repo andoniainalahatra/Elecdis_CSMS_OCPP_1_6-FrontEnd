@@ -84,22 +84,41 @@ const Inscription = () => {
                       />
                       
                     </div>
-                    <div className="flex flex-col space-y-1.5">
-                    <Controller
-                        name="password"
-                        control={control}
-                        defaultValue=""
-                        render={
-                          ({field})=><FloatingLabelInput 
-                        {...field}
-                         id="password" 
-                         type="password"
-                         label="Votre mot de passe *"/>
-                        }
-                        // render={({field})=> <FloatingLabelInput {...field} id="password" label="Votre mot de passe" type="password"/>}
-                      />
-                        
+                    <div className="flex space-x-4 ">
+                        <div className="flex flex-col space-y-1.5 w-1/2">
+                        <Controller
+                            name="password"
+                            control={control}
+                            defaultValue=""
+                            render={
+                              ({field})=><FloatingLabelInput 
+                            {...field}
+                            id="password" 
+                            type="password"
+                            label="Votre mot de passe *"/>
+                            }
+                            // render={({field})=> <FloatingLabelInput {...field} id="password" label="Votre mot de passe" type="password"/>}
+                          />
+                            
+                        </div>
+                        <div className="flex flex-col space-y-1.5 w-1/2">
+                        <Controller
+                            name="confirmPassword"
+                            control={control}
+                            defaultValue=""
+                            render={
+                              ({field})=><FloatingLabelInput 
+                            {...field}
+                            id="confirmPassword" 
+                            type="password"
+                            label="Confirmer votre Mdp *"/>
+                            }
+                            // render={({field})=> <FloatingLabelInput {...field} id="password" label="Votre mot de passe" type="password"/>}
+                          />
+                            
+                        </div>
                     </div>
+
                     <div className="flex items-center space-x-2 text-simpleText">
                       <Checkbox id="terms" className="border-simpleText" />
                       <label
@@ -118,7 +137,7 @@ const Inscription = () => {
               </CardFooter>
             </form>
               <div className="flex justify-center mt-4 mb-6">
-                <a className="text-primaryChart underline" href="#">
+                <a className="text-sm text-primaryChart underline" href="#">
                   Disposez-vous déjà d'un compte? Se connecter
                 </a>
               </div>
