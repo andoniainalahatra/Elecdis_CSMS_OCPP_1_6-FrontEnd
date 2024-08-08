@@ -17,6 +17,7 @@ const Login = ({ children, Title }) => {
       rememberMe: false,
     },
   });
+  
   return (
     <form
       onSubmit={handleSubmit((data) => {
@@ -41,7 +42,7 @@ const Login = ({ children, Title }) => {
             }}
             control={control}
             render={({ field }) => (
-              <Input type="text" placeholder="Adresse email..." {...field} />
+              <Input type="text" id="email" label="Adresse email" placeholder="Adresse email..." {...field} />
             )}
           />
           {errors?.email && <ErrorMessage message={errors.email.message} />}
@@ -58,8 +59,10 @@ const Login = ({ children, Title }) => {
             render={({ field }) => (
               <Input
                 type="password"
+                id="password"
                 placeholder="Votre mot de pass..."
                 {...field}
+                label="Mot de passe"
               />
             )}
           />
@@ -93,7 +96,7 @@ const Login = ({ children, Title }) => {
           </div>
         </div>
         <div className="w-full">
-          <p className="text-center text-textSimple text-xl mt-14">
+          <p className="text-center text-simpleText text-xl mt-14">
             Copyright, elecdis 2024
           </p>
         </div>
