@@ -1,8 +1,8 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
-import Login from './modules/Login/Login'
 import Inscription from './modules/Inscription/Inscription'
-
+import Login from './modules/Login/Login'
+import Logo from "@/assets/logo1.png"
 
 
 function App() {
@@ -11,7 +11,7 @@ function App() {
       <BrowserRouter>
 
         <Routes>
-          <Route path="/" element={<Login />} />
+          <Route path="/login" element={<Login Title="Se connecter"><img src={Logo} alt="" /></Login>} />
           <Route path="/inscription" element={<Inscription />} />
 
         </Routes>
