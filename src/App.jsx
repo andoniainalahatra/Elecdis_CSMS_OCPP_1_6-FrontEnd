@@ -17,7 +17,6 @@ function App() {
           <Route path="/inscription" element={<Inscription />} />
           <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
-
       </BrowserRouter>
 
     </>
