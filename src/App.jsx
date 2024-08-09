@@ -13,9 +13,7 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login Title="Se connecter"><img src={Logo} alt="" /></Login>} />
           <Route path="/inscription" element={<Inscription />} />
-
         </Routes>
-
       </BrowserRouter>
 
     </>
