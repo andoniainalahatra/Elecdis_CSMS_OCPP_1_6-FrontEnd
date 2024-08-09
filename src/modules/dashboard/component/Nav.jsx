@@ -1,5 +1,8 @@
 import React from 'react'
-import { ArrowsRightLeftIcon, BellIcon, BoltIcon, CalendarDaysIcon, ChartBarIcon, DocumentPlusIcon, DocumentTextIcon, IdentificationIcon, LockClosedIcon, MapPinIcon, UserCircleIcon, UserGroupIcon } from '@heroicons/react/16/solid'
+import {
+    ArrowsRightLeftIcon, BellIcon, BoltIcon, DocumentPlusIcon, DocumentTextIcon,
+    IdentificationIcon, LockClosedIcon, MapPinIcon, UserCircleIcon, UserGroupIcon
+} from '@heroicons/react/16/solid'
 import { FaHandsHelping } from "react-icons/fa";
 import { HiDocumentCheck } from "react-icons/hi2";
 import { FaDollarSign } from "react-icons/fa";
@@ -9,6 +12,7 @@ import { IoMdPersonAdd } from "react-icons/io";
 import { MdLockReset } from "react-icons/md";
 import { RiDashboard2Fill } from "react-icons/ri";
 import { BsFillEvStationFill } from "react-icons/bs";
+import { RiReservedFill } from "react-icons/ri";
 import BoutonNav from './BoutonNav'
 
 const Nav = ({ setSection }) => {
@@ -22,9 +26,6 @@ const Nav = ({ setSection }) => {
                 <span>John Doe</span>
             </div>
 
-
-
-
             <div className=' flex items-center h-[44px] text-[#637381] rounded-md space-x-2 font-semibold mt-8'>
                 <BoutonNav IconButton={RiDashboard2Fill} label='Tableau de bord' setSection={setSection} namePage='TableauDeBord' />
             </div>
@@ -32,7 +33,7 @@ const Nav = ({ setSection }) => {
             <div className='mt-5 font-semibold text-[#637381] '>
                 <span className='text-[#919EAB] ml-4'>ACTIVITE</span>
                 <BoutonNav IconButton={LockClosedIcon} label='Autorisations' setSection={setSection} namePage='Autorisations' />
-                <BoutonNav IconButton={CalendarDaysIcon} label='Réservations' setSection={setSection} namePage='Réservations' />
+                <BoutonNav IconButton={RiReservedFill} label='Réservations' setSection={setSection} namePage='Réservations' />
                 <BoutonNav IconButton={BoltIcon} label='Sessions  de recharge' setSection={setSection} namePage='sessionRecharge' />
                 <BoutonNav IconButton={ArrowsRightLeftIcon} label='Transactions' setSection={setSection} namePage='Transaction' />
             </div>
