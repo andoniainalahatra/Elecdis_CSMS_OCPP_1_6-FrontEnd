@@ -1,116 +1,74 @@
-import { ChartBarIcon, UserCircleIcon } from '@heroicons/react/16/solid'
 import React from 'react'
+import { ArrowsRightLeftIcon, BellIcon, BoltIcon, CalendarDaysIcon, ChartBarIcon, DocumentPlusIcon, DocumentTextIcon, IdentificationIcon, LockClosedIcon, MapPinIcon, UserCircleIcon, UserGroupIcon } from '@heroicons/react/16/solid'
+import { FaHandsHelping } from "react-icons/fa";
+import { HiDocumentCheck } from "react-icons/hi2";
+import { FaDollarSign } from "react-icons/fa";
+import { AiOutlineGroup } from "react-icons/ai";
+import { TbLogout2 } from "react-icons/tb";
+import { IoMdPersonAdd } from "react-icons/io";
+import { MdLockReset } from "react-icons/md";
+import { RiDashboard2Fill } from "react-icons/ri";
+import { BsFillEvStationFill } from "react-icons/bs";
+import BoutonNav from './BoutonNav'
 
-const Nav = () => {
+const Nav = ({ setSection }) => {
     return (
         <div className='w-full flex flex-col text-[14px]'>
             <div className='mt-2'>
                 <img src="/public/images/logo1.png" alt="" />
             </div>
-
             <div className=' flex items-center h-[72px] bg-[#919EAB] bg-opacity-10 p-2 rounded-md space-x-2 font-semibold mt-8'>
                 <UserCircleIcon className="w-[1.5rem]  h-[1.5rem] cursor-pointer text-gray-500" />
                 <span>John Doe</span>
             </div>
 
-            <div className=' flex items-center h-[44px] bg-[#F2B3B3] bg-opacity-60 text-[#F2505D] p-2 rounded-md space-x-2 font-semibold mt-8'>
-                <ChartBarIcon className="w-[1.5rem]  h-[1.5rem] cursor-pointer" />
-                <span>John Doe</span>
+
+
+
+            <div className=' flex items-center h-[44px] text-[#637381] rounded-md space-x-2 font-semibold mt-8'>
+                <BoutonNav IconButton={RiDashboard2Fill} label='Tableau de bord' setSection={setSection} namePage='TableauDeBord' />
             </div>
 
-            <div className='mt-5 font-semibold text-[#637381]  '>
+            <div className='mt-5 font-semibold text-[#637381] '>
                 <span className='text-[#919EAB] ml-4'>ACTIVITE</span>
-                <button className=' flex items-center h-[50px]  bg-opacity-60  p-2 rounded-md space-x-2 hover:shadow-md w-full '>
-                    <ChartBarIcon className="w-[1.5rem]  h-[1.5rem] cursor-pointer" />
-                    <span>Autorisations</span>
-                </button>
-                <button className=' flex items-center h-[50px]  bg-opacity-60  p-2 rounded-md space-x-2 hover:shadow-md w-full '>
-                    <ChartBarIcon className="w-[1.5rem]  h-[1.5rem] cursor-pointer" />
-                    <span>Réservations</span>
-                </button>
-                <button className=' flex items-center h-[50px]  bg-opacity-60  p-2 rounded-md space-x-2 hover:shadow-md w-full '>
-                    <ChartBarIcon className="w-[1.5rem]  h-[1.5rem] cursor-pointer" />
-                    <span>Sessions  de recharge</span>
-                </button>
-                <button className=' flex items-center h-[50px]  bg-opacity-60  p-2 rounded-md space-x-2 hover:shadow-md w-full '>
-                    <ChartBarIcon className="w-[1.5rem]  h-[1.5rem] cursor-pointer" />
-                    <span>Transactions</span>
-                </button>
+                <BoutonNav IconButton={LockClosedIcon} label='Autorisations' setSection={setSection} namePage='Autorisations' />
+                <BoutonNav IconButton={CalendarDaysIcon} label='Réservations' setSection={setSection} namePage='Réservations' />
+                <BoutonNav IconButton={BoltIcon} label='Sessions  de recharge' setSection={setSection} namePage='sessionRecharge' />
+                <BoutonNav IconButton={ArrowsRightLeftIcon} label='Transactions' setSection={setSection} namePage='Transaction' />
             </div>
 
             <div className='mt-5 font-semibold text-[#637381] '>
                 <span className='text-[#919EAB] ml-4 '>GRC</span>
-                <button className=' flex items-center h-[50px]  bg-opacity-60  p-2 rounded-md space-x-2 hover:shadow-md w-full '>
-                    <ChartBarIcon className="w-[1.5rem]  h-[1.5rem] cursor-pointer" />
-                    <span>Users</span>
-                </button>
-                <button className=' flex items-center h-[50px]  bg-opacity-60  p-2 rounded-md space-x-2 hover:shadow-md w-full '>
-                    <ChartBarIcon className="w-[1.5rem]  h-[1.5rem] cursor-pointer" />
-                    <span>Etiquettes RFID</span>
-                </button>
-                <button className=' flex items-center h-[50px]  bg-opacity-60  p-2 rounded-md space-x-2 hover:shadow-md w-full '>
-                    <ChartBarIcon className="w-[1.5rem]  h-[1.5rem] cursor-pointer" />
-                    <span>Réçus</span>
-                </button>
+
+                <BoutonNav IconButton={UserGroupIcon} label='Users' setSection={setSection} namePage='Users' />
+                <BoutonNav IconButton={IdentificationIcon} label='Etiquettes RFID' setSection={setSection} namePage='EtiquettesRFID' />
+                <BoutonNav IconButton={DocumentTextIcon} label='Réçus' setSection={setSection} namePage='Reçus' />
+
             </div>
 
             <div className='mt-5 font-semibold text-[#637381] '>
                 <span className='text-[#919EAB] ml-4 '>ACTIFS</span>
-                <button className=' flex items-center h-[50px]  bg-opacity-60  p-2 rounded-md space-x-2 hover:shadow-md w-full '>
-                    <ChartBarIcon className="w-[1.5rem]  h-[1.5rem] cursor-pointer" />
-                    <span>Points de charges</span>
-                </button>
-                <button className=' flex items-center h-[50px]  bg-opacity-60  p-2 rounded-md space-x-2 hover:shadow-md w-full '>
-                    <ChartBarIcon className="w-[1.5rem]  h-[1.5rem] cursor-pointer" />
-                    <span>Locations</span>
-                </button>
-                <button className=' flex items-center h-[50px]  bg-opacity-60  p-2 rounded-md space-x-2 hover:shadow-md w-full '>
-                    <ChartBarIcon className="w-[1.5rem]  h-[1.5rem] cursor-pointer" />
-                    <span>CP Notices</span>
-                </button>
-                <button className=' flex items-center h-[50px]  bg-opacity-60  p-2 rounded-md space-x-2 hover:shadow-md w-full '>
-                    <ChartBarIcon className="w-[1.5rem]  h-[1.5rem] cursor-pointer" />
-                    <span>CP Templates</span>
-                </button>
+                <BoutonNav IconButton={BsFillEvStationFill} label='Points de charges' setSection={setSection} namePage='PointsDecharges' />
+                <BoutonNav IconButton={MapPinIcon} label='Locations' setSection={setSection} namePage='Locations' />
+                <BoutonNav IconButton={BellIcon} label='CP Notices' setSection={setSection} namePage='CpNotices' />
+                <BoutonNav IconButton={DocumentPlusIcon} label='CP Templates' setSection={setSection} namePage='CpTemplates' />
             </div>
-
             <div className='mt-5 font-semibold text-[#637381] '>
                 <span className='text-[#919EAB] ml-4 '>PARTENAIRES</span>
-                <button className=' flex items-center h-[50px]  bg-opacity-60  p-2 rounded-md space-x-2 hover:shadow-md w-full '>
-                    <ChartBarIcon className="w-[1.5rem]  h-[1.5rem] cursor-pointer" />
-                    <span>Partenaires</span>
-                </button>
-                <button className=' flex items-center h-[50px]  bg-opacity-60  p-2 rounded-md space-x-2 hover:shadow-md w-full '>
-                    <ChartBarIcon className="w-[1.5rem]  h-[1.5rem] cursor-pointer" />
-                    <span>Contrats</span>
-                </button>
+                <BoutonNav IconButton={FaHandsHelping} label='Partenaires' setSection={setSection} namePage='Partenaires' />
+                <BoutonNav IconButton={HiDocumentCheck} label='Contrats' setSection={setSection} namePage='Contrats' />
             </div>
 
             <div className='mt-5 font-semibold text-[#637381] '>
                 <span className='text-[#919EAB] ml-4 '>TARIFS & VOUCHERS</span>
-                <button className=' flex items-center h-[50px]  bg-opacity-60  p-2 rounded-md space-x-2 hover:shadow-md w-full '>
-                    <ChartBarIcon className="w-[1.5rem]  h-[1.5rem] cursor-pointer" />
-                    <span>Groupes des tarifs</span>
-                </button>
-                <button className=' flex items-center h-[50px]  bg-opacity-60  p-2 rounded-md space-x-2 hover:shadow-md w-full '>
-                    <ChartBarIcon className="w-[1.5rem]  h-[1.5rem] cursor-pointer" />
-                    <span>Tarifs</span>
-                </button>
+                <BoutonNav IconButton={AiOutlineGroup} label='Groupes des tarifs' setSection={setSection} namePage='GroupesDestarifs' />
+                <BoutonNav IconButton={FaDollarSign} label='Tarifs' setSection={setSection} namePage='Tarifs' />
             </div>
             <div className='mt-5 font-semibold text-[#637381] '>
                 <span className='text-[#919EAB] ml-4 '>AUTHENTIFICATIONS</span>
-                <button className=' flex items-center h-[50px]  bg-opacity-60  p-2 rounded-md space-x-2 hover:shadow-md w-full '>
-                    <ChartBarIcon className="w-[1.5rem]  h-[1.5rem] cursor-pointer" />
-                    <span>Connexion</span>
-                </button>
-                <button className=' flex items-center h-[50px]  bg-opacity-60  p-2 rounded-md space-x-2 hover:shadow-md w-full '>
-                    <ChartBarIcon className="w-[1.5rem]  h-[1.5rem] cursor-pointer" />
-                    <span>Inscription</span>
-                </button>
-                <button className=' flex items-center h-[50px]  bg-opacity-60  p-2 rounded-md space-x-2 hover:shadow-md w-full '>
-                    <ChartBarIcon className="w-[1.5rem]  h-[1.5rem] cursor-pointer" />
-                    <span>Réinitialiser mot de passe</span>
-                </button>
+                <BoutonNav IconButton={TbLogout2} label='Connexion' setSection={setSection} namePage='Connexion' />
+                <BoutonNav IconButton={IoMdPersonAdd} label='Inscription' setSection={setSection} namePage='Inscription' />
+                <BoutonNav IconButton={MdLockReset} label='Réinitialiser mot de passe' setSection={setSection} namePage='RéinitialiserMotDepasse' />
             </div>
         </div>
     )

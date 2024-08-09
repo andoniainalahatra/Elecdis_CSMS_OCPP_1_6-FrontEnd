@@ -2,7 +2,6 @@ import { Bars3Icon } from "@heroicons/react/16/solid";
 import { BellAlertIcon, UserCircleIcon } from "@heroicons/react/20/solid";
 
 import React from "react";
-import { Link } from "react-router-dom";
 
 const BarNav = ({ openNav }) => {
     return (

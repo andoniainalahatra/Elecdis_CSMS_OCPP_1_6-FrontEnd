@@ -25,7 +25,7 @@ const FloatingLabelInput = React.forwardRef(
         />
         <Label
           htmlFor={id}
-          className={`absolute text-sm duration-300 bg-white transform -translate-y-4 scale-75 top-2 z-10 origin-[0] px-2 peer-focus:px-2 peer-focus:text-primaryChart peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 ${isFocused || value ? "text-primaryChart" : "text-gray-500"
+          className={`absolute  text-sm duration-300 bg-white transform -translate-y-4 scale-75 top-2 z-10 origin-[0] px-2 peer-focus:px-2 peer-focus:text-primaryChart peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 ${isFocused || value ? "text-primaryChart" : "text-gray-500"
             }`}
         >
           {label}
