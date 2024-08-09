@@ -3,6 +3,7 @@ import './App.css'
 import Inscription from './modules/Inscription/Inscription'
 import Login from './modules/Login/Login'
 import Logo from "@/assets/logo1.png"
+import DataTable from './modules/Station/DataTable'
 
 
 function App() {
@@ -13,6 +14,9 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login Title="Se connecter"><img src={Logo} alt="" /></Login>} />
           <Route path="/inscription" element={<Inscription />} />
+          <Route path="/station" element={<DataTable />} />
+
+
         </Routes>
       </BrowserRouter>
 
