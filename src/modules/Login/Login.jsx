@@ -25,9 +25,9 @@ const Login = ({ children, Title }) => {
       })}
       className="w-full h-screen flex items-center justify-center"
     >
-      <div className="shadow-xl w-[600px] p-5 flex items-center justify-center flex-col gap-12 rounded-md">
-        <div className="w-full flex items-center flex-col justify-center gap-7">
-          <div className="w-[150px] flex items-center justify-center h-[50px] flex-col">
+      <div className="shadow-xl w-[400px] h-auto p-5 flex items-center justify-center flex-col gap-[5vh] rounded-md">
+        <div className="w-full flex items-center flex-col justify-center gap-[4vh]">
+          <div className="w-full flex items-center justify-center h-[25px] flex-col">
             {children}
           </div>
           <h4 className="text-importantText text-2xl">{Title}</h4>
@@ -84,7 +84,7 @@ const Login = ({ children, Title }) => {
         </div>
         <div className="w-full flex items-center flex-col justify-center gap-7">
           <Boutton label="CONNEXION" />
-          <div className="w-full flex items-center justify-between max-sm:flex-col max-sm:gap-5">
+          <div className="w-full flex items-center justify-between max-lg:flex-col max-lg:gap-5">
             <NavigateLink 
               route="#" 
               label="Mot de pass oublier" 
@@ -96,7 +96,7 @@ const Login = ({ children, Title }) => {
           </div>
         </div>
         <div className="w-full">
-          <p className="text-center text-simpleText text-xl mt-14">
+          <p className="text-center text-simpleText text-base mt-[1vh]">
             Copyright, elecdis 2024
           </p>
         </div>
