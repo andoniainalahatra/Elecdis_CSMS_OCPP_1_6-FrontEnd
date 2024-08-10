@@ -15,9 +15,8 @@ function App() {
           <Route path="/login" element={<Login Title="Se connecter"><img src={Logo} alt="" /></Login>} />
           <Route path="/inscription" element={<Inscription />} />
           <Route path="/station" element={<DataTable />} />
-
-
         </Routes>
+        
       </BrowserRouter>
 
     </>
