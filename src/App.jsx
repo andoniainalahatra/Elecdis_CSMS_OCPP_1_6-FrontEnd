@@ -14,7 +14,7 @@ function App() {
       <BrowserRouter>
 
         <Routes>
-          <Route path="/login" element={<Login Title="Se connecter"><img src={Logo} alt="" /></Login>} />
+          <Route path="/login" element={<Login Title="Se connecter"><img className='h-[auto] w-[40%]' src={Logo} alt="" /></Login>} />
           <Route path="/inscription" element={<Inscription />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/station" element={<Page />} />

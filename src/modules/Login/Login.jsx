@@ -25,12 +25,13 @@ const Login = ({ children, Title }) => {
       })}
       className="w-full h-screen flex items-center justify-center"
     >
-      <div className="shadow-xl w-[400px] h-auto p-5 flex items-center justify-center flex-col gap-[5vh] rounded-md">
+      <div className="sm:shadow-none shadow-xl w-[400px] 2xl:w-[500px] h-auto p-6 flex items-center justify-center flex-col gap-[5vh] rounded-md">
         <div className="w-full flex items-center flex-col justify-center gap-[4vh]">
-          <div className="w-full flex items-center justify-center h-[25px] flex-col">
+          <div className="w-full flex items-center justify-center h-2 pt-10 flex-col">
             {children}
           </div>
-          <h4 className="text-importantText text-2xl">{Title}</h4>
+          <h4 className="text-importantText max-lg:text-[20px] xl:text-2xl">{Title}</h4>
+
           <Controller
             name="email"
             rules={{
@@ -42,7 +43,7 @@ const Login = ({ children, Title }) => {
             }}
             control={control}
             render={({ field }) => (
-              <Input type="text" id="email" label="Adresse email" placeholder="Adresse email..." {...field} />
+              <Input type="text" id="email" label="Adresse email" {...field} />
             )}
           />
           {errors?.email && <ErrorMessage message={errors.email.message} />}
@@ -60,7 +61,6 @@ const Login = ({ children, Title }) => {
               <Input
                 type="password"
                 id="password"
-                placeholder="Votre mot de pass..."
                 {...field}
                 label="Mot de passe"
               />
