@@ -1,6 +1,6 @@
 import { forwardRef, useState } from 'react'
 // eslint-disable-next-line react/display-name
-const Input = forwardRef(({placeholder,id , type, value, onChange, label}, ref) => {
+const Input = forwardRef(({id , type, value, onChange, label}, ref) => {
   const [isFocused, setIsFocused] = useState(false)
     return (
        <div className='w-full relative'>
@@ -8,8 +8,7 @@ const Input = forwardRef(({placeholder,id , type, value, onChange, label}, ref) 
         id={id}
         type={type}
         ref={ref} 
-        placeholder={isFocused ? null : placeholder } 
-        className={`peer w-full h-[6vh] rounded-md border-solid border-[#CDCBCB] border-[0.5px] indent-2 text-[#5a5858] text-base focus:outline-none focus:border-[#F2505D] transition-transform duration-300`}
+        className={`peer w-full h-[6vh] rounded-md border-solid border-[#CDCBCB] border-[0.5px] indent-2 text-[#5a5858] text-base focus:outline-none focus:border-[#F2505D]`}
         value={value}
         onChange={(e) => onChange(e.target.value)}
         onFocus={() => setIsFocused(true)}
@@ -17,7 +16,7 @@ const Input = forwardRef(({placeholder,id , type, value, onChange, label}, ref) 
         />
         <label
         htmlFor={id}
-        className={`text-[#F2505D] ${isFocused ? "absolute left-2 text-[#F2505D] -top-3 text-base bg-white px-2 py-0 transition-all duration-300" : 'hidden'}`}
+        className={`absolute left-2 text-base bg-white  px-2 py-0 transition-all duration-300 transform ${isFocused ? "-translate-y-3 scale-90 text-[#F2505D]" : "translate-y-[1.2vh] 2xl:translate-y-5 scale-100 text-simpleText"}`}
          >
         {label}
         </label>
