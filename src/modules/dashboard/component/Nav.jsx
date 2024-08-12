@@ -74,5 +74,4 @@ const Nav = ({ setSection }) => {
         </div>
     )
 }
-
 export default Nav

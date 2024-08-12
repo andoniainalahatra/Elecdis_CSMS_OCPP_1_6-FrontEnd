@@ -19,7 +19,7 @@ function App() {
           <Route path="/station" element={<DataTable />} />
           <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
-        
+
       </BrowserRouter>
 
     </>
