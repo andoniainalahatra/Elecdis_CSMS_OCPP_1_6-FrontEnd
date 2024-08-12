@@ -25,7 +25,7 @@ const Login = ({ children, Title }) => {
       })}
       className="w-full h-screen flex items-center justify-center"
     >
-      <div className="sm:shadow-none shadow-xl w-[400px] 2xl:w-[500px] h-auto p-6 flex items-center justify-center flex-col gap-[5vh] rounded-md">
+      <div className="shadow-xl max-sm:shadow-none w-[400px] 2xl:w-[500px] h-auto p-6 flex items-center justify-center flex-col gap-[5vh] rounded-md">
         <div className="w-full flex items-center flex-col justify-center gap-[4vh]">
           <div className="w-full flex items-center justify-center h-2 pt-10 flex-col">
             {children}
