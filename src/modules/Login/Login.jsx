@@ -84,7 +84,7 @@ const Login = ({ children, Title }) => {
         </div>
         <div className="w-full flex items-center flex-col justify-center gap-7">
           <Boutton label="CONNEXION" />
-          <div className="w-full flex items-center justify-between max-lg:flex-col max-lg:gap-5">
+          <div className="w-full flex items-center text-center justify-between flex-col gap-5">
             <NavigateLink 
               route="#" 
               label="Mot de pass oublier" 
