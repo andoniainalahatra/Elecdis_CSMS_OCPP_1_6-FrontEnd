@@ -1,5 +1,4 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
 
 const BoutonNav = ({ IconButton, label, setSection, namePage }) => {
     return (

@@ -25,11 +25,9 @@ const Nav = ({ setSection }) => {
                 <UserCircleIcon className="w-[1.5rem]  h-[1.5rem] cursor-pointer text-gray-500" />
                 <span>John Doe</span>
             </div>
-
             <div className=' flex items-center h-[44px] text-[#637381] rounded-md space-x-2 font-semibold mt-8'>
                 <BoutonNav IconButton={RiDashboard2Fill} label='Tableau de bord' setSection={setSection} namePage='TableauDeBord' />
             </div>
-
             <div className='mt-5 font-semibold text-[#637381] '>
                 <span className='text-[#919EAB] ml-4'>ACTIVITE</span>
                 <BoutonNav IconButton={LockClosedIcon} label='Autorisations' setSection={setSection} namePage='Autorisations' />
@@ -37,16 +35,12 @@ const Nav = ({ setSection }) => {
                 <BoutonNav IconButton={BoltIcon} label='Sessions  de recharge' setSection={setSection} namePage='sessionRecharge' />
                 <BoutonNav IconButton={ArrowsRightLeftIcon} label='Transactions' setSection={setSection} namePage='Transaction' />
             </div>
-
             <div className='mt-5 font-semibold text-[#637381] '>
                 <span className='text-[#919EAB] ml-4 '>GRC</span>
-
                 <BoutonNav IconButton={UserGroupIcon} label='Users' setSection={setSection} namePage='Users' />
                 <BoutonNav IconButton={IdentificationIcon} label='Etiquettes RFID' setSection={setSection} namePage='EtiquettesRFID' />
                 <BoutonNav IconButton={DocumentTextIcon} label='Réçus' setSection={setSection} namePage='Reçus' />
-
             </div>
-
             <div className='mt-5 font-semibold text-[#637381] '>
                 <span className='text-[#919EAB] ml-4 '>ACTIFS</span>
                 <BoutonNav IconButton={BsFillEvStationFill} label='Points de charges' setSection={setSection} namePage='PointsDecharges' />
@@ -59,7 +53,6 @@ const Nav = ({ setSection }) => {
                 <BoutonNav IconButton={FaHandsHelping} label='Partenaires' setSection={setSection} namePage='Partenaires' />
                 <BoutonNav IconButton={HiDocumentCheck} label='Contrats' setSection={setSection} namePage='Contrats' />
             </div>
-
             <div className='mt-5 font-semibold text-[#637381] '>
                 <span className='text-[#919EAB] ml-4 '>TARIFS & VOUCHERS</span>
                 <BoutonNav IconButton={AiOutlineGroup} label='Groupes des tarifs' setSection={setSection} namePage='GroupesDestarifs' />
