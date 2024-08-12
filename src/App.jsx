@@ -3,7 +3,6 @@ import './App.css'
 import Inscription from './modules/Inscription/Inscription'
 import Login from './modules/Login/Login'
 import Logo from "@/assets/logo1.png"
-import DataTable from './modules/Station/DataTable'
 import Dashboard from './modules/dashboard/Dashboard'
 
 import Page from './modules/Station/Page'
