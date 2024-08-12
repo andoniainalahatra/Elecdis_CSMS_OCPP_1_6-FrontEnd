@@ -25,62 +25,67 @@ const Login = ({ children, Title }) => {
       })}
       className="w-full h-screen flex items-center justify-center"
     >
-      <div className="shadow-xl max-sm:shadow-none w-[400px] 2xl:w-[500px] h-auto p-6 flex items-center justify-center flex-col gap-[5vh] rounded-md">
-        <div className="w-full flex items-center flex-col justify-center gap-[4vh]">
-          <div className="w-full flex items-center justify-center h-2 pt-10 flex-col">
+      <div className="shadow-xl max-sm:shadow-none w-[400px] 2xl:w-[500px] h-auto p-6 flex items-center justify-center flex-col gap-[4vh] rounded-md">
+        <div className="w-full flex items-center flex-col justify-center">
+          <div className="w-full flex items-center justify-center h-2 pt-10 flex-col mb-[4vh]">
             {children}
           </div>
-          <h4 className="text-importantText max-lg:text-[20px] xl:text-2xl">{Title}</h4>
-
-          <Controller
-            name="email"
-            rules={{
-              required: "Adresse mail requis",
-              pattern: {
-                value: /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/,
-                message: "Adresse mail invalide",
-              },
-            }}
-            control={control}
-            render={({ field }) => (
-              <Input type="text" id="email" label="Adresse email" {...field} />
+          <h4 className="text-importantText max-lg:text-[20px] xl:text-2xl mb-[4vh]">{Title}</h4>
+          <div className="w-full mb-[4vh]">
+            <Controller
+              name="email"
+              rules={{
+                required: "Adresse mail requis",
+                pattern: {
+                  value: /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/,
+                  message: "Adresse mail invalide",
+                },
+              }}
+              control={control}
+              render={({ field }) => (
+                <Input type="text" id="email" label="Adresse email" {...field} />
+              )}
+            />
+            {errors?.email && <ErrorMessage message={errors.email.message} />}
+          </div>
+          <div className="w-full mb-[4vh]">
+            <Controller
+              name="password"
+              control={control}
+              rules={{
+                required: "le mot de passe est requis",
+                minLength: {
+                  value: 5,
+                  message: "Mot de passe incorrect",
+                },
+              }}
+              render={({ field }) => (
+                <Input
+                  type="password"
+                  id="password"
+                  {...field}
+                  label="Mot de passe"
+                />
+              )}
+            />
+            {errors?.password && (
+              <ErrorMessage message={errors.password.message} />
             )}
-          />
-          {errors?.email && <ErrorMessage message={errors.email.message} />}
-          <Controller
-            name="password"
-            control={control}
-            rules={{
-              required: "le mot de passe est requis",
-              minLength: {
-                value: 5,
-                message: "Mot de passe incorrect",
-              },
-            }}
-            render={({ field }) => (
-              <Input
-                type="password"
-                id="password"
-                {...field}
-                label="Mot de passe"
-              />
-            )}
-          />
-          {errors?.password && (
-            <ErrorMessage message={errors.password.message} />
-          )}
-          <Controller
-            name="rememberMe"
-            control={control}
-            render={({ field }) => (
-              <CheckBox
-                id="rememberMe"
-                label="Souvenez-vous de moi"
-                value={field.value}
-                onChange={field.onChange}
-              />
-            )}
-          />
+          </div>
+          <div className="w-full mb-[4vh]">
+            <Controller
+              name="rememberMe"
+              control={control}
+              render={({ field }) => (
+                <CheckBox
+                  id="rememberMe"
+                  label="Souvenez-vous de moi"
+                  value={field.value}
+                  onChange={field.onChange}
+                />
+              )}
+            />
+          </div>
         </div>
         <div className="w-full flex items-center flex-col justify-center gap-7">
           <Boutton label="CONNEXION" />
