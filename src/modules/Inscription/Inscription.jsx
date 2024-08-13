@@ -38,7 +38,7 @@ const Inscription = () => {
 
               <div className="grid w-full items-center gap-4">
                 <div className="flex space-x-4">
-                  <div className="flex flex-col space-y-1.5 w-1/2">
+                  <div className="flex flex-col w-1/2">
                     <Controller
                       name="nom"
                       control={control}
@@ -52,7 +52,7 @@ const Inscription = () => {
                       }
                     />
                   </div>
-                  <div className="flex flex-col space-y-1.5 w-1/2">
+                  <div className="flex flex-col w-1/2">
                     <Controller
                       name="prenom"
                       control={control}
@@ -68,7 +68,7 @@ const Inscription = () => {
 
                   </div>
                 </div>
-                <div className="flex flex-col space-y-1.5">
+                <div className="flex flex-col">
                   <Controller
                     name="email"
                     control={control}
@@ -84,8 +84,8 @@ const Inscription = () => {
                   />
 
                 </div>
-                <div className="flex space-x-4 ">
-                  <div className="flex flex-col space-y-1.5 w-1/2">
+                <div className="flex space-x-4 max-md:flex-col max-md:space-x-0 max-md:gap-4">
+                  <div className="flex flex-col  w-1/2 max-md:w-full">
                     <Controller
                       name="password"
                       control={control}
@@ -101,7 +101,7 @@ const Inscription = () => {
                     />
 
                   </div>
-                  <div className="flex flex-col space-y-1.5 w-1/2">
+                  <div className="flex flex-col w-1/2 max-md:w-full">
                     <Controller
                       name="confirmPassword"
                       control={control}
