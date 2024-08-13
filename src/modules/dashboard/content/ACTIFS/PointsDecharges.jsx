@@ -3,10 +3,10 @@ import React from 'react'
 
 const PointsDecharges = () => {
     return (
-       <div>
+        <div className=''>
             <span>Stations</span>
-            <Page/>
-       </div>
+            <Page />
+        </div>
     )
 }
 

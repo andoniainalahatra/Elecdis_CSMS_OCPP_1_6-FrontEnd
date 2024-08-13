@@ -1,13 +1,13 @@
 import { Context } from '@/common/config/configs/Context';
 import React, { useContext } from 'react';
 
-const BoutonNav = ({ IconButton, label, setSection, namePage }) => {
+const BoutonMobile = ({ IconButton, label, setSection, namePage }) => {
     const { isActive, setActive } = useContext(Context);
 
-    const css = "flex items-center h-[50px] bg-opacity-60 p-2 rounded-md space-x-2 hover:shadow-[#e4dfdf] hover:text-[#F2505D] hover:shadow-sm hover:bg-[#ffebeb] w-full";
+    const css = "bg-opacity-60 flex text-white  items-center space-x-2 rounded-md hover:text-[#F2505D] hover:shadow-sm nav-link-mobile";
 
     return (
-        <button className={isActive === namePage ? (css + ' bg-[#ffebeb] text-[#F2505D]') : (css)}
+        <button className={isActive === namePage ? (css + 'text-[#F2505D] nav-link-mobile ') : (css)}
             onClick={() => {
                 setSection(namePage);
                 setActive(namePage);
@@ -18,4 +18,4 @@ const BoutonNav = ({ IconButton, label, setSection, namePage }) => {
     );
 }
 
-export default BoutonNav;
+export default BoutonMobile;

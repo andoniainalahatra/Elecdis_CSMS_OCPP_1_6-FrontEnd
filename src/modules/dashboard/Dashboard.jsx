@@ -33,20 +33,20 @@ const Dashboard = () => {
 
 
     return (
-        <div className=" overflow-x-hidden">
+        <div className="overflow-x-hidden">
             <div>
                 {/* NavBarMobile */}
-                <MobileNav nav={nav} closeNav={closeNav} />
+                <MobileNav nav={nav} closeNav={closeNav} setSection={setSection} />
                 {/* containair Section */}
                 <div className='flex w-full h-[100vh] space-x-1 '>
-                    <div className=' w-[280px]  bg-[#F9FAFB]  max-md:hidden p-4 overflow-auto custom-scrollbar'>
+                    <div className=' w-[280px]  bg-[#F9FAFB]  max-md:hidden overflow-auto custom-scrollbar'>
                         {/* Navigation */}
                         <Nav setSection={setSection} />
                     </div>
 
-                    <div className='flex-grow bg-white relative'>
+                    <div className='w-full bg-white relative'>
                         <BarNav openNav={openNav} />
-                        <div className=' mt-[10vh] m-2'>
+                        <div className=' mt-[10vh] m-2 h-[90vh] overflow-auto custom-scrollbar'>
                             {currentSection === "TableauDeBord" && <TableauDeBord />}
                             {/* ACTIVITE */}
                             {currentSection === "Autorisations" && <Autorisation />}

@@ -83,14 +83,13 @@ body {
   }
   .nav-link-mobile {
     @apply relative mb-[2rem] font-semibold cursor-pointer text-white text-[27px] w-fit md:block after:block after:content-[''] 
-    after:absolute after:h-[3px] after:bg-yellow-400 after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition 
+    after:absolute after:bottom-[-3px] after:h-[3px] after:bg-[#F2505D] after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition 
     after:duration-300 after:origin-center;
   }
   .heading{
     @apply text-center text-white text-[28px] sm:text-[33px] md:text-[45px] font-bold uppercase
   }
 }
-
 
 /* Exemple de styles pour la scrollbar */
 .custom-scrollbar::-webkit-scrollbar {

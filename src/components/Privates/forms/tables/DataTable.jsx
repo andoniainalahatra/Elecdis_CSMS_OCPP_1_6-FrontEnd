@@ -22,10 +22,10 @@ import Filters from "@/components/Privates/forms/tables/Filters.jsx";
 function DataTable({ columns, datas }) {
   const [data, setData] = useState(datas);
   const [globalFilter, setGlobalFilter] = useState("");
-  const red="bg-red-100 text-red-800 hover:bg-red-100 cursor-pointer";
-  const green="bg-green-100 text-green-800 hover:bg-green-100 cursor-pointer";
-  const yellow="bg-yellow-100 text-yellow-800 hover:bg-yellow-100 cursor-pointer";
-  const defaultColor="bg-gray-100 text-gray-800 hover:bg-gray-100 cursor-pointer";
+  const red = "bg-red-100 text-red-800 hover:bg-red-100 cursor-pointer";
+  const green = "bg-green-100 text-green-800 hover:bg-green-100 cursor-pointer";
+  const yellow = "bg-yellow-100 text-yellow-800 hover:bg-yellow-100 cursor-pointer";
+  const defaultColor = "bg-gray-100 text-gray-800 hover:bg-gray-100 cursor-pointer";
 
   // Fonction de filtrage personnalisée
   const customFilterFn = (row, columnId, filterValue) => {
@@ -35,19 +35,19 @@ function DataTable({ columns, datas }) {
     }
     return false;
   };
-//   const customFilterFn = (row, columnId, filterValue) => {
-//     const cellValue = row.getValue(columnId);
-    
-//     if (typeof cellValue === 'string') {
-//         // Divisez la chaîne de caractères en un tableau de mots
-//         const words = cellValue.toLowerCase().split(" ");
-        
-//         // Utilisez filter pour trouver les mots correspondant au filtre
-//         return words.filter(word => word === filterValue.toLowerCase()).length > 0;
-//     }
+  //   const customFilterFn = (row, columnId, filterValue) => {
+  //     const cellValue = row.getValue(columnId);
 
-//     return false;
-// };
+  //     if (typeof cellValue === 'string') {
+  //         // Divisez la chaîne de caractères en un tableau de mots
+  //         const words = cellValue.toLowerCase().split(" ");
+
+  //         // Utilisez filter pour trouver les mots correspondant au filtre
+  //         return words.filter(word => word === filterValue.toLowerCase()).length > 0;
+  //     }
+
+  //     return false;
+  // };
 
   const table = useReactTable({
     data,
@@ -92,62 +92,62 @@ function DataTable({ columns, datas }) {
                 </TableCell>
               ))} */}
 
-{row.getVisibleCells().map((cell) => {
-    // Suppose que la colonne "status" contient les valeurs que vous voulez personnaliser
-    const cellValue = cell.getValue();
-    let cellClass = "";
+              {row.getVisibleCells().map((cell) => {
+                // Suppose que la colonne "status" contient les valeurs que vous voulez personnaliser
+                const cellValue = cell.getValue();
+                let cellClass = "";
 
-    if (cell.column.id === "status" || 
-        cell.column.id === "connector1" ||
-        cell.column.id==="connector2"|| 
-        cell.column.id==="heartBeat") {
-      switch (cellValue) {
-        case "active":
-          cellClass = green;
-          break;
-        case "inactive":
-          cellClass = red;
-          break;
-        case "maintenance":
-          cellClass = yellow;
-          break;
-        case "ON":
-            cellClass = green;
-            break;
-        case "OFF":
-            cellClass = red;
-            break;
-        case "Disponible":
-            cellClass=green ;
-            break;
-        case "Hors service":
-            cellClass=red ;
-            break;
-        case "Occupe":
-            cellClass=yellow ;
-            break;           
-        default:
-          cellClass = defaultColor;
-      }
-      return (
-        <TableCell key={cell.id} className="text-center">
-          <Badge className={cellClass}>{cellValue}</Badge>
-        </TableCell>
-      );
-    }
+                if (cell.column.id === "status" ||
+                  cell.column.id === "connector1" ||
+                  cell.column.id === "connector2" ||
+                  cell.column.id === "heartBeat") {
+                  switch (cellValue) {
+                    case "active":
+                      cellClass = green;
+                      break;
+                    case "inactive":
+                      cellClass = red;
+                      break;
+                    case "maintenance":
+                      cellClass = yellow;
+                      break;
+                    case "ON":
+                      cellClass = green;
+                      break;
+                    case "OFF":
+                      cellClass = red;
+                      break;
+                    case "Disponible":
+                      cellClass = green;
+                      break;
+                    case "Hors service":
+                      cellClass = red;
+                      break;
+                    case "Occupe":
+                      cellClass = yellow;
+                      break;
+                    default:
+                      cellClass = defaultColor;
+                  }
+                  return (
+                    <TableCell key={cell.id} className="text-center">
+                      <Badge className={cellClass}>{cellValue}</Badge>
+                    </TableCell>
+                  );
+                }
 
-    return (
-      <TableCell key={cell.id}>
-        {flexRender(cell.column.columnDef.cell, cell.getContext())}
-      </TableCell>
-    );
-  }
-  )}
+                return (
+                  <TableCell key={cell.id}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </TableCell>
+                );
+              }
+              )}
             </TableRow>
           ))}
         </TableBody>
       </Table>
-      <div className="m-3 p-2 flex gap-2">
+      <div className="m-3 p-2 flex gap-2 max-md:flex-col">
         <Button
           type="button"
           onClick={() => table.setPageIndex(0)}
