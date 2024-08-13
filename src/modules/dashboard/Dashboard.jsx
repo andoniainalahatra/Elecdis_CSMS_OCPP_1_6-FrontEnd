@@ -36,7 +36,7 @@ const Dashboard = () => {
         <div className=" overflow-x-hidden">
             <div>
                 {/* NavBarMobile */}
-                <MobileNav nav={nav} closeNav={closeNav} />
+                <MobileNav nav={nav} closeNav={closeNav} setSection={setSection} />
                 {/* containair Section */}
                 <div className='flex w-full h-[100vh] space-x-1 '>
                     <div className=' w-[280px]  bg-[#F9FAFB]  max-md:hidden p-4 overflow-auto custom-scrollbar'>
