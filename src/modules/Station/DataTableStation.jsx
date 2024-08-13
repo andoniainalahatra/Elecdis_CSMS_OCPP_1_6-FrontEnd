@@ -4,7 +4,7 @@ import stationData from "./data";
 import Columns from "@/components/Privates/forms/tables/Columns";
 
 
-const datas = ["name", "location", "status", "power", "connectors", "lastCommunication"];
+const datas = ["id", "name", "location", "status", "power", "connector1", "connector2", "lastCommunication"];
 const columns = Columns(datas);
 
 const DataTableStation = () => {

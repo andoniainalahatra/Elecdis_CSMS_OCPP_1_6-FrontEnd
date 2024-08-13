@@ -91,7 +91,6 @@ body {
   }
 }
 
-
 /* Exemple de styles pour la scrollbar */
 .custom-scrollbar::-webkit-scrollbar {
   width: 5px; /* Largeur de la scrollbar */

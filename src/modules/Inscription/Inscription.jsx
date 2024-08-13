@@ -24,8 +24,8 @@ const Inscription = () => {
   const FloatingLabelInput = FormElements.getFloatingLabelInput();
   return (
     <React.Suspense fallback={<div>Loading...</div>}>
-      <div className="flex justify-center items-center min-h-screen bg-gray-50">
-        <Card className="w-[450px] shadow-lg">
+      <div className="flex justify-center items-center min-h-screen bg-gray-50 max-md:bg-white">
+        <Card className="w-[450px] shadow-lg max-md:border-none max-md:shadow-none">
           <CardHeader>
             <div className="mx-auto mb-3 rounded-md p-3">
               <img src={logo} alt="" />
