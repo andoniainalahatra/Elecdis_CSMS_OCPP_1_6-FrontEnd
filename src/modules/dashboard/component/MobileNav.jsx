@@ -28,7 +28,7 @@ const MobileNav = ({ setSection }) => {
             style={{ backgroundColor: "rgba(9, 16, 26, 0.7)" }}>
 
             <div className="w-full flex flex-col items-center justify-center overflow-auto custom-scrollbar">
-                <div className=" mt-[600px]">
+                <div className=" mt-[250px]">
                     <BoutonMobile IconButton={RiDashboard2Fill} label='Tableau de bord' setSection={setSection} namePage='TableauDeBord' />
                     <BoutonMobile IconButton={LockClosedIcon} label='Autorisations' setSection={setSection} namePage='Autorisations' />
                     <BoutonMobile IconButton={RiReservedFill} label='Réservations' setSection={setSection} namePage='Réservations' />
