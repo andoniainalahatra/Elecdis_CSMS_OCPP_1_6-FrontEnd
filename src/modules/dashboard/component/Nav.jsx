@@ -30,6 +30,7 @@ const Nav = ({ setSection }) => {
             </div>
             <div className='mt-5 font-semibold text-[#637381] '>
                 <span className='text-[#919EAB] ml-4'>ACTIVITE</span>
+
                 <BoutonNav IconButton={LockClosedIcon} label='Autorisations' setSection={setSection} namePage='Autorisations' />
                 <BoutonNav IconButton={RiReservedFill} label='Réservations' setSection={setSection} namePage='Réservations' />
                 <BoutonNav IconButton={BoltIcon} label='Sessions  de recharge' setSection={setSection} namePage='sessionRecharge' />

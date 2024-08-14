@@ -24,19 +24,13 @@ import Inscription from './content/AUTHENTIFICATIONS/Inscription';
 import RenitialiserMotDePasse from './content/AUTHENTIFICATIONS/RenitialiserMotDePasse';
 
 
-
 const Dashboard = () => {
-    const [nav, setNav] = useState(false);
     const [currentSection, setSection] = useState('TableauDeBord');
-    const openNav = () => setNav(true);
-    const closeNav = () => setNav(false);
-
-
     return (
         <div className="overflow-x-hidden">
             <div>
                 {/* NavBarMobile */}
-                <MobileNav nav={nav} closeNav={closeNav} setSection={setSection} />
+                <MobileNav setSection={setSection} />
                 {/* containair Section */}
                 <div className='flex w-full h-[100vh] space-x-1 '>
                     <div className=' w-[280px]  bg-[#F9FAFB]  max-md:hidden overflow-auto custom-scrollbar'>
@@ -45,7 +39,7 @@ const Dashboard = () => {
                     </div>
 
                     <div className='w-full bg-white relative'>
-                        <BarNav openNav={openNav} />
+                        <BarNav />
                         <div className=' mt-[10vh] m-2 h-[90vh] overflow-auto custom-scrollbar'>
                             {currentSection === "TableauDeBord" && <TableauDeBord />}
                             {/* ACTIVITE */}

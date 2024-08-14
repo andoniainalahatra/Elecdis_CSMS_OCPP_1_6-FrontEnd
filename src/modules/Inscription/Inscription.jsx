@@ -129,7 +129,6 @@ const Inscription = () => {
                   </label>
                 </div>
               </div>
-
             </CardContent>
             <CardFooter className="flex justify-between">
               <Button variant="outline">Annuler</Button>
