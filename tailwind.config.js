@@ -17,6 +17,9 @@ module.exports = {
       },
     },
     extend: {
+      boxShadow: {
+        'combined': '0 12px 24px -4px rgba(186, 186, 186, 0.25), 0 0 2px 0 rgba(186, 186, 186, 1)',
+      },
       colors: {
         //____Notre-chart-color------
         primaryChart:"#F2505D",
