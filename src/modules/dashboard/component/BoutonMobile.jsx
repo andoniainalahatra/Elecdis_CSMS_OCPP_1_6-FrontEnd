@@ -2,7 +2,7 @@ import { Context } from '@/common/config/configs/Context';
 import React, { useContext } from 'react';
 
 const BoutonMobile = ({ IconButton, label, setSection, namePage }) => {
-    const { isActive, setActive } = useContext(Context);
+    const { isActive, setActive, closeNav } = useContext(Context);
 
     const css = "bg-opacity-60 flex text-white  items-center space-x-2 rounded-md hover:text-[#F2505D] hover:shadow-sm nav-link-mobile";
 
@@ -11,8 +11,10 @@ const BoutonMobile = ({ IconButton, label, setSection, namePage }) => {
             onClick={() => {
                 setSection(namePage);
                 setActive(namePage);
+                closeNav();
+
             }}>
-            {IconButton && <IconButton className="w-[1.5rem] h-[1.5rem] cursor-pointer" />}
+            {IconButton && <IconButton className="w-[1.5rem] h-[1.5rem]" />}
             <span>{label}</span>
         </button>
     );
