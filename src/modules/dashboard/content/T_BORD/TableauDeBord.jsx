@@ -7,32 +7,33 @@ import { CgUnavailable } from "react-icons/cg";
 import { TbRecharging } from "react-icons/tb";
 import { GiReceiveMoney } from "react-icons/gi";
 import DonuteChart from "./components/DonuteChart";
+import StatistiqueBarChart from "./components/StatistiqueBarChart";
 
 const TableauDeBord = () => {
   const chartData = [ 
-    { browser: "safari", visitors: 200, fill: "var(--color-safari)" },
     { browser: "firefox", visitors: 28, fill: "var(--color-firefox)" },
-    { browser: "chrome", visitors: 275, fill: "var(--color-chrome)" },
+    { browser: "chrome", visitors: 75, fill: "var(--color-chrome)" },
+    { browser: "safari", visitors: 200, fill: "var(--color-safari)" },
   ]
   
   const chartConfig = {
    
     chrome: {
-      label: "Chrome",
-      color: "#F29F05",
+      label: "En cours d'utilisation",
+      color: "#3D9DF2",
     },
     safari: {
-      label: "Safari",
-      color: "#26BF78",
+      label: "Disponible",
+      color: "#83838d",
     },
     firefox: {
-      label: "Firefox",
+      label: "Hors service",
       color: "#F2505D",
     }
   }
   return (
-    <div className="w-full h-screen p-6">
-      <h2 className="text-[#212B36] text-xl mb-6">Acceuil/Tableau de bord</h2>
+    <div className="w-full bg-[#f8f9fc] h-screen p-6">
+      <h2 className="text-[#212B36] text-xl mb-6">Accueil/Tableau de bord</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-col-4 gap-6">
       <Box
           Title="Nombre total de Session "
@@ -84,9 +85,13 @@ const TableauDeBord = () => {
           filter="mensuel"
         />
       </div>
-      <h2 className="text-[#212B36] text-xl my-6">Statistiques</h2>
-      <div className="grid max-sm:grid-cols-1 max-sm:place-items-center grid-cols-2 gap-6 w-full my-5">
-        <DonuteChart chartConfig={chartConfig} chartData={chartData} label="Chargeurs" />
+      <div className="grid max-sm:grid-cols-1 max-sm:place-items-center grid-cols-3 gap-6 w-full my-6"> {/* Ajuster ici */}
+        <div className="col-span-1">
+          <DonuteChart chartConfig={chartConfig} chartData={chartData} label="Status des chargeurs" value="Chargeurs" />
+        </div>
+        <div className="col-span-2"> {/* Ajuster ici */}
+          <StatistiqueBarChart />
+        </div>
       </div>
     </div>
   );
