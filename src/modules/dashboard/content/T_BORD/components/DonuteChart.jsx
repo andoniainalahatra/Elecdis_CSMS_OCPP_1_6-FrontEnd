@@ -9,14 +9,15 @@ import {
 } from "@/components/ui/chart"
 
 
-export default function DonuteChart({chartConfig, chartData, label}) {
+export default function DonuteChart({chartConfig, chartData, label, value}) {
   const totalValue = chartData.reduce((sum, data) => sum + data.visitors, 0);
   return (
-    <div className="w-[300px] flex flex-col shadow-combined rounded-xl">
+    <div className="w-full p-5 flex flex-col shadow-combined rounded-xl max-w-full bg-[#ffffff]">
+      <h1 className="">{label}</h1>
       <div className="pb-0">
         <ChartContainer
           config={chartConfig}
-          className="mx-auto aspect-square max-h-[250px]"
+          className="mx-auto aspect-square max-h-full"
         >
           <PieChart>
             <ChartTooltip
@@ -27,7 +28,7 @@ export default function DonuteChart({chartConfig, chartData, label}) {
               data={chartData}
               dataKey="visitors"
               nameKey="browser"
-              innerRadius={75}
+              innerRadius={100}
               strokeWidth={5}
             >
               <Label
@@ -52,7 +53,7 @@ export default function DonuteChart({chartConfig, chartData, label}) {
                           y={(viewBox.cy || 0) + 24}
                           className="fill-muted-foreground"
                         >
-                          {label}
+                          {value}
                         </tspan>
                       </text>
                     )
@@ -64,11 +65,11 @@ export default function DonuteChart({chartConfig, chartData, label}) {
           
         </ChartContainer>
       </div>
-      <div className="w-full h-1px border-slate-300 border-t-[1px] p-3 flex items-center justify-center flex-wrap gap-4">
+      <div className="w-full h-1px border-slate-300 p-3 flex items-center justify-start flex-wrap gap-4">
       {Object.entries(chartConfig).map(([key, { label, color }]) => (
           <div key={key} className="flex items-center justify-start flex-wrap gap-1">
-            <div className="p-2 rounded-sm" style={{ backgroundColor: color }}></div>
-            <p className="text-simpleText">{label}</p>
+            <div className="p-1 rounded-sm" style={{ backgroundColor: color }}></div>
+            <p className="text-simpleText text-[14px]">: {label}</p>
           </div>
       ))}
       </div>
