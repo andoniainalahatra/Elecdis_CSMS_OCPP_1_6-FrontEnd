@@ -32,7 +32,7 @@ const TableauDeBord = () => {
     }
   }
   return (
-    <div className="w-full bg-[#f8f9fc] h-screen p-6">
+    <div className="w-full h-auto p-6">
       <h2 className="text-[#212B36] text-xl mb-6">Accueil/Tableau de bord</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-col-4 gap-6">
       <Box
@@ -85,14 +85,21 @@ const TableauDeBord = () => {
           filter="mensuel"
         />
       </div>
-      <div className="grid max-sm:grid-cols-1 max-sm:place-items-center grid-cols-3 gap-6 w-full my-6"> {/* Ajuster ici */}
-        <div className="col-span-1">
-          <DonuteChart chartConfig={chartConfig} chartData={chartData} label="Status des chargeurs" value="Chargeurs" />
-        </div>
-        <div className="col-span-2"> {/* Ajuster ici */}
-          <StatistiqueBarChart />
-        </div>
-      </div>
+      <div className="grid max-sm:grid-cols-1 max-sm:place-items-center grid-cols-3 gap-6 w-full my-5">
+  <div className="col-span-1 max-sm:w-full h-full">
+    <DonuteChart 
+      chartConfig={chartConfig} 
+      chartData={chartData} 
+      label="Status des chargeurs" 
+      value="Chargeurs" 
+      className="w-full p-5 flex flex-col shadow-combined rounded-xl bg-pink-300 h-full"
+    />
+  </div>
+  <div className="col-span-2 max-sm:w-full">
+    <StatistiqueBarChart />
+  </div>
+</div>
+
     </div>
   );
 };
