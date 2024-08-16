@@ -25,7 +25,6 @@ const BarNav = () => {
                         <Bars3Icon className="w-[2rem] md:hidden h-[2rem] cursor-pointer text-gray-500" />
                     </div>
                 </div>
-
             </div>
         </div>
     );
