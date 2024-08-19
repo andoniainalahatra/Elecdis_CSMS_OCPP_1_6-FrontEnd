@@ -8,16 +8,22 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart"
 import ColorChartInformation from "@/components/ColorChartInformation";
+/**
+ * Composant 'DonuteChart'
+ * @param {string} title - titre de la graphique
+ * @param {Object} chartConfig - un objet contient la configuration de la graphique comme : "{object : { label : <string>, color : "hexadecimalCode" }, object : { label : <string>, color : "hexadecimalCode" }, object : { label : <string>, color : "hexadecimalCode" }}"
+ * @param {Object[]} chartData - tableau d'objet
+ * @returns {JSX.Element} - return un tableau graphique contenant une courbe pour montrer la nouvelle valeur et une courbe pour montrer l'ancien valeur et un BarChart pour montrer la valeur exact de la nouvelle valeur
+ */
 
-
-export default function DonuteChart({chartConfig, chartData, label, value}) {
+export default function DonuteChart({chartConfig, chartData, title, label}) {
   const totalValue = useMemo(() => {
     return chartData.reduce((sum, data) => sum + data.visitors, 0);
   },[chartData]
   ) 
   return (
   <div className="w-full p-5 flex flex-col shadow-combined rounded-xl max-w-full ">
-  <h1 className="text-[#212B36] font-bold ">{label}</h1>
+  <h1 className="text-[#212B36] font-bold ">{title}</h1>
   <div className="pb-0 h-auto w-full">
     <ChartContainer
       config={chartConfig}
@@ -58,7 +64,7 @@ export default function DonuteChart({chartConfig, chartData, label, value}) {
                       y={(viewBox.cy || 0) + 24}
                       className="fill-muted-foreground"
                     >
-                      {value}
+                      {label}
                     </tspan>
                   </text>
                 );
