@@ -17,7 +17,7 @@ import BoutonNav from './BoutonNav'
 
 const Nav = ({ setSection }) => {
     return (
-        <div className='w-full flex flex-col text-[14px]'>
+        <div className='w-full flex flex-col text-[14px] pl-3 truncate'>
             <div className='mt-2'>
                 <img src="/public/images/logo1.png" alt="" />
             </div>
