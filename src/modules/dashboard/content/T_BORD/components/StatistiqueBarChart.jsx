@@ -5,8 +5,17 @@ import ColorChartInformation from "@/components/ColorChartInformation";
 import { useEffect, useMemo, useState } from "react";
 import { usePercent } from "@/lib/hooks";
 
+/**
+ * Composant 'StatistiqueBarChart'
+ * @param {string} title - titre de la graphique
+ * @param {Object} statiStiqueConfig - un objet contient la configuration de la graphique comme : "{oldvalue : { label : "", color : "hexadecimalCode" }, currentValue : { label : "", color : "hexadecimalCode" }, barconfig : { label : "", color : "hexadecimalCode" }}"
+ * @param {Object[]} chartData - tableau d'objet qui doit avoir une propriete "currentValue" pour les nouveaux données et "oldValue" pour les ancien données comme : [
+    { month: "January", currentValue: 186, oldValue : 362}, ... ],
+ * @returns {JSX.Element} - return un tableau graphique contenant une courbe pour montrer la nouvelle valeur et une courbe pour montrer l'ancien valeur et un BarChart pour montrer la valeur exact de la nouvelle valeur
+ */
 
 export default function StatistiqueBarChart({title, chartData, statiStiqueConfig}) {
+  const { oldvalue, currentValue, barconfig } = statiStiqueConfig
   const { percentVal, colorPercent } = usePercent(chartData)
   const dataUpdate = useMemo(() => {
    return chartData.map(data => ({
@@ -70,14 +79,14 @@ export default function StatistiqueBarChart({title, chartData, statiStiqueConfig
               <Tooltip cursor={false} />
               <Bar
                 dataKey="currentValue" 
-                fill="#F2505D" 
+                fill={barconfig.color} 
                 barSize={8} 
                 radius={3}
               />
               <Line
                 type="monotone"
                 dataKey="oldValue"
-                stroke="#F29F05"
+                stroke={oldvalue.color}
                 strokeWidth={3}
                 dot={false}
 
@@ -86,7 +95,7 @@ export default function StatistiqueBarChart({title, chartData, statiStiqueConfig
                 type="monotone"
                 data={dataUpdate}
                 dataKey="currentValue"
-                stroke="#3D9DF2"
+                stroke={currentValue.color}
                 strokeWidth={3}
                 fill="rgba(242, 80, 93, 0.2)"
                 dot={false} 

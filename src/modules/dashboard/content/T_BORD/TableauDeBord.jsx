@@ -17,7 +17,6 @@ const TableauDeBord = () => {
   ]
   
   const donuteConfig = {
-   
     chrome: {
       label: "En cours d'utilisation",
       color: "#3D9DF2",
@@ -118,8 +117,8 @@ const TableauDeBord = () => {
             <DonuteChart 
               chartConfig={donuteConfig} 
               chartData={chargeurData} 
-              label="Status des chargeurs" 
-              value="Chargeurs" 
+              title="Status des chargeurs" 
+              label="Chargeurs" 
               className="w-full p-5 flex flex-col shadow-combined rounded-xl bg-pink-300 h-full"
             />
           </div>
