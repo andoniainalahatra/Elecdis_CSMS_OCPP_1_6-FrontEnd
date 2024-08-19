@@ -2,49 +2,19 @@ import { Bar, CartesianGrid, ComposedChart, Line, XAxis, YAxis, Tooltip, Area, R
 import { CardContent } from "@/components/ui/card";
 import { Calendar } from "lucide-react";
 import ColorChartInformation from "@/components/ColorChartInformation";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { usePercent } from "@/lib/hooks";
 
-const chartData = [
-  { month: "January", desktop: 186 },
-  { month: "February", desktop: 305 },
-  { month: "March", desktop: 237 },
-  { month: "April", desktop: 73 },
-  { month: "May", desktop: 209 },
-  { month: "June", desktop: 214 },
-  { month: "Juillet", desktop: 186 },
-  { month: "Aout", desktop: 305 },
-  { month: "Septembre", desktop: 237 },
-  { month: "Octobre", desktop: 73 },
-  { month: "Novembre", desktop: 209 },
-  { month: "Decembre", desktop: 214 },
-];
-const dataUpdate = chartData.map(data => ({
-  ...data, 
-  desktop : data.desktop + 10,
-}))
-const dataOld= chartData.map(data => ({
-  ...data, 
-  desktop : data.desktop / 5 * 9,
-}))
 
-const statiStiqueConfig = {
-  oldvalue : {
-    label : "Statistique ancien",
-    color : "#F29F05"
-  },
-  currentValue : {
-    label : "Statistique actuel",
-    color : "#3D9DF2"
-  },
-  barconfig : {
-    label : "Valeur exact actuel",
-    color : "#F2505D"
-  }
-}
-
-export default function StatistiqueBarChart() {
+export default function StatistiqueBarChart({title, chartData, statiStiqueConfig}) {
+  const { percentVal, colorPercent } = usePercent(chartData)
+  const dataUpdate = useMemo(() => {
+   return chartData.map(data => ({
+      ...data, 
+      currentValue : data.currentValue + 10,
+    }))
+  }, [chartData]);
   const [tickLength, setTickLength] = useState(3);
-
   useEffect(() => {
     const updateTickLength = () => {
       const screenWidth = window.innerWidth;
@@ -68,54 +38,63 @@ export default function StatistiqueBarChart() {
   }, []);
   return (
     <div className="shadow-combined rounded-xl w-full h-full">
-    <div className="flex justify-between w-full items-center px-6 py-5">
-      <div>
-        <h2 className="text-[#212B36] font-bold ">Bar Chart Test</h2>
-        <p>Un petit description</p>
+      <div className="flex justify-between w-full items-center px-6 py-5">
+        <div>
+          <h2 className="text-[#212B36] font-bold ">{title}</h2>
+          <p className="text-[#637381] text-[14px]"><span className={`text-[${colorPercent}]`}>{percentVal}</span> que l'annees dernier</p>
+        </div>
+        <div>
+          <Calendar />
+        </div>
       </div>
-      <div>
-        <Calendar />
-      </div>
-    </div>
-    <ColorChartInformation config={statiStiqueConfig} padding="0" position="end" className="pr-9"/>
-    <CardContent>
-      <div className="w-full ">
-        <ResponsiveContainer width="100%" height={250}>
-          <ComposedChart data={chartData}>
-            <CartesianGrid vertical={false} strokeDasharray="3 3" />
-            <XAxis
-              dataKey="month"
-              tickLine={false}
-              axisLine={false}
-              tickFormatter={(value) => value.slice(0, tickLength)}
-            />
-            <YAxis
-              tickLine={false}
-              axisLine={false}
-              tickCount={10}
-              domain={[0, "dataMax + 20"]}
-              scale="linear"
-            />
-            <Tooltip cursor={false} />
-            <Bar
-              dataKey="desktop" 
-              fill="#F2505D" 
-              barSize={8} 
-              radius={3}
-            />
-            <Area 
-              type="monotone"
-              data={dataUpdate}
-              dataKey="desktop"
-              stroke="#3D9DF2"
-              strokeWidth={3}
-              fill="rgba(242, 80, 93, 0.2)"
-              dot={false} 
-            />
-          </ComposedChart>
-        </ResponsiveContainer>
-      </div>
-    </CardContent>
+      <ColorChartInformation config={statiStiqueConfig} padding="0" position="end" className="pl-6 pb-6 pr-7"/>
+      <CardContent>
+        <div className="w-full">
+          <ResponsiveContainer width="100%" height={250}>
+            <ComposedChart data={chartData} >
+              <CartesianGrid vertical={false} strokeDasharray="3 3" />
+              <XAxis
+                dataKey="month"
+                tickLine={false}
+                axisLine={false}
+                tickFormatter={(value) => value.slice(0, tickLength)}
+              />
+              <YAxis
+                tickLine={false}
+                axisLine={false}
+                tickCount={6} // Ajustez ceci en fonction de la hauteur de votre graphique et de l'incrément souhaité
+                domain={[0, 500]} // Définissez le domaine jusqu'à la valeur maximale désirée
+                interval={0} // Ajoutez cette ligne pour forcer l'affichage de tous les ticks
+                scale="linear"
+              />
+              <Tooltip cursor={false} />
+              <Bar
+                dataKey="currentValue" 
+                fill="#F2505D" 
+                barSize={8} 
+                radius={3}
+              />
+              <Line
+                type="monotone"
+                dataKey="oldValue"
+                stroke="#F29F05"
+                strokeWidth={3}
+                dot={false}
+
+              />
+              <Area 
+                type="monotone"
+                data={dataUpdate}
+                dataKey="currentValue"
+                stroke="#3D9DF2"
+                strokeWidth={3}
+                fill="rgba(242, 80, 93, 0.2)"
+                dot={false} 
+              />
+            </ComposedChart>
+          </ResponsiveContainer>
+        </div>
+      </CardContent>
   </div>
   
   );
