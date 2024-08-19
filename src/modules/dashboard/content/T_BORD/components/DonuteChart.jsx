@@ -1,4 +1,4 @@
-import * as React from "react"
+import React, { useMemo } from "react"
 import { Label, Pie, PieChart } from "recharts"
 
 
@@ -11,11 +11,14 @@ import ColorChartInformation from "@/components/ColorChartInformation";
 
 
 export default function DonuteChart({chartConfig, chartData, label, value}) {
-  const totalValue = chartData.reduce((sum, data) => sum + data.visitors, 0);
+  const totalValue = useMemo(() => {
+    return chartData.reduce((sum, data) => sum + data.visitors, 0);
+  },[chartData]
+  ) 
   return (
-    <div className="w-full p-5 flex flex-col shadow-combined rounded-xl max-w-full ">
+  <div className="w-full p-5 flex flex-col shadow-combined rounded-xl max-w-full ">
   <h1 className="text-[#212B36] font-bold ">{label}</h1>
-  <div className="pb-0 w-full">
+  <div className="pb-0 h-auto w-full">
     <ChartContainer
       config={chartConfig}
       className="w-full mx-auto aspect-square max-h-full"
