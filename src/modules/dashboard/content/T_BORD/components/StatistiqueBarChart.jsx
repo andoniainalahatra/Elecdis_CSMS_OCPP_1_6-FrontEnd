@@ -2,9 +2,10 @@ import { Bar, CartesianGrid, ComposedChart, Line, XAxis, YAxis, Tooltip, Area, R
 import { CardContent } from "@/components/ui/card";
 import { Calendar } from "lucide-react";
 import ColorChartInformation from "@/components/ColorChartInformation";
-import { useEffect, useMemo, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { usePercent } from "@/lib/hooks";
 import ButtonFilter from "./ButtonFilter";
+import { Context } from "@/common/config/configs/Context";
 
 /**
  * Composant 'StatistiqueBarChart'
@@ -16,6 +17,7 @@ import ButtonFilter from "./ButtonFilter";
  */
 const filter = ["Mensuel", "Trimestriel", "Semestriel", "Annuel"]
 export default function StatistiqueBarChart({title, chartData, statiStiqueConfig}) {
+  const { handleFilterBarChange } = useContext(Context)  
   const { oldvalue, currentValue, barconfig } = statiStiqueConfig
   const { percentVal, colorPercent } = usePercent(chartData)
   const dataUpdate = useMemo(() => {
@@ -53,8 +55,8 @@ export default function StatistiqueBarChart({title, chartData, statiStiqueConfig
           <h2 className="text-[#212B36] font-bold ">{title}</h2>
           <p className="text-[#637381] text-[14px]"><span className={`text-[${colorPercent}]`}>{percentVal}</span> que l'annees dernier</p>
         </div>
-        <div className="flex justify-between items-center w-[120px]">
-          <ButtonFilter listFilter={filter} />
+        <div className="flex justify-between items-center w-[150px]">
+          <ButtonFilter handleFilter={handleFilterBarChange} listFilter={filter} />
           <Calendar />
         </div>
       </div>
