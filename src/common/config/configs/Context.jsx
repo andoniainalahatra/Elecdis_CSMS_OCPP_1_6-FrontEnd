@@ -14,13 +14,37 @@ export const ContextProvider = ({ children }) => {
     const handleFilterBarChange = (filterValue) => {
         setFilterBar(filterValue)
     }
+    const [filterNombreSession, setFilterNombreSession] = useState(null)
+
+    const handleFilterNombreSessionChange = (filterValue) => {
+        setFilterNombreSession(filterValue)
+    }
+    const [filterEneryDelivery, setFilterEneryDelivery] = useState(null)
+
+    const handleFilterEneryDeliveryChange = (filterValue) => {
+        setFilterEneryDelivery(filterValue)
+    }
+    const [filterRevenu, setFilterRevenu] = useState(null)
+
+    const handleFilterRevenuChange = (filterValue) => {
+        setFilterRevenu(filterValue)
+    }
+    const [filterNewClient, setFilterNewClient] = useState(null)
+
+    const handleFilterNewClientChange = (filterValue) => {
+        setFilterNewClient(filterValue)
+    }
 
     return (
         <Context.Provider
             value={{
                 isActive, setActive,
                 openNav, closeNav, nav, 
-                filterBar, handleFilterBarChange
+                filterBar, handleFilterBarChange,
+                filterEneryDelivery, handleFilterEneryDeliveryChange,
+                filterNewClient, handleFilterNewClientChange,
+                filterRevenu, handleFilterRevenuChange,
+                filterNombreSession, handleFilterNombreSessionChange
             }}
         >
             {children}

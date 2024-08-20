@@ -1,9 +1,8 @@
 import { Context } from '@/common/config/configs/Context';
-import { useState, useEffect, useRef, useContext } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { IoIosArrowDown } from 'react-icons/io';
 
-export default function ButtonFilter({ listFilter }) {
-  const { handleFilterChange } = useContext(Context)
+export default function ButtonFilter({ listFilter, handleFilter }) {
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState("filtrer");
   const dropdownRef = useRef(null);
@@ -13,8 +12,7 @@ export default function ButtonFilter({ listFilter }) {
   };
 
   const handleSelect = (option) => {
-    
-    handleFilterChange(option)
+    handleFilter(option)
     setSelected(option);
     setIsOpen(false);
   };

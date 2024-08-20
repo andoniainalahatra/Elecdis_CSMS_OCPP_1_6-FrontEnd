@@ -11,7 +11,7 @@ import { useContext } from "react";
 import { Context } from "@/common/config/configs/Context";
 
 const TableauDeBord = () => {
-  const { filter } = useContext(Context);
+  const { filterBar } = useContext(Context)
   
   const chargeurData = [ 
     { status: "chargin", value: 75, fill: "var(--color-chargin)" },
@@ -127,7 +127,7 @@ const TableauDeBord = () => {
           </div>
           <div className="col-span-2 max-sm:w-full">
               
-                 <StatistiqueBarChart chartData={statistiqueData} filter={filter} statiStiqueConfig={statiStiqueConfig} title="Enérgie délivrer par kWh" />
+                 <StatistiqueBarChart chartData={statistiqueData} statiStiqueConfig={statiStiqueConfig} title="Enérgie délivrer par kWh" />
                            
           </div>
         </div>
