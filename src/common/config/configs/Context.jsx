@@ -9,12 +9,18 @@ export const ContextProvider = ({ children }) => {
     const [nav, setNav] = useState(false);
     const openNav = () => setNav(true);
     const closeNav = () => setNav(false);
+    const [filterBar, setFilterBar] = useState(null)
+
+    const handleFilterBarChange = (filterValue) => {
+        setFilterBar(filterValue)
+    }
 
     return (
         <Context.Provider
             value={{
                 isActive, setActive,
-                openNav, closeNav, nav
+                openNav, closeNav, nav, 
+                filterBar, handleFilterBarChange
             }}
         >
             {children}

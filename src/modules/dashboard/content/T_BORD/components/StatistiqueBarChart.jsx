@@ -4,6 +4,7 @@ import { Calendar } from "lucide-react";
 import ColorChartInformation from "@/components/ColorChartInformation";
 import { useEffect, useMemo, useState } from "react";
 import { usePercent } from "@/lib/hooks";
+import ButtonFilter from "./ButtonFilter";
 
 /**
  * Composant 'StatistiqueBarChart'
@@ -13,7 +14,7 @@ import { usePercent } from "@/lib/hooks";
     { month: "January", currentValue: 186, oldValue : 362}, ... ],
  * @returns {JSX.Element} - return un tableau graphique contenant une courbe pour montrer la nouvelle valeur et une courbe pour montrer l'ancien valeur et un BarChart pour montrer la valeur exact de la nouvelle valeur
  */
-
+const filter = ["Mensuel", "Trimestriel", "Semestriel", "Annuel"]
 export default function StatistiqueBarChart({title, chartData, statiStiqueConfig}) {
   const { oldvalue, currentValue, barconfig } = statiStiqueConfig
   const { percentVal, colorPercent } = usePercent(chartData)
@@ -46,17 +47,18 @@ export default function StatistiqueBarChart({title, chartData, statiStiqueConfig
     return () => window.removeEventListener('resize', updateTickLength);
   }, []);
   return (
-    <div className="shadow-combined rounded-xl w-full h-full">
-      <div className="flex justify-between w-full items-center px-6 py-5">
+    <div className="shadow-combined rounded-xl w-full h-full bg-white">
+      <div className="flex justify-between w-full items-center flex-wrap px-6 py-5">
         <div>
           <h2 className="text-[#212B36] font-bold ">{title}</h2>
           <p className="text-[#637381] text-[14px]"><span className={`text-[${colorPercent}]`}>{percentVal}</span> que l'annees dernier</p>
         </div>
-        <div>
+        <div className="flex justify-between items-center w-[120px]">
+          <ButtonFilter listFilter={filter} />
           <Calendar />
         </div>
       </div>
-      <ColorChartInformation config={statiStiqueConfig} padding="0" position="end" className="pl-6 pb-6 pr-7"/>
+      <ColorChartInformation config={statiStiqueConfig} padding="0" position="center" className="pl-6 pb-6 pr-7"/>
       <CardContent>
         <div className="w-full">
           <ResponsiveContainer width="100%" height={250}>

@@ -1,5 +1,7 @@
 import React from 'react'
-import { IoIosArrowDown, IoIosArrowRoundUp } from 'react-icons/io'
+import ButtonFilter from './ButtonFilter'
+import { IoIosArrowRoundUp } from 'react-icons/io'
+const listFilter = ["journalier", "mensuel", "trimestriel", "semestriel", "annuel"]
 
 export default function Box({Title, Value, FirstIcone, SecondIcone, color, filter}) {
   return (
@@ -16,13 +18,7 @@ export default function Box({Title, Value, FirstIcone, SecondIcone, color, filte
     <div className="w-full flex justify-between items-center">
       <p className='font-bold text-[4vw] sm:text-[2vw] md:text-[1.5vw] lg:text-[1vw] xl:text-[20px] text-[#212B36]'>{Value}</p>
       {filter && (
-        <button
-          onClick={() => console.log('test')}
-          className="px-[2vw] py-1 sm:px-[1vw] md:px-[0.8vw] flex justify-between items-center gap-2 bg-[#EBEFF3] rounded-sm text-[3vw] sm:text-[2vw] md:text-[1.5vw] lg:text-[1vw] xl:text-[14px]"
-        >
-          <p className='text-[#4f5f70]'>{filter}</p>
-          <IoIosArrowDown className='text-[#212B36] text-[3vw] sm:text-[2vw] md:text-[1.5vw] lg:text-[1vw] xl:text-[14px]' />
-        </button>
+        <ButtonFilter filter={filter} listFilter={listFilter} />
       )}
     </div>
     <p className='text-[3vw] sm:text-[2vw] md:text-[1.5vw] lg:text-[1vw] xl:text-[14px] font-bold text-[#919EAB]'>{Title}</p>
