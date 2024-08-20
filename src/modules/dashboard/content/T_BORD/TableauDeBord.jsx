@@ -1,4 +1,3 @@
-import React from "react";
 import { BsFillEvStationFill } from "react-icons/bs";
 import { TbWorldShare } from "react-icons/tb";
 import { FaUser } from "react-icons/fa";
@@ -8,24 +7,28 @@ import { TbRecharging } from "react-icons/tb";
 import { GiReceiveMoney } from "react-icons/gi";
 import DonuteChart from "./components/DonuteChart";
 import StatistiqueBarChart from "./components/StatistiqueBarChart";
+import { useContext } from "react";
+import { Context } from "@/common/config/configs/Context";
 
 const TableauDeBord = () => {
+  const { filter } = useContext(Context);
+  
   const chargeurData = [ 
-    { browser: "firefox", visitors: 28, fill: "var(--color-firefox)" },
-    { browser: "chrome", visitors: 75, fill: "var(--color-chrome)" },
-    { browser: "safari", visitors: 200, fill: "var(--color-safari)" },
+    { status: "chargin", value: 75, fill: "var(--color-chargin)" },
+    { status: "available", value: 200, fill: "var(--color-available)" },
+    { status: "unavailable", value: 28, fill: "var(--color-unavailable)" },
   ]
   
   const donuteConfig = {
-    chrome: {
+    chargin: {
       label: "En cours d'utilisation",
       color: "#3D9DF2",
     },
-    safari: {
+    available: {
       label: "Disponible",
       color: "#83838d",
     },
-    firefox: {
+    unavailable: {
       label: "Hors service",
       color: "#F2505D",
     }
@@ -123,7 +126,9 @@ const TableauDeBord = () => {
             />
           </div>
           <div className="col-span-2 max-sm:w-full">
-            <StatistiqueBarChart chartData={statistiqueData} statiStiqueConfig={statiStiqueConfig} title="Enérgie délivrer par kWh" />
+              
+                 <StatistiqueBarChart chartData={statistiqueData} filter={filter} statiStiqueConfig={statiStiqueConfig} title="Enérgie délivrer par kWh" />
+                           
           </div>
         </div>
         <div className="">

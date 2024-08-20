@@ -18,11 +18,11 @@ import ColorChartInformation from "@/components/ColorChartInformation";
 
 export default function DonuteChart({chartConfig, chartData, title, label}) {
   const totalValue = useMemo(() => {
-    return chartData.reduce((sum, data) => sum + data.visitors, 0);
+    return chartData.reduce((sum, data) => sum + data.value, 0);
   },[chartData]
   ) 
   return (
-  <div className="w-full p-5 flex flex-col shadow-combined rounded-xl max-w-full ">
+  <div className="w-full p-5 flex flex-col shadow-combined rounded-xl max-w-full bg-white ">
   <h1 className="text-[#212B36] font-bold ">{title}</h1>
   <div className="pb-0 h-auto w-full">
     <ChartContainer
@@ -36,8 +36,8 @@ export default function DonuteChart({chartConfig, chartData, title, label}) {
         />
         <Pie
           data={chartData}
-          dataKey="visitors"
-          nameKey="browser"
+          dataKey="value"
+          nameKey="status"
           innerRadius={50} // Radius fixe
           outerRadius={100} // Outer radius fixe également
           strokeWidth={5}
