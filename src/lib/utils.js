@@ -13,3 +13,37 @@ export function cn(...inputs) {
 export const calculPercentage = (newValue, oldValue) => {
   return Math.round((newValue * 100) / oldValue, 2);
 }
+
+/**
+ * Function that orders all data by the 12 months of a given year.
+ * The data should have a `timestamp` property.
+ *
+ * @param {Array<Object>} DATA - The array of objects containing the data to be ordered.
+ * @param {number} year - The year for which the data should be ordered.
+ * @returns {Array<Object>} - An array of objects ordered by the 12 months of the specified year.
+ */
+
+export const getDataByMonth = (DATA, year) => {
+  const monthLabels = [
+    "Janvier", "Février", "Mars", "Avril", "Mai", "Juin", 
+    "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"
+  ];
+  const allMonth = [];
+  const combinedByMonth = [];
+  
+  DATA.forEach(item => {
+    const monthIndex = new Date(item.timestamp).getUTCMonth();
+    const itemYear = new Date(item.timestamp).getUTCFullYear();
+    if (itemYear === year) {
+      const monthLabel = monthLabels[monthIndex]
+      allMonth.push({ label : monthLabel, value : item.value})
+    }
+  })
+  
+  monthLabels.forEach ( itemMonth => {
+    const sum = allMonth.filter(item => item.label === itemMonth).reduce((acc, curr) => acc + curr.value, 0);
+    combinedByMonth.push({ label : itemMonth, value : sum }) 
+  })
+  
+  return combinedByMonth;
+}

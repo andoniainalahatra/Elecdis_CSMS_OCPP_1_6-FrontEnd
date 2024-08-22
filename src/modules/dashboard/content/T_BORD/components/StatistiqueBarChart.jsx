@@ -67,7 +67,7 @@ export default function StatistiqueBarChart({title, chartData, statiStiqueConfig
             <ComposedChart data={chartData} >
               <CartesianGrid vertical={false} strokeDasharray="3 3" />
               <XAxis
-                dataKey="month"
+                dataKey="label"
                 tickLine={false}
                 axisLine={false}
                 tickFormatter={(value) => value.slice(0, tickLength)}
