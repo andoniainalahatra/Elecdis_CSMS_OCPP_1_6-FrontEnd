@@ -1,5 +1,5 @@
 export const dateSimulation = [
-    {"timestamp": "2022-01-05T08:30:00Z", "value": 153},
+    {"timestamp": "2022-01-05T08:30:00Z", "value": 1503},
     {"timestamp": "2022-01-15T14:45:00Z", "value": 165},
     {"timestamp": "2022-01-20T09:00:00Z", "value": 172},
     {"timestamp": "2022-02-01T07:15:00Z", "value": 180},
@@ -13,7 +13,7 @@ export const dateSimulation = [
     {"timestamp": "2022-04-20T08:30:00Z", "value": 214},
     {"timestamp": "2022-05-01T10:00:00Z", "value": 223},
     {"timestamp": "2022-05-11T14:30:00Z", "value": 234},
-    {"timestamp": "2022-05-25T16:45:00Z", "value": 245},
+    {"timestamp": "2022-05-25T16:45:00Z", "value": 555},
     {"timestamp": "2022-06-07T07:00:00Z", "value": 257},
     {"timestamp": "2022-06-15T11:15:00Z", "value": 265},
     {"timestamp": "2022-06-30T18:00:00Z", "value": 272},
@@ -196,5 +196,16 @@ export const dateSimulation = [
     {"timestamp": "2024-11-20T07:15:00Z", "value": 405},
     {"timestamp": "2024-12-07T12:00:00Z", "value": 415},
     {"timestamp": "2024-12-18T15:45:00Z", "value": 425},
-    {"timestamp": "2024-12-28T08:30:00Z", "value": 435}
+    {"timestamp": "2024-12-28T08:30:00Z", "value": 435},{"timestamp": "2024-02-28T16:00:00Z", "value": 190},
+    {"timestamp": "2024-03-03T08:00:00Z", "value": 165},
+    {"timestamp": "2024-03-10T13:15:00Z", "value": 175},
+    {"timestamp": "2024-03-21T18:30:00Z", "value": 185},
+    {"timestamp": "2024-04-05T09:45:00Z", "value": 195},
+    {"timestamp": "2024-04-16T15:00:00Z", "value": 200},
+    {"timestamp": "2024-04-20T08:30:00Z", "value": 210},
+    {"timestamp": "2024-05-01T10:00:00Z", "value": 220},
+    {"timestamp": "2024-05-11T14:30:00Z", "value": 230},
+    {"timestamp": "2024-05-25T16:45:00Z", "value": 240},
+    {"timestamp": "2024-06-07T07:00:00Z", "value": 250},
+    {"timestamp": "2024-06-15T11:15:00Z", "value": 260},
 ]

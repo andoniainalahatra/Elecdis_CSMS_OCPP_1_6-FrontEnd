@@ -7,8 +7,11 @@ import { TbRecharging } from "react-icons/tb";
 import { GiReceiveMoney } from "react-icons/gi";
 import DonuteChart from "./components/DonuteChart";
 import StatistiqueBarChart from "./components/StatistiqueBarChart";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Context } from "@/common/config/configs/Context";
+import { dateSimulation } from "@/_mock/DataForSimulateDate";
+import { getDataByMonth } from "@/lib/utils";
+
 
 const TableauDeBord = () => {
   const { filterBar } = useContext(Context)
@@ -33,20 +36,24 @@ const TableauDeBord = () => {
       color: "#F2505D",
     }
   }
-  const statistiqueData = [
-    { month: "January", currentValue: 186, oldValue : 362},
-    { month: "February", currentValue: 305, oldValue : 300 },
-    { month: "March", currentValue: 237, oldValue : 285 },
-    { month: "April", currentValue: 73, oldValue : 109 },
-    { month: "May", currentValue: 209, oldValue :  409},
-    { month: "June", currentValue: 214, oldValue :  290},
-    { month: "Juillet", currentValue: 186, oldValue :  387},
-    { month: "Aout", currentValue: 305, oldValue :  134},
-    { month: "Septembre", currentValue: 237, oldValue : 109},
-    { month: "Octobre", currentValue: 73, oldValue :  234},
-    { month: "Novembre", currentValue: 209, oldValue :  341},
-    { month: "Decembre", currentValue: 214, oldValue :  173},
-  ];
+// const [statistiqueData, setStatistiqueData] = useState([]);
+const currenTData = getDataByMonth(dateSimulation, 2024);
+const oldData = getDataByMonth(dateSimulation, 2022);
+
+// Créer un Map pour les données de l'année précédente, indexées par le label du mois
+const oldDataMap = new Map();
+oldData.forEach(monthOldData => {
+  oldDataMap.set(monthOldData.label, monthOldData.value);
+});
+
+const statistiqueData = currenTData.map(monthCurrentData => {
+  const oldValue = oldDataMap.get(monthCurrentData.label) || 0;
+  return {
+    label: monthCurrentData.label,
+    currentValue: monthCurrentData.value,
+    oldValue: oldValue
+  };
+});
   const statiStiqueConfig = {
     oldvalue : {
       label : "Statistique ancien",
@@ -126,9 +133,7 @@ const TableauDeBord = () => {
             />
           </div>
           <div className="col-span-2 max-sm:w-full">
-              
-                 <StatistiqueBarChart chartData={statistiqueData} statiStiqueConfig={statiStiqueConfig} title="Enérgie délivrer par kWh" />
-                           
+                 <StatistiqueBarChart chartData={statistiqueData} statiStiqueConfig={statiStiqueConfig} title="Enérgie délivrer par kWh" />              
           </div>
         </div>
         <div className="">
