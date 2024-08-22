@@ -47,3 +47,54 @@ export const getDataByMonth = (DATA, year) => {
   
   return combinedByMonth;
 }
+
+
+export const getDataByYear = (DATA) => 
+{
+  const yearLabels = ["2022", "2023", "2024"];
+  const allYear = [];
+  const combinedByYear = [];
+
+  DATA.forEach(item => {
+    const itemYear = new Date(item.timestamp).getUTCFullYear();
+    if (!isNaN(itemYear) && yearLabels.includes(itemYear.toString())) {
+      allYear.push({ label: itemYear.toString(), value: Number(item.value) });
+    }
+  });
+
+  yearLabels.forEach(year => {
+    const sum = allYear
+      .filter(item => item.label === year)
+      .reduce((acc, curr) => acc + curr.value, 0);
+    combinedByYear.push({ label: year, value: sum });
+  });
+
+  return combinedByYear;
+   
+}
+
+/**
+ * Compare les données actuelles avec les anciennes et retourne un tableau d'objets fusionnés.
+ * 
+ * @param {Array<{label: string, value: number}>} currentData - Données actuelles.
+ * @param {Array<{label: string, value: number}>} oldData - Données anciennes.
+ * 
+ * @returns {Array<{label: string, currentValue: number, oldValue: number}>} - Tableau des données avec `currentValue` et `oldValue` pour chaque label.
+ */
+export const compareData = (currentData, oldData) => {
+  const oldDataMap = new Map();
+  oldData.forEach(monthOldData => {
+    oldDataMap.set(monthOldData.label, monthOldData.value);
+  });
+
+  const data = currentData.map(monthCurrentData => {
+    const oldValue = oldDataMap.get(monthCurrentData.label) || 0;
+    return {
+      label: monthCurrentData.label,
+      currentValue: monthCurrentData.value,
+      oldValue: oldValue
+    };
+  });
+
+  return data
+}

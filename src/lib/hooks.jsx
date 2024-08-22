@@ -23,6 +23,7 @@ export const usePercent = (chartData) => {
     const [colorPercent, setColorPercent] = useState("")
     const [percentVal, setPercentVal] = useState('')
     useMemo(() => {
+        if(chartData){
         const sumCurrent = chartData.reduce((sum, data) => sum + data.currentValue, 0);
         const sumOld = chartData.reduce((sum, data) => sum + data.oldValue, 0);
         const valuePercent =  calculPercentage(sumCurrent, sumOld);
@@ -33,6 +34,7 @@ export const usePercent = (chartData) => {
         else{
           setColorPercent("#F2505D")
           setPercentVal(`-${valuePercent}% `);
+        }
         }
     
       }, [chartData]);
