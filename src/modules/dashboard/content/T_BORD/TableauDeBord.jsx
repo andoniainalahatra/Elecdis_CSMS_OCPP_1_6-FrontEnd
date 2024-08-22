@@ -7,15 +7,38 @@ import { TbRecharging } from "react-icons/tb";
 import { GiReceiveMoney } from "react-icons/gi";
 import DonuteChart from "./components/DonuteChart";
 import StatistiqueBarChart from "./components/StatistiqueBarChart";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Context } from "@/common/config/configs/Context";
 import { dateSimulation } from "@/_mock/DataForSimulateDate";
-import { getDataByMonth } from "@/lib/utils";
+import { compareData, getDataByMonth, getDataByYear } from "@/lib/utils";
 
 
 const TableauDeBord = () => {
-  const { filterBar } = useContext(Context)
+  const data = dateSimulation;
+  const { filterBar } = useContext(Context);
+  const [statistiqueData, setStatistiqueData] = useState([]);
+
+  useEffect(() => {
+    const currentData = getDataByMonth(data, 2024);
+    const oldData = getDataByMonth(data, 2022);
   
+    console.log("Filter Bar:", filterBar); // Pour vérifier la valeur de filterBar
+    console.log("Current Data:", currentData);
+    console.log("Old Data:", oldData);
+  
+    if (filterBar === "Annuel") {
+      const yearlyData = getDataByYear(data);
+      console.log("Yearly Data:", yearlyData);
+      setStatistiqueData(yearlyData);
+      console.log("test :", statistiqueData);
+    } else {
+      const comparisonData = compareData(currentData, oldData);
+      console.log("Comparison Data:", comparisonData);
+      setStatistiqueData(comparisonData);
+    }
+  }, [filterBar, data]); 
+  console.log(filterBar);
+
   const chargeurData = [ 
     { status: "chargin", value: 75, fill: "var(--color-chargin)" },
     { status: "available", value: 200, fill: "var(--color-available)" },
@@ -36,24 +59,6 @@ const TableauDeBord = () => {
       color: "#F2505D",
     }
   }
-// const [statistiqueData, setStatistiqueData] = useState([]);
-const currenTData = getDataByMonth(dateSimulation, 2024);
-const oldData = getDataByMonth(dateSimulation, 2022);
-
-// Créer un Map pour les données de l'année précédente, indexées par le label du mois
-const oldDataMap = new Map();
-oldData.forEach(monthOldData => {
-  oldDataMap.set(monthOldData.label, monthOldData.value);
-});
-
-const statistiqueData = currenTData.map(monthCurrentData => {
-  const oldValue = oldDataMap.get(monthCurrentData.label) || 0;
-  return {
-    label: monthCurrentData.label,
-    currentValue: monthCurrentData.value,
-    oldValue: oldValue
-  };
-});
   const statiStiqueConfig = {
     oldvalue : {
       label : "Statistique ancien",

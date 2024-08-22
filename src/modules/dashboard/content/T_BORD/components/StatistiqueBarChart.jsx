@@ -21,10 +21,14 @@ export default function StatistiqueBarChart({title, chartData, statiStiqueConfig
   const { oldvalue, currentValue, barconfig } = statiStiqueConfig
   const { percentVal, colorPercent } = usePercent(chartData)
   const dataUpdate = useMemo(() => {
-   return chartData.map(data => ({
-      ...data, 
-      currentValue : data.currentValue + 10,
-    }))
+  
+    if (chartData) {
+      return chartData.map(data => ({
+        ...data, 
+        currentValue : data.currentValue + 10,
+      })
+     )
+    }
   }, [chartData]);
   const [tickLength, setTickLength] = useState(3);
   useEffect(() => {
@@ -48,6 +52,7 @@ export default function StatistiqueBarChart({title, chartData, statiStiqueConfig
     
     return () => window.removeEventListener('resize', updateTickLength);
   }, []);
+  
   return (
     <div className="shadow-combined rounded-xl w-full h-full bg-white">
       <div className="flex justify-between w-full items-center flex-wrap px-6 py-5">
@@ -64,47 +69,49 @@ export default function StatistiqueBarChart({title, chartData, statiStiqueConfig
       <CardContent>
         <div className="w-full">
           <ResponsiveContainer width="100%" height={250}>
-            <ComposedChart data={chartData} >
-              <CartesianGrid vertical={false} strokeDasharray="3 3" />
-              <XAxis
-                dataKey="label"
-                tickLine={false}
-                axisLine={false}
-                tickFormatter={(value) => value.slice(0, tickLength)}
-              />
-              <YAxis
-                tickLine={false}
-                axisLine={false}
-                tickCount={6} // Ajustez ceci en fonction de la hauteur de votre graphique et de l'incrément souhaité
-                domain={[0, 500]} // Définissez le domaine jusqu'à la valeur maximale désirée
-                interval={0} // Ajoutez cette ligne pour forcer l'affichage de tous les ticks
-                scale="linear"
-              />
-              <Tooltip cursor={false} />
-              <Bar
-                dataKey="currentValue" 
-                fill={barconfig.color} 
-                barSize={8} 
-                radius={3}
-              />
-              <Line
-                type="monotone"
-                dataKey="oldValue"
-                stroke={oldvalue.color}
-                strokeWidth={3}
-                dot={false}
+            {chartData &&
+                <ComposedChart data={chartData} >
+                <CartesianGrid vertical={false} strokeDasharray="3 3" />
+                <XAxis
+                  dataKey="label"
+                  tickLine={false}
+                  axisLine={false}
+                  tickFormatter={(value) => value.slice(0, tickLength)}
+                />
+                <YAxis
+                  tickLine={false}
+                  axisLine={false}
+                  tickCount={6} // Ajustez ceci en fonction de la hauteur de votre graphique et de l'incrément souhaité
+                  domain={[0, 500]} // Définissez le domaine jusqu'à la valeur maximale désirée
+                  interval={0} // Ajoutez cette ligne pour forcer l'affichage de tous les ticks
+                  scale="linear"
+                />
+                <Tooltip cursor={false} />
+                <Bar
+                  dataKey="currentValue" 
+                  fill={barconfig.color} 
+                  barSize={8} 
+                  radius={3}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="oldValue"
+                  stroke={oldvalue.color}
+                  strokeWidth={3}
+                  dot={false}
 
-              />
-              <Area 
-                type="monotone"
-                data={dataUpdate}
-                dataKey="currentValue"
-                stroke={currentValue.color}
-                strokeWidth={3}
-                fill="rgba(242, 80, 93, 0.2)"
-                dot={false} 
-              />
-            </ComposedChart>
+                />
+                <Area 
+                  type="monotone"
+                  data={dataUpdate}
+                  dataKey="currentValue"
+                  stroke={currentValue.color}
+                  strokeWidth={3}
+                  fill="rgba(242, 80, 93, 0.2)"
+                  dot={false} 
+                />
+                </ComposedChart>
+            }
           </ResponsiveContainer>
         </div>
       </CardContent>
