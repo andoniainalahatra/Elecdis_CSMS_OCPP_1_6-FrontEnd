@@ -3,6 +3,7 @@
 import { useState, createContext } from "react";
 
 export const Context = createContext();
+const currentYear = new Date().getFullYear();
 
 export const ContextProvider = ({ children }) => {
     const [isActive, setActive] = useState('');
@@ -11,9 +12,16 @@ export const ContextProvider = ({ children }) => {
     const closeNav = () => setNav(false);
     const [filterBar, setFilterBar] = useState("Mensuel")
 
+    const [filterYear, setFilterYear] = useState(currentYear)
+
+    const handleFilterYear = (filterValue) => {
+        setFilterYear(filterValue)
+    }
+
     const handleFilterBarChange = (filterValue) => {
         setFilterBar(filterValue)
     }
+
     const [filterNombreSession, setFilterNombreSession] = useState(null)
 
     const handleFilterNombreSessionChange = (filterValue) => {
@@ -44,7 +52,8 @@ export const ContextProvider = ({ children }) => {
                 filterEneryDelivery, handleFilterEneryDeliveryChange,
                 filterNewClient, handleFilterNewClientChange,
                 filterRevenu, handleFilterRevenuChange,
-                filterNombreSession, handleFilterNombreSessionChange
+                filterNombreSession, handleFilterNombreSessionChange,
+                filterYear, handleFilterYear
             }}
         >
             {children}

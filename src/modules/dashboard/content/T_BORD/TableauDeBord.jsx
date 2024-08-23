@@ -10,12 +10,12 @@ import StatistiqueBarChart from "./components/StatistiqueBarChart";
 import { useContext, useEffect, useState } from "react";
 import { Context } from "@/common/config/configs/Context";
 import { dateSimulation } from "@/_mock/DataForSimulateDate";
-import { compareData, getDataByMonth, getDataByYear } from "@/lib/utils";
+import { compareData, getDataByMonth, getDataBySemestre, getDataByTrimestre, getDataByYear } from "@/lib/utils";
 import { usePercent } from "@/lib/hooks";
-import { FILTER } from "@/_mock/listFilter";
+import { FILTER } from "@/_mock/constant";
+import { YEARLABEL } from "@/_mock/constant";
 
 const TableauDeBord = () => {
-  const filter = FILTER;
   const statiStiqueConfig = {
     oldvalue: {
       label: "Statistique ancien",
@@ -31,22 +31,38 @@ const TableauDeBord = () => {
     }
   };
   const data = dateSimulation;
-  const { filterBar } = useContext(Context);
+  const { filterBar, filterYear } = useContext(Context);
+  console.log(filterYear);
+  
   const currentData = getDataByMonth(data, 2024);
   const oldData = getDataByMonth(data, 2022);
   const comparisonData = compareData(currentData, oldData);
+  const [trimestreData, setTrimestreData] = useState(getDataByTrimestre(data, Number(filterYear)));
+  const [semestredata, setSemestreData] = useState(getDataBySemestre(data, Number(filterYear)));
   const yearlyData = getDataByYear(data);
   const [statistiqueData, setStatistiqueData] = useState(comparisonData);
   const [percentData, setPercentData] = useState(comparisonData);
   useEffect(() => {
+    if(filterYear){
+      setTrimestreData(getDataByTrimestre(data, Number(filterYear)));
+      setSemestreData(getDataBySemestre(data, Number(filterYear)))
+    }
+  }, [filterYear, filterBar])
+  useEffect(() => {
     if (filterBar === "Annuel") {
       setStatistiqueData(yearlyData)
       setPercentData();
-    } else {
+    }else if (filterBar === "Trimestriel"){
+      setStatistiqueData(trimestreData)
+      setPercentData();
+    }else if (filterBar === "Semestriel"){
+      setStatistiqueData(semestredata)
+      setPercentData();
+    }  else {
       setStatistiqueData(comparisonData)
       setPercentData();
     }
-  }, [filterBar]);
+  }, [filterBar, filterYear]);
   const { percentVal , colorPercent } = usePercent(percentData)
   const [litleDescri, setlitleDescri] = useState(null);
   useEffect(() => {
@@ -152,7 +168,8 @@ const TableauDeBord = () => {
         chartData={statistiqueData} // Utilisation de statistiqueData qui est mis à jour dans useEffect
         statiStiqueConfig={statiStiqueConfig} 
         description={litleDescri}
-        filter={filter}
+        filter={FILTER}
+        filterYearly ={YEARLABEL}
         title="Énergie délivrée par kWh" 
         />
         </div>
