@@ -2,9 +2,10 @@ import { Bar, CartesianGrid, ComposedChart, Line, XAxis, YAxis, Tooltip, Area, R
 import { CardContent } from "@/components/ui/card";
 import { Calendar } from "lucide-react";
 import ColorChartInformation from "@/components/ColorChartInformation";
-import { useContext, useEffect, useMemo, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ButtonFilter from "./ButtonFilter";
 import { Context } from "@/common/config/configs/Context";
+import ButtonFilterYear from "./ButtonFilterYear";
 /**
  * Composant 'StatistiqueBarChart'
  * @param {string} title - titre de la graphique
@@ -14,8 +15,8 @@ import { Context } from "@/common/config/configs/Context";
  * @returns {JSX.Element} - return un tableau graphique contenant une courbe pour montrer la nouvelle valeur et une courbe pour montrer l'ancien valeur et un BarChart pour montrer la valeur exact de la nouvelle valeur
  */
 
-export default function StatistiqueBarChart({title, chartData,description,filter, statiStiqueConfig}) {
-  const { handleFilterBarChange } = useContext(Context)  
+export default function StatistiqueBarChart({title, chartData,description,filter, filterYearly, statiStiqueConfig}) {
+  const { handleFilterBarChange, handleFilterYear } = useContext(Context)  
   const { oldvalue, currentValue, barconfig } = statiStiqueConfig  
   
   const [tickLength, setTickLength] = useState(3);
@@ -40,7 +41,6 @@ export default function StatistiqueBarChart({title, chartData,description,filter
     
     return () => window.removeEventListener('resize', updateTickLength);
   }, []);
-  
   return (
     <div className="shadow-combined rounded-xl w-full h-full bg-white">
       <div className="flex justify-between w-full items-center flex-wrap px-6 py-5">
@@ -48,7 +48,8 @@ export default function StatistiqueBarChart({title, chartData,description,filter
           <h2 className="text-[#212B36] font-bold ">{title}</h2>
           {description}
         </div>
-        <div className="flex justify-between items-center w-[150px]">
+        <div className="flex justify-between items-center w-[230px]">
+          <ButtonFilterYear handleFilter={handleFilterYear} listFilter={filterYearly} />
           <ButtonFilter handleFilter={handleFilterBarChange} listFilter={filter} />
           <Calendar />
         </div>
