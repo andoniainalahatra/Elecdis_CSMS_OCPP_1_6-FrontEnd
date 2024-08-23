@@ -58,15 +58,15 @@ export const getDataByYear = (DATA) =>
   DATA.forEach(item => {
     const itemYear = new Date(item.timestamp).getUTCFullYear();
     if (!isNaN(itemYear) && yearLabels.includes(itemYear.toString())) {
-      allYear.push({ label: itemYear.toString(), value: Number(item.value) });
+      allYear.push({ label: itemYear.toString(), currentValue: Number(item.value) });
     }
   });
 
   yearLabels.forEach(year => {
     const sum = allYear
       .filter(item => item.label === year)
-      .reduce((acc, curr) => acc + curr.value, 0);
-    combinedByYear.push({ label: year, value: sum });
+      .reduce((acc, curr) => acc + curr.currentValue, 0);
+    combinedByYear.push({ label: year, currentValue: sum });
   });
 
   return combinedByYear;

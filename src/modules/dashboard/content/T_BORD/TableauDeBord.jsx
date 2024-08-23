@@ -11,39 +11,61 @@ import { useContext, useEffect, useState } from "react";
 import { Context } from "@/common/config/configs/Context";
 import { dateSimulation } from "@/_mock/DataForSimulateDate";
 import { compareData, getDataByMonth, getDataByYear } from "@/lib/utils";
-
+import { usePercent } from "@/lib/hooks";
+import { FILTER } from "@/_mock/listFilter";
 
 const TableauDeBord = () => {
+  const filter = FILTER;
+  const statiStiqueConfig = {
+    oldvalue: {
+      label: "Statistique ancien",
+      color: "#F29F05"
+    },
+    currentValue: {
+      label: "Statistique actuel",
+      color: "#3D9DF2"
+    },
+    barconfig: {
+      label: "Valeur exacte actuelle",
+      color: "#F2505D"
+    }
+  };
   const data = dateSimulation;
   const { filterBar } = useContext(Context);
-  const [statistiqueData, setStatistiqueData] = useState([]);
-
+  const currentData = getDataByMonth(data, 2024);
+  const oldData = getDataByMonth(data, 2022);
+  const comparisonData = compareData(currentData, oldData);
+  const yearlyData = getDataByYear(data);
+  const [statistiqueData, setStatistiqueData] = useState(comparisonData);
+  const [percentData, setPercentData] = useState(comparisonData);
   useEffect(() => {
-    const currentData = getDataByMonth(data, 2024);
-    const oldData = getDataByMonth(data, 2022);
-  
-    console.log("Filter Bar:", filterBar); // Pour vérifier la valeur de filterBar
-    console.log("Current Data:", currentData);
-    console.log("Old Data:", oldData);
-  
     if (filterBar === "Annuel") {
-      const yearlyData = getDataByYear(data);
-      console.log("Yearly Data:", yearlyData);
-      setStatistiqueData(yearlyData);
-      console.log("test :", statistiqueData);
+      setStatistiqueData(yearlyData)
+      setPercentData();
     } else {
-      const comparisonData = compareData(currentData, oldData);
-      console.log("Comparison Data:", comparisonData);
-      setStatistiqueData(comparisonData);
+      setStatistiqueData(comparisonData)
+      setPercentData();
     }
-  }, [filterBar, data]); 
-  console.log(filterBar);
+  }, [filterBar]);
+  const { percentVal , colorPercent } = usePercent(percentData)
+  const [litleDescri, setlitleDescri] = useState(null);
+  useEffect(() => {
+    if (colorPercent && percentVal) {
+      if(filterBar === "Annuel" || filterBar === "Mensuel"){
+        setlitleDescri(
+          <p className="text-[#637381] text-[14px]">
+            <span className={`text-[${colorPercent}]`}>{percentVal}</span> que l'annee derniere
+          </p>
+        );
+      }
+    }
+  }, [colorPercent, percentVal, filterBar]);
 
-  const chargeurData = [ 
+  const chargeurData = [
     { status: "chargin", value: 75, fill: "var(--color-chargin)" },
     { status: "available", value: 200, fill: "var(--color-available)" },
     { status: "unavailable", value: 28, fill: "var(--color-unavailable)" },
-  ]
+  ];
   
   const donuteConfig = {
     chargin: {
@@ -58,92 +80,86 @@ const TableauDeBord = () => {
       label: "Hors service",
       color: "#F2505D",
     }
-  }
-  const statiStiqueConfig = {
-    oldvalue : {
-      label : "Statistique ancien",
-      color : "#F29F05"
-    },
-    currentValue : {
-      label : "Statistique actuel",
-      color : "#3D9DF2"
-    },
-    barconfig : {
-      label : "Valeur exact actuel",
-      color : "#F2505D"
-    }
-  }
+  };
+  
+
+
   return (
     <div className="w-full h-auto p-6">
       <h2 className="text-[#212B36] text-xl mb-6">Accueil/Tableau de bord</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-col-4 gap-6">
         <Box
-            Title="Nombre total de Session "
-            Value="100"
-            FirstIcone={BsFillEvStationFill}
-            SecondIcone={FaUser}
-            color="#3D9DF2"
-            filter="mensuel"
-          />
-          <Box
-            Title="Total energie delivré"
-            Value="40 kWh"
-            FirstIcone={BsFillEvStationFill}
-            SecondIcone={TbWorldShare}
-            color="#0F3F69"
-            filter="mensuel"
-          />
-          <Box
-            Title="Revenus total"
-            Value="450K Ar"
-            FirstIcone={BsFillEvStationFill}
-            SecondIcone={GiReceiveMoney}
-            color="#842F86"
-            filter="mensuel"
-          />
-          <Box
-            Title="Defaillance et perte de connexion"
-            Value="40"
-            FirstIcone={BsFillEvStationFill}
-            SecondIcone={CgUnavailable}
-            color="#F2505D"
-            filter={null}
-          />
-          <Box
-            Title="Session de recharge en cours"
-            Value="40"
-            FirstIcone={BsFillEvStationFill}
-            SecondIcone={TbRecharging}
-            color="#F29F05"
-            filter={null}
-          />
-          
-          <Box
-            Title="Nouveaux clients"
-            Value="10"
-            FirstIcone={FaUser}
-            SecondIcone={FaUser}
-            color="#26BF78"
-            filter="mensuel"
+          Title="Nombre total de Session"
+          Value="100"
+          FirstIcone={BsFillEvStationFill}
+          SecondIcone={FaUser}
+          color="#3D9DF2"
+          filter="mensuel"
+        />
+        <Box
+          Title="Total énergie délivrée"
+          Value="40 kWh"
+          FirstIcone={BsFillEvStationFill}
+          SecondIcone={TbWorldShare}
+          color="#0F3F69"
+          filter="mensuel"
+        />
+        <Box
+          Title="Revenus totaux"
+          Value="450K Ar"
+          FirstIcone={BsFillEvStationFill}
+          SecondIcone={GiReceiveMoney}
+          color="#842F86"
+          filter="mensuel"
+        />
+        <Box
+          Title="Défaillance et perte de connexion"
+          Value="40"
+          FirstIcone={BsFillEvStationFill}
+          SecondIcone={CgUnavailable}
+          color="#F2505D"
+          filter={null}
+        />
+        <Box
+          Title="Session de recharge en cours"
+          Value="40"
+          FirstIcone={BsFillEvStationFill}
+          SecondIcone={TbRecharging}
+          color="#F29F05"
+          filter={null}
+        />
+        <Box
+          Title="Nouveaux clients"
+          Value="10"
+          FirstIcone={FaUser}
+          SecondIcone={FaUser}
+          color="#26BF78"
+          filter="mensuel"
+        />
+      </div>
+      <div className="grid max-sm:grid-cols-1 max-sm:place-items-center grid-cols-3 gap-6 w-full my-5">
+        <div className="col-span-1 max-sm:w-full h-full">
+          <DonuteChart 
+            chartConfig={donuteConfig} 
+            chartData={chargeurData} 
+            title="Statut des chargeurs" 
+            label="Chargeurs" 
+            className="w-full p-5 flex flex-col shadow-combined rounded-xl bg-pink-300 h-full"
           />
         </div>
-        <div className="grid max-sm:grid-cols-1 max-sm:place-items-center grid-cols-3 gap-6 w-full my-5">
-          <div className="col-span-1 max-sm:w-full h-full">
-            <DonuteChart 
-              chartConfig={donuteConfig} 
-              chartData={chargeurData} 
-              title="Status des chargeurs" 
-              label="Chargeurs" 
-              className="w-full p-5 flex flex-col shadow-combined rounded-xl bg-pink-300 h-full"
-            />
-          </div>
-          <div className="col-span-2 max-sm:w-full">
-                 <StatistiqueBarChart chartData={statistiqueData} statiStiqueConfig={statiStiqueConfig} title="Enérgie délivrer par kWh" />              
-          </div>
+        <div className="col-span-2 max-sm:w-full">
+        <StatistiqueBarChart 
+        chartData={statistiqueData} // Utilisation de statistiqueData qui est mis à jour dans useEffect
+        statiStiqueConfig={statiStiqueConfig} 
+        description={litleDescri}
+        filter={filter}
+        title="Énergie délivrée par kWh" 
+        />
         </div>
-        <div className="">
-          test
-        </div>
+      </div>
+      <div>
+        test
+      </div>
     </div>
   );
 };

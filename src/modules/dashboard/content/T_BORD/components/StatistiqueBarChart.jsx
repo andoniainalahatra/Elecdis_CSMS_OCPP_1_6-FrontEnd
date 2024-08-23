@@ -3,10 +3,8 @@ import { CardContent } from "@/components/ui/card";
 import { Calendar } from "lucide-react";
 import ColorChartInformation from "@/components/ColorChartInformation";
 import { useContext, useEffect, useMemo, useState } from "react";
-import { usePercent } from "@/lib/hooks";
 import ButtonFilter from "./ButtonFilter";
 import { Context } from "@/common/config/configs/Context";
-
 /**
  * Composant 'StatistiqueBarChart'
  * @param {string} title - titre de la graphique
@@ -15,21 +13,11 @@ import { Context } from "@/common/config/configs/Context";
     { month: "January", currentValue: 186, oldValue : 362}, ... ],
  * @returns {JSX.Element} - return un tableau graphique contenant une courbe pour montrer la nouvelle valeur et une courbe pour montrer l'ancien valeur et un BarChart pour montrer la valeur exact de la nouvelle valeur
  */
-const filter = ["Mensuel", "Trimestriel", "Semestriel", "Annuel"]
-export default function StatistiqueBarChart({title, chartData, statiStiqueConfig}) {
+
+export default function StatistiqueBarChart({title, chartData,description,filter, statiStiqueConfig}) {
   const { handleFilterBarChange } = useContext(Context)  
-  const { oldvalue, currentValue, barconfig } = statiStiqueConfig
-  const { percentVal, colorPercent } = usePercent(chartData)
-  const dataUpdate = useMemo(() => {
+  const { oldvalue, currentValue, barconfig } = statiStiqueConfig  
   
-    if (chartData) {
-      return chartData.map(data => ({
-        ...data, 
-        currentValue : data.currentValue + 10,
-      })
-     )
-    }
-  }, [chartData]);
   const [tickLength, setTickLength] = useState(3);
   useEffect(() => {
     const updateTickLength = () => {
@@ -39,7 +27,7 @@ export default function StatistiqueBarChart({title, chartData, statiStiqueConfig
       } else if (screenWidth <= 768) {
         setTickLength(2);
       } else if (screenWidth <= 1366) {
-        setTickLength(3);
+        setTickLength(4);
       } else {
         setTickLength(4); 
       }
@@ -58,7 +46,7 @@ export default function StatistiqueBarChart({title, chartData, statiStiqueConfig
       <div className="flex justify-between w-full items-center flex-wrap px-6 py-5">
         <div>
           <h2 className="text-[#212B36] font-bold ">{title}</h2>
-          <p className="text-[#637381] text-[14px]"><span className={`text-[${colorPercent}]`}>{percentVal}</span> que l'annees dernier</p>
+          {description}
         </div>
         <div className="flex justify-between items-center w-[150px]">
           <ButtonFilter handleFilter={handleFilterBarChange} listFilter={filter} />
@@ -103,7 +91,6 @@ export default function StatistiqueBarChart({title, chartData, statiStiqueConfig
                 />
                 <Area 
                   type="monotone"
-                  data={dataUpdate}
                   dataKey="currentValue"
                   stroke={currentValue.color}
                   strokeWidth={3}

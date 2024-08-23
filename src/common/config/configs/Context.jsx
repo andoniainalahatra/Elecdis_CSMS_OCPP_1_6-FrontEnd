@@ -9,7 +9,7 @@ export const ContextProvider = ({ children }) => {
     const [nav, setNav] = useState(false);
     const openNav = () => setNav(true);
     const closeNav = () => setNav(false);
-    const [filterBar, setFilterBar] = useState(null)
+    const [filterBar, setFilterBar] = useState("Mensuel")
 
     const handleFilterBarChange = (filterValue) => {
         setFilterBar(filterValue)
