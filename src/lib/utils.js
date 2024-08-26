@@ -14,9 +14,8 @@ export function cn(...inputs) {
  * @returns {number} - arrondissement de valeur du pourcentage en deux chiffre
  */
 export const calculPercentage = (newValue, oldValue) => {
-  return Math.round((newValue * 100) / oldValue, 2);
+  return Math.round(((newValue * 100) / oldValue) * 100) / 100;
 }
-
 /**
  * Function that orders all data by the 12 months of a given year.
  * The data should have a `timestamp` property.
