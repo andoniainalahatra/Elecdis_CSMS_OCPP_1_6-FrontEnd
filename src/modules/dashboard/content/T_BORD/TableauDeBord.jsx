@@ -62,7 +62,7 @@ const TableauDeBord = () => {
       setStatistiqueData(comparisonData)
       setPercentData();
     }
-  }, [filterBar, filterYear]);
+  }, [filterBar, filterYear, semestredata, trimestreData]);
   const { percentVal , colorPercent } = usePercent(percentData)
   const [litleDescri, setlitleDescri] = useState(null);
   useEffect(() => {
