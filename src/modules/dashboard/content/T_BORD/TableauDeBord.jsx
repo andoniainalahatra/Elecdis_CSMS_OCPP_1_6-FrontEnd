@@ -9,31 +9,32 @@ import DonuteChart from "./components/DonuteChart";
 import StatistiqueBarChart from "./components/StatistiqueBarChart";
 import { useContext, useEffect, useState } from "react";
 import { Context } from "@/common/config/configs/Context";
-import { dateSimulation } from "@/_mock/DataForSimulateDate";
+import { dataForBox, dataForDonute, dateSimulation } from "@/_mock/DataForSimulateDate";
 import { compareData, getDataByMonth, getDataBySemestre, getDataByTrimestre, getDataByYear } from "@/lib/utils";
 import { usePercent } from "@/lib/hooks";
-import { FILTER } from "@/_mock/constant";
 import { YEARLABEL } from "@/_mock/constant";
+import { DONUTECHARTCONFIG } from "./config/DonutChartConfig";
+import { STATISTIQUECONF } from "./config/StatistiqueConfig";
 
 const TableauDeBord = () => {
-  const statiStiqueConfig = {
-    oldvalue: {
-      label: "Statistique ancien",
-      color: "#F29F05"
-    },
-    currentValue: {
-      label: "Statistique actuel",
-      color: "#3D9DF2"
-    },
-    barconfig: {
-      label: "Valeur exacte actuelle",
-      color: "#F2505D"
-    }
-  };
+
+  const { filters, filterYear } = useContext(Context);
+
+  const chargeurData = dataForDonute;
   const data = dateSimulation;
-  const { filterBar, filterYear } = useContext(Context);
-  console.log(filterYear);
-  
+  const boxData = dataForBox;
+  const [energyDeliveryValue, setEnergyDeliveryValue] = useState(0);
+
+  useEffect(() => {
+    const energyDeliveryByFilter = boxData.energyDelivered.find(data => data.period === filters.energyDelivery);
+    if (energyDeliveryByFilter) {
+      setEnergyDeliveryValue(energyDeliveryByFilter.energy_kWh);
+    } else {
+        setEnergyDeliveryValue(0); 
+    }
+  }, [filters.energyDelivery])
+
+
   const currentData = getDataByMonth(data, 2024);
   const oldData = getDataByMonth(data, 2022);
   const comparisonData = compareData(currentData, oldData);
@@ -42,32 +43,36 @@ const TableauDeBord = () => {
   const yearlyData = getDataByYear(data);
   const [statistiqueData, setStatistiqueData] = useState(comparisonData);
   const [percentData, setPercentData] = useState(comparisonData);
+
   useEffect(() => {
     if(filterYear){
       setTrimestreData(getDataByTrimestre(data, Number(filterYear)));
       setSemestreData(getDataBySemestre(data, Number(filterYear)))
     }
-  }, [filterYear, filterBar])
+  }, [filterYear, filters]);
+
   useEffect(() => {
-    if (filterBar === "Annuel") {
+    if (filters.bar === "Annuel") {
       setStatistiqueData(yearlyData)
       setPercentData();
-    }else if (filterBar === "Trimestriel"){
+    }else if (filters.bar === "Trimestriel"){
       setStatistiqueData(trimestreData)
       setPercentData();
-    }else if (filterBar === "Semestriel"){
+    }else if (filters.bar === "Semestriel"){
       setStatistiqueData(semestredata)
       setPercentData();
     }  else {
       setStatistiqueData(comparisonData)
       setPercentData();
     }
-  }, [filterBar, filterYear, semestredata, trimestreData]);
+  }, [filters, filterYear, semestredata, trimestreData]);
+
   const { percentVal , colorPercent } = usePercent(percentData)
   const [litleDescri, setlitleDescri] = useState(null);
+
   useEffect(() => {
     if (colorPercent && percentVal) {
-      if(filterBar === "Annuel" || filterBar === "Mensuel"){
+      if(filters.bar === "Annuel" || filters.bar === "Mensuel"){
         setlitleDescri(
           <p className="text-[#637381] text-[14px]">
             <span className={`text-[${colorPercent}]`}>{percentVal}</span> que l'annee derniere
@@ -75,31 +80,7 @@ const TableauDeBord = () => {
         );
       }
     }
-  }, [colorPercent, percentVal, filterBar]);
-
-  const chargeurData = [
-    { status: "chargin", value: 75, fill: "var(--color-chargin)" },
-    { status: "available", value: 200, fill: "var(--color-available)" },
-    { status: "unavailable", value: 28, fill: "var(--color-unavailable)" },
-  ];
-  
-  const donuteConfig = {
-    chargin: {
-      label: "En cours d'utilisation",
-      color: "#3D9DF2",
-    },
-    available: {
-      label: "Disponible",
-      color: "#83838d",
-    },
-    unavailable: {
-      label: "Hors service",
-      color: "#F2505D",
-    }
-  };
-  
-
-
+  }, [colorPercent, percentVal, filters]);
   return (
     <div className="w-full h-auto p-6">
       <h2 className="text-[#212B36] text-xl mb-6">Accueil/Tableau de bord</h2>
@@ -110,15 +91,15 @@ const TableauDeBord = () => {
           FirstIcone={BsFillEvStationFill}
           SecondIcone={FaUser}
           color="#3D9DF2"
-          filter="mensuel"
+          filter="nombreSession"
         />
         <Box
           Title="Total énergie délivrée"
-          Value="40 kWh"
+          Value={energyDeliveryValue}
           FirstIcone={BsFillEvStationFill}
           SecondIcone={TbWorldShare}
           color="#0F3F69"
-          filter="mensuel"
+          filter="energyDelivery"
         />
         <Box
           Title="Revenus totaux"
@@ -126,7 +107,7 @@ const TableauDeBord = () => {
           FirstIcone={BsFillEvStationFill}
           SecondIcone={GiReceiveMoney}
           color="#842F86"
-          filter="mensuel"
+          filter="revenu"
         />
         <Box
           Title="Défaillance et perte de connexion"
@@ -150,13 +131,13 @@ const TableauDeBord = () => {
           FirstIcone={FaUser}
           SecondIcone={FaUser}
           color="#26BF78"
-          filter="mensuel"
+          filter="newClient"
         />
       </div>
       <div className="grid max-sm:grid-cols-1 max-sm:place-items-center grid-cols-3 gap-6 w-full my-5">
         <div className="col-span-1 max-sm:w-full h-full">
           <DonuteChart 
-            chartConfig={donuteConfig} 
+            chartConfig={DONUTECHARTCONFIG} 
             chartData={chargeurData} 
             title="Statut des chargeurs" 
             label="Chargeurs" 
@@ -165,11 +146,10 @@ const TableauDeBord = () => {
         </div>
         <div className="col-span-2 max-sm:w-full">
         <StatistiqueBarChart 
-        chartData={statistiqueData} // Utilisation de statistiqueData qui est mis à jour dans useEffect
-        statiStiqueConfig={statiStiqueConfig} 
+        chartData={statistiqueData}
+        statiStiqueConfig={STATISTIQUECONF} 
         description={litleDescri}
-        filter={FILTER}
-        filterYearly ={YEARLABEL}
+        listFilterYearly ={YEARLABEL}
         title="Énergie délivrée par kWh" 
         />
         </div>

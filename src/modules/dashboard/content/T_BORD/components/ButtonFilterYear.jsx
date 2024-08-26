@@ -1,8 +1,10 @@
+
 import { Context } from '@/common/config/configs/Context';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useContext } from 'react';
 import { IoIosArrowDown } from 'react-icons/io';
 
-export default function ButtonFilterYear({ listFilter, handleFilter }) {
+export default function ButtonFilterYear({ listFilter }) {
+  const { handleFilterYear } = useContext(Context)
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState("Année");
   const dropdownRef = useRef(null);
@@ -12,7 +14,7 @@ export default function ButtonFilterYear({ listFilter, handleFilter }) {
   };
 
   const handleSelect = (option) => {
-    handleFilter(option)
+    handleFilterYear(option)
     setSelected(option);
     setIsOpen(false);
   };

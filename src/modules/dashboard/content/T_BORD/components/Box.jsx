@@ -1,7 +1,7 @@
 import React from 'react'
 import ButtonFilter from './ButtonFilter'
 import { IoIosArrowRoundUp } from 'react-icons/io'
-const listFilter = ["journalier", "mensuel", "trimestriel", "semestriel", "annuel"]
+import { BOXFILTER } from '@/_mock/constant'
 
 export default function Box({Title, Value, FirstIcone, SecondIcone, color, filter}) {
   return (
@@ -16,9 +16,11 @@ export default function Box({Title, Value, FirstIcone, SecondIcone, color, filte
   
   <div className="w-[60%] flex flex-col gap-2">
     <div className="w-full flex justify-between items-center">
-      <p className='font-bold text-[4vw] sm:text-[2vw] md:text-[1.5vw] lg:text-[1vw] xl:text-[20px] text-[#212B36]'>{Value}</p>
+      <p className='font-bold text-[4vw] sm:text-[2vw] md:text-[1.5vw] lg:text-[1vw] xl:text-[20px] text-[#212B36]'>{
+      filter === "energyDelivery" ? Value + " kWh" : Value
+      }</p>
       {filter && (
-        <ButtonFilter filter={filter} listFilter={listFilter} />
+        <ButtonFilter filter={filter} listFilter={BOXFILTER} />
       )}
     </div>
     <p className='text-[3vw] sm:text-[2vw] md:text-[1.5vw] lg:text-[1vw] xl:text-[14px] font-bold text-[#919EAB]'>{Title}</p>
