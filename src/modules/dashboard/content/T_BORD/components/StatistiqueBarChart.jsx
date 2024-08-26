@@ -6,6 +6,7 @@ import { useContext, useEffect, useState } from "react";
 import ButtonFilter from "./ButtonFilter";
 import { Context } from "@/common/config/configs/Context";
 import ButtonFilterYear from "./ButtonFilterYear";
+import { FILTER } from "@/_mock/constant";
 /**
  * Composant 'StatistiqueBarChart'
  * @param {string} title - titre de la graphique
@@ -15,8 +16,7 @@ import ButtonFilterYear from "./ButtonFilterYear";
  * @returns {JSX.Element} - return un tableau graphique contenant une courbe pour montrer la nouvelle valeur et une courbe pour montrer l'ancien valeur et un BarChart pour montrer la valeur exact de la nouvelle valeur
  */
 
-export default function StatistiqueBarChart({title, chartData,description,filter, filterYearly, statiStiqueConfig}) {
-  const { handleFilterBarChange, handleFilterYear } = useContext(Context)  
+export default function StatistiqueBarChart({title, chartData, description, listFilterYearly, statiStiqueConfig}) {
   const { oldvalue, currentValue, barconfig } = statiStiqueConfig  
   
   const [tickLength, setTickLength] = useState(3);
@@ -49,8 +49,8 @@ export default function StatistiqueBarChart({title, chartData,description,filter
           {description}
         </div>
         <div className="flex justify-between items-center w-[230px]">
-          <ButtonFilterYear handleFilter={handleFilterYear} listFilter={filterYearly} />
-          <ButtonFilter handleFilter={handleFilterBarChange} listFilter={filter} />
+          <ButtonFilterYear listFilter={listFilterYearly} />
+          <ButtonFilter filter="bar" listFilter={FILTER} />
           <Calendar />
         </div>
       </div>

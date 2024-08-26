@@ -1,59 +1,43 @@
 /* eslint-disable default-case */
 
-import { useState, createContext } from "react";
+import { useState, createContext, useCallback } from "react";
 
 export const Context = createContext();
 const currentYear = new Date().getFullYear();
 
 export const ContextProvider = ({ children }) => {
-    const [isActive, setActive] = useState('');
+    const [isActive, setIsActive] = useState('');
     const [nav, setNav] = useState(false);
-    const openNav = () => setNav(true);
-    const closeNav = () => setNav(false);
-    const [filterBar, setFilterBar] = useState("Mensuel")
+    const [filterYear, setFilterYear] = useState(currentYear);
+    const [filters, setFilters] = useState({
+        bar: "Mensuel",
+        nombreSession: "journalier",
+        energyDelivery: "journalier",
+        revenu: "journalier",
+        newClient: "journalier",
+    });
 
-    const [filterYear, setFilterYear] = useState(currentYear)
+    const openNav = useCallback(() => setNav(true), []);
+    const closeNav = useCallback(() => setNav(false), []);
+    
+    const handleFilterChange = useCallback((filterName, filterValue) => {
+        setFilters((prevFilters) => ({
+            ...prevFilters,
+            [filterName]: filterValue,
+        }));
+    }, []);
 
-    const handleFilterYear = (filterValue) => {
-        setFilterYear(filterValue)
-    }
-
-    const handleFilterBarChange = (filterValue) => {
-        setFilterBar(filterValue)
-    }
-
-    const [filterNombreSession, setFilterNombreSession] = useState(null)
-
-    const handleFilterNombreSessionChange = (filterValue) => {
-        setFilterNombreSession(filterValue)
-    }
-    const [filterEneryDelivery, setFilterEneryDelivery] = useState(null)
-
-    const handleFilterEneryDeliveryChange = (filterValue) => {
-        setFilterEneryDelivery(filterValue)
-    }
-    const [filterRevenu, setFilterRevenu] = useState(null)
-
-    const handleFilterRevenuChange = (filterValue) => {
-        setFilterRevenu(filterValue)
-    }
-    const [filterNewClient, setFilterNewClient] = useState(null)
-
-    const handleFilterNewClientChange = (filterValue) => {
-        setFilterNewClient(filterValue)
-    }
+    const handleFilterYear = useCallback((filterValue) => {
+        setFilterYear(filterValue);
+    }, []);
 
     return (
         <Context.Provider
             value={{
-                isActive, setActive,
-                openNav, closeNav, nav, 
-                filterBar, handleFilterBarChange,
-                filterEneryDelivery, handleFilterEneryDeliveryChange,
-                filterNewClient, handleFilterNewClientChange,
-                filterRevenu, handleFilterRevenuChange,
-                filterNombreSession, handleFilterNombreSessionChange,
-                filterYear, handleFilterYear
+                isActive, setIsActive,
+                openNav, closeNav, nav,
+                filterYear, handleFilterYear,
+                filters, handleFilterChange,
             }}
         >
             {children}

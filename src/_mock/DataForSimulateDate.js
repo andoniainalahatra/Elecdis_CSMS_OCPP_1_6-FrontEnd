@@ -190,3 +190,73 @@ export const dateSimulation = [
     {"timestamp": "2024-06-07T07:00:00Z", "value": 250},
     {"timestamp": "2024-06-15T11:15:00Z", "value": 260},
 ]
+
+
+export const dataForBox = {
+    "energyDelivered": [
+      {
+        "period": "journalier",
+        "date": "2024-08-25",
+        "energy_kWh": 40,
+        "sessions": 4
+      },
+      {
+        "period": "mensuel",
+        "month": "2024-08",
+        "energy_kWh": 1200,
+        "sessions": 120
+      },
+      {
+        "period": "trimestriel",
+        "quarter": "Q3-2024",
+        "energy_kWh": 3500,
+        "sessions": 350
+      },
+      {
+        "period": "semestriel",
+        "semester": "S2-2024",
+        "energy_kWh": 7000,
+        "sessions": 700
+      },
+      {
+        "period": "annuel",
+        "year": "2024",
+        "energy_kWh": 14000,
+        "sessions": 1400
+      }
+    ],
+    "chargingPoints": [
+      {
+        "id": "CP-01",
+        "location": "Station A",
+        "status": "Available",
+        "lastSession": {
+          "startTime": "2024-08-25T08:00:00Z",
+          "endTime": "2024-08-25T09:00:00Z",
+          "energy_kWh": 10
+        }
+      },
+      {
+        "id": "CP-02",
+        "location": "Station B",
+        "status": "Charging",
+        "lastSession": {
+          "startTime": "2024-08-25T10:00:00Z",
+          "endTime": "2024-08-25T11:00:00Z",
+          "energy_kWh": 15
+        }
+      }
+    ],
+    "totalEnergyDelivered_kWh": 14000,
+    "totalSessions": 1400,
+    "averageEnergyPerSession_kWh": 10,
+    "totalChargingPoints": 2
+  }
+
+
+export const dataForDonute = [
+  { status: "chargin", value: 75, fill: "var(--color-chargin)" },
+  { status: "available", value: 200, fill: "var(--color-available)" },
+  { status: "unavailable", value: 28, fill: "var(--color-unavailable)" },
+];
+  
