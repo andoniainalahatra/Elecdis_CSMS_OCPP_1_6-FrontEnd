@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react'
 import { BsFillEvStationFill } from "react-icons/bs";
 import { TbWorldShare } from "react-icons/tb";
 import { FaUser } from "react-icons/fa";
-import Box from "./components/Box";
+import Box from "./Box";
 import { CgUnavailable } from "react-icons/cg";
 import { TbRecharging } from "react-icons/tb";
 import { GiReceiveMoney } from "react-icons/gi";
@@ -23,7 +23,7 @@ export default function BoxSection() {
     }
   }, [filters.energyDelivery])
 
-  const { percentVal , colorPercent } = usePercent(percentData);
+  const { percentVal , colorPercent } = usePercent(0);
   const [litleDescri, setlitleDescri] = useState(null);
 
   useEffect(() => {

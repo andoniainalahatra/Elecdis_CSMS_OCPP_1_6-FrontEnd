@@ -20,8 +20,6 @@ import { FaArrowDownLong, FaArrowUpLong } from "react-icons/fa6";
  * console.log(colorPercent); // "#36E73D"
  */
 
- 
-
 export const usePercent = (chartData) => {
     const [colorPercent, setColorPercent] = useState("");
     const [percentVal, setPercentVal] = useState('');
