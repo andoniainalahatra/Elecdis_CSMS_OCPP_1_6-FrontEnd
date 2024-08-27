@@ -6,8 +6,14 @@ export const Context = createContext();
 const currentYear = new Date().getFullYear();
 
 export const ContextProvider = ({ children }) => {
-    const [isActive, setIsActive] = useState('');
+    const [isActive, setActive] = useState('');
     const [nav, setNav] = useState(false);
+    const openNav = () => setNav(true);
+    const closeNav = () => setNav(false);
+
+
+
+
     const [filterYear, setFilterYear] = useState(currentYear);
     const [filters, setFilters] = useState({
         bar: "Mensuel",
@@ -17,9 +23,8 @@ export const ContextProvider = ({ children }) => {
         newClient: "journalier",
     });
 
-    const openNav = useCallback(() => setNav(true), []);
-    const closeNav = useCallback(() => setNav(false), []);
-    
+
+
     const handleFilterChange = useCallback((filterName, filterValue) => {
         setFilters((prevFilters) => ({
             ...prevFilters,
@@ -34,7 +39,7 @@ export const ContextProvider = ({ children }) => {
     return (
         <Context.Provider
             value={{
-                isActive, setIsActive,
+                isActive, setActive,
                 openNav, closeNav, nav,
                 filterYear, handleFilterYear,
                 filters, handleFilterChange,
