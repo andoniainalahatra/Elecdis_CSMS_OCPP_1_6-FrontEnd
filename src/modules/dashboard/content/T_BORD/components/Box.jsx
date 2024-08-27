@@ -2,8 +2,9 @@ import React from 'react'
 import ButtonFilter from './ButtonFilter'
 import { IoIosArrowRoundUp } from 'react-icons/io'
 import { BOXFILTER } from '@/_mock/constant'
+import { usePercent } from '@/lib/hooks'
 
-export default function Box({Title, Value, FirstIcone, SecondIcone, color, filter}) {
+export default function Box({Title, Value, FirstIcone, SecondIcone, color, filter,  litleStatistique}) {
   return (
 <div className="relative rounded-2xl px-[10pxw] py-[2vw] shadow-combined bg-[#ffffff] flex justify-center items-start gap-[2vw] ">
   <div className="w-[20%] flex justify-center mt-[1vw] items-center relative">
@@ -26,10 +27,7 @@ export default function Box({Title, Value, FirstIcone, SecondIcone, color, filte
     <p className='text-[3vw] sm:text-[2vw] md:text-[1.5vw] lg:text-[1vw] xl:text-[14px] font-bold text-[#919EAB]'>{Title}</p>
     {filter && (
       <div className="w-full flex justify-start items-start">
-        <IoIosArrowRoundUp className='text-[4vw] sm:text-[2.5vw] md:text-[2vw] lg:text-[1.5vw] xl:text-[1.5vw] text-[#36E73D]' />
-        <p className='text-[#9D9D9D] text-[3vw] sm:text-[2vw] md:text-[1.5vw] lg:text-[1vw] xl:text-[14px]'>
-          <span className='text-[#36E73D]'>15%</span> que l&apos;année dernière
-        </p>
+        {litleStatistique}
       </div>
     )}
   </div>
