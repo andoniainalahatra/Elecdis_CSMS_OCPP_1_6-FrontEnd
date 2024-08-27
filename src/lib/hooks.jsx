@@ -30,7 +30,7 @@ export const usePercent = (chartData) => {
             const valuePercent = calculPercentage(sumCurrent, sumOld);
             if (sumCurrent > sumOld) {
                 setColorPercent("#36E73D");
-                setPercentVal(<div className="flex =items-center justify-center" ><FaArrowUpLong />{valuePercent}%</div>);
+                setPercentVal(<div className="flex items-center justify-center" ><FaArrowUpLong />{valuePercent}%</div>);
             } else {
                 setColorPercent("#F2505D");
                 setPercentVal(<div className="flex items-center justify-center" ><FaArrowDownLong />{valuePercent}%</div>);
