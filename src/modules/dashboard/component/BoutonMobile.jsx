@@ -9,7 +9,7 @@ const BoutonMobile = ({ IconButton, label, setSection, namePage }) => {
     return (
         <button className={isActive === namePage ? (css + 'text-[#F2505D] nav-link-mobile ') : (css)}
             onClick={() => {
-                setSection(namePage); x
+                setSection(namePage);
                 setActive(namePage);
                 closeNav();
 
