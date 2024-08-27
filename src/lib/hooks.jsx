@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { calculPercentage } from "./utils";
+import { FaArrowDownLong, FaArrowUpLong } from "react-icons/fa6";
 
 /**
  * Hook personnalisé pour calculer et retourner le pourcentage de changement 
@@ -19,24 +20,26 @@ import { calculPercentage } from "./utils";
  * console.log(colorPercent); // "#36E73D"
  */
 
+ 
+
 export const usePercent = (chartData) => {
-    const [colorPercent, setColorPercent] = useState("")
-    const [percentVal, setPercentVal] = useState('')
+    const [colorPercent, setColorPercent] = useState("");
+    const [percentVal, setPercentVal] = useState('');
     useMemo(() => {
         if(chartData){
-        const sumCurrent = chartData.reduce((sum, data) => sum + data.currentValue, 0);
-        const sumOld = chartData.reduce((sum, data) => sum + data.oldValue, 0);
-        const valuePercent =  calculPercentage(sumCurrent, sumOld);
-        if (sumCurrent > sumOld) {
-          setColorPercent("#36E73D")
-          setPercentVal(`+${valuePercent}%`);
+            const sumCurrent = chartData.reduce((sum, data) => sum + data.currentValue, 0);
+            const sumOld = chartData.reduce((sum, data) => sum + data.oldValue, 0);
+            const valuePercent = calculPercentage(sumCurrent, sumOld);
+            if (sumCurrent > sumOld) {
+                setColorPercent("#36E73D");
+                setPercentVal(<div className="flex =items-center justify-center" ><FaArrowUpLong />{valuePercent}%</div>);
+            } else {
+                setColorPercent("#F2505D");
+                setPercentVal(<div className="flex items-center justify-center" ><FaArrowDownLong />{valuePercent}%</div>);
+            }
         }
-        else{
-          setColorPercent("#F2505D")
-          setPercentVal(`-${valuePercent}% `);
-        }
-        }
-    
-      }, [chartData]);
-      return { percentVal, colorPercent };
-}
+    }, [chartData]);
+
+    return { percentVal, colorPercent };
+};
+  

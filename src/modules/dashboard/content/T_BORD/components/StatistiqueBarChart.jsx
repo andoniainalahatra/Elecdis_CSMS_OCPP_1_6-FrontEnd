@@ -1,10 +1,8 @@
 import { Bar, CartesianGrid, ComposedChart, Line, XAxis, YAxis, Tooltip, Area, ResponsiveContainer } from "recharts";
 import { CardContent } from "@/components/ui/card";
-import { Calendar } from "lucide-react";
 import ColorChartInformation from "@/components/ColorChartInformation";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ButtonFilter from "./ButtonFilter";
-import { Context } from "@/common/config/configs/Context";
 import ButtonFilterYear from "./ButtonFilterYear";
 import { FILTER } from "@/_mock/constant";
 /**
@@ -18,7 +16,6 @@ import { FILTER } from "@/_mock/constant";
 
 export default function StatistiqueBarChart({title, chartData, description, listFilterYearly, statiStiqueConfig}) {
   const { oldvalue, currentValue, barconfig } = statiStiqueConfig  
-  
   const [tickLength, setTickLength] = useState(3);
   useEffect(() => {
     const updateTickLength = () => {
@@ -48,10 +45,9 @@ export default function StatistiqueBarChart({title, chartData, description, list
           <h2 className="text-[#212B36] font-bold ">{title}</h2>
           {description}
         </div>
-        <div className="flex justify-between items-center w-[230px]">
-          <ButtonFilterYear listFilter={listFilterYearly} />
+        <div className="flex justify-between items-center gap-2 ">
           <ButtonFilter filter="bar" listFilter={FILTER} />
-          <Calendar />
+          <ButtonFilterYear listFilter={listFilterYearly} />
         </div>
       </div>
       <ColorChartInformation config={statiStiqueConfig} padding="0" position="center" className="pl-6 pb-6 pr-7"/>
