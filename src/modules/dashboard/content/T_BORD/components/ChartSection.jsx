@@ -52,7 +52,7 @@ export default function ChartSection() {
       if (colorPercent && percentVal) {
         if(filters.bar === "Annuel" || filters.bar === "Mensuel"){
           setlitleDescri(
-            <div className="w-full flex items-center gap-1 text-[14px] text-[#637381]">
+            <div className="w-full flex tems-center gap-1 text-[14px] text-[#637381]">
                 <span className={`text-[${colorPercent}]`}>{percentVal}</span> que l'annee derniere
             </div>
           );
