@@ -1,5 +1,6 @@
 import React from 'react'
 import BoutonAdd from '../../component/BoutonAdd'
+import Page from '@/modules/Station/Page';
 
 const Reservation = () => {
     const handleClick = () => alert("hello");
@@ -9,6 +10,7 @@ const Reservation = () => {
                 <span className=' text-[24px] text-[#212B36]'>Réservations</span>
                 <BoutonAdd action={handleClick} />
             </div>
+            <Page />
         </div>
     )
 }
