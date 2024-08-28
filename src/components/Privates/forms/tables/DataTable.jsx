@@ -19,12 +19,16 @@ import { Badge } from "@/components/ui/badge"
 
 import Filters from "@/components/Privates/forms/tables/Filters.jsx";
 import ButtonAction from "@/components/Privates/forms/tables/ButtonAction.jsx";
+import { MdOutlineFirstPage } from "react-icons/md";
+import { MdOutlineLastPage } from "react-icons/md";
+import { MdNavigateNext } from "react-icons/md";
+import { GrFormPrevious } from "react-icons/gr";
 
 function DataTable({ columns, datas, actions }) {
+
   const [data, setData] = useState(datas);
   const [globalFilter, setGlobalFilter] = useState("");
   const red = "bg-red-100 text-red-800 hover:bg-red-100 cursor-pointer";
-
   const green = "bg-green-100 text-green-800 hover:bg-green-100 cursor-pointer";
   const yellow = "bg-yellow-100 text-yellow-800 hover:bg-yellow-100 cursor-pointer";
   const defaultColor = "bg-gray-100 text-gray-800 hover:bg-gray-100 cursor-pointer";
@@ -66,27 +70,32 @@ function DataTable({ columns, datas, actions }) {
       customFilter: customFilterFn,
     },
   });
+  const pageIndex = table.getState().pagination.pageIndex;
+  const pageSize = table.getState().pagination.pageSize;
+  const totalPages = table.getPageCount();
+  const rowCount = table.getFilteredRowModel().rows.length;
+
 
   return (
-    <div className=" py-6  shadow-combined rounded-lg overflow-x-auto bg-[#fffe]">
-      <Filters value={globalFilter} onChange={setGlobalFilter} />
-      <Table className="text-center bg-[#fffe]">
-        <TableHeader className="bg-[#F4F6F8] text-center">
-          {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id}>
-              {headerGroup.headers.map((header) => (
-                <TableHead key={header.id} className="text-center">
-                  {flexRender(header.column.columnDef.header, header.getContext())}
-                </TableHead>
-              ))}
-            </TableRow>
-          ))}
-        </TableHeader>
+      <div className=" py-6  shadow-combined rounded-lg overflow-x-auto bg-[#fffe]">
+        <Filters value={globalFilter} onChange={setGlobalFilter}/>
+        <Table className="text-center bg-[#fffe]">
+          <TableHeader className="bg-[#F4F6F8] text-center">
+            {table.getHeaderGroups().map((headerGroup) => (
+                <TableRow key={headerGroup.id}>
+                  {headerGroup.headers.map((header) => (
+                      <TableHead key={header.id} className="text-center">
+                        {flexRender(header.column.columnDef.header, header.getContext())}
+                      </TableHead>
+                  ))}
+                </TableRow>
+            ))}
+          </TableHeader>
 
-        <TableBody>
-          {table.getRowModel().rows.map((row) => (
-            <TableRow key={row.id}>
-              {/* {row.getVisibleCells().map((cell) => (
+          <TableBody>
+            {table.getRowModel().rows.map((row) => (
+                <TableRow key={row.id}>
+                  {/* {row.getVisibleCells().map((cell) => (
                 
               //  cell.column.columnDef.cell.getContext()?
                 <TableCell key={cell.id} >
@@ -94,101 +103,106 @@ function DataTable({ columns, datas, actions }) {
                 </TableCell>
               ))} */}
 
-              {row.getVisibleCells().map((cell) => {
-                const cellValue = cell.getValue();
-                let cellClass = "";
+                  {row.getVisibleCells().map((cell) => {
+                        const cellValue = cell.getValue();
+                        let cellClass = "";
 
-                    if (cell.column.columnDef.header === "Actions") {
-                      return (
-                          <TableCell key={cell.id} className="text-center">
-                           <ButtonAction buttonProperty={actions}/>
-                          </TableCell>
-                      );
-                    }
+                        if (cell.column.columnDef.header === "Actions") {
+                          return (
+                              <TableCell key={cell.id} className="text-center">
+                                <ButtonAction buttonProperty={actions}/>
+                              </TableCell>
+                          );
+                        }
 
-                if (cell.column.id === "status" ||
-                  cell.column.id === "connector1" ||
-                  cell.column.id === "connector2" ||
-                  cell.column.id === "heartBeat") {
-                  switch (cellValue) {
-                    case "active":
-                      cellClass = green;
-                      break;
-                    case "inactive":
-                      cellClass = red;
-                      break;
-                    case "maintenance":
-                      cellClass = yellow;
-                      break;
-                    case "ON":
-                      cellClass = green;
-                      break;
-                    case "OFF":
-                      cellClass = red;
-                      break;
-                    case "Disponible":
-                      cellClass = green;
-                      break;
-                    case "Hors service":
-                      cellClass = red;
-                      break;
-                    case "Occupe":
-                      cellClass = yellow;
-                      break;
-                    default:
-                      cellClass = defaultColor;
-                  }
-                  return (
-                    <TableCell key={cell.id} className="text-center">
-                      <Badge className={cellClass}>{cellValue}</Badge>
-                    </TableCell>
-                  );
-                }
+                        if (cell.column.id === "status" ||
+                            cell.column.id === "connector1" ||
+                            cell.column.id === "connector2" ||
+                            cell.column.id === "heartBeat") {
+                          switch (cellValue) {
+                            case "active":
+                              cellClass = green;
+                              break;
+                            case "inactive":
+                              cellClass = red;
+                              break;
+                            case "maintenance":
+                              cellClass = yellow;
+                              break;
+                            case "ON":
+                              cellClass = green;
+                              break;
+                            case "OFF":
+                              cellClass = red;
+                              break;
+                            case "Disponible":
+                              cellClass = green;
+                              break;
+                            case "Hors service":
+                              cellClass = red;
+                              break;
+                            case "Occupe":
+                              cellClass = yellow;
+                              break;
+                            default:
+                              cellClass = defaultColor;
+                          }
+                          return (
+                              <TableCell key={cell.id} className="text-center">
+                                <Badge className={cellClass}>{cellValue}</Badge>
+                              </TableCell>
+                          );
+                        }
 
-                return (
-                  <TableCell key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </TableCell>
-                );
-              }
-              )}
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-      <div className="m-3 p-2 flex gap-2 max-md:flex-col">
-        <Button
-          type="button"
-          onClick={() => table.setPageIndex(0)}
-          className="bg-blue-500 text-white hover:bg-blue-600"
-        >
-          Première page
-        </Button>
-        <Button
-          type="button"
-          disabled={!table.getCanPreviousPage()}
-          onClick={() => table.previousPage()}
-          className="bg-blue-500 text-white hover:bg-blue-600"
-        >
-          Page précédente
-        </Button>
-        <Button
-          type="button"
-          disabled={!table.getCanNextPage()}
-          onClick={() => table.nextPage()}
-          className="bg-blue-500 text-white hover:bg-blue-600"
-        >
-          Page suivante
-        </Button>
-        <Button
-          type="button"
-          onClick={() => table.setPageIndex(table.getPageCount() - 1)}
-          className="bg-blue-500 text-white hover:bg-blue-600"
-        >
-          Dernière page
-        </Button>
+                        return (
+                            <TableCell key={cell.id}>
+                              {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                            </TableCell>
+                        );
+                      }
+                  )}
+                </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+        <div className="m-3 p-2 flex max-md:flex-col items-center gap-4 max-md:justify-center justify-between">
+          <span className="text-sm text-[#64748b] ">
+            Page {pageIndex + 1} sur {totalPages}, affichage de {pageSize} resultats sur un total de {rowCount}
+          </span>
+          <div className="flex items-center gap-2 ">
+            <Button
+                type="button"
+                onClick={() => table.setPageIndex(0)}
+                className="bg-transparent text-[#64748b] hover:bg-transparent text-[#64748b]"
+            >
+              <MdOutlineFirstPage size={20}/>
+            </Button>
+            <Button
+                type="button"
+                disabled={!table.getCanPreviousPage()}
+                onClick={() => table.previousPage()}
+                className="bg-transparent text-[#64748b] hover:bg-transparent text-[#64748b]"
+            >
+              <GrFormPrevious size={20}/>
+            </Button>
+            <Button
+                type="button"
+                disabled={!table.getCanNextPage()}
+                onClick={() => table.nextPage()}
+                className="bg-transparent text-[#64748b] hover:bg-transparent text-[#64748b]"
+            >
+              <MdNavigateNext size={20}/>
+            </Button>
+            <Button
+                type="button"
+                onClick={() => table.setPageIndex(table.getPageCount() - 1)}
+                className="bg-transparent text-[#64748b] hover:bg-transparent text-[#64748b]"
+            >
+              <MdOutlineLastPage size={20}/>
+            </Button>
+          </div>
+        </div>
       </div>
-    </div>
   );
 }
 
