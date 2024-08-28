@@ -18,11 +18,13 @@ import {
 import { Badge } from "@/components/ui/badge"
 
 import Filters from "@/components/Privates/forms/tables/Filters.jsx";
+import ButtonAction from "@/components/Privates/forms/tables/ButtonAction.jsx";
 
-function DataTable({ columns, datas }) {
+function DataTable({ columns, datas, actions }) {
   const [data, setData] = useState(datas);
   const [globalFilter, setGlobalFilter] = useState("");
   const red = "bg-red-100 text-red-800 hover:bg-red-100 cursor-pointer";
+
   const green = "bg-green-100 text-green-800 hover:bg-green-100 cursor-pointer";
   const yellow = "bg-yellow-100 text-yellow-800 hover:bg-yellow-100 cursor-pointer";
   const defaultColor = "bg-gray-100 text-gray-800 hover:bg-gray-100 cursor-pointer";
@@ -66,9 +68,9 @@ function DataTable({ columns, datas }) {
   });
 
   return (
-    <div className="rounded-md overflow-x-auto">
+    <div className=" py-6  shadow-combined rounded-lg overflow-x-auto bg-[#fffe]">
       <Filters value={globalFilter} onChange={setGlobalFilter} />
-      <Table className="text-center">
+      <Table className="text-center bg-[#fffe]">
         <TableHeader className="bg-[#F4F6F8] text-center">
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
@@ -93,9 +95,16 @@ function DataTable({ columns, datas }) {
               ))} */}
 
               {row.getVisibleCells().map((cell) => {
-                // Suppose que la colonne "status" contient les valeurs que vous voulez personnaliser
                 const cellValue = cell.getValue();
                 let cellClass = "";
+
+                    if (cell.column.columnDef.header === "Actions") {
+                      return (
+                          <TableCell key={cell.id} className="text-center">
+                           <ButtonAction buttonProperty={actions}/>
+                          </TableCell>
+                      );
+                    }
 
                 if (cell.column.id === "status" ||
                   cell.column.id === "connector1" ||
