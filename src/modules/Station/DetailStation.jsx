@@ -1,13 +1,14 @@
 import React from 'react';
 import {FaRegCheckCircle} from "react-icons/fa";
 import {IoMdAddCircleOutline} from "react-icons/io";
+import ChartSection from "@/modules/dashboard/content/T_BORD/components/ChartSection.jsx";
 
 
 function DetailStation() {
     return (
-        <div className="">
-            <div className="text-[#637381] grid grid-cols-3 max-md:grid-cols-1 p-4 gap-6">
-                <div className="text-[#637381] col-span-1 bg-[#f9fafb] rounded-2xl p-6 w-[50] max-md:mt-[500px]">
+        <div className="h-screen">
+            <div className="text-[#637381] grid grid-cols-3 max-md:grid-cols-1 mb-6 pt-10 gap-6 max-sm:grid-cols-1 max-sm:p-4 max-md:mt-[50px] mt-[50px]">
+                <div className="text-[#637381] col-span-1 bg-[#f9fafb] rounded-2xl p-6 ">
                     <h1 className="text-start font-medium">Stations</h1>
                     <div className="text-start mt-2 grid grid-cols-2 gap-4 ">
                         <div>
@@ -24,7 +25,7 @@ function DetailStation() {
                         </div>
                     </div>
                 </div>
-                <div className="col-span-2 bg-[#f9fafb] rounded-2xl">
+                <div className="col-span-2 bg-[#f9fafb] rounded-2xl max-sm:col-span-1">
                     <div className="grid grid-cols-2 max-md:grid-cols-1 max-md:w-full p-4">
                         <div>
                             <div className="flex justify-center items-start gap-4 ">
@@ -62,7 +63,8 @@ function DetailStation() {
                     </div>
                 </div>
             </div>
-            <div className="text-[#637381] border rounded-2xl max-md:w-full grid grid-cols-3 max-md:grid-cols-1 p-4 gap-6">
+            <div
+                className="text-[#637381] border rounded-2xl max-md:place-items-center grid grid-cols-3 max-sm:grid-cols-1 max-sm:p-4 gap-6">
                 <div className="text-[#fefefe] col-span-1 rounded-2xl p-6 w-[50]">
                     <h1 className="text-start font-medium">Websocket</h1>
                     <div className="text-start mt-2 grid grid-cols-2 gap-4 max-md:gap-6 w-full">
@@ -102,8 +104,9 @@ function DetailStation() {
                     </div>
                 </div>
             </div>
-            <div>
-
+            <div className="text-[#fefefe] col-span-1 rounded-2xl py-6">
+                <h1 className="text-start font-medium">Statistiques</h1>
+                <ChartSection/>
             </div>
         </div>
     );
