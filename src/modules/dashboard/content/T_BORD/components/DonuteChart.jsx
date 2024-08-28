@@ -22,7 +22,7 @@ export default function DonuteChart({chartConfig, chartData, title, label}) {
   },[chartData]
   ) 
   return (
-  <div className="w-full p-5 flex flex-col shadow-combined rounded-xl max-w-full bg-white ">
+  <div className="w-full p-5 flex flex-col shadow-combined rounded-xl max-w-full bg-white max-sm:w-full ">
   <h1 className="text-[#212B36] font-bold ">{title}</h1>
   <div className="pb-0 h-auto w-full">
     <ChartContainer

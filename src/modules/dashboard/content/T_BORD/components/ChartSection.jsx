@@ -45,20 +45,20 @@ export default function ChartSection() {
       }
     }, [filters, filterYear, semestredata, trimestreData]);
   
-    const { percentVal , colorPercent } = usePercent(percentData);
+    const { percentVal } = usePercent(percentData);
     const [litleDescri, setlitleDescri] = useState(null);
   
     useEffect(() => {
-      if (colorPercent && percentVal) {
+      if (percentVal) {
         if(filters.bar === "Annuel" || filters.bar === "Mensuel"){
           setlitleDescri(
-            <div className="w-full flex tems-center gap-1 text-[14px] text-[#637381]">
-                <span className={`text-[${colorPercent}]`}>{percentVal}</span> que l'annee derniere
+            <div className="w-full flex items-center gap-1 text-[14px] text-[#637381]">
+               {percentVal} que l'année dernière
             </div>
           );
         }
       }
-    }, [colorPercent, percentVal, filters]);
+    }, [filters]);
   return (
     <div className="grid max-sm:grid-cols-1 max-sm:place-items-center grid-cols-3 gap-6 w-full my-5">
         <div className="col-span-1 max-sm:w-full h-full">
@@ -70,7 +70,7 @@ export default function ChartSection() {
             className="w-full p-5 flex flex-col shadow-combined rounded-xl bg-pink-300 h-full"
           />
         </div>
-        <div className="col-span-2 max-sm:w-full">
+        <div className="col-span-2 max-sm:w-full max-sm:col-span-1">
         <StatistiqueBarChart 
         chartData={statistiqueData}
         statiStiqueConfig={STATISTIQUECONF} 

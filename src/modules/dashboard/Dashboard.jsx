@@ -26,6 +26,41 @@ import RenitialiserMotDePasse from './content/AUTHENTIFICATIONS/RenitialiserMotD
 
 const Dashboard = () => {
     const [currentSection, setSection] = useState('TableauDeBord');
+    // const [search, setOnsearch] = useState('');
+    const handleSearch = (query) => {
+        const lowerCaseQuery = query.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    
+        const sections = {
+            "tableaudebord": "TableauDeBord",
+            "autorisation": "Autorisations",
+            "reservation": "Réservations",
+            "sessionrecharge": "sessionRecharge",
+            "transaction": "Transaction",
+            "utilisateur": "Users",
+            "users": "Users",
+            "etiquettesrfid": "EtiquettesRFID",
+            "reçus": "Reçus",
+            "points": "PointsDecharges",
+            "locations": "Locations",
+            "cpnotices": "CpNotices",
+            "cptemplates": "CpTemplates",
+            "partenaires": "Partenaires",
+            "contrats": "Contrats",
+            "groupesdestarifs": "GroupesDestarifs",
+            "tarifs": "Tarifs",
+            "connexion": "Connexion",
+            "inscription": "Inscription",
+            "réinitialisermotdepasse": "RéinitialiserMotDepasse",
+            "mot de pass": "RéinitialiserMotDepasse"
+        };
+    
+        const matchedSection = Object.keys(sections).find(key => lowerCaseQuery.includes(key));
+        if (matchedSection) {
+            setSection(sections[matchedSection]);
+        } else {
+            setSection('TableauDeBord'); // Section par défaut si aucune correspondance
+        }
+    };
     return (
         <div className="overflow-x-hidden bg-[#f8f9f7]">
             <div>
@@ -39,7 +74,7 @@ const Dashboard = () => {
                     </div>
 
                     <div className='w-full relative'>
-                        <BarNav />
+                        <BarNav onSearch={handleSearch} />
                         <div className=' mt-[9vh] m-2 h-[90vh] overflow-auto custom-scrollbar'>
                             {currentSection === "TableauDeBord" && <TableauDeBord />}
                             {/* ACTIVITE */}
