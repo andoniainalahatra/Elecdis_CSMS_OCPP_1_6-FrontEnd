@@ -21,7 +21,6 @@ import { FaArrowDownLong, FaArrowUpLong } from "react-icons/fa6";
  */
 
 export const usePercent = (chartData) => {
-    const [colorPercent, setColorPercent] = useState("");
     const [percentVal, setPercentVal] = useState('');
     useMemo(() => {
         if(chartData){
@@ -29,15 +28,13 @@ export const usePercent = (chartData) => {
             const sumOld = chartData.reduce((sum, data) => sum + data.oldValue, 0);
             const valuePercent = calculPercentage(sumCurrent, sumOld);
             if (sumCurrent > sumOld) {
-                setColorPercent("#36E73D");
-                setPercentVal(<div className="flex items-center justify-center" ><FaArrowUpLong />{valuePercent}%</div>);
+                setPercentVal(<div className="flex items-center justify-center"><FaArrowUpLong color="#36E73D" /><span className="text-[#36E73D]">{valuePercent}%</span></div>);
             } else {
-                setColorPercent("#F2505D");
-                setPercentVal(<div className="flex items-center justify-center" ><FaArrowDownLong />{valuePercent}%</div>);
+                setPercentVal(<div className="flex items-center justify-center"><FaArrowDownLong color="#F2505D" /><span className="text-[#F2505D]">{valuePercent}%</span></div>);
             }
         }
     }, [chartData]);
 
-    return { percentVal, colorPercent };
+    return { percentVal };
 };
   

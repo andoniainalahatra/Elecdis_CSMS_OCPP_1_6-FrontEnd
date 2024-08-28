@@ -1,8 +1,6 @@
-import React from 'react'
+
 import ButtonFilter from './ButtonFilter'
-import { IoIosArrowRoundUp } from 'react-icons/io'
 import { BOXFILTER } from '@/_mock/constant'
-import { usePercent } from '@/lib/hooks'
 
 export default function Box({Title, Value, FirstIcone, SecondIcone, color, filter,  litleStatistique}) {
   return (
