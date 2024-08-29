@@ -4,9 +4,22 @@ import { MONTHLABELS } from "@/_mock/constant"
 import { TRIMERSTRELABELS } from "@/_mock/constant"
 import { YEARLABEL } from "@/_mock/constant"
 import { SEMESTRELABEL } from "@/_mock/constant"
+import axios from "axios"
 export function cn(...inputs) {
   return twMerge(clsx(inputs))
 }
+
+const axiosInstance = axios.create({
+  baseURL: import.meta.env.VITE_API_BASE_UR, // Remplacez par l'URL de votre backend
+  timeout: 10000, // Timeout de 10 secondes, ajustez si nécessaire
+  headers: {
+    'Content-Type': 'application/json',
+    // Vous pouvez ajouter d'autres en-têtes par défaut ici
+  },
+});
+
+export default axiosInstance;
+
 /**
  * 
  * @param {number} newValue - somme de nouvelle valeur
