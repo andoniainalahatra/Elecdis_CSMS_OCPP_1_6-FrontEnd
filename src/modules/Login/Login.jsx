@@ -4,6 +4,7 @@ import CheckBox from "./components/CheckBox";
 import Boutton from "./components/Boutton";
 import ErrorMessage from "./components/ErrorMessage";
 import NavigateLink from "./components/NavigateLink";
+import axiosInstance from "@/lib/utils";
 
 const Login = ({ children, Title }) => {
   const {
@@ -17,12 +18,35 @@ const Login = ({ children, Title }) => {
       rememberMe: false,
     },
   });
-  
+
+  const onSubmit = async (data) => {
+    try {
+      const response = await axiosInstance.post("/token", data);
+      // Si la réponse est un succès (200 OK), stocker le token
+      const { access_token, role } = response.data;
+      console.log(access_token, "acces", role, "role");
+      
+      if (data.rememberMe) {
+        localStorage.setItem("access_token", access_token);
+      } else {
+        sessionStorage.setItem("access_token", access_token);
+      }
+
+      alert("Login successful!");
+    } catch (error) {
+      // Gérer les erreurs d'authentification
+      if (error.response && error.response.status === 401) {
+        alert("Incorrect email or password.");
+      } else {
+        console.error("An error occurred:", error);
+        alert("An error occurred. Please try again later.");
+      }
+    }
+  }
+
   return (
     <form
-      onSubmit={handleSubmit((data) => {
-        console.log(data);
-      })}
+      onSubmit={handleSubmit(onSubmit)}
       className="w-full h-screen flex items-center justify-center"
     >
       <div className="shadow-xl max-sm:shadow-none w-[400px] 2xl:w-[500px] h-auto p-6 flex items-center justify-center flex-col gap-[4vh] rounded-md">
@@ -30,7 +54,9 @@ const Login = ({ children, Title }) => {
           <div className="w-full flex items-center justify-center h-2 pt-10 flex-col mb-[4vh]">
             {children}
           </div>
-          <h4 className="text-importantText max-lg:text-[20px] xl:text-2xl mb-[4vh]">{Title}</h4>
+          <h4 className="text-importantText max-lg:text-[20px] xl:text-2xl mb-[4vh]">
+            {Title}
+          </h4>
           <div className="w-full mb-[4vh]">
             <Controller
               name="email"
@@ -43,7 +69,12 @@ const Login = ({ children, Title }) => {
               }}
               control={control}
               render={({ field }) => (
-                <Input type="text" id="email" label="Adresse email" {...field} />
+                <Input
+                  type="text"
+                  id="email"
+                  label="Adresse email"
+                  {...field}
+                />
               )}
             />
             {errors?.email && <ErrorMessage message={errors.email.message} />}
@@ -54,10 +85,6 @@ const Login = ({ children, Title }) => {
               control={control}
               rules={{
                 required: "le mot de passe est requis",
-                minLength: {
-                  value: 5,
-                  message: "Mot de passe incorrect",
-                },
               }}
               render={({ field }) => (
                 <Input
@@ -90,10 +117,7 @@ const Login = ({ children, Title }) => {
         <div className="w-full flex items-center flex-col justify-center gap-7">
           <Boutton label="CONNEXION" />
           <div className="w-full flex items-center min-2xl:text-center justify-between flex-col gap-5 min-2xl:flex-row">
-            <NavigateLink 
-              route="#" 
-              label="Mot de pass oublier" 
-            />
+            <NavigateLink route="#" label="Mot de pass oublier" />
             <NavigateLink
               route="#"
               label="N'avez vous pas de compte, S'inscrire ?"
