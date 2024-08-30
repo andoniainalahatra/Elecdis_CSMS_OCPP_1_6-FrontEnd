@@ -1,4 +1,3 @@
-import React from 'react'
 import {
     ArrowsRightLeftIcon, BellIcon, BoltIcon, DocumentPlusIcon, DocumentTextIcon,
     IdentificationIcon, LockClosedIcon, MapPinIcon, UserCircleIcon, UserGroupIcon
@@ -14,12 +13,13 @@ import { RiDashboard2Fill } from "react-icons/ri";
 import { BsFillEvStationFill } from "react-icons/bs";
 import { RiReservedFill } from "react-icons/ri";
 import BoutonNav from './BoutonNav'
+import Logo from "../../../../public/images/logo1.png"
 
 const Nav = ({ setSection }) => {
     return (
         <div className='w-full flex flex-col text-[14px] pl-3 truncate'>
             <div className='mt-2'>
-                <img src="/public/images/logo1.png" alt="" />
+                <img src={Logo} alt="" />
             </div>
             <div className=' flex items-center h-[72px] bg-[#919EAB] bg-opacity-10 p-2 rounded-md space-x-2 font-semibold mt-8'>
                 <UserCircleIcon className="w-[1.5rem]  h-[1.5rem] cursor-pointer text-gray-500" />
