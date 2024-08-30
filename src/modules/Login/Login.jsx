@@ -2,11 +2,14 @@ import { useForm, Controller } from "react-hook-form";
 import Input from "./components/Input";
 import CheckBox from "./components/CheckBox";
 import Boutton from "./components/Boutton";
-import ErrorMessage from "./components/ErrorMessage";
+import ErrorMessage from "../../components/ErrorMessage";
 import NavigateLink from "./components/NavigateLink";
 import axiosInstance from "@/lib/axiosInstance";
+import { useState } from "react";
 
 const Login = ({ children, Title }) => {
+  const [invalidMessage, setInvalidMessage] = useState('');
+  
   const {
     control,
     formState: { errors },
@@ -36,7 +39,7 @@ const Login = ({ children, Title }) => {
     } catch (error) {
       // Gérer les erreurs d'authentification
       if (error.response && error.response.status === 401) {
-        alert("Incorrect email or password.");
+        setInvalidMessage(error.response.data.detail)
       } else {
         console.error("An error occurred:", error);
         alert("An error occurred. Please try again later.");
@@ -57,6 +60,7 @@ const Login = ({ children, Title }) => {
           <h4 className="text-importantText max-lg:text-[20px] xl:text-2xl mb-[4vh]">
             {Title}
           </h4>
+          {invalidMessage && <ErrorMessage message={invalidMessage} className="mb-[1vw]" />}
           <div className="w-full mb-[4vh]">
             <Controller
               name="email"
@@ -117,7 +121,7 @@ const Login = ({ children, Title }) => {
         <div className="w-full flex items-center flex-col justify-center gap-7">
           <Boutton label="CONNEXION" />
           <div className="w-full flex items-center min-2xl:text-center justify-between flex-col gap-5 min-2xl:flex-row">
-            <NavigateLink route="#" label="Mot de pass oublier" />
+            <NavigateLink route="/forgotpassword" label="Mot de pass oublier" />
             <NavigateLink
               route="#"
               label="N'avez vous pas de compte, S'inscrire ?"
