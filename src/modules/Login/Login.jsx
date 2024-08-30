@@ -4,7 +4,7 @@ import CheckBox from "./components/CheckBox";
 import Boutton from "./components/Boutton";
 import ErrorMessage from "./components/ErrorMessage";
 import NavigateLink from "./components/NavigateLink";
-import axiosInstance from "@/lib/utils";
+import axiosInstance from "@/lib/axiosInstance";
 
 const Login = ({ children, Title }) => {
   const {
