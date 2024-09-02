@@ -50,9 +50,9 @@ const Login = ({ children, Title }) => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="w-full h-screen flex items-center justify-center"
+      className="w-full bg-[#f8f9f7] h-screen flex items-center justify-center"
     >
-      <div className="shadow-xl max-sm:shadow-none w-[400px] 2xl:w-[500px] h-auto p-6 flex items-center justify-center flex-col gap-[4vh] rounded-md">
+      <div className="shadow-xl bg-white max-sm:shadow-none w-[400px] 2xl:w-[500px] h-auto p-6 flex items-center justify-center flex-col gap-[4vh] rounded-lg">
         <div className="w-full flex items-center flex-col justify-center">
           <div className="w-full flex items-center justify-center h-2 pt-10 flex-col mb-[4vh]">
             {children}
@@ -123,7 +123,7 @@ const Login = ({ children, Title }) => {
           <div className="w-full flex items-center min-2xl:text-center justify-between flex-col gap-5 min-2xl:flex-row">
             <NavigateLink route="/forgotpassword" label="Mot de pass oublier" />
             <NavigateLink
-              route="#"
+              route="/inscription"
               label="N'avez vous pas de compte, S'inscrire ?"
             />
           </div>
