@@ -4,12 +4,18 @@ import CheckBox from "./components/CheckBox";
 import Boutton from "./components/Boutton";
 import ErrorMessage from "../../components/ErrorMessage";
 import NavigateLink from "./components/NavigateLink";
-import axiosInstance from "@/lib/axiosInstance";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useLogin } from "@/lib/hoocks/useLogin";
+import { useDispatch } from "react-redux";
+import { login } from "@/features/auth/authSlice";
+import Swal from "sweetalert2";
 
 const Login = ({ children, Title }) => {
-  const [invalidMessage, setInvalidMessage] = useState('');
-  
+  const navigate = useNavigate();
+  const [invalidMessage, setInvalidMessage] = useState("");
+  const { mutate: login_user, isLoading } = useLogin();
+  const dispatch = useDispatch();
   const {
     control,
     formState: { errors },
@@ -24,28 +30,43 @@ const Login = ({ children, Title }) => {
 
   const onSubmit = async (data) => {
     try {
-      const response = await axiosInstance.post("/token", data);
-      // Si la réponse est un succès (200 OK), stocker le token
-      const { access_token, role } = response.data;
-      console.log(access_token, "acces", role, "role");
-      
-      if (data.rememberMe) {
-        localStorage.setItem("access_token", access_token);
-      } else {
-        sessionStorage.setItem("access_token", access_token);
-      }
+      console.log('Is loading:', isLoading);  
+      login_user(data, {
 
-      alert("Login successful!");
-    } catch (error) {
-      // Gérer les erreurs d'authentification
-      if (error.response && error.response.status === 401) {
-        setInvalidMessage(error.response.data.detail)
+        onSuccess: (result) => { 
+          dispatch(login(result));
+          navigate("/dashboard");
+        },
+        onError: (error) => {
+          if(error.response.status == 401)
+            {
+              setInvalidMessage("Email ou mots de pass incorrect")
+            }
+          else
+          {
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "An error occurred. Please try again later.",
+            });
+          }
+        }
+      });
+      
+      // dispatcah(login(result)); // Passe le résultat directement
+      // navigate("/dashboard");
+    } catch (err) {
+      if (err.response && err.response.status === 401) {
+        setInvalidMessage(err.response.data.detail);
       } else {
-        console.error("An error occurred:", error);
-        alert("An error occurred. Please try again later.");
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "An error occurred. Please try again later.",
+        });
       }
     }
-  }
+  };
 
   return (
     <form
@@ -60,7 +81,9 @@ const Login = ({ children, Title }) => {
           <h4 className="text-importantText max-lg:text-[20px] xl:text-2xl mb-[4vh]">
             {Title}
           </h4>
-          {invalidMessage && <ErrorMessage message={invalidMessage} className="mb-[1vw]" />}
+          {invalidMessage && (
+            <ErrorMessage message={invalidMessage} className="mb-[1vw]" />
+          )}
           <div className="w-full mb-[4vh]">
             <Controller
               name="email"
@@ -119,7 +142,7 @@ const Login = ({ children, Title }) => {
           </div>
         </div>
         <div className="w-full flex items-center flex-col justify-center gap-7">
-          <Boutton label="CONNEXION" />
+          <Boutton isLoading={isLoading} label="CONNEXION" />
           <div className="w-full flex items-center min-2xl:text-center justify-between flex-col gap-5 min-2xl:flex-row">
             <NavigateLink route="/forgotpassword" label="Mot de pass oublier" />
             <NavigateLink
