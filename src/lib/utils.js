@@ -1,13 +1,11 @@
 import { clsx } from "clsx"
+import Cookies from "js-cookie";
 import { twMerge } from "tailwind-merge"
 export function cn(...inputs) {
   return twMerge(clsx(inputs))
 }
 export function getToken() {
-  let token = localStorage.getItem('access_token');
-  if (!token) {
-    token = sessionStorage.getItem('access_token');
-  }
+  let token = Cookies.get('access_token');
   return token;
 }
 
