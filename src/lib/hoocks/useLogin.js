@@ -7,7 +7,6 @@ export const useLogin = () => {
     mutationFn: (credentials) => loginUser(credentials),
     onSuccess: (data) => {
       const tokenExpiry = data.rememberMe ? 7 : 1; // 7 jours si "rememberMe" est activé, sinon 1 jour
-      // Enregistrer le token et l'utilisateur dans les cookies avec SameSite et Secure
       Cookies.set('access_token', data.access_token, {
         expires: tokenExpiry,
         secure: true, // Obligatoire si SameSite=None

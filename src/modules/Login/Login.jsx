@@ -28,44 +28,24 @@ const Login = ({ children, Title }) => {
     },
   });
 
-  const onSubmit = async (data) => {
-    try {
-      console.log('Is loading:', isLoading);  
-      login_user(data, {
-
-        onSuccess: (result) => { 
-          dispatch(login(result));
-          navigate("/dashboard");
-        },
-        onError: (error) => {
-          if(error.response.status == 401)
-            {
-              setInvalidMessage("Email ou mots de pass incorrect")
-            }
-          else
-          {
-            Swal.fire({
-              icon: "error",
-              title: "Oops...",
-              text: "An error occurred. Please try again later.",
-            });
-          }
+  const onSubmit = (data) => {
+    login_user(data, {
+      onSuccess: (result) => {
+        dispatch(login(result));
+        navigate("/dashboard");
+      },
+      onError: (error) => {
+        if (error.response?.status === 401) {
+          setInvalidMessage("Email ou mot de passe incorrect");
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Une erreur s'est produite. Veuillez réessayer plus tard.",
+          });
         }
-      });
-      
-      // dispatcah(login(result)); // Passe le résultat directement
-      // navigate("/dashboard");
-    } catch (err) {
-      if (err.response && err.response.status === 401) {
-        setInvalidMessage(err.response.data.detail);
-      } else {
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "An error occurred. Please try again later.",
-        });
-      }
-    }
+      },
+    });
   };
 
   return (
