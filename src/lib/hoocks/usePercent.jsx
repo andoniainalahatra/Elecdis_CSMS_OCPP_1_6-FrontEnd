@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { calculPercentage } from "./utils";
+import { calculPercentage } from "../utils";
 import { FaArrowDownLong, FaArrowUpLong } from "react-icons/fa6";
 
 /**
