@@ -29,7 +29,7 @@ const Dashboard = () => {
     // const [search, setOnsearch] = useState('');
     const handleSearch = (query) => {
         const lowerCaseQuery = query.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-    
+
         const sections = {
             "tableaudebord": "TableauDeBord",
             "autorisation": "Autorisations",
@@ -53,7 +53,7 @@ const Dashboard = () => {
             "réinitialisermotdepasse": "RéinitialiserMotDepasse",
             "mot de pass": "RéinitialiserMotDepasse"
         };
-    
+
         const matchedSection = Object.keys(sections).find(key => lowerCaseQuery.includes(key));
         if (matchedSection) {
             setSection(sections[matchedSection]);
@@ -73,7 +73,7 @@ const Dashboard = () => {
                         <Nav setSection={setSection} />
                     </div>
 
-                    <div className='w-full relative'>
+                    <div className='relative w-full'>
                         <BarNav onSearch={handleSearch} />
                         <div className=' mt-[9vh] m-2 h-[90vh] overflow-auto custom-scrollbar'>
                             {currentSection === "TableauDeBord" && <TableauDeBord />}

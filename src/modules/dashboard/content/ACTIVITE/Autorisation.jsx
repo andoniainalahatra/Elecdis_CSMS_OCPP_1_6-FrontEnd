@@ -1,6 +1,6 @@
 import React from 'react'
 import BoutonAdd from '../../component/BoutonAdd';
-import Page from '@/modules/Station/Page';
+import AutorisationTable from '../../component/AutorisationTable';
 
 
 const Autorisation = () => {
@@ -14,7 +14,7 @@ const Autorisation = () => {
                 <span className=' text-[24px] text-[#212B36]'>Personnels</span>
                 <BoutonAdd action={handleClick} />
             </div>
-            <Page />
+            <AutorisationTable />
         </div>
     )
 }
