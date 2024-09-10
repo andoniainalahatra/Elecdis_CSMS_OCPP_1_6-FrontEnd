@@ -1,5 +1,9 @@
 import React from 'react'
-
+/**
+ * 
+ * @param {Object} config - configuration de la chart dans le format doit etre un Objet d'objet contenant les proprietes label et color
+ * @returns 
+ */
 export default function ColorChartInformation({config, position, padding, className = ""}) {
   return (
     <div className={`w-full h-1px  p-${padding} flex justify-${position} items-center flex-wrap gap-4 ${className}`}>

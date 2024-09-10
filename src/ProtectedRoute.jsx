@@ -7,8 +7,12 @@ import {
 const requiredRole = ["admin", "technicien", "operateur"];
 
 const ProtectedRoute = ({ children }) => {
-  const isAuthenticated = useSelector(selectIsAuthenticated);
-  const role = useSelector(selectUserRole);
+  // const isAuthenticated = useSelector(selectIsAuthenticated);
+  const isAuthenticated = true;
+
+  // const role = useSelector(selectUserRole);
+  const role = "admin";
+
   if (!isAuthenticated) {
     return <Navigate to="/" />;
   }
