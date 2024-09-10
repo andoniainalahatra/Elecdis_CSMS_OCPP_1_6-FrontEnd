@@ -14,7 +14,7 @@ RUN npm install
 COPY . .
 
 # Exposer le port 8000
-EXPOSE 8000
+EXPOSE 5173
 
 # Commande par défaut pour démarrer l'application en mode développement
 CMD ["npm", "run", "dev"]

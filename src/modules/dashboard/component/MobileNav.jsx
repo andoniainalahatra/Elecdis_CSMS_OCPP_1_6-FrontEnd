@@ -26,8 +26,8 @@ const MobileNav = ({ setSection }) => {
             className={` absolute ${animation} h-[100vh] transform transition-all duration-300 top-0 left-0 right-0 bottom-0 z-[10000] bg-[#09101a] backdrop-blur-md flex justify-center `}
             style={{ backgroundColor: "rgba(9, 16, 26, 0.7)" }}>
 
-            <div className="w-full flex flex-col items-center justify-center overflow-auto custom-scrollbar">
-                <div className=" mt-[250px]">
+            <div className="flex items-center justify-center w-full ">
+                <div className="overflow-auto custom-scrollbar  h-[100vh]">
                     <BoutonMobile IconButton={RiDashboard2Fill} label='Tableau de bord' setSection={setSection} namePage='TableauDeBord' />
                     <BoutonMobile IconButton={LockClosedIcon} label='Autorisations' setSection={setSection} namePage='Autorisations' />
                     <BoutonMobile IconButton={RiReservedFill} label='Réservations' setSection={setSection} namePage='Réservations' />

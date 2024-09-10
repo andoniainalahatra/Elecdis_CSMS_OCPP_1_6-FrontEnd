@@ -14,5 +14,4 @@ const Reservation = () => {
         </div>
     )
 }
-
-export default Reservation
+export default Reservation 
