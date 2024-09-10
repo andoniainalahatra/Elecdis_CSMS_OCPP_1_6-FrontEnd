@@ -26,7 +26,6 @@ import RenitialiserMotDePasse from './content/AUTHENTIFICATIONS/RenitialiserMotD
 
 const Dashboard = () => {
     const [currentSection, setSection] = useState('TableauDeBord');
-    // const [search, setOnsearch] = useState('');
     const handleSearch = (query) => {
         const lowerCaseQuery = query.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
@@ -58,7 +57,7 @@ const Dashboard = () => {
         if (matchedSection) {
             setSection(sections[matchedSection]);
         } else {
-            setSection('TableauDeBord'); // Section par défaut si aucune correspondance
+            setSection('TableauDeBord');
         }
     };
     return (

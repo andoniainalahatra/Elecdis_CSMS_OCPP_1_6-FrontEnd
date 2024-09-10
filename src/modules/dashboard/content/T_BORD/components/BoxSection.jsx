@@ -8,7 +8,7 @@ import { TbRecharging } from "react-icons/tb";
 import { GiReceiveMoney } from "react-icons/gi";
 import { dataForBox } from "@/_mock/DataForSimulateDate";
 import { Context } from '@/common/config/configs/Context';
-import { usePercent } from '@/lib/hooks';
+import { usePercent } from '@/lib/hoocks/usePercent';
 export default function BoxSection() {
   const { filters } = useContext(Context);
   const [energyDeliveryValue, setEnergyDeliveryValue] = useState(0);

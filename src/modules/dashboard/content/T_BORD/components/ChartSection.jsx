@@ -2,8 +2,8 @@
 import { useContext, useEffect, useState } from "react";
 import { Context } from "@/common/config/configs/Context";
 import { dataForDonute, dateSimulation } from "@/_mock/DataForSimulateDate";
-import { compareData, getDataByMonth, getDataBySemestre, getDataByTrimestre, getDataByYear } from "@/lib/utils";
-import { usePercent } from "@/lib/hooks";
+import { compareData, getDataByMonth, getDataBySemestre, getDataByTrimestre, getDataByYear } from "@/lib/dataUtils";
+import { usePercent } from "@/lib/hoocks/usePercent"; 
 import { YEARLABEL } from "@/_mock/constant";
 import DonuteChart from "./DonuteChart";
 import StatistiqueBarChart from "./StatistiqueBarChart";
