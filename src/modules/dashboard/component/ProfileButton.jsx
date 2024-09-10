@@ -14,9 +14,9 @@ export default function ProfileButton({ isVisible }) {
           Profile
         </Link>
       </div>
-      <div className="flex justify-start items-center gap-2 w-full hover:bg-[#000f001e] px-4 py-3">
+      <div className="flex justify-start items-center gap-2 w-full hover:bg-[#000f001e] px-4">
         <MdLogout className="text-[20px] text-[#212B36]" />
-        <button className="text-[#9D9D9D]" onClick={() => dispatch(logout())} >
+        <button className="text-[#9D9D9D] py-3" onClick={() => dispatch(logout())} >
           Deconnecter
         </button>
       </div>
