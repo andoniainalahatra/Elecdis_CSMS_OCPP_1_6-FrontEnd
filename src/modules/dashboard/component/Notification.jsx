@@ -4,7 +4,7 @@ import { IoCheckmarkDone } from "react-icons/io5";
 export default function Notification({ isVisible }) {
   return (
     <div
-      className={`max-sm:w-[200px] w-[350px] rounded-lg bg-white absolute right-0 top-0 shadow-lg z-50 transform transition-all duration-700 ease-[cubic-bezier(0.25, 1, 0.5, 1)]
+      className={`max-sm:w-[200px] w-[350px] rounded-lg bg-white absolute right-0 top-6 shadow-lg z-50 transform transition-all duration-300 ease-[cubic-bezier(0.25, 1, 0.5, 1)]
       ${
         isVisible
           ? "opacity-100 translate-y-0"
