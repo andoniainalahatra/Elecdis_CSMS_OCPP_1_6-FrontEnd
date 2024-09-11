@@ -31,7 +31,10 @@ function DataTable({ columns, datas, actions, ButtonAction }) {
   const red = "bg-red-100 text-red-800 hover:bg-red-100 cursor-pointer";
   const green = "bg-green-100 text-green-800 hover:bg-green-100 cursor-pointer";
   const yellow = "bg-yellow-100 text-yellow-800 hover:bg-yellow-100 cursor-pointer";
+  const orange = "bg-amber-100 text-amber-800 hover:bg-amber-100 cursor-pointer";
+
   const defaultColor = "bg-gray-100 text-gray-800 hover:bg-gray-100 cursor-pointer";
+
 
   // Fonction de filtrage personnalisée
   const customFilterFn = (row, columnId, filterValue) => {
@@ -119,8 +122,16 @@ function DataTable({ columns, datas, actions, ButtonAction }) {
                 if (cell.column.id === "status" ||
                   cell.column.id === "connector1" ||
                   cell.column.id === "connector2" ||
-                  cell.column.id === "heartBeat") {
+                  cell.column.id === "heartBeat" || cell.column.id === "statut") {
                   switch (cellValue) {
+                    //Terminée
+                    //En cours
+                    case "En cours":
+                      cellClass = orange;
+                      break;
+                    case "Terminée":
+                      cellClass = green;
+                      break;
                     case "active":
                       cellClass = green;
                       break;
