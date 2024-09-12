@@ -14,6 +14,7 @@ import logo from "/public/images/logo1.png";
 // import FloatingLabelInput from "@/components/Privates/forms/FloatingLabelInput";
 import { Controller, useForm } from "react-hook-form";
 import { FormElements } from "@/components/FormElements";
+import { Link } from "react-router-dom";
 
 const Inscription = () => {
   const { handleSubmit, control } = useForm()
@@ -136,9 +137,7 @@ const Inscription = () => {
             </CardFooter>
           </form>
           <div className="flex justify-center mt-4 mb-6">
-            <a className="text-sm text-primaryChart underline" href="#">
-              Disposez-vous déjà d'un compte? Se connecter
-            </a>
+            <Link className="text-sm text-primaryChart underline" to="/" >Disposez-vous déjà d'un compte? Se connecter</Link>
           </div>
         </Card>
       </div>
