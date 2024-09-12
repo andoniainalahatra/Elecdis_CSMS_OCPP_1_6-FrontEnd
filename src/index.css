@@ -89,6 +89,9 @@ body {
   .heading{
     @apply text-center text-white text-[28px] sm:text-[33px] md:text-[45px] font-bold uppercase
   }
+  .input-style{
+    @apply w-full h-[6vh] rounded-md border-solid border-[#CDCBCB] border-[0.5px] indent-2 text-[#5a5858] text-base focus:outline-none focus:border-[#F2505D]
+  }
 }
 
 /* Exemple de styles pour la scrollbar */
