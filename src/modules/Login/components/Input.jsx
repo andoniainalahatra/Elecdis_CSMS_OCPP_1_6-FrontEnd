@@ -8,7 +8,7 @@ const Input = forwardRef(({id , type, value, onChange, label}, ref) => {
         id={id}
         type={type}
         ref={ref} 
-        className={`peer w-full h-[6vh] rounded-md border-solid border-[#CDCBCB] border-[0.5px] indent-2 text-[#5a5858] text-base focus:outline-none focus:border-[#F2505D]`}
+        className="peer input-style"
         value={value}
         onChange={(e) => onChange(e.target.value)}
         onFocus={() => setIsFocused(true)}
