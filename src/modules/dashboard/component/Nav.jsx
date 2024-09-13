@@ -37,7 +37,7 @@ const Nav = ({ setSection }) => {
             </div>
             <div className='mt-5 font-semibold text-[#637381] '>
                 <span className='text-[#919EAB] ml-4 '>GRC</span>
-                <BoutonNav IconButton={UserGroupIcon} label='Users' setSection={setSection} namePage='Users' />
+                <BoutonNav IconButton={UserGroupIcon} label='Clients' setSection={setSection} namePage='Clients' />
                 <BoutonNav IconButton={IdentificationIcon} label='Etiquettes RFID' setSection={setSection} namePage='EtiquettesRFID' />
                 <BoutonNav IconButton={DocumentTextIcon} label='Réçus' setSection={setSection} namePage='Reçus' />
             </div>

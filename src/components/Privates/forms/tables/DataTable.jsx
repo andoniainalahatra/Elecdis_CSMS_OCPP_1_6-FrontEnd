@@ -126,15 +126,18 @@ function DataTable({ columns, datas, actions, ButtonAction }) {
                   switch (cellValue) {
                     //Terminée
                     //En cours
+                    case "En attente":
                     case "En cours":
                       cellClass = orange;
                       break;
                     case "Terminée":
+                    case "Complétée":
                       cellClass = green;
                       break;
                     case "active":
                       cellClass = green;
                       break;
+                    case "Échouée":
                     case "inactive":
                       cellClass = red;
                       break;
