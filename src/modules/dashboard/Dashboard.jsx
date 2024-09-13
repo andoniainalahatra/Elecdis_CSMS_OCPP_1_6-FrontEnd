@@ -8,7 +8,6 @@ import Reservation from './content/ACTIVITE/Reservation';
 import SessionRecharge from './content/ACTIVITE/SessionRecharge';
 import Transactions from './content/ACTIVITE/Transactions';
 import Autorisation from './content/ACTIVITE/Autorisation';
-import Users from './content/GRC/Users';
 import EtiquettesRfid from './content/GRC/EtiquettesRfid';
 import Reçus from './content/GRC/Reçus';
 import PointsDecharges from './content/ACTIFS/PointsDecharges';
@@ -22,6 +21,7 @@ import Tarifs from './content/TARIFS/Tarifs';
 import Connexion from './content/AUTHENTIFICATIONS/Connexion';
 import Inscription from './content/AUTHENTIFICATIONS/Inscription';
 import RenitialiserMotDePasse from './content/AUTHENTIFICATIONS/RenitialiserMotDePasse';
+import Clients from './content/GRC/Clients';
 
 
 const Dashboard = () => {
@@ -36,7 +36,7 @@ const Dashboard = () => {
             "sessionrecharge": "sessionRecharge",
             "transaction": "Transaction",
             "utilisateur": "Users",
-            "users": "Users",
+            "clients": "Users",
             "etiquettesrfid": "EtiquettesRFID",
             "reçus": "Reçus",
             "points": "PointsDecharges",
@@ -82,7 +82,7 @@ const Dashboard = () => {
                             {currentSection === "sessionRecharge" && <SessionRecharge />}
                             {currentSection === "Transaction" && <Transactions />}
                             {/* GRC */}
-                            {currentSection === "Users" && <Users />}
+                            {currentSection === "Clients" && <Clients />}
                             {currentSection === "EtiquettesRFID" && <EtiquettesRfid />}
                             {currentSection === "Reçus" && <Reçus />}
                             {/* ACTIFS */}
