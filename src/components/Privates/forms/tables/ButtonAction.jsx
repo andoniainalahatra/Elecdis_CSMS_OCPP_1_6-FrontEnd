@@ -5,6 +5,7 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { FiEdit } from "react-icons/fi";
 import DetailStation from "@/modules/Station/DetailStation.jsx";
 import { IoMdClose } from "react-icons/io";
+import EditStation from "@/components/Privates/forms/tables/EditStation.jsx";
 
 const ButtonAction = ({ buttonProperty, userId }) => {
     const [section, setSection] = useState("");
@@ -72,7 +73,7 @@ const ButtonAction = ({ buttonProperty, userId }) => {
                     className="fixed top-0 left-0 flex items-center justify-center w-full h-screen overflow-auto z-1000 backdrop-blur-md"
                     style={{ backgroundColor: "rgba(9,16,26,0.7)" }}
                 >
-                    <DetailStation />
+                    <EditStation />
                     <span
                         className="absolute cursor-pointer top-5 right-5"
                         onClick={() => setSection("")}
