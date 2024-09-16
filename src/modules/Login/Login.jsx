@@ -22,9 +22,8 @@ const Login = ({ children, Title }) => {
     handleSubmit,
   } = useForm({
     defaultValues: {
-      email: "",
+      username: "",
       password: "",
-      rememberMe: false,
     },
   });
 
@@ -61,12 +60,10 @@ const Login = ({ children, Title }) => {
           <h4 className="text-importantText max-lg:text-[20px] xl:text-2xl mb-[4vh]">
             {Title}
           </h4>
-          {invalidMessage && (
-            <ErrorMessage message={invalidMessage} className="mb-[1vw]" />
-          )}
+          
           <div className="w-full mb-[4vh]">
             <Controller
-              name="email"
+              name="username"
               rules={{
                 required: "Adresse mail requis",
                 pattern: {
@@ -84,7 +81,7 @@ const Login = ({ children, Title }) => {
                 />
               )}
             />
-            {errors?.email && <ErrorMessage message={errors.email.message} />}
+            {errors?.username && <ErrorMessage message={errors.username.message} />}
           </div>
           <div className="w-full mb-[4vh]">
             <Controller
@@ -106,21 +103,11 @@ const Login = ({ children, Title }) => {
               <ErrorMessage message={errors.password.message} />
             )}
           </div>
-          <div className="w-full mb-[4vh]">
-            <Controller
-              name="rememberMe"
-              control={control}
-              render={({ field }) => (
-                <CheckBox
-                  id="rememberMe"
-                  label="Souvenez-vous de moi"
-                  value={field.value}
-                  onChange={field.onChange}
-                />
-              )}
-            />
-          </div>
+          {invalidMessage && (
+            <ErrorMessage message={invalidMessage} className="mb-[1vw]" />
+          )}
         </div>
+        
         <div className="w-full flex items-center flex-col justify-center gap-7">
           <Boutton isLoading={isLoading} label="CONNEXION" />
           <div className="w-full flex items-center min-2xl:text-center justify-between flex-col gap-5 min-2xl:flex-row">
