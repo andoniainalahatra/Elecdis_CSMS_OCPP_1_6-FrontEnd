@@ -12,6 +12,7 @@ const FloatingLabelInput = React.forwardRef(
     const [isFocused, setIsFocused] = useState(false);
     const inputRef = useRef();
 
+
     if(type==="select"){
       return (
         <div className="relative w-full">
