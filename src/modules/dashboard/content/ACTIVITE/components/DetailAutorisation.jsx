@@ -1,4 +1,4 @@
-import userData from '@/modules/dashboard/component/userData';
+import userData from '@/modules/dashboard/content/ACTIVITE/components/data/userData';
 import React from 'react';
 import { FaCircleUser } from "react-icons/fa6";
 

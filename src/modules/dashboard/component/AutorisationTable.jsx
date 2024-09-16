@@ -1,6 +1,6 @@
 import React from 'react'
 import DataTable from '@/components/Privates/forms/tables/DataTable';
-import stationData from "./userData";
+import stationData from "../content/ACTIVITE/components/data/userData";
 import Columns from '@/components/Privates/forms/tables/Columns';
 import ButtonAutorisation from '../content/ACTIVITE/components/ButtonAutorisation';
 
