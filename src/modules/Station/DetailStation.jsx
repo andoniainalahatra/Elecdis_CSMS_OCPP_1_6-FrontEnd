@@ -8,9 +8,9 @@ function DetailStation() {
     return (
         <div className="h-screen">
             <div className="text-[#637381] grid grid-cols-3 max-md:grid-cols-1 mb-6 pt-10 gap-6 max-sm:grid-cols-1 max-sm:p-4 max-md:mt-[50px] mt-[50px]">
-                <div className="text-[#637381] col-span-1 bg-[#f9fafb] rounded-2xl p-6 ">
-                    <h1 className="text-start font-medium">Stations</h1>
-                    <div className="text-start mt-2 grid grid-cols-2 gap-4 ">
+                <div className="text-[#637381] col-span-1 bg-[#ffffff] shadow-lg rounded-2xl p-6 ">
+                    <h1 className="text-start text-red-600 font-bold text-2xl">Stations</h1>
+                    <div className="text-start text-gray-800 mt-2 grid grid-cols-2 gap-4 ">
                         <div>
                             <p>Modele</p>
                             <p>Marque</p>
@@ -25,18 +25,18 @@ function DetailStation() {
                         </div>
                     </div>
                 </div>
-                <div className="col-span-2 bg-[#f9fafb] rounded-2xl max-sm:col-span-1">
+                <div className="col-span-2 bg-[#ffffff] shadow-lg rounded-2xl max-sm:col-span-1">
                     <div className="grid grid-cols-2 max-md:grid-cols-1 max-md:w-full p-4">
                         <div>
                             <div className="flex justify-center items-start gap-4 ">
                                 <div>
-                                    <FaRegCheckCircle color="#36E73D" size={117}/>
+                                    <FaRegCheckCircle color="#4CAF50" size={117}/>
                                     <p className="text-[#36E73D] font-bold mt-2 ">Disponible</p>
                                 </div>
                                 <div className="text-center">
                                     <h1 className="text-center mb-2 font-medium">Connecteur 1</h1>
                                     <div
-                                        className="bg-[#EDEDED] p-6 flex flex-col font-medium gap-4 rounded-md items-center justify-center">
+                                        className="bg-gradient-to-r from-green-200 to-green-300 p-6 flex flex-col font-medium gap-4 rounded-md items-center justify-center">
                                         <p>Energie</p>
                                         <p>209 Wh</p>
                                     </div>
@@ -47,13 +47,13 @@ function DetailStation() {
 
                             <div className="flex justify-center items-start gap-4 ">
                                 <div>
-                                    <IoMdAddCircleOutline color="#53A7E3" size={117}/>
+                                    <IoMdAddCircleOutline color="#2196F3" size={117}/>
                                     <p className="text-[#53A7E3] font-bold mt-2 ">En Charge</p>
                                 </div>
                                 <div className="text-center">
                                     <h1 className="mb-2 font-medium">Connecteur 2</h1>
                                     <div
-                                        className="bg-[#EDEDED] p-6 flex flex-col font-medium gap-4 rounded-md items-center justify-center">
+                                        className="bg-gradient-to-r from-blue-200 to-blue-300  p-6 flex flex-col font-medium gap-4 rounded-md items-center justify-center">
                                         <p>Energie</p>
                                         <p>209 Wh</p>
                                     </div>
@@ -64,9 +64,9 @@ function DetailStation() {
                 </div>
             </div>
             <div
-                className="text-[#637381] border rounded-2xl max-md:place-items-center grid grid-cols-3 max-sm:grid-cols-1 max-sm:p-4 gap-6">
-                <div className="text-[#fefefe] col-span-1 rounded-2xl p-6 w-[50]">
-                    <h1 className="text-start font-medium">Websocket</h1>
+                className="text-[#637381] bg-[#ffffff] shadow-lg border rounded-2xl max-md:place-items-center grid grid-cols-3 max-sm:grid-cols-1 max-sm:p-4 gap-6">
+                <div className="text-gray-800 col-span-1 rounded-2xl p-6 w-[50]">
+                    <h1 className="text-start text-red-600 font-bold text-2xl">Websocket</h1>
                     <div className="text-start mt-2 grid grid-cols-2 gap-4 max-md:gap-6 w-full">
                         <div>
                             <p>Backend URL:</p>
@@ -89,8 +89,8 @@ function DetailStation() {
                     </div>
                 </div>
                 <div className="text-[#fefefe] col-span-2 rounded-2xl p-6 w-[50]">
-                    <h1 className="text-start font-medium">Firmware</h1>
-                    <div className="text-start mt-2 grid grid-cols-1 gap-4 max-md:gap-6 w-full">
+                    <h1 className="text-start text-red-600 font-bold text-2xl">Firmware</h1>
+                    <div className="text-start text-gray-800 mt-2 grid grid-cols-1 gap-4 max-md:gap-6 w-full">
                         <div className="flex gap-4">
                             <div>
                                 <p>Systeme d'exploitation:</p>
@@ -105,7 +105,7 @@ function DetailStation() {
                 </div>
             </div>
             <div className="text-[#fefefe] col-span-1 rounded-2xl py-6">
-                <h1 className="text-start font-medium">Statistiques</h1>
+                <h1 className="text-start text-red-600 font-bold text-2xl">Statistiques</h1>
                 <ChartSection/>
             </div>
         </div>
