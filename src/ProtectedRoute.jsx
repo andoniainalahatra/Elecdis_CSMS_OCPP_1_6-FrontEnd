@@ -4,14 +4,11 @@ import {
   selectIsAuthenticated,
   selectUserRole,
 } from "./features/auth/authSelector";
-const requiredRole = ["admin", "technicien", "operateur"];
+const requiredRole = ["Admin", "Technicien", "Operateur"];
 
 const ProtectedRoute = ({ children }) => {
-  // const isAuthenticated = useSelector(selectIsAuthenticated);
-  const isAuthenticated = true;
-
-  // const role = useSelector(selectUserRole);
-  const role = "admin";
+  const isAuthenticated = useSelector(selectIsAuthenticated);
+  const role = useSelector(selectUserRole);
 
   if (!isAuthenticated) {
     return <Navigate to="/" />;
