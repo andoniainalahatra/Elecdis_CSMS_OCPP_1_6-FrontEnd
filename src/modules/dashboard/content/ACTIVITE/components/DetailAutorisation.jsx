@@ -11,10 +11,10 @@ const DetailAutorisation = ({ userId }) => {
     const user = findUser();
 
     return (
-        <div className='w-screen h-screen p-4 text-2xl text-white border'>
+        <div className='p-4 text-2xl bg-white rounded-lg shadow-md'>
             {user ? (
                 <>
-                    <span>Informations  Utilisateur</span>
+                    {/* <span>Informations  Utilisateur</span>
                     <div className='flex items-center space-x-5 '>
                         <FaCircleUser size={100} />
                         <span>{user.nom + ' ' + user.prenom}</span>
@@ -24,7 +24,26 @@ const DetailAutorisation = ({ userId }) => {
                         <div>{user.telephone}</div>
                         <div>{user.role}</div>
                         <div>{user.status}</div>
+                    </div> */}
 
+                    <div className=''>
+                        <div className='grid grid-cols-1'>
+                            <div className='grid grid-cols-2 text-sm md:text-xl'>
+                                <div>
+                                    <FaCircleUser size={100} />
+                                </div>
+                                <div className='text-left'>
+                                    <span className='font-semibold'>{user.nom + ' ' + user.prenom}</span>
+                                    <div className='flex flex-col mt-6 space-y-2'>
+                                        <div className='border-b border-primaryChart'>{user.email}</div>
+                                        <div className='border-b border-primaryChart'>{user.telephone}</div>
+                                        <div className='border-b border-primaryChart'>{user.role}</div>
+                                        <div className='border-b border-primaryChart'>{user.status}</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
 
                 </>
