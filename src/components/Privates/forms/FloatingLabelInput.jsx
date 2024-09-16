@@ -24,6 +24,7 @@ const FloatingLabelInput = React.forwardRef(
                   <SelectContent className="focus:outline-none focus-visible:ring-white " >
                       <SelectItem value="active">Active</SelectItem>
                       <SelectItem value="inactive">Inactive</SelectItem>
+
                       <SelectItem value="maintenance">Maintenance</SelectItem>
                   </SelectContent>
             </Select>
