@@ -1,6 +1,5 @@
 import { useForm, Controller } from "react-hook-form";
 import Input from "./components/Input";
-import CheckBox from "./components/CheckBox";
 import Boutton from "./components/Boutton";
 import ErrorMessage from "../../components/ErrorMessage";
 import NavigateLink from "./components/NavigateLink";
@@ -14,7 +13,7 @@ import Swal from "sweetalert2";
 const Login = ({ children, Title }) => {
   const navigate = useNavigate();
   const [invalidMessage, setInvalidMessage] = useState("");
-  const { mutate: login_user, isLoading } = useLogin();
+  const { mutate: login_user, isPending } = useLogin();
   const dispatch = useDispatch();
   const {
     control,
@@ -46,7 +45,6 @@ const Login = ({ children, Title }) => {
       },
     });
   };
-
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -109,7 +107,7 @@ const Login = ({ children, Title }) => {
         </div>
         
         <div className="w-full flex items-center flex-col justify-center gap-7">
-          <Boutton isLoading={isLoading} label="CONNEXION" />
+          <Boutton isLoading={isPending} label="CONNEXION" />
           <div className="w-full flex items-center min-2xl:text-center justify-between flex-col gap-5 min-2xl:flex-row">
             <NavigateLink route="/forgotpassword" label="Mot de pass oublier" />
             <NavigateLink
