@@ -18,7 +18,7 @@ export const chargingSessions = [
       location: "Location 2",
       connecteur: "Connecteur 2",
       dateDebut: "2025-02-10T09:30:00",
-      dateFin: "2025-02-10T10:00:00",
+      dateFin: "",
       statut: "En cours",
     },
     {
@@ -29,7 +29,7 @@ export const chargingSessions = [
       location: "Location 3",
       connecteur: "Connecteur 3",
       dateDebut: "2025-03-12T08:30:00",
-      dateFin: "2025-03-12T09:00:00",
+      dateFin: "",
       statut: "En cours",
     },
     {
@@ -62,7 +62,7 @@ export const chargingSessions = [
       location: "Location 3",
       connecteur: "Connecteur 3",
       dateDebut: "2025-06-21T09:00:00",
-      dateFin: "2025-06-21T09:30:00",
+      dateFin: "",
       statut: "En cours",
     },
     {
