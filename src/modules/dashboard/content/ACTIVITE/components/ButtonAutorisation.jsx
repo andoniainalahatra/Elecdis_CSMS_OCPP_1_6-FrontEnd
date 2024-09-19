@@ -19,7 +19,6 @@ const ButtonAutorisation = ({ buttonProperty, userId }) => {
                         key={key}
                         onClick={() => {
                             setSection("detail");
-                            console.log(userId);
                         }}
                         className="m-1 text-blue-500 bg-transparent hover:bg-transparent hover:text-blue-600"
                     >
@@ -51,7 +50,6 @@ const ButtonAutorisation = ({ buttonProperty, userId }) => {
                 return null;
         }
     };
-
 
     return (
         <div className="flex items-center justify-center gap-2 max-md:flex-col">

@@ -4,7 +4,7 @@ import {
   selectIsAuthenticated,
   selectUserRole,
 } from "./features/auth/authSelector";
-const requiredRole = ["admin", "Technicien", "Operateur"];
+const requiredRole = ["admin", "technicien", "operateur"];
 
 const ProtectedRoute = ({ children }) => {
   const isAuthenticated = useSelector(selectIsAuthenticated);
