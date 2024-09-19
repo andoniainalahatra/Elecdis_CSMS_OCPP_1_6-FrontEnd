@@ -9,6 +9,7 @@ import { GiReceiveMoney } from "react-icons/gi";
 import { dataForBox } from "@/_mock/DataForSimulateDate";
 import { Context } from '@/common/config/configs/Context';
 import { usePercent } from '@/lib/hoocks/usePercent';
+import { updateValue } from '@/lib/updateValue';
 export default function BoxSection() {
   const { filters } = useContext(Context);
   const [energyDeliveryValue, setEnergyDeliveryValue] = useState(0);
@@ -18,66 +19,20 @@ export default function BoxSection() {
   const boxData = dataForBox;
 
   useEffect(() => {
-    if (filters.nombreSession === "journalier") {
-      setSession(boxData.dataWithFilter.journalier.session);
-    } if(filters.nombreSession === "mensuel") {
-        setSession(boxData.dataWithFilter.mensuel.session); 
-    } if(filters.nombreSession === "trimestriel") {
-        setSession(boxData.dataWithFilter.trimestriel.session); 
-    }
-    if(filters.nombreSession === "semestriel") {
-      setSession(boxData.dataWithFilter.semestriel.session); 
-    }
-    if(filters.nombreSession === "annuel") {
-      setSession(boxData.dataWithFilter.annuel.session); 
-  }
-  }, [filters.nombreSession])
+    updateValue(filters.nombreSession, "session", setSession);
+  }, [filters.nombreSession]);
+  
   useEffect(() => {
-    if (filters.energyDelivery === "journalier") {
-      setEnergyDeliveryValue(boxData.dataWithFilter.journalier.energy_kWh);
-    } if(filters.energyDelivery === "mensuel") {
-        setEnergyDeliveryValue(boxData.dataWithFilter.mensuel.energy_kWh); 
-    } if(filters.energyDelivery === "trimestriel") {
-        setEnergyDeliveryValue(boxData.dataWithFilter.trimestriel.energy_kWh); 
-    }
-    if(filters.energyDelivery === "semestriel") {
-      setEnergyDeliveryValue(boxData.dataWithFilter.semestriel.energy_kWh); 
-    }
-    if(filters.energyDelivery === "annuel") {
-      setEnergyDeliveryValue(boxData.dataWithFilter.annuel.energy_kWh); 
-  }
-  }, [filters.energyDelivery])
-
+    updateValue(filters.energyDelivery, "energy_kWh", setEnergyDeliveryValue);
+  }, [filters.energyDelivery]);
+  
   useEffect(() => {
-    if (filters.newClient === "journalier") {
-      setNewClient(boxData.dataWithFilter.journalier.new_user);
-    } if(filters.newClient === "mensuel") {
-        setNewClient(boxData.dataWithFilter.mensuel.new_user); 
-    } if(filters.newClient === "trimestriel") {
-        setNewClient(boxData.dataWithFilter.trimestriel.new_user); 
-    }
-    if(filters.newClient === "semestriel") {
-      setNewClient(boxData.dataWithFilter.semestriel.new_user); 
-    }
-    if(filters.newClient === "annuel") {
-      setNewClient(boxData.dataWithFilter.annuel.new_user); 
-  }
-  }, [filters.newClient])
+    updateValue(filters.newClient, "new_user", setNewClient);
+  }, [filters.newClient]);
+  
   useEffect(() => {
-    if (filters.revenu === "journalier") {
-      setRevenu(boxData.dataWithFilter.journalier.revenue);
-    } if(filters.revenu === "mensuel") {
-        setRevenu(boxData.dataWithFilter.mensuel.revenue); 
-    } if(filters.revenu === "trimestriel") {
-        setRevenu(boxData.dataWithFilter.trimestriel.revenue); 
-    }
-    if(filters.revenu === "semestriel") {
-      setRevenu(boxData.dataWithFilter.semestriel.revenue); 
-    }
-    if(filters.revenu === "annuel") {
-      setRevenu(boxData.dataWithFilter.annuel.revenue); 
-  }
-  }, [filters.revenu])
+    updateValue(filters.revenu, "revenue", setRevenu);
+  }, [filters.revenu]);
 
   const { percentVal , colorPercent } = usePercent(0);
   const [litleDescri, setlitleDescri] = useState(null);
