@@ -12,16 +12,72 @@ import { usePercent } from '@/lib/hoocks/usePercent';
 export default function BoxSection() {
   const { filters } = useContext(Context);
   const [energyDeliveryValue, setEnergyDeliveryValue] = useState(0);
+  const [newClient, setNewClient] = useState(0)
+  const [revenu, setRevenu] = useState(0)
+  const [session, setSession] = useState(0)
   const boxData = dataForBox;
 
   useEffect(() => {
-    const energyDeliveryByFilter = boxData.energyDelivered.find(data => data.period === filters.energyDelivery);
-    if (energyDeliveryByFilter) {
-      setEnergyDeliveryValue(energyDeliveryByFilter.energy_kWh);
-    } else {
-        setEnergyDeliveryValue(0); 
+    if (filters.nombreSession === "journalier") {
+      setSession(boxData.dataWithFilter.journalier.session);
+    } if(filters.nombreSession === "mensuel") {
+        setSession(boxData.dataWithFilter.mensuel.session); 
+    } if(filters.nombreSession === "trimestriel") {
+        setSession(boxData.dataWithFilter.trimestriel.session); 
     }
+    if(filters.nombreSession === "semestriel") {
+      setSession(boxData.dataWithFilter.semestriel.session); 
+    }
+    if(filters.nombreSession === "annuel") {
+      setSession(boxData.dataWithFilter.annuel.session); 
+  }
+  }, [filters.nombreSession])
+  useEffect(() => {
+    if (filters.energyDelivery === "journalier") {
+      setEnergyDeliveryValue(boxData.dataWithFilter.journalier.energy_kWh);
+    } if(filters.energyDelivery === "mensuel") {
+        setEnergyDeliveryValue(boxData.dataWithFilter.mensuel.energy_kWh); 
+    } if(filters.energyDelivery === "trimestriel") {
+        setEnergyDeliveryValue(boxData.dataWithFilter.trimestriel.energy_kWh); 
+    }
+    if(filters.energyDelivery === "semestriel") {
+      setEnergyDeliveryValue(boxData.dataWithFilter.semestriel.energy_kWh); 
+    }
+    if(filters.energyDelivery === "annuel") {
+      setEnergyDeliveryValue(boxData.dataWithFilter.annuel.energy_kWh); 
+  }
   }, [filters.energyDelivery])
+
+  useEffect(() => {
+    if (filters.newClient === "journalier") {
+      setNewClient(boxData.dataWithFilter.journalier.new_user);
+    } if(filters.newClient === "mensuel") {
+        setNewClient(boxData.dataWithFilter.mensuel.new_user); 
+    } if(filters.newClient === "trimestriel") {
+        setNewClient(boxData.dataWithFilter.trimestriel.new_user); 
+    }
+    if(filters.newClient === "semestriel") {
+      setNewClient(boxData.dataWithFilter.semestriel.new_user); 
+    }
+    if(filters.newClient === "annuel") {
+      setNewClient(boxData.dataWithFilter.annuel.new_user); 
+  }
+  }, [filters.newClient])
+  useEffect(() => {
+    if (filters.revenu === "journalier") {
+      setRevenu(boxData.dataWithFilter.journalier.revenue);
+    } if(filters.revenu === "mensuel") {
+        setRevenu(boxData.dataWithFilter.mensuel.revenue); 
+    } if(filters.revenu === "trimestriel") {
+        setRevenu(boxData.dataWithFilter.trimestriel.revenue); 
+    }
+    if(filters.revenu === "semestriel") {
+      setRevenu(boxData.dataWithFilter.semestriel.revenue); 
+    }
+    if(filters.revenu === "annuel") {
+      setRevenu(boxData.dataWithFilter.annuel.revenue); 
+  }
+  }, [filters.revenu])
 
   const { percentVal , colorPercent } = usePercent(0);
   const [litleDescri, setlitleDescri] = useState(null);
@@ -43,7 +99,7 @@ export default function BoxSection() {
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-col-4 gap-6">
     <Box
       Title="Nombre total de Session"
-      Value="100"
+      Value={session}
       FirstIcone={BsFillEvStationFill}
       SecondIcone={FaUser}
       litleStatistique={litleDescri}
@@ -61,7 +117,7 @@ export default function BoxSection() {
     />
     <Box
       Title="Revenus totaux"
-      Value="450K Ar"
+      Value={revenu}
       FirstIcone={BsFillEvStationFill}
       SecondIcone={GiReceiveMoney}
       litleStatistique={litleDescri}
@@ -70,7 +126,7 @@ export default function BoxSection() {
     />
     <Box
       Title="Défaillance et perte de connexion"
-      Value="40"
+      Value={boxData.dataNoFilter.fail}
       FirstIcone={BsFillEvStationFill}
       SecondIcone={CgUnavailable}
       litleStatistique={null}
@@ -79,7 +135,7 @@ export default function BoxSection() {
     />
     <Box
       Title="Session de recharge en cours"
-      Value="40"
+      Value={boxData.dataNoFilter.charging}
       FirstIcone={BsFillEvStationFill}
       SecondIcone={TbRecharging}
       litleStatistique={null}
@@ -88,7 +144,7 @@ export default function BoxSection() {
     />
     <Box
       Title="Nouveaux clients"
-      Value="10"
+      Value={newClient}
       FirstIcone={FaUser}
       SecondIcone={FaUser}
       litleStatistique={litleDescri}

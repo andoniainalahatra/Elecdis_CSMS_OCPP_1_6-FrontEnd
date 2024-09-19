@@ -1,7 +1,7 @@
 import axiosInstance from "@/lib/axiosInstance.js";
 import {useQuery} from "@tanstack/react-query";
 
- const useExample = (url, queryKey, page, number_items) => {
+const useExample = (url, queryKey, page, number_items) => {
     return useQuery({
         queryKey: [`${queryKey}`, page],
 
