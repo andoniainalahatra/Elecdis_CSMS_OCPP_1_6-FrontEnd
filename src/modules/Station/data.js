@@ -38,16 +38,3 @@
 //
 // export default stationData;
 
-import {useQuery} from "@tanstack/react-query";
-import axiosInstance from "@/lib/axiosInstance.js";
-
-export default function Example() {
-    const { isPending, error, data } = useQuery({
-        queryKey: ['repoData'],
-        queryFn: () =>
-            axiosInstance.get('/cp/read_cp')
-    })
-    console.log(data)
-
-    return {isPending,error,data};
-}
