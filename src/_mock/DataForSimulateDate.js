@@ -194,10 +194,10 @@ export const dateSimulation = [
 export const dataForBox = {
   dataWithFilter: {
     journalier: {
-      energy_kWh: 40,
-      session: 10,
-      revenue: "126 Ar",
-      new_user: 5,
+      energy_kWh: 40, // total d'energy delivre
+      session: 10, // total de session
+      revenue: "126 Ar", // revenu total
+      new_user: 5, // total new user
     },
     mensuel: {
       energy_kWh: 149,
@@ -226,7 +226,7 @@ export const dataForBox = {
   },
   "dataNoFilter" : {
     "charging" : 30, // nombre total de session en cours
-    "fail" : 5 // nombre total de charge point inactif
+    "fail" : 5 // nombre total de charge point inactif et en defaillance
   }
 };
 
