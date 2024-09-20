@@ -1,14 +1,21 @@
-import userData from '@/modules/dashboard/component/userData';
+import { selectUser } from '@/features/Users/userSelector';
+// import userData from '@/modules/dashboard/content/ACTIVITE/components/data/userData';
 import React from 'react';
 import { FaCircleUser } from "react-icons/fa6";
+import { useSelector } from 'react-redux';
 
 const DetailAutorisation = ({ userId }) => {
+
+    const { data } = useSelector(selectUser)
     // Fonction pour trouver l'utilisateur par userId
     const findUser = () => {
-        return userData.find((user) => user.id === userId);
+        return data.find((user) => user.id === userId);
+
+
     };
 
     const user = findUser();
+    console.log(data)
 
     return (
         <div className='p-4 text-2xl bg-white rounded-lg shadow-md'>
@@ -33,12 +40,12 @@ const DetailAutorisation = ({ userId }) => {
                                     <FaCircleUser size={100} />
                                 </div>
                                 <div className='text-left'>
-                                    <span className='font-semibold'>{user.nom + ' ' + user.prenom}</span>
+                                    <span className='font-semibold'>{user.first_name + ' ' + user.last_name}</span>
                                     <div className='flex flex-col mt-6 space-y-2'>
                                         <div className='border-b border-primaryChart'>{user.email}</div>
-                                        <div className='border-b border-primaryChart'>{user.telephone}</div>
                                         <div className='border-b border-primaryChart'>{user.role}</div>
-                                        <div className='border-b border-primaryChart'>{user.status}</div>
+                                        <div className='border-b border-primaryChart'>{user.phone}</div>
+                                        <div className='border-b border-primaryChart'>{user.subscription}</div>
                                     </div>
                                 </div>
                             </div>
@@ -55,3 +62,6 @@ const DetailAutorisation = ({ userId }) => {
 };
 
 export default DetailAutorisation;
+
+
+// verifierrrr oooo+
