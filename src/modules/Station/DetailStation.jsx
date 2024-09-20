@@ -2,12 +2,28 @@ import React from 'react';
 import {FaRegCheckCircle} from "react-icons/fa";
 import {IoMdAddCircleOutline} from "react-icons/io";
 import ChartSection from "@/modules/dashboard/content/T_BORD/components/ChartSection.jsx";
+import {useSelector} from "react-redux";
+import {selectStation} from "@/features/Stations/stationSelector.js";
+import {RiChargingPile2Line} from "react-icons/ri";
+import {BiLoaderCircle} from "react-icons/bi";
+import {CgUnavailable} from "react-icons/cg";
 
 
-function DetailStation() {
+function DetailStation({IdStation}) {
+
+    const {data} = useSelector(selectStation);
+
+    const findStation = () => {
+        return data.find(station => station.id === IdStation);
+    }
+
+    const station = findStation();
+    console.log(station)
+
     return (
-        <div className="h-screen">
-            <div className="text-[#637381] grid grid-cols-3 max-md:grid-cols-1 mb-6 pt-10 gap-6 max-sm:grid-cols-1 max-sm:p-4 max-md:mt-[50px] mt-[50px]">
+        <div className="h-screen container">
+            <div
+                className="text-[#637381] grid grid-cols-3 max-md:grid-cols-1 mb-6 pt-10 gap-6 max-sm:grid-cols-1 max-sm:p-4 max-md:mt-[50px] mt-[50px]">
                 <div className="text-[#637381] col-span-1 bg-[#ffffff] shadow-lg rounded-2xl p-6 ">
                     <h1 className="text-start text-red-600 font-bold text-2xl">Stations</h1>
                     <div className="text-start text-gray-800 mt-2 grid grid-cols-2 gap-4 ">
@@ -17,10 +33,10 @@ function DetailStation() {
                             <p>Numero de serie</p>
                             <p>Location</p>
                         </div>
-                        <div>
-                            <p>SC78789</p>
-                            <p>Voltronic</p>
-                            <p>EV98jh</p>
+                        <div >
+                            <p className="truncate">{station.charge_point_model}</p>
+                            <p className="truncate"> {station.charge_point_vendors}</p>
+                            <p className="truncate">{station.serial_number}</p>
                             <p>Andraharo</p>
                         </div>
                     </div>
@@ -29,18 +45,73 @@ function DetailStation() {
                     <div className="grid grid-cols-2 max-md:grid-cols-1 max-md:w-full p-4">
                         <div>
                             <div className="flex justify-center items-start gap-4 ">
-                                <div>
-                                    <FaRegCheckCircle color="#4CAF50" size={117}/>
-                                    <p className="text-[#36E73D] font-bold mt-2 ">Disponible</p>
-                                </div>
-                                <div className="text-center">
-                                    <h1 className="text-center mb-2 font-medium">Connecteur 1</h1>
-                                    <div
-                                        className="bg-gradient-to-r from-green-200 to-green-300 p-6 flex flex-col font-medium gap-4 rounded-md items-center justify-center">
-                                        <p>Energie</p>
-                                        <p>209 Wh</p>
-                                    </div>
-                                </div>
+                                {
+                                    (station.status === "Unavailable" || station.status === "unavalaible") && (
+                                        <div className="flex space-x-5">
+                                            <div>
+                                                <CgUnavailable color="#F44336" size={117}/>
+                                                <p className="text-[#F44336] font-bold mt-2 ">{station.status}</p>
+                                            </div>
+                                            <div className="text-center">
+                                                <h1 className="text-center mb-2 font-medium">Connecteur 1</h1>
+                                                <div
+                                                    className="bg-gradient-to-r from-red-200 to-red-300 p-6 flex flex-col font-medium gap-4 rounded-md items-center justify-center">
+                                                    <p>Energie</p>
+                                                    <p>209 Wh</p>
+                                                </div>
+                                            </div>
+                                        </div>)
+                                }
+                                {
+                                    (station.status === "available" || station.status === "Available") && (
+                                        <div className="flex space-x-5">
+                                            <div>
+                                                <FaRegCheckCircle color="#4CAF50" size={117}/>
+                                                <p className="text-[#4CAF50] font-bold mt-2 ">{station.status}</p>
+                                            </div>
+                                            <div className="text-center">
+                                                <h1 className="text-center mb-2 font-medium">Connecteur 1</h1>
+                                                <div
+                                                    className="bg-gradient-to-r from-green-200 to-green-300 p-6 flex flex-col font-medium gap-4 rounded-md items-center justify-center">
+                                                    <p>Energie</p>
+                                                    <p>209 Wh</p>
+                                                </div>
+                                            </div>
+                                        </div>)
+                                }
+                                {
+                                    (station.status === "charging" || station.status === "Charging") && (
+                                        <div className="flex space-x-5">
+                                            <div>
+                                                <RiChargingPile2Line color="#2196F3" size={117}/>
+                                                <p className="text-[#2196F3] font-bold mt-2 ">{station.status}</p>
+                                            </div>
+                                            <div className="text-center">
+                                                <h1 className="text-center mb-2 font-medium">Connecteur 1</h1>
+                                                <div
+                                                    className="bg-gradient-to-r from-blue-200 to-blue-300 p-6 flex flex-col font-medium gap-4 rounded-md items-center justify-center">
+                                                    <p>Energie</p>
+                                                    <p>209 Wh</p>
+                                                </div>
+                                            </div>
+                                        </div>)
+                                }{
+                                (station.status === "preparing" || station.status === "Preparing") && (
+                                    <div className="flex space-x-5">
+                                        <div>
+                                            <BiLoaderCircle color="#2196F3" size={117}/>
+                                            <p className="text-[#2196F3] font-bold mt-2 ">{station.status}</p>
+                                        </div>
+                                        <div className="text-center">
+                                            <h1 className="text-center mb-2 font-medium">Connecteur 1</h1>
+                                            <div
+                                                className="bg-gradient-to-r from-blue-200 to-blue-300 p-6 flex flex-col font-medium gap-4 rounded-md items-center justify-center">
+                                                <p>Energie</p>
+                                                <p>209 Wh</p>
+                                            </div>
+                                        </div>
+                                    </div>)
+                            }
                             </div>
                         </div>
                         <div>

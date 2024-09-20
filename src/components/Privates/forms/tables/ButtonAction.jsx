@@ -59,7 +59,7 @@ const ButtonAction = ({ buttonProperty, userId }) => {
                     className="fixed top-0 left-0 flex items-center justify-center w-full h-screen overflow-auto z-1000 backdrop-blur-md"
                     style={{ backgroundColor: "rgba(9,16,26,0.7)" }}
                 >
-                    <DetailStation />
+                    <DetailStation IdStation={userId} />
                     <span
                         className="absolute cursor-pointer top-5 right-5"
                         onClick={() => setSection("")}
