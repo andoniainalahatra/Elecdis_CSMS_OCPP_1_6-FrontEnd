@@ -9,7 +9,7 @@ function EditStation() {
     return (
         <div className=" text-left w-full m-3 md:w-[30vw]  ">
             <form
-                className="flex flex-col max-md:h-screen max-md:justify-center max-md:items-center  space-y-6 p-6 bg-[#fefefe] max-md:bg-[#fefefe]/10 shadow-lg rounded-md">
+                className="flex flex-col max-md:h-screen max-md:justify-center max-md:items-center  space-y-6 p-6 bg-[#fefefe]  shadow-lg rounded-md">
                 <div className="w-full " >
                     {/*<Label htmlFor="name" className="text-primaryChart ">Name</Label>*/}
                     {/*<Input id="name" type="text" placeholder="Enter your name" className="mt-1"/>*/}
@@ -23,17 +23,6 @@ function EditStation() {
                 </div>
 
                 <div className="w-full">
-                    {/* <Label htmlFor="status" className="text-primaryChart ">Status</Label> */}
-                    {/* <Select>
-                        <SelectTrigger id="status" className="mt-1">
-                            <SelectValue placeholder="Select status"/>
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectItem value="active">Active</SelectItem>
-                            <SelectItem value="inactive">Inactive</SelectItem>
-                            <SelectItem value="maintenance">Maintenance</SelectItem>
-                        </SelectContent>
-                    </Select> */}
                     <FloatingLabelInput label="Status" name="status" type="select"/>
                 </div>
 

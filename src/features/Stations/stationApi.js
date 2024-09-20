@@ -1,7 +1,6 @@
-import useExample from "@/lib/hoocks/useExample.js";
+import useExample from "@/lib/hoocks/useExample";
 
-
- export const StationApi = (url,queryKey,page,number_items) => useExample(url, queryKey, page, number_items)
+export const StationApi = (url,queryKey,page,number_items) => useExample(url, queryKey, page, number_items)
 
 // const useExample = (url, queryKey, page, number_items) => {
 //     return useQuery({

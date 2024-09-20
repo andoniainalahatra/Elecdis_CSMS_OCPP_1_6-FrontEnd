@@ -9,19 +9,30 @@ import { GiReceiveMoney } from "react-icons/gi";
 import { dataForBox } from "@/_mock/DataForSimulateDate";
 import { Context } from '@/common/config/configs/Context';
 import { usePercent } from '@/lib/hoocks/usePercent';
+import { updateValue } from '@/lib/updateValue';
 export default function BoxSection() {
   const { filters } = useContext(Context);
   const [energyDeliveryValue, setEnergyDeliveryValue] = useState(0);
+  const [newClient, setNewClient] = useState(0)
+  const [revenu, setRevenu] = useState(0)
+  const [session, setSession] = useState(0)
   const boxData = dataForBox;
 
   useEffect(() => {
-    const energyDeliveryByFilter = boxData.energyDelivered.find(data => data.period === filters.energyDelivery);
-    if (energyDeliveryByFilter) {
-      setEnergyDeliveryValue(energyDeliveryByFilter.energy_kWh);
-    } else {
-        setEnergyDeliveryValue(0); 
-    }
-  }, [filters.energyDelivery])
+    updateValue(filters.nombreSession, "session", setSession);
+  }, [filters.nombreSession]);
+  
+  useEffect(() => {
+    updateValue(filters.energyDelivery, "energy_kWh", setEnergyDeliveryValue);
+  }, [filters.energyDelivery]);
+  
+  useEffect(() => {
+    updateValue(filters.newClient, "new_user", setNewClient);
+  }, [filters.newClient]);
+  
+  useEffect(() => {
+    updateValue(filters.revenu, "revenue", setRevenu);
+  }, [filters.revenu]);
 
   const { percentVal , colorPercent } = usePercent(0);
   const [litleDescri, setlitleDescri] = useState(null);
@@ -43,7 +54,7 @@ export default function BoxSection() {
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-col-4 gap-6">
     <Box
       Title="Nombre total de Session"
-      Value="100"
+      Value={session}
       FirstIcone={BsFillEvStationFill}
       SecondIcone={FaUser}
       litleStatistique={litleDescri}
@@ -61,7 +72,7 @@ export default function BoxSection() {
     />
     <Box
       Title="Revenus totaux"
-      Value="450K Ar"
+      Value={revenu}
       FirstIcone={BsFillEvStationFill}
       SecondIcone={GiReceiveMoney}
       litleStatistique={litleDescri}
@@ -70,7 +81,7 @@ export default function BoxSection() {
     />
     <Box
       Title="Défaillance et perte de connexion"
-      Value="40"
+      Value={boxData.dataNoFilter.fail}
       FirstIcone={BsFillEvStationFill}
       SecondIcone={CgUnavailable}
       litleStatistique={null}
@@ -79,7 +90,7 @@ export default function BoxSection() {
     />
     <Box
       Title="Session de recharge en cours"
-      Value="40"
+      Value={boxData.dataNoFilter.charging}
       FirstIcone={BsFillEvStationFill}
       SecondIcone={TbRecharging}
       litleStatistique={null}
@@ -88,7 +99,7 @@ export default function BoxSection() {
     />
     <Box
       Title="Nouveaux clients"
-      Value="10"
+      Value={newClient}
       FirstIcone={FaUser}
       SecondIcone={FaUser}
       litleStatistique={litleDescri}

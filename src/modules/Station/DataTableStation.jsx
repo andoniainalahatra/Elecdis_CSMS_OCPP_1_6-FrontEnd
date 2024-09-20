@@ -38,7 +38,6 @@ const DataTableStation = () => {
     return (
         <DataTable columns={columns} datas={stationData} actions={actions} ButtonAction={ButtonAction}
             totalPage={totalPage} selectPage={currentPage} resetPage={resetPage} nextPage={nextPage} previousPage={previousPage} />
-        //   console.log(data.data)
     );
 }
 

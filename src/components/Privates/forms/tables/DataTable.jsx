@@ -27,7 +27,7 @@ import {useDispatch} from "react-redux";
 // import {nextPage, previousPage, resetPage, totalPage} from "@/features/Stations/stationSlice.js";
 // import {selectPage} from "@/features/Stations/stationSelector.js";
 
-function DataTable({columns, datas, actions, ButtonAction, nextPage, previousPage, totalPage, resetPage, selectPage }) {
+function DataTable({columns, datas, actions, ButtonAction, nextPage, previousPage, totalPage, resetPage, selectPage}) {
 
     const [data, setData] = useState([]);
     const [pagination, setPagination] = useState({});
@@ -41,6 +41,8 @@ function DataTable({columns, datas, actions, ButtonAction, nextPage, previousPag
     const yellow = "bg-yellow-100 text-yellow-800 hover:bg-yellow-100 cursor-pointer";
     const orange = "bg-amber-100 text-amber-800 hover:bg-amber-100 cursor-pointer";
     const defaultColor = "bg-gray-100 text-gray-800 hover:bg-gray-100 cursor-pointer";
+    const blue = "bg-blue-100 text-blue-800 hover:bg-blue-100 cursor-pointer";
+
     const dispatch = useDispatch();
     const customFilterFn = (row, columnId, filterValue) => {
         const cellValue = row.getValue(columnId);
@@ -67,7 +69,7 @@ function DataTable({columns, datas, actions, ButtonAction, nextPage, previousPag
     });
     const pageIndex = selectPage;
     const nxPage = pageIndex + 1;
-    console.log("pagination :",pagination)
+    console.log("pagination :", pagination)
     console.log("datas : ", datas)
     console.log("nextPage : ", nextPage)
     console.log("prevPage : ", previousPage)
@@ -80,16 +82,6 @@ function DataTable({columns, datas, actions, ButtonAction, nextPage, previousPag
     return (
         <div className=" py-6  shadow-combined rounded-lg overflow-x-auto bg-[#fffe]">
             <Filters value={globalFilter} onChange={setGlobalFilter}/>
-            <Select>
-                <SelectTrigger id="status" className="mt-1">
-                    <SelectValue placeholder="Select status"/>
-                </SelectTrigger>
-                <SelectContent>
-                    <SelectItem value="active">Active</SelectItem>
-                    <SelectItem value="inactive">Inactive</SelectItem>
-                    <SelectItem value="maintenance">Maintenance</SelectItem>
-                </SelectContent>
-            </Select>
             <Table className="text-center bg-[#fffe]">
                 <TableHeader className="bg-[#F4F6F8] text-center">
                     {table.getHeaderGroups().map((headerGroup) => (
@@ -106,13 +98,7 @@ function DataTable({columns, datas, actions, ButtonAction, nextPage, previousPag
                 <TableBody>
                     {table.getRowModel().rows.map((row) => (
                         <TableRow key={row.id}>
-                            {/* {row.getVisibleCells().map((cell) => (
 
-              //  cell.column.columnDef.cell.getContext()?
-                <TableCell key={cell.id} >
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </TableCell>
-              ))} */}
 
                             {row.getVisibleCells().map((cell) => {
                                     const cellValue = cell.getValue();
@@ -160,6 +146,7 @@ function DataTable({columns, datas, actions, ButtonAction, nextPage, previousPag
                                                 break;
                                             case "Disponible":
                                             case "Available":
+                                            case "available":
                                                 cellClass = green;
                                                 break;
                                             case "Hors service":
@@ -167,7 +154,12 @@ function DataTable({columns, datas, actions, ButtonAction, nextPage, previousPag
                                                 cellClass = red
                                                 ;
                                                 break;
-
+                                            case "Preparing":
+                                            case "preparing":
+                                            case "Charging":
+                                            case "charging":
+                                                cellClass = blue;
+                                                break;
                                             case "Occupe":
                                                 cellClass = yellow;
                                                 break;
@@ -199,7 +191,7 @@ function DataTable({columns, datas, actions, ButtonAction, nextPage, previousPag
                 <div className="flex items-center gap-2 ">
                     <Button
                         type="button"
-                        disabled={pageIndex ===1 }
+                        disabled={pageIndex === 1}
                         onClick={() => dispatch(resetPage())}
                         className="bg-transparent text-[#64748b] hover:bg-transparent"
                     >
@@ -227,7 +219,7 @@ function DataTable({columns, datas, actions, ButtonAction, nextPage, previousPag
                     </Button>
                     <Button
                         type="button"
-                        disabled={pageIndex === totalPages }
+                        disabled={pageIndex === totalPages}
                         onClick={() => {
                             dispatch(totalPage(totalPages))
                         }}
