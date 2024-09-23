@@ -18,7 +18,7 @@ function App() {
     <>
       {loading ? (
         <div className="w-full h-screen flex justify-center items-center">
-          <RotateLoader color="#f87" />
+          <RotateLoader color="#F2505D" />
         </div>
       ) : (
         <Provider store={store}>

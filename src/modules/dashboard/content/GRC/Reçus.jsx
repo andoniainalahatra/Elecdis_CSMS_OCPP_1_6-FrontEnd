@@ -1,16 +1,19 @@
-import React from 'react'
-import BoutonAdd from '../../component/BoutonAdd'
+import React from "react";
+import BoutonAdd from "../../component/BoutonAdd";
 
 const Reçus = () => {
-    const handleClick = () => alert("hello");
-    return (
-        <div>
-            <div className='flex justify-between m-1'>
-                <span className=' text-[24px] text-[#212B36]'>Reçus</span>
-                <BoutonAdd action={handleClick} />
-            </div>
-        </div>
-    )
-}
+  const handleClick = () => alert("hello");
+  return (
+    <div className="w-full h-auto p-6">
+      <div className="w-full flex items-center justify-between mb-6">
+        <h2 className="text-[#212B36] text-xl">Réçus</h2>
+        <BoutonAdd action={handleClick} />
+      </div>
+      <div>
+        {/* <EtiquettesRfidTable /> */}
+      </div>
+    </div>
+  );
+};
 
-export default Reçus
+export default Reçus;

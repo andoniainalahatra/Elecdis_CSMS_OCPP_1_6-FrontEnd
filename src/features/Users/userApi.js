@@ -1,3 +1,3 @@
-import useExample from "@/lib/hoocks/useExample.js";
+import useGetDataWithPagination from "@/lib/hoocks/useGetDataWithPagination.js";
 
- export const UserApi = (url,queryKey,page,number_items) => useExample(url, queryKey, page, number_items)
+ export const UserApi = (url,queryKey,page,number_items) => useGetDataWithPagination(url, queryKey, page, number_items)
