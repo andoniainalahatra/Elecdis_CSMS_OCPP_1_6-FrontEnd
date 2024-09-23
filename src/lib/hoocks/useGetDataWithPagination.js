@@ -1,6 +1,6 @@
 import axiosInstance from "@/lib/axiosInstance.js";
 import {useQuery} from "@tanstack/react-query";
-const useExample = (url, queryKey, page, number_items) => {
+const useGetDataWithPagination = (url, queryKey, page, number_items) => {
     return useQuery({
         queryKey: [`${queryKey}`, page],
 
@@ -8,5 +8,5 @@ const useExample = (url, queryKey, page, number_items) => {
             axiosInstance.get(`/${url}?page=${page}&number_items=${number_items}`).then((response) => response)
     })
 }
-export default useExample;
+export default useGetDataWithPagination;
 

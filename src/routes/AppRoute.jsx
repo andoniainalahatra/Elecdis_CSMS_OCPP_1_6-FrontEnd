@@ -18,7 +18,7 @@ export function AppRoutes() {
   return (
     <Router>
       <Suspense fallback={<div className="w-full h-screen flex justify-center items-center">
-          <RotateLoader color="#f87" />
+          <RotateLoader color="#F2505D" />
         </div>}>
         <Routes>
           <Route
