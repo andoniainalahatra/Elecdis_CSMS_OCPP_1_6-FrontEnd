@@ -9,8 +9,6 @@ import {BiLoaderCircle} from "react-icons/bi";
 import {CgUnavailable} from "react-icons/cg";
 import { useQuery } from '@tanstack/react-query';
 import axiosInstance from '@/lib/axiosInstance';
-import { PulseLoader } from "react-spinners";
-import Swal from "sweetalert2";
 
 
 function DetailStation({IdStation}) {
@@ -21,15 +19,10 @@ function DetailStation({IdStation}) {
     });
 
     if(isPending){
-        <div className="w-full flex justify-center items-center h-[70vh]">
-            <PulseLoader color="#f87" />
-        </div>
+        return (<p>Loading</p>)
     }
     if(error){
-        return Swal.fire({
-            title: "Oops ! Erreur de connexion .",
-            icon: "error",
-          });
+        return(<p>error</p>)
     }
     // const {data} = useSelector(selectStation);
 
