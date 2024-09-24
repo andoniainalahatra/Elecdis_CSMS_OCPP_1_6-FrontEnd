@@ -9,8 +9,8 @@ const Transactions = () => {
 
   return (
     <div className="w-full h-auto p-6">
-      <div className="w-full flex items-center justify-between mb-6">
-        <h2 className="text-[#212B36] text-xl">Transaction de payement</h2>
+      <div className="flex items-center justify-between w-full mb-6">
+        <h2 className="text-[#212B36] text-xl">Listes RFID</h2>
         <BoutonAdd action={handleClick} />
       </div>
       <div>
