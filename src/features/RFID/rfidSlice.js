@@ -9,7 +9,7 @@ const rfidSlice = createSlice({
     initialState,
     reducers: {
         getRfid: (state, action) => {
-            state.userData = action.payload.data;
+            state.userData = action.payload;
         },
         nextPage: (state, action) => {
             state.pageIndex = action.payload;
