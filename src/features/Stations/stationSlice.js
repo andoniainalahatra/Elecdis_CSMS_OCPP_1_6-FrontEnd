@@ -9,7 +9,7 @@ const stationSlice = createSlice({
     initialState,
     reducers: {
         getStation: (state, action) => {
-            state.stationData = action.payload.data;
+            state.stationData = action.payload;
         },
         nextPage: (state, action) => {
             state.pageIndex = action.payload;

@@ -81,10 +81,6 @@ function DataTable({columns, datas, actions, ButtonAction, nextPage, previousPag
     });
     const pageIndex = selectPage;
     const nxPage = pageIndex + 1;
-    console.log("pagination :", pagination)
-    console.log("datas : ", datas)
-    console.log("nextPage : ", nextPage)
-    console.log("prevPage : ", previousPage)
 
     const prevPage = pageIndex - 1;
     const pageSize = pagination.limit;
