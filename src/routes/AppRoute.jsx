@@ -1,18 +1,25 @@
-
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Suspense, lazy } from "react";
 import Logo from "@/assets/logo1.png";
-import ForgotPassword from "@/modules/ForgotPassword/ForgotPassword";
-import ResetPassword from "@/modules/ForgotPassword/ResetPassword";
-import EmailSend from "@/modules/ForgotPassword/EmailSend";
-import Inscription from "@/modules/Inscription/Inscription";
-import Login from "@/modules/Login/Login";
-import { ContextProvider } from "@/common/config/configs/Context";
 import ProtectedRoute from "@/ProtectedRoute";
-import Dashboard from "@/modules/dashboard/Dashboard";
 import Page403 from "@/components/Page403";
+import { ContextProvider } from "@/common/config/configs/Context";
+import { RotateLoader } from "react-spinners";
+
+// Utilisation de React.lazy pour le lazy loading des composants
+const ForgotPassword = lazy(() => import("@/modules/ForgotPassword/ForgotPassword"));
+const ResetPassword = lazy(() => import("@/modules/ForgotPassword/ResetPassword"));
+const EmailSend = lazy(() => import("@/modules/ForgotPassword/EmailSend"));
+const Inscription = lazy(() => import("@/modules/Inscription/Inscription"));
+const Login = lazy(() => import("@/modules/Login/Login"));
+const Dashboard = lazy(() => import("@/modules/dashboard/Dashboard"));
+
 export function AppRoutes() {
-    return (
-      <Router>
+  return (
+    <Router>
+      <Suspense fallback={<div className="w-full h-screen flex justify-center items-center">
+          <RotateLoader color="#F2505D" />
+        </div>}>
         <Routes>
           <Route
             path="/"
@@ -26,7 +33,7 @@ export function AppRoutes() {
           <Route path="/resetPassword" element={<ResetPassword />} />
           <Route path="/emailSend" element={<EmailSend />} />
           <Route path="/inscription" element={<Inscription />} />
-  
+
           <Route
             path="/dashboard"
             element={
@@ -37,10 +44,10 @@ export function AppRoutes() {
               </ContextProvider>
             }
           />
-  
+
           <Route path="/403" element={<Page403 />} />
-          {/* Autres routes... */}
         </Routes>
-      </Router>
-    );
-  }
+      </Suspense>
+    </Router>
+  );
+}

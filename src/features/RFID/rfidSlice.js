@@ -1,15 +1,15 @@
 import {createSlice} from "@reduxjs/toolkit";
 
 const initialState = {
-    stationData: {},
+    rfidData: {},
     pageIndex: 1,
 }
-const stationSlice = createSlice({
-    name: "station",
+const rfidSlice = createSlice({
+    name: "rfid",
     initialState,
     reducers: {
-        getStation: (state, action) => {
-            state.stationData = action.payload;
+        getRfid: (state, action) => {
+            state.userData = action.payload;
         },
         nextPage: (state, action) => {
             state.pageIndex = action.payload;
@@ -30,5 +30,5 @@ const stationSlice = createSlice({
 
 })
 
-export const {getStation, nextPage,previousPage,resetPage,totalPage} = stationSlice.actions
-export default stationSlice.reducer
+export const {getRfid, nextPage,previousPage,resetPage,totalPage} = rfidSlice.actions
+export default rfidSlice.reducer

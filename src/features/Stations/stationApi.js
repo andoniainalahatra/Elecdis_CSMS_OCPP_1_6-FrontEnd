@@ -1,14 +1,4 @@
-import useExample from "@/lib/hoocks/useExample";
+import useGetDataWithPagination from "@/lib/hoocks/useGetDataWithPagination";
 
-export const StationApi = (url,queryKey,page,number_items) => useExample(url, queryKey, page, number_items)
-
-// const useExample = (url, queryKey, page, number_items) => {
-//     return useQuery({
-//         queryKey: [`${queryKey}`, page],
-//
-//         queryFn: () =>
-//             axiosInstance.get(`/${url}?page=${page}&number_items=${number_items}`).then((response) => response)
-//     })
-// }
-// export default useExample;
+export const StationApi = (url,queryKey,page,number_items) => useGetDataWithPagination(url, queryKey, page, number_items)
 

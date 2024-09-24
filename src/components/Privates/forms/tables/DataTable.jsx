@@ -4,7 +4,6 @@ import {
     getCoreRowModel,
     flexRender,
     getFilteredRowModel,
-    getPaginationRowModel,
 } from "@tanstack/react-table";
 import {Button} from "@/components/ui/button";
 import {
@@ -22,10 +21,23 @@ import {MdOutlineFirstPage} from "react-icons/md";
 import {MdOutlineLastPage} from "react-icons/md";
 import {MdNavigateNext} from "react-icons/md";
 import {GrFormPrevious} from "react-icons/gr";
-import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@radix-ui/react-select";
 import {useDispatch} from "react-redux";
-// import {nextPage, previousPage, resetPage, totalPage} from "@/features/Stations/stationSlice.js";
-// import {selectPage} from "@/features/Stations/stationSelector.js";
+/**
+ * Génère un tableau paginé avec des actions.
+ *
+ * @param {string[]} columns - Liste des titres de colonnes.
+ * @param {Object} datas - Objet contenant les données et les informations de pagination.
+ * @param {Object[]} datas.data - Liste des objets de données.
+ * @param {Object} datas.pagination - Informations sur la pagination.
+ * @param {Object[]} actions - Liste des objets d'actions, chaque objet doit contenir au moins une clé `name`.
+ * @param {Function} ButtonAction - Fonction pour gérer les actions des boutons.
+ * @param {Function} nextPage - Action Redux pour aller à la page suivante.
+ * @param {Function} previousPage - Action Redux pour revenir à la page précédente.
+ * @param {Function} totalPage - Action Redux pour obtenir le nombre total de pages.
+ * @param {Function} resetPage - Action Redux pour réinitialiser la pagination.
+ * @param {Function} selectPage - Action Redux pour sélectionner une page spécifique.
+ * @returns {JSX.Element} Le tableau paginé avec actions.
+ */
 
 function DataTable({columns, datas, actions, ButtonAction, nextPage, previousPage, totalPage, resetPage, selectPage}) {
 
@@ -69,10 +81,6 @@ function DataTable({columns, datas, actions, ButtonAction, nextPage, previousPag
     });
     const pageIndex = selectPage;
     const nxPage = pageIndex + 1;
-    console.log("pagination :", pagination)
-    console.log("datas : ", datas)
-    console.log("nextPage : ", nextPage)
-    console.log("prevPage : ", previousPage)
 
     const prevPage = pageIndex - 1;
     const pageSize = pagination.limit;
@@ -124,44 +132,31 @@ function DataTable({columns, datas, actions, ButtonAction, nextPage, previousPag
                                             case "En cours":
                                                 cellClass = orange;
                                                 break;
+                                            case "Disponible":
+                                            case "Available":
+                                            case "available":
                                             case "Terminée":
                                             case "Complétée":
-                                                cellClass = green;
-                                                break;
+                                            case "Accepté":
                                             case "active":
                                                 cellClass = green;
                                                 break;
                                             case "Échouée":
                                             case "inactive":
+                                            case "Bloqué":
+                                            case "Hors service":
+                                            case "Unavailable":
                                                 cellClass = red;
                                                 break;
                                             case "maintenance":
+                                            case "Occupe":
                                                 cellClass = yellow;
-                                                break;
-                                            case "ON":
-                                                cellClass = green;
-                                                break;
-                                            case "OFF":
-                                                cellClass = red;
-                                                break;
-                                            case "Disponible":
-                                            case "Available":
-                                            case "available":
-                                                cellClass = green;
-                                                break;
-                                            case "Hors service":
-                                            case "Unavailable":
-                                                cellClass = red
-                                                ;
                                                 break;
                                             case "Preparing":
                                             case "preparing":
                                             case "Charging":
                                             case "charging":
                                                 cellClass = blue;
-                                                break;
-                                            case "Occupe":
-                                                cellClass = yellow;
                                                 break;
                                             default:
                                                 cellClass = defaultColor;
