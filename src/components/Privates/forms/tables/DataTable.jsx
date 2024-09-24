@@ -83,9 +83,9 @@ function DataTable({columns, datas, actions, ButtonAction, nextPage, previousPag
     const nxPage = pageIndex + 1;
 
     const prevPage = pageIndex - 1;
-    const pageSize = pagination.limit;
-    const totalPages = pagination.total_pages
-    const rowCount = pagination.total_items
+    const pageSize = pagination?.limit;
+    const totalPages = pagination?.total_pages
+    const rowCount = pagination?.total_items
 
     return (
         <div className=" py-6  shadow-combined rounded-lg overflow-x-auto bg-[#fffe]">
@@ -194,7 +194,7 @@ function DataTable({columns, datas, actions, ButtonAction, nextPage, previousPag
                     </Button>
                     <Button
                         type="button"
-                        disabled={!pagination.has_previous}
+                        disabled={!pagination?.has_previous}
                         onClick={() => {
                             dispatch(previousPage(prevPage))
                         }}
@@ -204,7 +204,7 @@ function DataTable({columns, datas, actions, ButtonAction, nextPage, previousPag
                     </Button>
                     <Button
                         type="button"
-                        disabled={!pagination.has_next}
+                        disabled={!pagination?.has_next}
                         onClick={() => {
                             dispatch(nextPage(nxPage))
                         }}

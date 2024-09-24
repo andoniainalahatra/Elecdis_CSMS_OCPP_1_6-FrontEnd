@@ -55,6 +55,8 @@ const DataTableStation = () => {
   if (data) {
     dispatch(getStation(data));
   }
+  console.log(data);
+  
 
   return (
     <DataTable
