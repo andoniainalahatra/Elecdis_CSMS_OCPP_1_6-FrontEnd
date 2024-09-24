@@ -41,10 +41,9 @@ const AutorisationTable = () => {
 
     return (
         <>
-
-            <DataTable columns={columns} datas={userData} actions={actions} ButtonAction={ButtonAutorisation}
-                totalPage={totalPage} selectPage={currentPage}
-                resetPage={resetPage}
+            <DataTable columns={columns} dactPage={currentPage}
+                resetPage={resetPage} tas={userData} actions={actions} ButtonAction={ButtonAutorisation}
+                totalPage={totalPage} sele
                 nextPage={nextPage} previousPage={previousPage}
             />
         </>
