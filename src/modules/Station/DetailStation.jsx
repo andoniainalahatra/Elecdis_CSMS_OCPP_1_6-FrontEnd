@@ -1,24 +1,49 @@
-import React from 'react';
+
 import {FaRegCheckCircle} from "react-icons/fa";
 import {IoMdAddCircleOutline} from "react-icons/io";
 import ChartSection from "@/modules/dashboard/content/T_BORD/components/ChartSection.jsx";
-import {useSelector} from "react-redux";
-import {selectStation} from "@/features/Stations/stationSelector.js";
+// import {useSelector} from "react-redux";
+// import {selectStation} from "@/features/Stations/stationSelector.js";
 import {RiChargingPile2Line} from "react-icons/ri";
 import {BiLoaderCircle} from "react-icons/bi";
 import {CgUnavailable} from "react-icons/cg";
+import { useQuery } from '@tanstack/react-query';
+import axiosInstance from '@/lib/axiosInstance';
+import { PulseLoader } from "react-spinners";
+import Swal from "sweetalert2";
 
 
 function DetailStation({IdStation}) {
+    const {isPending,data,error}=useQuery({
+        queryKey:['repoStat',IdStation],
+        queryFn:()=>axiosInstance.get(`/cp/read_cp/${IdStation}`).then((res)=>res.data),
+        refetchInterval:1000
+    });
 
-    const {data} = useSelector(selectStation);
-
-    const findStation = () => {
-        return data.find(station => station.id === IdStation);
+    if(isPending){
+        <div className="w-full flex justify-center items-center h-[70vh]">
+            <PulseLoader color="#f87" />
+        </div>
     }
+    if(error){
+        return Swal.fire({
+            title: "Oops ! Erreur de connexion .",
+            icon: "error",
+          });
+    }
+    // const {data} = useSelector(selectStation);
 
-    const station = findStation();
-    console.log(station)
+    // const findStation = () => {
+        
+    //     return data.find(station => station.id === IdStation);
+        
+    // }
+
+    // const station = findStation();
+    // console.log(station)
+    console.log(IdStation);
+
+    
 
     return (
         <div className="h-screen container">
@@ -34,10 +59,11 @@ function DetailStation({IdStation}) {
                             <p>Location</p>
                         </div>
                         <div >
-                            <p className="truncate">{station.charge_point_model}</p>
-                            <p className="truncate"> {station.charge_point_vendors}</p>
-                            <p className="truncate">{station.serial_number}</p>
-                            <p>Andraharo</p>
+                            <p className="truncate">{data[1].charge_point_model}</p>
+                            <p className="truncate"> {data[1].charge_point_vendors}</p>
+                            <p className="truncate">{data[1].id_charge_point}</p>
+                            <p className="truncate">{data[1].adresse}</p>
+                            {/* <p>Andraharo</p> */}
                         </div>
                     </div>
                 </div>
@@ -46,11 +72,11 @@ function DetailStation({IdStation}) {
                         <div>
                             <div className="flex justify-center items-start gap-4 ">
                                 {
-                                    (station.status === "Unavailable" || station.status === "unavalaible") && (
+                                    (data[1].status_connector === "Unavailable" || data[1].status_connector === "unavalaible") && (
                                         <div className="flex space-x-5">
                                             <div>
                                                 <CgUnavailable color="#F44336" size={117}/>
-                                                <p className="text-[#F44336] font-bold mt-2 ">{station.status}</p>
+                                                <p className="text-[#F44336] font-bold mt-2 ">{data[1].status_connector}</p>
                                             </div>
                                             <div className="text-center">
                                                 <h1 className="text-center mb-2 font-medium">Connecteur 1</h1>
@@ -63,11 +89,11 @@ function DetailStation({IdStation}) {
                                         </div>)
                                 }
                                 {
-                                    (station.status === "available" || station.status === "Available") && (
+                                    (data[1].status_connector === "available" || data[1].status_connector === "Available") && (
                                         <div className="flex space-x-5">
                                             <div>
                                                 <FaRegCheckCircle color="#4CAF50" size={117}/>
-                                                <p className="text-[#4CAF50] font-bold mt-2 ">{station.status}</p>
+                                                <p className="text-[#4CAF50] font-bold mt-2 ">{data[1].status_connector}</p>
                                             </div>
                                             <div className="text-center">
                                                 <h1 className="text-center mb-2 font-medium">Connecteur 1</h1>
@@ -80,11 +106,11 @@ function DetailStation({IdStation}) {
                                         </div>)
                                 }
                                 {
-                                    (station.status === "charging" || station.status === "Charging") && (
+                                    (data[1].status_connector === "charging" || data[1].status_connector === "Charging") && (
                                         <div className="flex space-x-5">
                                             <div>
                                                 <RiChargingPile2Line color="#2196F3" size={117}/>
-                                                <p className="text-[#2196F3] font-bold mt-2 ">{station.status}</p>
+                                                <p className="text-[#2196F3] font-bold mt-2 ">{data[1].status_connector}</p>
                                             </div>
                                             <div className="text-center">
                                                 <h1 className="text-center mb-2 font-medium">Connecteur 1</h1>
@@ -96,11 +122,11 @@ function DetailStation({IdStation}) {
                                             </div>
                                         </div>)
                                 }{
-                                (station.status === "preparing" || station.status === "Preparing") && (
+                                (data[1].status_connector === "preparing" || data[1].status_connector === "Preparing") && (
                                     <div className="flex space-x-5">
                                         <div>
                                             <BiLoaderCircle color="#2196F3" size={117}/>
-                                            <p className="text-[#2196F3] font-bold mt-2 ">{station.status}</p>
+                                            <p className="text-[#2196F3] font-bold mt-2 ">{data[1].status_connector}</p>
                                         </div>
                                         <div className="text-center">
                                             <h1 className="text-center mb-2 font-medium">Connecteur 1</h1>
