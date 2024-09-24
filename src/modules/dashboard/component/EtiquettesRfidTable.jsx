@@ -10,9 +10,11 @@ import { PulseLoader } from 'react-spinners';
 import Swal from 'sweetalert2';
 
 const EtiquettesRfidTable = () => {
-    const datasColumn = ["id", "Client",  "Montant", "Date", "Heure", "Type", "Methode", "statut", "Actions"];
+    const datasColumn = ["id", "rfid",  "user_name", "Actions"];
     const columns = Columns(datasColumn);
     const actions = [{ name: "detail" }, { name: "edit" }, { name: "delete" }];
+    const dispatch = useDispatch();
+      const stationData = useSelector(selectRfid);
       const currentPage = useSelector(selectPage);
       const { isPending, error, data } = useGetListRfid(
         "rfid/all",
@@ -20,9 +22,6 @@ const EtiquettesRfidTable = () => {
         currentPage,
         10
       );
-      const dispatch = useDispatch();
-      const stationData = useSelector(selectRfid);
-    
       if (isPending) {
         return (
           <div className="w-full flex justify-center items-center h-[70vh]">
@@ -40,9 +39,6 @@ const EtiquettesRfidTable = () => {
         dispatch(getRfid(data));
       }
     return (
-        <div className="w-full h-auto p-6">
-        <h2 className="text-[#212B36] text-xl mb-6">Listes RFID</h2>
-        <div>
         <DataTable
       columns={columns}
       datas={stationData}
@@ -54,8 +50,6 @@ const EtiquettesRfidTable = () => {
       nextPage={nextPage}
       previousPage={previousPage}
     />
-        </div>
-      </div>
     )
 }
 
