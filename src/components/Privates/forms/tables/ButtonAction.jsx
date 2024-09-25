@@ -1,13 +1,12 @@
-import { Button } from "@/components/ui/button.jsx";
-import React, { useState } from "react";
 import { BiSolidDashboard } from "react-icons/bi";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { FiEdit } from "react-icons/fi";
 import DetailStation from "@/modules/Station/DetailStation.jsx";
 import { IoMdClose } from "react-icons/io";
 import EditStation from "@/components/Privates/forms/tables/EditStation.jsx";
+import { useState } from "react";
 
-const ButtonAction = ({ buttonProperty, userId }) => {
+const ButtonAction = ({ buttonProperty, Id }) => {
     const [section, setSection] = useState("");
 
     const renderButton = (name, key) => {
