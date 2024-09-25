@@ -17,7 +17,7 @@ const ButtonAction = ({ buttonProperty, Id }) => {
                         key={key}
                         onClick={() => {
                             setSection("detail");
-                            console.log(userId);
+                            console.log(Id);
                         }}
                         className="m-1 text-blue-500 bg-transparent hover:bg-transparent hover:text-blue-600"
                     >
@@ -58,7 +58,7 @@ const ButtonAction = ({ buttonProperty, Id }) => {
                     className="fixed top-0 left-0 flex items-center justify-center w-full h-screen overflow-auto z-10 backdrop-blur-md"
                     style={{ backgroundColor: "rgba(9,16,26,0.3)" }}
                 >
-                    <DetailStation IdStation={userId} />
+                    <DetailStation IdStation={Id} />
                     <span
                         className="absolute cursor-pointer top-5 right-5"
                         onClick={() => setSection("")}

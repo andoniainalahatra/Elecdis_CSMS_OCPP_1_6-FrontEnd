@@ -60,7 +60,7 @@ const ButtonAutorisation = ({ buttonProperty, Id }) => {
                     style={{ backgroundColor: "rgba(9,16,26,0.2)" }}
 
                 >
-                    <DetailAutorisation userId={Id} />
+                    <DetailAutorisation Id={Id} />
                     <span
                         className="absolute cursor-pointer top-5 right-5"
                         onClick={() => setSection("")}
