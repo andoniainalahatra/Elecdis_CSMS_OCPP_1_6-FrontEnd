@@ -39,14 +39,8 @@ const AutorisationTable = () => {
         dispatch(getUser(data));
     }
 
-
     return (
         <>
-            {/* <DataTable columns={columns}
-                datas={stationData}
-                actions={actions}
-                ButtonAction={ButtonAutorisation}
-            /> */}
 
             <DataTable columns={columns} datas={userData} actions={actions} ButtonAction={ButtonAutorisation}
                 totalPage={totalPage} selectPage={currentPage}
@@ -54,22 +48,8 @@ const AutorisationTable = () => {
                 nextPage={nextPage} previousPage={previousPage}
             />
         </>
-
-
     );
 
 }
 
 export default AutorisationTable
-
-
-
-{/*
-     "first_name": "Emmanuel",
-            "last_name": "Bigham",
-            "email": "prisca@gmail.com",
-            "role": "admin",
-            "phone": "Male",
-            "subscription": "s1",
-            "partner": null
-    */}

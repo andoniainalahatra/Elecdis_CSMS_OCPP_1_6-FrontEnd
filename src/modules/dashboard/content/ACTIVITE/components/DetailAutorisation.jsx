@@ -4,12 +4,12 @@ import React from 'react';
 import { FaCircleUser } from "react-icons/fa6";
 import { useSelector } from 'react-redux';
 
-const DetailAutorisation = ({ userId }) => {
+const DetailAutorisation = ({ Id }) => {
 
     const { data } = useSelector(selectUser)
-    // Fonction pour trouver l'utilisateur par userId
+    // Fonction pour trouver l'utilisateur par Id
     const findUser = () => {
-        return data.find((user) => user.id === userId);
+        return data.find((user) => user.id === Id);
 
 
     };
@@ -21,18 +21,6 @@ const DetailAutorisation = ({ userId }) => {
         <div className='p-4 text-2xl bg-white rounded-lg shadow-md'>
             {user ? (
                 <>
-                    {/* <span>Informations  Utilisateur</span>
-                    <div className='flex items-center space-x-5 '>
-                        <FaCircleUser size={100} />
-                        <span>{user.nom + ' ' + user.prenom}</span>
-                    </div>
-                    <div className='grid grid-rows-4 mt-5 md:grid-cols-4'>
-                        <div>{user.email}</div>
-                        <div>{user.telephone}</div>
-                        <div>{user.role}</div>
-                        <div>{user.status}</div>
-                    </div> */}
-
                     <div className=''>
                         <div className='grid grid-cols-1'>
                             <div className='grid grid-cols-2 text-sm md:text-xl'>
