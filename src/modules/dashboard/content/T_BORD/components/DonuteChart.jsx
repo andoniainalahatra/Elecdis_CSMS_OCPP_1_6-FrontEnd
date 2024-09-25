@@ -38,8 +38,8 @@ export default function DonuteChart({chartConfig, chartData, title, label}) {
           data={chartData}
           dataKey="value"
           nameKey="status"
-          innerRadius={50} // Radius fixe
-          outerRadius={100} // Outer radius fixe également
+          innerRadius={50}
+          outerRadius={100}
           strokeWidth={5}
         >
           <Label

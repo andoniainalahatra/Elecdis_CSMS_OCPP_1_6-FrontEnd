@@ -110,13 +110,13 @@ function DataTable({columns, datas, actions, ButtonAction, nextPage, previousPag
 
                             {row.getVisibleCells().map((cell) => {
                                     const cellValue = cell.getValue();
-                                    const userId = row.original.id;
+                                    const id = row.original.id;
                                     let cellClass = "";
 
                                     if (cell.column.columnDef.header === "Actions") {
                                         return (
                                             <TableCell key={cell.id} className="text-center">
-                                                <ButtonAction buttonProperty={actions} userId={userId}/>
+                                                <ButtonAction buttonProperty={actions} Id={id}/>
                                             </TableCell>
                                         );
                                     }

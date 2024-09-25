@@ -12,7 +12,7 @@ const store = configureStore({
         user:userReducer,
         rfid:rfidReducer, 
         session:sessionReducer
-    }
+    },
 })
 
 export default store;
