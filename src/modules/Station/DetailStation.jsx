@@ -17,16 +17,25 @@ function DetailStation({ IdStation }) {
 
     const [isStart, setIsStart] = useState(false);
 
-    const { isPending, data, error } = useQuery({
+    const { isPending: isrepostat, data: adminData, error: errorStat } = useQuery({
         queryKey: ['repoStat', IdStation],
         queryFn: () => axiosInstance.get(`/cp/read_cp/${IdStation}`).then((res) => res.data),
         refetchInterval: 1000,
     });
 
-    if (isPending) {
+    // // A continuer
+    // const { isPending: ispost, data: dataStart, error: errorStart } = useQuery({
+    //     queryKey: ['start', IdStation, idTag, cconnectorId],
+    //     queryFn: () => axiosInstance.post(`/cp/send_remoteStartTransaction/${IdStation}/${idTag}/${connectorId}`).then((res) => res.data),
+    // });
+
+
+
+
+    if (isrepostat) {
         return (<p>Loading</p>)
     }
-    if (error) {
+    if (errorStat) {
         return (<p>error</p>)
     }
 
@@ -47,10 +56,10 @@ function DetailStation({ IdStation }) {
                             <p>Location</p>
                         </div>
                         <div >
-                            <p className="truncate">{data[1].charge_point_model}</p>
-                            <p className="truncate"> {data[1].charge_point_vendors}</p>
-                            <p className="truncate">{data[1].id_charge_point}</p>
-                            <p className="truncate">{data[1].adresse}</p>
+                            <p className="truncate">{adminData[1].charge_point_model}</p>
+                            <p className="truncate"> {adminData[1].charge_point_vendors}</p>
+                            <p className="truncate">{adminData[1].id_charge_point}</p>
+                            <p className="truncate">{adminData[1].adresse}</p>
                             {/* <p>Andraharo</p> */}
                         </div>
                     </div>
@@ -60,11 +69,11 @@ function DetailStation({ IdStation }) {
                         <div>
                             <div className="flex items-start justify-center gap-4 ">
                                 {
-                                    (data[1].status_connector === "Unavailable" || data[1].status_connector === "unavalaible") && (
+                                    (adminData[1].status_connector === "Unavailable" || adminData[1].status_connector === "unavalaible") && (
                                         <div className="flex space-x-5">
                                             <div>
                                                 <CgUnavailable color="#F44336" size={117} />
-                                                <p className="text-[#F44336] font-bold mt-2 ">{data[1].status_connector}</p>
+                                                <p className="text-[#F44336] font-bold mt-2 ">{adminData[1].status_connector}</p>
                                             </div>
                                             <div className="text-center">
                                                 <h1 className="mb-2 font-medium text-center">Connecteur 1</h1>
@@ -77,11 +86,11 @@ function DetailStation({ IdStation }) {
                                         </div>)
                                 }
                                 {
-                                    (data[1].status_connector === "available" || data[1].status_connector === "Available") && (
+                                    (adminData[1].status_connector === "available" || adminData[1].status_connector === "Available") && (
                                         <div className="flex space-x-5">
                                             <div>
                                                 <FaRegCheckCircle color="#4CAF50" size={117} />
-                                                <p className="text-[#4CAF50] font-bold mt-2 ">{data[1].status_connector}</p>
+                                                <p className="text-[#4CAF50] font-bold mt-2 ">{adminData[1].status_connector}</p>
                                             </div>
                                             <div className="text-center">
                                                 <h1 className="mb-2 font-medium text-center">Connecteur 1</h1>
@@ -94,11 +103,11 @@ function DetailStation({ IdStation }) {
                                         </div>)
                                 }
                                 {
-                                    (data[1].status_connector === "charging" || data[1].status_connector === "Charging") && (
+                                    (adminData[1].status_connector === "charging" || adminData[1].status_connector === "Charging") && (
                                         <div className="flex space-x-5">
                                             <div>
                                                 <RiChargingPile2Line color="#2196F3" size={117} />
-                                                <p className="text-[#2196F3] font-bold mt-2 ">{data[1].status_connector}</p>
+                                                <p className="text-[#2196F3] font-bold mt-2 ">{adminData[1].status_connector}</p>
                                             </div>
                                             <div className="text-center">
                                                 <h1 className="mb-2 font-medium text-center">Connecteur 1</h1>
@@ -110,11 +119,11 @@ function DetailStation({ IdStation }) {
                                             </div>
                                         </div>)
                                 }{
-                                    (data[1].status_connector === "preparing" || data[1].status_connector === "Preparing") && (
+                                    (adminData[1].status_connector === "preparing" || adminData[1].status_connector === "Preparing") && (
                                         <div className="flex space-x-5">
                                             <div>
                                                 <BiLoaderCircle color="#2196F3" size={117} />
-                                                <p className="text-[#2196F3] font-bold mt-2 ">{data[1].status_connector}</p>
+                                                <p className="text-[#2196F3] font-bold mt-2 ">{adminData[1].status_connector}</p>
                                             </div>
                                             <div className="text-center">
                                                 <h1 className="mb-2 font-medium text-center">Connecteur 1</h1>
