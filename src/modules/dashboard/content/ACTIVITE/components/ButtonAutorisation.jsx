@@ -8,7 +8,7 @@ import DetailAutorisation from "./DetailAutorisation";
 import EditAutorisation from "./EditAutorisation";
 
 
-const ButtonAutorisation = ({ buttonProperty, userId }) => {
+const ButtonAutorisation = ({ buttonProperty, Id }) => {
     const [section, setSection] = useState("");
 
     const renderButton = (name, key) => {
@@ -60,7 +60,7 @@ const ButtonAutorisation = ({ buttonProperty, userId }) => {
                     style={{ backgroundColor: "rgba(9,16,26,0.2)" }}
 
                 >
-                    <DetailAutorisation userId={userId} />
+                    <DetailAutorisation Id={Id} />
                     <span
                         className="absolute cursor-pointer top-5 right-5"
                         onClick={() => setSection("")}

@@ -31,7 +31,6 @@ export default function SessionTable() {
             icon: "error"
         }))
     }
-    console.log(data);
     
     if (data) {
         dispatch(getSession(data));
@@ -39,7 +38,7 @@ export default function SessionTable() {
 
 
     return (
-        <div>
+        <div className='w-[1000px]'>
             <DataTable columns={columns} datas={sessionData} actions={actions} ButtonAction={ButtonAutorisation}
                 totalPage={totalPage} selectPage={currentPage}
                 resetPage={resetPage}

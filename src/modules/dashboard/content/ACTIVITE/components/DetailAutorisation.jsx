@@ -4,12 +4,12 @@ import React from 'react';
 import { FaCircleUser } from "react-icons/fa6";
 import { useSelector } from 'react-redux';
 
-const DetailAutorisation = ({ userId }) => {
+const DetailAutorisation = ({ Id }) => {
 
     const { data } = useSelector(selectUser)
-    // Fonction pour trouver l'utilisateur par userId
+    // Fonction pour trouver l'utilisateur par Id
     const findUser = () => {
-        return data.find((user) => user.id === userId);
+        return data.find((user) => user.id === Id);
 
 
     };
