@@ -5,13 +5,18 @@ import ChartSection from "@/modules/dashboard/content/T_BORD/components/ChartSec
 // import {useSelector} from "react-redux";
 // import {selectStation} from "@/features/Stations/stationSelector.js";
 import { RiChargingPile2Line } from "react-icons/ri";
-import { BiLoaderCircle } from "react-icons/bi";
+import { BiLoaderCircle, BiSolidSend } from "react-icons/bi";
 import { CgUnavailable } from "react-icons/cg";
 import { useQuery } from '@tanstack/react-query';
 import axiosInstance from '@/lib/axiosInstance';
+import { IoPlayOutline, IoStopOutline } from "react-icons/io5";
+import { useState } from "react";
 
 
 function DetailStation({ IdStation }) {
+
+    const [isStart, setIsStart] = useState(false);
+
     const { isPending, data, error } = useQuery({
         queryKey: ['repoStat', IdStation],
         queryFn: () => axiosInstance.get(`/cp/read_cp/${IdStation}`).then((res) => res.data),
@@ -24,17 +29,7 @@ function DetailStation({ IdStation }) {
     if (error) {
         return (<p>error</p>)
     }
-    // const {data} = useSelector(selectStation);
 
-    // const findStation = () => {
-
-    //     return data.find(station => station.id === IdStation);
-
-    // }
-
-    // const station = findStation();
-    // console.log(station)
-    console.log(IdStation);
 
 
 
@@ -155,7 +150,8 @@ function DetailStation({ IdStation }) {
             </div>
             <div
                 className="text-[#637381] bg-[#ffffff] shadow-lg border rounded-2xl max-md:place-items-center grid grid-cols-3 max-sm:grid-cols-1 max-sm:p-4 gap-6">
-                <div className="text-gray-800 col-span-1 rounded-2xl p-6 w-[50]">
+
+                <div className="w-full col-span-1 p-6 text-gray-800 rounded-2xl ">
                     <h1 className="text-2xl font-bold text-red-600 text-start">Websocket</h1>
                     <div className="grid w-full grid-cols-2 gap-4 mt-2 text-start max-md:gap-6">
                         <div>
@@ -178,7 +174,8 @@ function DetailStation({ IdStation }) {
                     <div>
                     </div>
                 </div>
-                <div className="text-[#fefefe] col-span-2 rounded-2xl p-6 w-[50]">
+
+                <div className="text-[#fefefe] col-span-1 rounded-2xl p-6 w-full ">
                     <h1 className="text-2xl font-bold text-red-600 text-start">Firmware</h1>
                     <div className="grid w-full grid-cols-1 gap-4 mt-2 text-gray-800 text-start max-md:gap-6">
                         <div className="flex gap-4">
@@ -190,6 +187,25 @@ function DetailStation({ IdStation }) {
                                 <p>Ubuntu 22.04 LTS</p>
                                 <p>1.6</p>
                             </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="text-[#fefefe]  rounded-2xl p-6 w-full  ">
+                    <h1 className="text-2xl font-bold text-red-600 text-start">Urgence</h1>
+                    <div className="grid w-full grid-cols-1 gap-4 mt-2 text-gray-800 text-start max-md:gap-6">
+                        <div className="flex gap-8">
+
+                            <button className="text-green-600 " onClick={() => setIsStart(isstart => !isstart)}>
+                                <IoPlayOutline size={50} />
+                            </button>
+                            {(isStart) ? (
+                                <div className="flex space-x-2 transition-opacity duration-300 ease-in-out border-b opacity-0 animate-fade-in">
+                                    <input placeholder="Id Tag" className="text-xl h-[50px] p-1 outline-none " type="text" />
+                                    <button className="" onClick={() => setIsStart(isstart => !isstart)}><BiSolidSend size={30} /></button>
+                                </div>
+                            ) : ('')}
+
                         </div>
                     </div>
                 </div>
