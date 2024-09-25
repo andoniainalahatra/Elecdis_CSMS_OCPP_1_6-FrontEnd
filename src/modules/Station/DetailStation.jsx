@@ -9,9 +9,11 @@ import {BiLoaderCircle} from "react-icons/bi";
 import {CgUnavailable} from "react-icons/cg";
 import { useQuery } from '@tanstack/react-query';
 import axiosInstance from '@/lib/axiosInstance';
+import { FadeLoader } from "react-spinners";
 
 
 function DetailStation({IdStation}) {
+    const iconSize = 117;
     const {isPending,data,error}=useQuery({
         queryKey:['repoStat',IdStation],
         queryFn:()=>axiosInstance.get(`/cp/read_cp/${IdStation}`).then((res)=>res.data),
@@ -114,11 +116,34 @@ function DetailStation({IdStation}) {
                                                 </div>
                                             </div>
                                         </div>)
-                                }{
+                                }
+                                {
+                                    (data[1].status_connector === "suspendedEVSE" || data[1].status_connector === "SuspendedEVSE" ) && (
+                                        <div className="flex space-x-5">
+                                            <div>
+                                                <CgUnavailable color="#F44336" size={117}/>
+                                                    <p className="text-[#F44336] font-bold mt-2 ">{data[1].status_connector}</p>
+                                            </div>
+                                            <div className="text-center">
+                                                <h1 className="text-center mb-2 font-medium">Connecteur 1</h1>
+                                                <div
+                                                    className="bg-gradient-to-r from-red-200 to-red-300 p-6 flex flex-col font-medium gap-4 rounded-md items-center justify-center">
+                                                    <p>Energie</p>
+                                                    <p>209 Wh</p>
+                                                </div>
+                                            </div>
+                                        </div>)
+                                }
+                                            {/* <BiLoaderCircle color="#2196F3" size={117}/>
+                                            <FadeLoader color="#2196F3" height={9} width={9} control={13}  />    
+                                            <p className="text-[#2196F3] font-bold mt-2 ">{data[1].status_connector}</p> */}
+                                {
                                 (data[1].status_connector === "preparing" || data[1].status_connector === "Preparing") && (
                                     <div className="flex space-x-5">
                                         <div>
-                                            <BiLoaderCircle color="#2196F3" size={117}/>
+                                            {/* <BiLoaderCircle color="#2196F3" size={117}/> */}
+                                            <FadeLoader color="#2196F3" height={iconSize / 4}  width={iconSize / 13} margin={2} />
+                                            
                                             <p className="text-[#2196F3] font-bold mt-2 ">{data[1].status_connector}</p>
                                         </div>
                                         <div className="text-center">
