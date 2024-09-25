@@ -118,7 +118,7 @@ function DetailStation({IdStation}) {
                                         </div>)
                                 }
                                 {
-                                    (data[1].status_connector === "suspendedEV" || data[1].status_connector === "SuspendedEV" ) && (
+                                    (data[1].status_connector === "suspendedEVSE" || data[1].status_connector === "SuspendedEVSE" ) && (
                                         <div className="flex space-x-5">
                                             <div>
                                                 <CgUnavailable color="#F44336" size={117}/>
