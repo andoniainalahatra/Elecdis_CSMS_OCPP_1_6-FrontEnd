@@ -13,15 +13,14 @@ import Swal from 'sweetalert2';
 
 
 const AutorisationTable = () => {
-    const datas = ["id", "first_name", "last_name", "email", "role", "role", "phone", "subscription", "partner", "Actions"];
+    const datas = ["id", "first_name", "last_name", "email", "role", "phone", "subscription", "Actions"];
     const columns = Columns(datas);
     const actions = [{ name: "detail" }, { name: "edit" }, { name: "delete" }]
 
     const currentPage = useSelector(selectPage)
-    const { isPending, error, data } = UserApi('users', 'repoUser', currentPage, 10)
+    const { isPending, error, data } = UserApi('users/Admin', 'repoUser', currentPage, 10)
     const dispatch = useDispatch();
     const userData = useSelector(selectUser);
-
 
     if (isPending) {
         return (
