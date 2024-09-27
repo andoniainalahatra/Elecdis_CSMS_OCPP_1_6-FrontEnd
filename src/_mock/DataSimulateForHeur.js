@@ -1,4 +1,4 @@
-export const dataHeur = [
+export const dataHeures = [
   {"label": "00h00", "nombreSession": 93, "moyenne": 17.79},
   {"label": "01h00", "nombreSession": 61, "moyenne": 37.39},
   {"label": "02h00", "nombreSession": 67, "moyenne": 20.98},
@@ -24,3 +24,4 @@ export const dataHeur = [
   {"label": "22h00", "nombreSession": 92, "moyenne": 44.57},
   {"label": "23h00", "nombreSession": 59, "moyenne": 19.1}
 ]
+// Sessions et utilisateurs unique 24h passé

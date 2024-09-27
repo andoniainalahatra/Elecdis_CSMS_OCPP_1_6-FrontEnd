@@ -1,10 +1,21 @@
 import axiosInstance from "@/lib/axiosInstance";
 import useGetDataWithPaginationNoRefetch from "@/lib/hoocks/useGetDataWithPaginationNoRefetch";
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import Swal from "sweetalert2";
 
 export const useGetListRfid = (url, queryKey, page, number_items) => useGetDataWithPaginationNoRefetch(url, queryKey, page, number_items);
 
+export const useGetOneRfid = (id) => {
+  return useQuery({
+    queryKey: ["oneRFID", id],
+
+    queryFn: () =>
+      axiosInstance
+        .get(`/rfid/${id}`)
+        .then((response) => response.data),
+    refetchOnWindowFocus: true,
+  });
+}
 
 export const useCreateRfid = () => {
   const queryClient = useQueryClient();
@@ -19,6 +30,28 @@ export const useCreateRfid = () => {
         title: "Opps!..",
         text: "Une erreur s'est produit lors de la creation!"
       })
+    },
+  });
+};
+
+export const useUpdateRfid = (id) => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (credentials) => axiosInstance.put(`/rfid/${id}`, credentials).then((res) => res.data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["dataRFID"], exact: false });
+      Swal.fire({
+        icon: 'success',
+        title: 'Succès',
+        text: 'Le RFID a été supprimé avec succès!',
+      });
+    },
+    onError: () => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Erreur',
+        text: 'Une erreur s’est produite lors de la suppression du RFID.',
+      });
     },
   });
 };

@@ -74,8 +74,8 @@ export default function ChartSection() {
         <DonuteChart
           chartConfig={DONUTECHARTCONFIG}
           chartData={chargeurData}
-          title="Statut des chargeurs"
-          label="Chargeurs"
+          title="Statut des connecteurs"
+          label="Connecteurs"
           className="w-full p-5 flex flex-col shadow-combined rounded-xl bg-pink-300 h-full"
         />
       </div>
