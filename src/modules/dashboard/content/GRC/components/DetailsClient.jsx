@@ -3,10 +3,11 @@ import { selectUser } from '@/features/Admin/userSelector';
 import React from 'react';
 import { FaCircleUser } from "react-icons/fa6";
 import { useSelector } from 'react-redux';
+import { selectClient } from '../config/client/clientSelector';
 
-const DetailAutorisation = ({ Id }) => {
+const DetailsClient = ({ Id }) => {
 
-    const { data } = useSelector(selectUser)
+    const { data } = useSelector(selectClient)
     // Fonction pour trouver l'utilisateur par Id
     const findUser = () => {
         return data.find((user) => user.id === Id);
@@ -34,6 +35,7 @@ const DetailAutorisation = ({ Id }) => {
                                         <div className='border-b border-primaryChart'>{user.role}</div>
                                         <div className='border-b border-primaryChart'>{user.phone}</div>
                                         <div className='border-b border-primaryChart'>{user.subscription}</div>
+                                        <div className='border-b border-primaryChart'>{user.partner}</div>
                                     </div>
                                 </div>
                             </div>
@@ -49,7 +51,7 @@ const DetailAutorisation = ({ Id }) => {
     );
 };
 
-export default DetailAutorisation;
+export default DetailsClient;
 
 
 // verifierrrr oooo+

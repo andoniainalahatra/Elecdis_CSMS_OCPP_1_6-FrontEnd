@@ -16,18 +16,26 @@ import { useState } from "react";
 function DetailStation({ IdStation }) {
 
     const [isStart, setIsStart] = useState(false);
+    const [idTag, setITag] = useState('');
+
 
     const { isPending: isrepostat, data: adminData, error: errorStat } = useQuery({
         queryKey: ['repoStat', IdStation],
-        queryFn: () => axiosInstance.get(`/cp/read_cp/${IdStation}`).then((res) => res.data),
+        queryFn: () => axiosInstance.get(`/cp/read_cp/${IdStation}`)
+            .then((res) => res.data),
         refetchInterval: 1000,
     });
 
-    // // A continuer
-    // const { isPending: ispost, data: dataStart, error: errorStart } = useQuery({
-    //     queryKey: ['start', IdStation, idTag, cconnectorId],
-    //     queryFn: () => axiosInstance.post(`/cp/send_remoteStartTransaction/${IdStation}/${idTag}/${connectorId}`).then((res) => res.data),
-    // });
+    console.log(adminData)
+
+
+    const { refetch: remoteStart, isPending: ispost, data: dataStart, error: errorStart } = useQuery({
+        queryKey: ['start', IdStation, idTag, adminData],
+        queryFn: () => axiosInstance.post(`/cp/send_remoteStartTransaction/${IdStation}/${idTag}/${adminData[1].id_connecteur}`)
+            .then((res) => res.data),
+        enabled: false,
+    });
+
 
 
 
@@ -35,7 +43,7 @@ function DetailStation({ IdStation }) {
     if (isrepostat) {
         return (<p>Loading</p>)
     }
-    if (errorStat) {
+    if (errorStat || errorStart) {
         return (<p>error</p>)
     }
 
@@ -70,6 +78,24 @@ function DetailStation({ IdStation }) {
                             <div className="flex items-start justify-center gap-4 ">
                                 {
                                     (adminData[1].status_connector === "Unavailable" || adminData[1].status_connector === "unavalaible") && (
+                                        <div className="flex space-x-5">
+                                            <div>
+                                                <CgUnavailable color="#F44336" size={117} />
+                                                <p className="text-[#F44336] font-bold mt-2 ">{adminData[1].status_connector}</p>
+                                            </div>
+                                            <div className="text-center">
+                                                <h1 className="mb-2 font-medium text-center">Connecteur 1</h1>
+                                                <div
+                                                    className="flex flex-col items-center justify-center gap-4 p-6 font-medium rounded-md bg-gradient-to-r from-red-200 to-red-300">
+                                                    <p>Energie</p>
+                                                    <p>209 Wh</p>
+                                                </div>
+                                            </div>
+                                        </div>)
+                                }
+
+                                {
+                                    (adminData[1].status_connector === "SuspendedEVSE" || adminData[1].status_connector === "suspendedEVSE") && (
                                         <div className="flex space-x-5">
                                             <div>
                                                 <CgUnavailable color="#F44336" size={117} />
@@ -137,7 +163,7 @@ function DetailStation({ IdStation }) {
                                 }
                             </div>
                         </div>
-                        <div>
+                        {/* <div>
 
                             <div className="flex items-start justify-center gap-4 ">
                                 <div>
@@ -145,7 +171,7 @@ function DetailStation({ IdStation }) {
                                     <p className="text-[#53A7E3] font-bold mt-2 ">En Charge</p>
                                 </div>
                                 <div className="text-center">
-                                    <h1 className="mb-2 font-medium">Connecteur 2</h1>
+                                    <h1 className="mb-2 font-medium">Connecteur 3</h1>
                                     <div
                                         className="flex flex-col items-center justify-center gap-4 p-6 font-medium rounded-md bg-gradient-to-r from-blue-200 to-blue-300">
                                         <p>Energie</p>
@@ -153,7 +179,7 @@ function DetailStation({ IdStation }) {
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>
@@ -204,18 +230,28 @@ function DetailStation({ IdStation }) {
                     <h1 className="text-2xl font-bold text-red-600 text-start">Urgence</h1>
                     <div className="grid w-full grid-cols-1 gap-4 mt-2 text-gray-800 text-start max-md:gap-6">
                         <div className="flex gap-8">
-
-                            <button className="text-green-600 " onClick={() => setIsStart(isstart => !isstart)}>
+                            <button className="text-[#4CAF50]" onClick={() => setIsStart(isstart => !isstart)}>
                                 <IoPlayOutline size={50} />
                             </button>
-                            {(isStart) ? (
-                                <div className="flex space-x-2 transition-opacity duration-300 ease-in-out border-b opacity-0 animate-fade-in">
-                                    <input placeholder="Id Tag" className="text-xl h-[50px] p-1 outline-none " type="text" />
-                                    <button className="" onClick={() => setIsStart(isstart => !isstart)}><BiSolidSend size={30} /></button>
-                                </div>
-                            ) : ('')}
 
+                            {isStart ? (
+                                <div className="flex space-x-2 transition-opacity duration-300 ease-in-out border-b opacity-100 animate-fade-in">
+                                    <input
+                                        onChange={(e) => setITag(e.target.value)}
+                                        placeholder="Id Tag"
+                                        className="text-xl h-[50px] p-1 outline-none"
+                                        type="text"
+                                    />
+                                    <button onClick={() => {
+                                        remoteStart();
+                                        setIsStart(false); // Close input after sending
+                                    }}>
+                                        <BiSolidSend size={30} />
+                                    </button>
+                                </div>
+                            ) : null}
                         </div>
+
                     </div>
                 </div>
             </div>

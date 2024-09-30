@@ -1,44 +1,33 @@
 import DataTable from "@/components/Privates/forms/tables/DataTable";
 import Columns from "@/components/Privates/forms/tables/Columns";
-import ButtonAction from "@/components/Privates/forms/tables/ButtonAction";
-import { StationApi } from "@/features/Stations/stationApi.js";
 import { PulseLoader } from "react-spinners";
 import Swal from "sweetalert2";
 import { useDispatch, useSelector } from "react-redux";
-import {
-    getStation,
-    nextPage,
-    previousPage,
-    resetPage,
-    totalPage,
-} from "@/features/Stations/stationSlice.js";
+import { getStation, nextPage, previousPage, resetPage, totalPage } from "@/features/Stations/stationSlice.js";
 
-import {
-    selectPage,
-    selectStation,
-} from "@/features/Stations/stationSelector.js";
+import { ClientApi } from "../config/client/clientApi";
+import { selectClient, selectPage } from "../config/client/clientSelector";
+import { getClient } from "../config/client/clientSlice";
+import ButtonActionClient from "./BoutonActionClient";
 
 const datas = [
-    "id",
-    "adresse",
-    "status",
-    "charge_point_model",
-    "charge_point_vendors",
-    "energie_consomme",
-    "Actions",
+    "id", "first_name", "last_name", "email", "role", "phone", "subscription", "partner", "Actions"
 ];
+
 const columns = Columns(datas);
 const actions = [{ name: "detail" }, { name: "edit" }, { name: "delete" }];
-const DataTableStation = () => {
+
+const DataTableUser = () => {
     const currentPage = useSelector(selectPage);
-    const { isPending, error, data } = StationApi(
-        "cp/read_cp",
-        "repoStation",
+
+    const { isPending, error, data } = ClientApi(
+        "users/client",
+        "clientList",
         currentPage,
         10
     );
     const dispatch = useDispatch();
-    const stationData = useSelector(selectStation);
+    const userData = useSelector(selectClient);
 
     if (isPending) {
         return (
@@ -54,15 +43,15 @@ const DataTableStation = () => {
         });
     }
     if (data) {
-        dispatch(getStation(data));
+        dispatch(getClient(data));
     }
 
     return (
         <DataTable
             columns={columns}
-            datas={stationData}
+            datas={userData}
             actions={actions}
-            ButtonAction={ButtonAction}
+            ButtonAction={ButtonActionClient}
             totalPage={totalPage}
             selectPage={currentPage}
             resetPage={resetPage}
@@ -72,4 +61,4 @@ const DataTableStation = () => {
     );
 };
 
-export default DataTableStation;
+export default DataTableUser;

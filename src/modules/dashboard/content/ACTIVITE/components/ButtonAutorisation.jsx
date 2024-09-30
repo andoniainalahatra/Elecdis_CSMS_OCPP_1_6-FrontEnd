@@ -46,7 +46,7 @@ const ButtonAutorisation = ({ buttonProperty, Id }) => {
                         <FiEdit />
                     </span>
                 );
-            
+
             default:
                 return null;
         }
@@ -57,7 +57,7 @@ const ButtonAutorisation = ({ buttonProperty, Id }) => {
             {buttonProperty.map((data, key) => renderButton(data.name, key))}
             {section === "detail" && (
                 <div
-                    className="fixed top-0 left-0 flex items-center justify-center w-full h-screen overflow-auto z-1000 backdrop-blur-md"
+                    className="fixed top-0 left-0 z-10 flex items-center justify-center w-full h-screen overflow-auto backdrop-blur-md"
                     style={{ backgroundColor: "rgba(9,16,26,0.2)" }}
 
                 >
@@ -72,7 +72,7 @@ const ButtonAutorisation = ({ buttonProperty, Id }) => {
             )}
             {section === "edit" && (
                 <div
-                    className="fixed top-0 left-0 flex items-center justify-center w-full h-screen overflow-auto z-1000 backdrop-blur-md"
+                    className="fixed top-0 left-0 z-10 flex items-center justify-center w-full h-screen overflow-auto backdrop-blur-md"
                     style={{ backgroundColor: "rgba(9,16,26,0.7)" }}
                 >
                     <EditAutorisation />
