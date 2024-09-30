@@ -9,7 +9,7 @@ import ButtonAutorisation from './ButtonAutorisation';
 import { useGetSession } from '@/features/sessions/sessionApi';
 
 export default function SessionTable() {
-    const datas = ["id", "user_name", "tag", "charge_point_id", "connector_id", "start_time", "end_time", "metter_start", "metter_stop", ];
+    const datas = ["id", "user_name", "rfid", "charge_point_id", "connector_id", "start_time", "end_time", "consumed_energy", "total_cost", "statuts", "Urgence" ];
     const columns = Columns(datas);
     const actions = [{ name: "detail" }, { name: "edit" }, { name: "delete" }]
 
@@ -36,17 +36,14 @@ export default function SessionTable() {
         dispatch(getSession(data));
     }
 
-
     return (
-        <div className='w-[1000px]'>
+        <div className='w-full'>
             <DataTable columns={columns} datas={sessionData} actions={actions} ButtonAction={ButtonAutorisation}
                 totalPage={totalPage} selectPage={currentPage}
                 resetPage={resetPage}
                 nextPage={nextPage} previousPage={previousPage}
             />
         </div>
-
-
     );
 
 }

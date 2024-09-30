@@ -1,18 +1,16 @@
-import Page from '@/modules/Station/Page'
-import React from 'react'
-import BoutonAdd from '../../component/BoutonAdd'
+import BoutonAdd from "../../component/BoutonAdd";
+import DataTableStation from "@/modules/Station/DataTableStation";
 
 const PointsDecharges = () => {
-    const handleClick = () => alert("hello");
-    return (
-        <div className=''>
-            <div className='flex justify-between m-1'>
-                <span className=' text-[24px] text-[#212B36]'>Stations</span>
-                <BoutonAdd action={handleClick} />
-            </div>
-            <Page />
-        </div>
-    )
-}
-
-export default PointsDecharges
+  const handleClick = () => alert("hello");
+  return (
+    <div className="w-full h-auto p-6">
+      <div className="w-full flex items-center justify-between mb-6">
+        <h2 className="text-[#212B36] text-xl">Charge Point</h2>
+        <BoutonAdd action={handleClick} />
+      </div>
+      <DataTableStation />
+    </div>
+  );
+};
+export default PointsDecharges;

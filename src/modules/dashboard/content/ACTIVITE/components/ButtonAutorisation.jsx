@@ -46,6 +46,7 @@ const ButtonAutorisation = ({ buttonProperty, Id }) => {
                         <FiEdit />
                     </span>
                 );
+            
             default:
                 return null;
         }
