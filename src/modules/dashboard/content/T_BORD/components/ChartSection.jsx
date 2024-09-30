@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { Context } from "@/common/config/configs/Context";
-import { dataForDonute, dateSimulation } from "@/_mock/DataForSimulateDate";
+import { dateSimulation } from "@/_mock/DataForSimulateDate";
 import {
   compareData,
   getDataByMonth,
@@ -15,11 +15,12 @@ import StatistiqueBarChart from "./StatistiqueBarChart";
 import { DONUTECHARTCONFIG } from "../config/DonutChartConfig";
 import { STATISTIQUECONF } from "../config/StatistiqueConfig";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import axiosInstance from "@/lib/axiosInstance";
+import Swal from "sweetalert2";
+import { PulseLoader } from "react-spinners";
 export default function ChartSection() {
   const { filters, filterYear } = useContext(Context);
-  const {data : donuteData, error, isLoading} = useQuery({queryKey : ['donuteChart'], queryFn : () => axiosInstance.get('/connector/graph_connector_status').then((res) => res.data), refetchInterval : 1000});
+  const {data : donuteData, error : errorDonute, isLoading : loadingDonute} = useQuery({queryKey : ['donuteChart'], queryFn : () => axiosInstance.get('/connector/graph_connector_status').then((res) => res.data), refetchInterval : 1000});
   
   const data = dateSimulation;
   const currentData = getDataByMonth(data, 2024);
@@ -72,11 +73,15 @@ export default function ChartSection() {
       }
     }
   }, [filters]);
-  if(error){
-    return <p>error</p>
+  if(errorDonute){
+    return Swal.fire({
+      title : "Opps !",
+      icon : "error",
+      text : "Un erreur est survenue, veullier reesayer plus tard"
+    })
   }
-  if(isLoading) {
-    return <p>loading...</p>
+  if(loadingDonute) {
+    return <PulseLoader color="#F2505D" />
   }
   return (
     <div className="grid max-sm:grid-cols-1 max-sm:place-items-center grid-cols-3 gap-6 w-full my-5">
