@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import { BiSolidDashboard } from "react-icons/bi";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { FiEdit } from "react-icons/fi";
-
 import { IoMdClose } from "react-icons/io";
-import DetailAutorisation from "./DetailAutorisation";
-import EditAutorisation from "./EditAutorisation";
+import DetailsClient from "./DetailsClient";
+import EditClient from "./EditClient";
 
 
-const ButtonAutorisation = ({ buttonProperty, Id }) => {
+
+const ButtonActionClient = ({ buttonProperty, Id }) => {
     const [section, setSection] = useState("");
 
     const renderButton = (name, key) => {
@@ -61,7 +61,7 @@ const ButtonAutorisation = ({ buttonProperty, Id }) => {
                     style={{ backgroundColor: "rgba(9,16,26,0.2)" }}
 
                 >
-                    <DetailAutorisation Id={Id} />
+                    <DetailsClient Id={Id} />
                     <span
                         className="absolute cursor-pointer top-5 right-5"
                         onClick={() => setSection("")}
@@ -75,7 +75,7 @@ const ButtonAutorisation = ({ buttonProperty, Id }) => {
                     className="fixed top-0 left-0 z-10 flex items-center justify-center w-full h-screen overflow-auto backdrop-blur-md"
                     style={{ backgroundColor: "rgba(9,16,26,0.7)" }}
                 >
-                    <EditAutorisation />
+                    <EditClient Id={Id} />
                     <span
                         className="absolute cursor-pointer top-5 right-5"
                         onClick={() => setSection("")}
@@ -88,4 +88,4 @@ const ButtonAutorisation = ({ buttonProperty, Id }) => {
     );
 };
 
-export default ButtonAutorisation;
+export default ButtonActionClient;

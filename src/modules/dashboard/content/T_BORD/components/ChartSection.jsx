@@ -14,9 +14,13 @@ import DonuteChart from "./DonuteChart";
 import StatistiqueBarChart from "./StatistiqueBarChart";
 import { DONUTECHARTCONFIG } from "../config/DonutChartConfig";
 import { STATISTIQUECONF } from "../config/StatistiqueConfig";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import axiosInstance from "@/lib/axiosInstance";
 export default function ChartSection() {
   const { filters, filterYear } = useContext(Context);
-  const chargeurData = dataForDonute;
+  const {data : donuteData, error, isLoading} = useQuery({queryKey : ['donuteChart'], queryFn : () => axiosInstance.get('/connector/graph_connector_status').then((res) => res.data), refetchInterval : 1000});
+  
   const data = dateSimulation;
   const currentData = getDataByMonth(data, 2024);
   const oldData = getDataByMonth(data, 2022);
@@ -68,14 +72,20 @@ export default function ChartSection() {
       }
     }
   }, [filters]);
+  if(error){
+    return <p>error</p>
+  }
+  if(isLoading) {
+    return <p>loading...</p>
+  }
   return (
     <div className="grid max-sm:grid-cols-1 max-sm:place-items-center grid-cols-3 gap-6 w-full my-5">
       <div className="col-span-1 max-sm:w-full h-full">
         <DonuteChart
           chartConfig={DONUTECHARTCONFIG}
-          chartData={chargeurData}
-          title="Statut des chargeurs"
-          label="Chargeurs"
+          chartData={donuteData}
+          title="Statut des connecteurs"
+          label="Connecteurs"
           className="w-full p-5 flex flex-col shadow-combined rounded-xl bg-pink-300 h-full"
         />
       </div>

@@ -1,6 +1,5 @@
 import { useForm, Controller } from "react-hook-form";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
 import Input from "@/modules/Login/components/Input";
 import Boutton from "@/modules/Login/components/Boutton";
@@ -28,10 +27,11 @@ export default function CreateRfid({action}) {
           icon: "success",
           title: "RFID créer avec succés !",
         })
+        action()
       },
       onError: (error) => {
         if (error.response?.status === 401) {
-          setInvalidMessage("Email ou mot de passe incorrect");
+          setInvalidMessage("Identifiant utilisateur n'existe pas");
         } else {
           Swal.fire({
             icon: "error",
@@ -42,18 +42,19 @@ export default function CreateRfid({action}) {
       },
     });
   };
+
   return (
     <div className="fixed  top-0 left-0 w-full h-screen flex justify-center items-center">
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="w-full bg-[#f8f9f7] h-screen flex items-center justify-center"
+      className="w-full bg-black bg-opacity-40 h-screen flex items-center justify-center"
     >
       
-      <div className="relative  shadow-xl bg-white max-sm:shadow-none w-[400px] 2xl:w-[500px] h-auto p-6 flex items-center justify-center flex-col gap-[4vh] rounded-lg">
+      <div className="relative bg-white shadow-xl backdrop-blur max-sm:shadow-none w-[400px] 2xl:w-[500px] h-auto p-6 flex items-center justify-center flex-col gap-[4vh] rounded-lg">
       <button className="absolute bg-white top-1 right-1 " onClick={() => action()} ><IoMdCloseCircle size={40} /></button>
         <div className="w-full flex items-center flex-col justify-center">
           <h4 className="text-importantText max-lg:text-[20px] xl:text-2xl mb-[4vh]">
-           Créer un carte RFID
+           Créer un numéro RFID
           </h4>
           
           <div className="w-full mb-[4vh]">

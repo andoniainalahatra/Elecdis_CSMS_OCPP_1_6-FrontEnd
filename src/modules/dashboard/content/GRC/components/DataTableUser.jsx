@@ -1,6 +1,5 @@
 import DataTable from "@/components/Privates/forms/tables/DataTable";
 import Columns from "@/components/Privates/forms/tables/Columns";
-import ButtonAction from "@/components/Privates/forms/tables/ButtonAction";
 import { PulseLoader } from "react-spinners";
 import Swal from "sweetalert2";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,6 +8,7 @@ import { getStation, nextPage, previousPage, resetPage, totalPage } from "@/feat
 import { ClientApi } from "../config/client/clientApi";
 import { selectClient, selectPage } from "../config/client/clientSelector";
 import { getClient } from "../config/client/clientSlice";
+import ButtonActionClient from "./BoutonActionClient";
 
 const datas = [
     "id", "first_name", "last_name", "email", "role", "phone", "subscription", "partner", "Actions"
@@ -51,7 +51,7 @@ const DataTableUser = () => {
             columns={columns}
             datas={userData}
             actions={actions}
-            ButtonAction={ButtonAction}
+            ButtonAction={ButtonActionClient}
             totalPage={totalPage}
             selectPage={currentPage}
             resetPage={resetPage}
