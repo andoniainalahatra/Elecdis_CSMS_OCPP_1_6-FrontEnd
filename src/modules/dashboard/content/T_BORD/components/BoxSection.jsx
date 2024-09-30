@@ -38,15 +38,25 @@ export default function BoxSection() {
 
   const { percentVal , colorPercent } = usePercent(0);
   const [litleDescri, setlitleDescri] = useState(null);
-  const { data, isPending, error} = 
+  const { data : dataCurrentSession, isPending : loadingCurrentSession, error : errorCurrentSession} = 
     useQuery({
       queryKey: ["currentSession"],
       queryFn: () =>
         axiosInstance
           .get('transaction/current/count')
           .then((response) => response.data),
+          refetchInterval : 5000,
       refetchOnWindowFocus: true,
     });
+  const { data : defaillance, isPending : pendingFail, error : errorFail} = useQuery({
+    queryKey: ["defaillance"],
+    queryFn: () =>
+      axiosInstance
+        .get('/cp/count_status_cp/Unavailable')
+        .then((response) => response.data),
+        refetchInterval : 5000,
+    refetchOnWindowFocus: true,
+  });
 
   useEffect(() => {
     if (colorPercent && percentVal) {
@@ -59,13 +69,12 @@ export default function BoxSection() {
       }
     }
   }, [colorPercent, percentVal, filters]);
-  if(error){
+  if(errorCurrentSession || errorFail){
     return <div className="">erreur</div>
   }
-  if(isPending){
+  if(loadingCurrentSession || pendingFail){
     return <div className="">loading...</div>
   }
-
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-col-4 gap-6">
@@ -98,7 +107,7 @@ export default function BoxSection() {
     />
     <Box
       Title="Défaillance et perte de connexion"
-      Value={boxData.dataNoFilter.fail}
+      Value={defaillance[0].nombre}
       FirstIcone={BsFillEvStationFill}
       SecondIcone={CgUnavailable}
       litleStatistique={null}
@@ -107,7 +116,7 @@ export default function BoxSection() {
     />
     <Box
       Title="Session de recharge en cours"
-      Value={data.count_current_session}
+      Value={dataCurrentSession.count_current_session}
       FirstIcone={BsFillEvStationFill}
       SecondIcone={TbRecharging}
       litleStatistique={null}
