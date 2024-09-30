@@ -10,6 +10,8 @@ import { dataForBox } from "@/_mock/DataForSimulateDate";
 import { Context } from '@/common/config/configs/Context';
 import { usePercent } from '@/lib/hoocks/usePercent';
 import { updateValue } from '@/lib/updateValue';
+import { useQuery } from '@tanstack/react-query';
+import axiosInstance from '@/lib/axiosInstance';
 export default function BoxSection() {
   const { filters } = useContext(Context);
   const [energyDeliveryValue, setEnergyDeliveryValue] = useState(0);
@@ -36,6 +38,15 @@ export default function BoxSection() {
 
   const { percentVal , colorPercent } = usePercent(0);
   const [litleDescri, setlitleDescri] = useState(null);
+  const { data, isPending, error} = 
+    useQuery({
+      queryKey: ["currentSession"],
+      queryFn: () =>
+        axiosInstance
+          .get('transaction/current/count')
+          .then((response) => response.data),
+      refetchOnWindowFocus: true,
+    });
 
   useEffect(() => {
     if (colorPercent && percentVal) {
@@ -48,6 +59,12 @@ export default function BoxSection() {
       }
     }
   }, [colorPercent, percentVal, filters]);
+  if(error){
+    return <div className="">erreur</div>
+  }
+  if(isPending){
+    return <div className="">loading...</div>
+  }
 
 
   return (
@@ -90,7 +107,7 @@ export default function BoxSection() {
     />
     <Box
       Title="Session de recharge en cours"
-      Value={boxData.dataNoFilter.charging}
+      Value={data.count_current_session}
       FirstIcone={BsFillEvStationFill}
       SecondIcone={TbRecharging}
       litleStatistique={null}

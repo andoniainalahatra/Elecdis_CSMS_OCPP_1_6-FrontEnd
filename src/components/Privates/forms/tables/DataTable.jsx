@@ -22,6 +22,7 @@ import {MdOutlineLastPage} from "react-icons/md";
 import {MdNavigateNext} from "react-icons/md";
 import {GrFormPrevious} from "react-icons/gr";
 import {useDispatch} from "react-redux";
+import ButtonStopTransaction from "@/modules/dashboard/component/ButtonStopTransaction";
 /**
  * Génère un tableau paginé avec des actions.
  *
@@ -112,8 +113,33 @@ function DataTable({columns, datas, actions, ButtonAction, nextPage, previousPag
                                     const cellValue = cell.getValue();
                                     const id = row.original.id;
                                     let cellClass = "";
-
-                                    if (cell.column.columnDef.header === "Actions") {
+                                    console.log(cellValue);
+                                    const rowData = row.original;
+                                    if (cell.column.id === "Urgence") {
+                                        if(rowData.statuts == "en cours"){
+                                            return (
+                                                <TableCell key={cell.id} className="text-center">
+                                                    <ButtonStopTransaction chargPointId={rowData.charge_point_id} transactionId={rowData.id} />
+                                                </TableCell>
+                                            );
+                                        }
+                                    }
+                                    if (cell.column.id === "start_time" || cell.column.id === "end_time") {
+                                        const cellValue = new Date(cell.getValue()).toLocaleString('fr-FR', {
+                                            year: 'numeric',
+                                            month: 'numeric',
+                                            day: 'numeric',
+                                            hour: '2-digit',
+                                            minute: '2-digit',
+                                        });
+                                        return (
+                                            <TableCell key={cell.id} className="text-center">
+                                                {cellValue}
+                                            </TableCell>
+                                        );
+                                    }
+                                    
+                                    if(cell.column.columnDef.header === "Actions") {
                                         return (
                                             <TableCell key={cell.id} className="text-center">
                                                 <ButtonAction buttonProperty={actions} Id={id}/>
@@ -121,21 +147,21 @@ function DataTable({columns, datas, actions, ButtonAction, nextPage, previousPag
                                         );
                                     }
 
-                                    if (cell.column.id === "status" ||
+                                    if (cell.column.id === "status" || cell.column.id === "statuts" ||
                                         cell.column.id === "connector1" ||
                                         cell.column.id === "connector2" ||
                                         cell.column.id === "heartBeat" || cell.column.id === "statut") {
                                         switch (cellValue) {
-                                            //Terminée
-                                            //En cours
                                             case "En attente":
                                             case "En cours":
+                                            case "en cours":
                                                 cellClass = orange;
                                                 break;
                                             case "Disponible":
                                             case "Available":
                                             case "available":
                                             case "Terminée":
+                                            case "terminé":
                                             case "Complétée":
                                             case "Accepté":
                                             case "active":
