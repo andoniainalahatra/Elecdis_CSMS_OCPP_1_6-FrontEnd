@@ -1,6 +1,7 @@
 import React from 'react'
 import BoutonAdd from '../../component/BoutonAdd'
 import Page from '@/modules/Station/Page';
+import DataTableUser from './components/DataTableUser';
 
 const Clients = () => {
     const handleClick = () => alert("hello");
@@ -10,7 +11,8 @@ const Clients = () => {
                 <span className=' text-[24px] text-[#212B36]'>Liste des clients</span>
                 <BoutonAdd action={handleClick} />
             </div>
-            <Page />
+            {/* <Page /> */}
+            <DataTableUser />
         </div>
     )
 }

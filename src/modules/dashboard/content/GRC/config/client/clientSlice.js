@@ -1,15 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  stationData: {},
+  clientData: {},
   pageIndex: 1,
 };
-const stationSlice = createSlice({
-  name: "station",
+const clientSlice = createSlice({
+  name: "client",
   initialState,
   reducers: {
-    getStation: (state, action) => {
-      state.stationData = action.payload;
+    getClient: (state, action) => {
+      state.clientData = action.payload;
     },
     nextPage: (state, action) => {
       state.pageIndex = action.payload;
@@ -26,6 +26,6 @@ const stationSlice = createSlice({
   },
 });
 
-export const { getStation, nextPage, previousPage, resetPage, totalPage } =
-  stationSlice.actions;
-export default stationSlice.reducer;
+export const { getClient, nextPage, previousPage, resetPage, totalPage } =
+  clientSlice.actions;
+export default clientSlice.reducer;

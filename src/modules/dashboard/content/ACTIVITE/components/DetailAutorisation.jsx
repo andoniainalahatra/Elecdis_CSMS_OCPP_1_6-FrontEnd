@@ -1,4 +1,4 @@
-import { selectUser } from '@/features/Users/userSelector';
+import { selectUser } from '@/features/Admin/userSelector';
 // import userData from '@/modules/dashboard/content/ACTIVITE/components/data/userData';
 import React from 'react';
 import { FaCircleUser } from "react-icons/fa6";

@@ -1,9 +1,11 @@
+import DataTableUser from "../dashboard/content/GRC/components/DataTableUser";
 import DataTableStation from "./DataTableStation";
 
 const Page = () => {
     return (
         <div className="">
-            <DataTableStation />
+            {/* <DataTableStation /> */}
+            <DataTableUser />
         </div>
     );
 }

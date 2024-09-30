@@ -5,9 +5,9 @@ import Columns from '@/components/Privates/forms/tables/Columns';
 import ButtonAutorisation from '../content/ACTIVITE/components/ButtonAutorisation';
 import { useDispatch, useSelector } from 'react-redux';
 import { nextPage, previousPage, resetPage, totalPage } from '@/features/Stations/stationSlice';
-import { getUser } from '@/features/Users/userSlice';
-import { UserApi } from '@/features/Users/userApi';
-import { selectPage, selectUser } from '@/features/Users/userSelector';
+import { getUser } from '@/features/Admin/userSlice';
+import { UserApi } from '@/features/Admin/userApi';
+import { selectPage, selectUser } from '@/features/Admin/userSelector';
 import { PulseLoader } from 'react-spinners';
 import Swal from 'sweetalert2';
 
