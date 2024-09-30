@@ -1,11 +1,11 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import {
     useReactTable,
     getCoreRowModel,
     flexRender,
     getFilteredRowModel,
 } from "@tanstack/react-table";
-import {Button} from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
     Table,
     TableBody,
@@ -14,14 +14,14 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-import {Badge} from "@/components/ui/badge"
+import { Badge } from "@/components/ui/badge"
 
 import Filters from "@/components/Privates/forms/tables/Filters.jsx";
-import {MdOutlineFirstPage} from "react-icons/md";
-import {MdOutlineLastPage} from "react-icons/md";
-import {MdNavigateNext} from "react-icons/md";
-import {GrFormPrevious} from "react-icons/gr";
-import {useDispatch} from "react-redux";
+import { MdOutlineFirstPage } from "react-icons/md";
+import { MdOutlineLastPage } from "react-icons/md";
+import { MdNavigateNext } from "react-icons/md";
+import { GrFormPrevious } from "react-icons/gr";
+import { useDispatch } from "react-redux";
 /**
  * Génère un tableau paginé avec des actions.
  *
@@ -39,7 +39,7 @@ import {useDispatch} from "react-redux";
  * @returns {JSX.Element} Le tableau paginé avec actions.
  */
 
-function DataTable({columns, datas, actions, ButtonAction, nextPage, previousPage, totalPage, resetPage, selectPage}) {
+function DataTable({ columns, datas, actions, ButtonAction, nextPage, previousPage, totalPage, resetPage, selectPage }) {
 
     const [data, setData] = useState([]);
     const [pagination, setPagination] = useState({});
@@ -89,7 +89,7 @@ function DataTable({columns, datas, actions, ButtonAction, nextPage, previousPag
 
     return (
         <div className=" py-6  shadow-combined rounded-lg overflow-x-auto bg-[#fffe]">
-            <Filters value={globalFilter} onChange={setGlobalFilter}/>
+            <Filters value={globalFilter} onChange={setGlobalFilter} />
             <Table className="text-center bg-[#fffe]">
                 <TableHeader className="bg-[#F4F6F8] text-center">
                     {table.getHeaderGroups().map((headerGroup) => (
@@ -109,80 +109,80 @@ function DataTable({columns, datas, actions, ButtonAction, nextPage, previousPag
 
 
                             {row.getVisibleCells().map((cell) => {
-                                    const cellValue = cell.getValue();
-                                    const id = row.original.id;
-                                    let cellClass = "";
+                                const cellValue = cell.getValue();
+                                const id = row.original.id;
+                                let cellClass = "";
 
-                                    if (cell.column.columnDef.header === "Actions") {
-                                        return (
-                                            <TableCell key={cell.id} className="text-center">
-                                                <ButtonAction buttonProperty={actions} Id={id}/>
-                                            </TableCell>
-                                        );
-                                    }
-
-                                    if (cell.column.id === "status" ||
-                                        cell.column.id === "connector1" ||
-                                        cell.column.id === "connector2" ||
-                                        cell.column.id === "heartBeat" || cell.column.id === "statut") {
-                                        switch (cellValue) {
-                                            //Terminée
-                                            //En cours
-                                            case "En attente":
-                                            case "En cours":
-                                                cellClass = orange;
-                                                break;
-                                            case "Disponible":
-                                            case "Available":
-                                            case "available":
-                                            case "Terminée":
-                                            case "Complétée":
-                                            case "Accepté":
-                                            case "active":
-                                                cellClass = green;
-                                                break;
-                                            case "Échouée":
-                                            case "inactive":
-                                            case "Bloqué":
-                                            case "Hors service":
-                                            case "Unavailable":
-                                                cellClass = red;
-                                                break;
-                                            case "maintenance":
-                                            case "Occupe":
-                                                cellClass = yellow;
-                                                break;
-                                            case "Preparing":
-                                            case "preparing":
-                                            case "Charging":
-                                            case "charging":
-                                                cellClass = blue;
-                                                break;
-                                            default:
-                                                cellClass = defaultColor;
-                                        }
-                                        return (
-                                            <TableCell key={cell.id} className="text-center">
-                                                <Badge className={cellClass}>{cellValue}</Badge>
-                                            </TableCell>
-                                        );
-                                    }
-
+                                if (cell.column.columnDef.header === "Actions") {
                                     return (
-                                        <TableCell key={cell.id}>
-                                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                        <TableCell key={cell.id} className="text-center">
+                                            <ButtonAction buttonProperty={actions} Id={id} />
                                         </TableCell>
                                     );
                                 }
+
+                                if (cell.column.id === "status" ||
+                                    cell.column.id === "connector1" ||
+                                    cell.column.id === "connector2" ||
+                                    cell.column.id === "heartBeat" || cell.column.id === "statut") {
+                                    switch (cellValue) {
+                                        //Terminée
+                                        //En cours
+                                        case "En attente":
+                                        case "En cours":
+                                            cellClass = orange;
+                                            break;
+                                        case "Disponible":
+                                        case "Available":
+                                        case "available":
+                                        case "Terminée":
+                                        case "Complétée":
+                                        case "Accepté":
+                                        case "active":
+                                            cellClass = green;
+                                            break;
+                                        case "Échouée":
+                                        case "inactive":
+                                        case "Bloqué":
+                                        case "Hors service":
+                                        case "Unavailable":
+                                            cellClass = red;
+                                            break;
+                                        case "maintenance":
+                                        case "Occupe":
+                                            cellClass = yellow;
+                                            break;
+                                        case "Preparing":
+                                        case "preparing":
+                                        case "Charging":
+                                        case "charging":
+                                            cellClass = blue;
+                                            break;
+                                        default:
+                                            cellClass = defaultColor;
+                                    }
+                                    return (
+                                        <TableCell key={cell.id} className="text-center">
+                                            <Badge className={cellClass}>{cellValue}</Badge>
+                                        </TableCell>
+                                    );
+                                }
+
+                                return (
+                                    <TableCell key={cell.id}>
+                                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                    </TableCell>
+                                );
+                            }
                             )}
                         </TableRow>
                     ))}
                 </TableBody>
             </Table>
             <div className="flex items-center justify-between gap-4 p-2 m-3 max-md:flex-col max-md:justify-center">
-        <span className="text-sm text-[#64748b] ">
-          Page {pageIndex} sur {totalPages}, affichage de {pageSize} resultats sur un total de {rowCount}
-        </span>
+                <span className="text-sm text-[#64748b] ">
+                    Page {pageIndex} sur {totalPages}, affichage de {pageSize} resultats sur un total de {rowCount}
+                </span>
                 <div className="flex items-center gap-2 ">
                     <Button
                         type="button"
@@ -190,7 +190,7 @@ function DataTable({columns, datas, actions, ButtonAction, nextPage, previousPag
                         onClick={() => dispatch(resetPage())}
                         className="bg-transparent text-[#64748b] hover:bg-transparent"
                     >
-                        <MdOutlineFirstPage size={20}/>
+                        <MdOutlineFirstPage size={20} />
                     </Button>
                     <Button
                         type="button"
@@ -200,7 +200,7 @@ function DataTable({columns, datas, actions, ButtonAction, nextPage, previousPag
                         }}
                         className="bg-transparent text-[#64748b] hover:bg-transparent"
                     >
-                        <GrFormPrevious size={20}/>
+                        <GrFormPrevious size={20} />
                     </Button>
                     <Button
                         type="button"
@@ -210,7 +210,7 @@ function DataTable({columns, datas, actions, ButtonAction, nextPage, previousPag
                         }}
                         className="bg-transparent text-[#64748b] hover:bg-transparent"
                     >
-                        <MdNavigateNext size={20}/>
+                        <MdNavigateNext size={20} />
                     </Button>
                     <Button
                         type="button"
@@ -220,7 +220,7 @@ function DataTable({columns, datas, actions, ButtonAction, nextPage, previousPag
                         }}
                         className="bg-transparent text-[#64748b] hover:bg-transparent"
                     >
-                        <MdOutlineLastPage size={20}/>
+                        <MdOutlineLastPage size={20} />
                     </Button>
                 </div>
             </div>

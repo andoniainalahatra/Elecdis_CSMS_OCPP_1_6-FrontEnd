@@ -24,6 +24,7 @@ const datas = [
     "status",
     "charge_point_model",
     "charge_point_vendors",
+    "energie_consomme",
     "Actions",
 ];
 const columns = Columns(datas);
