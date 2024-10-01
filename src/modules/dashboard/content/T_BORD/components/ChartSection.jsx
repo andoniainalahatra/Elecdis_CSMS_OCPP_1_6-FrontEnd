@@ -10,14 +10,13 @@ import { useQuery } from "@tanstack/react-query";
 import axiosInstance from "@/lib/axiosInstance";
 import Swal from "sweetalert2";
 import { PulseLoader } from "react-spinners";
-
 export default function ChartSection() {
   const { filters, filterYear } = useContext(Context);
 
   const {
     data: donuteData,
     error: errorDonute,
-    isLoading: loadingDonute
+    isPending: loadingDonute
   } = useQuery({
     queryKey: ["donuteChart"],
     queryFn: () =>
@@ -28,7 +27,7 @@ export default function ChartSection() {
   const {
     data: monthData,
     error: errorMonth,
-    isLoading: monthLoading
+    isPending: monthLoading
   } = useQuery({
     queryKey: ["monthDataChart"],
     queryFn: () =>
@@ -39,7 +38,7 @@ export default function ChartSection() {
   const {
     data: trimestreDataQuery,
     error: errorTrimestre,
-    isLoading: trimestreLoading
+    isPending: trimestreLoading
   } = useQuery({
     queryKey: ["trimestreDataChart"],
     queryFn: () =>
@@ -50,13 +49,14 @@ export default function ChartSection() {
   const {
     data: semestreData,
     error: errorSemestre,
-    isLoading: semestreLoading
+    isPending: semestreLoading
   } = useQuery({
     queryKey: ["semestreDataChart"],
     queryFn: () =>
       axiosInstance.get(`/cp/graph_semestriel_conso_energie/?CurrentYear=${filterYear}`).then((res) => res.data),
     refetchInterval: 5000,
   });
+  const isLoading = loadingDonute || monthLoading || trimestreLoading || semestreLoading;
 
   // Initialize states with fallback to an empty array
   const [trimestreData, setTrimestreData] = useState(trimestreDataQuery || []);
@@ -105,7 +105,7 @@ export default function ChartSection() {
       } else {
         setlitleDescri(
           <div className="w-full flex items-center gap-1 text-[14px] text-[#637381]">
-            {percentVal}% que l'année dernière
+            {percentVal} que l'année dernière
           </div>
         );
       }
@@ -113,7 +113,13 @@ export default function ChartSection() {
       setlitleDescri(null);
     }
   }, [filters, percentVal]);
-
+  if (isLoading) {
+    return (
+      <div className="w-full h-full flex justify-center items-center">
+        <PulseLoader color="#3498db" size={15} />
+      </div>
+    );
+  }
   // Handle errors
   if (errorDonute || errorMonth || errorSemestre || errorTrimestre) {
     Swal.fire({
@@ -124,13 +130,7 @@ export default function ChartSection() {
     return null;
   }
 
-  if (loadingDonute || semestreLoading || trimestreLoading || monthLoading) {
-    return (
-      <div className="w-full flex justify-center items-center p-6">
-        <PulseLoader color="#F2505D" />
-      </div>
-    );
-  }
+ 
 
   return (
     <div className="grid max-sm:grid-cols-1 max-sm:place-items-center grid-cols-3 gap-6 w-full my-5">
@@ -150,6 +150,7 @@ export default function ChartSection() {
           description={litleDescri}
           listFilterYearly={YEARLABEL}
           title="Énergie délivrée par kWh"
+          loading={isLoading}
         />
       </div>
     </div>
