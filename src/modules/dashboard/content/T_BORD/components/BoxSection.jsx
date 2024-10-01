@@ -6,19 +6,18 @@ import Box from "./Box";
 import { CgUnavailable } from "react-icons/cg";
 import { TbRecharging } from "react-icons/tb";
 import { GiReceiveMoney } from "react-icons/gi";
-import { dataForBox } from "@/_mock/DataForSimulateDate";
 import { Context } from '@/common/config/configs/Context';
 import { usePercent } from '@/lib/hoocks/usePercent';
 import { updateValue } from '@/lib/updateValue';
 import { useQuery } from '@tanstack/react-query';
 import axiosInstance from '@/lib/axiosInstance';
+import { MoonLoader } from 'react-spinners';
 export default function BoxSection() {
   const { filters } = useContext(Context);
   const [energyDeliveryValue, setEnergyDeliveryValue] = useState(0);
   const [newClient, setNewClient] = useState(0)
   const [revenu, setRevenu] = useState(0)
   const [session, setSession] = useState(0)
-  const boxData = dataForBox;
 
   useEffect(() => {
     updateValue(filters.nombreSession, "session", setSession);
@@ -73,7 +72,9 @@ export default function BoxSection() {
     return <div className="">erreur</div>
   }
   if(loadingCurrentSession || pendingFail){
-    return <div className="">loading...</div>
+    return <div className="w-full flex justify-center items-center p-6">
+      <MoonLoader size={20} color='#F2505D' />
+    </div>
   }
 
   return (

@@ -19,18 +19,35 @@ import { FaArrowDownLong, FaArrowUpLong } from "react-icons/fa6";
  * console.log(percentVal); // "+20%"
  * console.log(colorPercent); // "#36E73D"
  */
-
 export const usePercent = (chartData) => {
     const [percentVal, setPercentVal] = useState('');
+
     useMemo(() => {
-        if(chartData){
+        if(chartData && chartData.length > 0) {
             const sumCurrent = chartData.reduce((sum, data) => sum + data.currentValue, 0);
             const sumOld = chartData.reduce((sum, data) => sum + data.oldValue, 0);
             const valuePercent = calculPercentage(sumCurrent, sumOld);
-            if (sumCurrent > sumOld) {
-                setPercentVal(<div className="flex items-center justify-center"><FaArrowUpLong color="#36E73D" /><span className="text-[#36E73D]">{valuePercent}%</span></div>);
+            if (sumOld === 0) {
+                setPercentVal(
+                    <div className="flex items-center justify-center">
+                        <FaArrowUpLong color="#36E73D" />
+                        <span className="text-[#36E73D]">∞%</span>
+                    </div>
+                );
+            } else if (sumCurrent > sumOld) {
+                setPercentVal(
+                    <div className="flex items-center justify-center">
+                        <FaArrowUpLong color="#36E73D" />
+                        <span className="text-[#36E73D]">{valuePercent}%</span>
+                    </div>
+                );
             } else {
-                setPercentVal(<div className="flex items-center justify-center"><FaArrowDownLong color="#F2505D" /><span className="text-[#F2505D]">{valuePercent}%</span></div>);
+                setPercentVal(
+                    <div className="flex items-center justify-center">
+                        <FaArrowDownLong color="#F2505D" />
+                        <span className="text-[#F2505D]">{valuePercent}%</span>
+                    </div>
+                );
             }
         }
     }, [chartData]);
