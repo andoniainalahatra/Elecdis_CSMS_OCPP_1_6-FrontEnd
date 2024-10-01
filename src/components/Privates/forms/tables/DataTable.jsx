@@ -23,6 +23,7 @@ import { MdNavigateNext } from "react-icons/md";
 import { GrFormPrevious } from "react-icons/gr";
 import { useDispatch } from "react-redux";
 import ButtonStopTransaction from "@/modules/dashboard/component/ButtonStopTransaction";
+import ButtonFilterTable from "@/modules/dashboard/component/ButtonFilterTable";
 /**
  * Génère un tableau paginé avec des actions.
  *
@@ -36,6 +37,9 @@ import ButtonStopTransaction from "@/modules/dashboard/component/ButtonStopTrans
  * @param {Function} previousPage - Action Redux pour revenir à la page précédente.
  * @param {Function} totalPage - Action Redux pour obtenir le nombre total de pages.
  * @param {Function} resetPage - Action Redux pour réinitialiser la pagination.
+ * @param {Array} listFilter - List des value de filtre
+ * @param {String} filter - nom du filtre
+ * @param {Boolean} onFilter - afficher ou cacher le filtre
  * @param {Function} selectPage - Action Redux pour sélectionner une page spécifique.
  * @returns {JSX.Element} Le tableau paginé avec actions.
  */
@@ -50,6 +54,9 @@ function DataTable({
   totalPage,
   resetPage,
   selectPage,
+  filter,
+  listFilter,
+  onFilter = false,
 }) {
   const [data, setData] = useState([]);
   const [pagination, setPagination] = useState({});
@@ -102,7 +109,10 @@ function DataTable({
 
   return (
     <div className=" py-6  shadow-combined rounded-lg overflow-x-auto bg-[#fffe]">
-      <Filters value={globalFilter} onChange={setGlobalFilter} />
+      <div className="mb-4 flex gap-2 items-center">
+        <Filters value={globalFilter} onChange={setGlobalFilter} />
+        {onFilter && <ButtonFilterTable filter={filter} listFilter={listFilter} />}
+      </div>
       <Table className="text-center bg-[#fffe]">
         <TableHeader className="bg-[#F4F6F8] text-center">
           {table.getHeaderGroups().map((headerGroup) => (

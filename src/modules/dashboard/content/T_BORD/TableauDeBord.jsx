@@ -8,7 +8,7 @@ const TableauDeBord = () => {
       <h2 className="text-[#212B36] text-xl mb-6">Accueil/Tableau de bord</h2>
       <BoxSection />
       <ChartSection />
-      <div>
+      <div className="w-ful text-center">
         test
       </div>
     </div>
