@@ -7,6 +7,7 @@ import { IoMdCloseCircle } from "react-icons/io";
 import ErrorMessage from "@/components/ErrorMessage";
 import { useGetOneRfid, useUpdateRfid } from "@/features/RFID/rfidApi";
 import { PulseLoader } from "react-spinners";
+import FloatingLabelInput from "@/components/Privates/forms/FloatingLabelInput";
 
 export default function EditClient({ action, id }) {
 
@@ -72,6 +73,7 @@ export default function EditClient({ action, id }) {
                     >
                         <IoMdCloseCircle size={40} />
                     </button>
+
                     <div className="flex flex-col items-center justify-center w-full">
                         <h4 className="text-importantText max-lg:text-[20px] xl:text-2xl mb-[4vh]">
                             Modifier l'information du client
@@ -79,46 +81,119 @@ export default function EditClient({ action, id }) {
 
                         <div className="w-full mb-[4vh]">
                             <Controller
-                                name="rfid"
+                                name="first_name"
                                 control={control}
                                 rules={{
-                                    required: "Le numéro RFID est requis",
+                                    required: "Ce champ est requis",
                                     pattern: {
                                         value: /[a-zA-Z0-9]/,
                                         message: "Format invalide",
                                     },
                                 }}
+
                                 render={({ field }) => (
-                                    <Input type="text" id="rfid" label="Numéro RFID" {...field} />
+                                    <Input type="text" label="Nom" {...field} />
                                 )}
                             />
-                            {errors?.rfid && <ErrorMessage message={errors.rfid.message} />}
+                            {errors?.first_name && <ErrorMessage message={errors.first_name.message} />}
                         </div>
 
                         <div className="w-full mb-[4vh]">
                             <Controller
-                                name="user_id"
+                                name="last_name"
                                 control={control}
                                 rules={{
-                                    required: "L'identifiant utilisateur est requis",
+                                    required: "Ce champ est requis",
                                     pattern: {
                                         value: /[a-zA-Z0-9]/,
                                         message: "Format invalide",
                                     },
                                 }}
+
                                 render={({ field }) => (
-                                    <Input
-                                        type="number"
-                                        id="idUser"
-                                        {...field}
-                                        label="Identifiant utilisateur lié"
-                                    />
+                                    <Input type="text" label="Prenom" {...field} />
                                 )}
                             />
-                            {errors?.user_id && (
-                                <ErrorMessage message={errors.user_id.message} />
-                            )}
+                            {errors?.last_name && <ErrorMessage message={errors.last_name.message} />}
                         </div>
+
+                        <div className="w-full mb-[4vh]">
+                            <Controller
+                                name="email"
+                                control={control}
+                                rules={{
+                                    required: "Ce champ est requis",
+                                    pattern: {
+                                        value: /[a-zA-Z0-9]/,
+                                        message: "Format invalide",
+                                    },
+                                }}
+
+                                render={({ field }) => (
+                                    <Input type="text" label="Email" {...field} />
+                                )}
+                            />
+                            {errors?.email && <ErrorMessage message={errors.email.message} />}
+                        </div>
+
+                        <div className="w-full mb-[4vh]">
+                            <Controller
+                                name="phone"
+                                control={control}
+                                rules={{
+                                    required: "Ce champ est requis",
+                                    pattern: {
+                                        value: /[a-zA-Z0-9]/,
+                                        message: "Format invalide",
+                                    },
+                                }}
+
+                                render={({ field }) => (
+                                    <Input type="text" label="Numero de telephone" {...field} />
+                                )}
+                            />
+                            {errors?.phone && <ErrorMessage message={errors.phone.message} />}
+                        </div>
+
+                        <div className="w-full mb-[4vh]">
+                            <Controller
+                                name="id_partner"
+                                control={control}
+                                rules={{
+                                    required: "Ce champ est requis",
+                                    pattern: {
+                                        value: /[a-zA-Z0-9]/,
+                                        message: "Format invalide",
+                                    },
+                                }}
+
+                                render={({ field }) => (
+                                    <Input type="text" label="Partenariat" {...field} />
+                                )}
+                            />
+                            {errors?.subscription && <ErrorMessage message={errors.subscription.message} />}
+                        </div>
+
+                        <div className="w-full mb-[4vh]">
+                            <Controller
+                                name="id_subscription"
+                                control={control}
+                                rules={{
+                                    required: "Ce champ est requis",
+                                    pattern: {
+                                        value: /[a-zA-Z0-9]/,
+                                        message: "Format invalide",
+                                    },
+                                }}
+
+                                render={({ field }) => (
+                                    // <Input type="text" label="Souscription" {...field} />
+                                    <FloatingLabelInput id="id_subscription" label="Souscription" type="select" />
+                                )}
+                            />
+                            {errors?.partner && <ErrorMessage message={errors.partner.message} />}
+                        </div>
+
                         {invalidMessage && (
                             <ErrorMessage message={invalidMessage} className="mb-[1vw]" />
                         )}

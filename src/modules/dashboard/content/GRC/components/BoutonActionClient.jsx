@@ -10,6 +10,7 @@ import EditClient from "./EditClient";
 
 const ButtonActionClient = ({ buttonProperty, Id }) => {
     const [section, setSection] = useState("");
+    const handleClosed = () => { setSection("") }
 
     const renderButton = (name, key) => {
         switch (name) {
@@ -71,18 +72,7 @@ const ButtonActionClient = ({ buttonProperty, Id }) => {
                 </div>
             )}
             {section === "edit" && (
-                <div
-                    className="fixed top-0 left-0 z-10 flex items-center justify-center w-full h-screen overflow-auto backdrop-blur-md"
-                    style={{ backgroundColor: "rgba(9,16,26,0.7)" }}
-                >
-                    <EditClient Id={Id} />
-                    <span
-                        className="absolute cursor-pointer top-5 right-5"
-                        onClick={() => setSection("")}
-                    >
-                        <IoMdClose className="text-red-700 hover:text-amber-400" size={50} />
-                    </span>
-                </div>
+                <EditClient Id={Id} action={setSection} />
             )}
         </div>
     );
