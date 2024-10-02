@@ -1,41 +1,111 @@
-import React from 'react';
-import {Input} from "@/components/ui/input.jsx";
-import {Label} from "@/components/ui/label.jsx";
-import {Button} from "@/components/ui/button.jsx";
-import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select.jsx";
+import React, { useEffect } from 'react';
+import { Button } from "@/components/ui/button.jsx";
 import FloatingLabelInput from "@/components/Privates/forms/FloatingLabelInput.jsx";
+import { useForm, Controller } from 'react-hook-form';
+import { useSelector } from 'react-redux';
+import { selectStation } from '@/features/Stations/stationSelector';
+import { useMutation } from '@tanstack/react-query';
+import axiosInstance from '@/lib/axiosInstance';
 
-function EditStation() {
+function EditStation({ IdStation,onclick }) {
+    const { handleSubmit, control, setValue } = useForm();
+
+    // Récupère toutes les stations du store
+    const stationData = useSelector(selectStation);
+    console.log('stationData:', stationData);
+    // Trouve la station correspondant à IdStation
+    const station = stationData.data.find((element) => element.id === IdStation);
+    const mutation = useMutation({
+        mutationFn: (updatedStation) => axiosInstance.put(`/cp/update/${IdStation}`, updatedStation).then((res)=>console.log(res.data)),
+        onSuccess: (data) => {
+            console.log("Station mise à jour avec succès", data);
+        },
+        onError: (error) => {
+            if (error.response) {
+                console.error("Erreur lors de la mise à jour de la station", error.response.status, error.response.data);
+            } else {
+                console.error("Erreur lors de la mise à jour de la station", error);
+            }
+        }
+    });
+
+    const onSubmit = (station) => {
+        console.log("Form Data:", station);
+        mutation.mutate(station);
+        
+    };
+
+    // Préremplissage des champs avec les données de la station trouvée
+    useEffect(() => {
+        if (station) {
+            Object.keys(station).forEach((key) => {
+                setValue(key, station[key]);
+            });
+        }
+    }, [station, setValue]);
+
     return (
-        <div className=" text-left w-full m-3 md:w-[30vw]  ">
+        <div className="text-left w-full m-3 md:w-[30vw]">
             <form
-                className="flex flex-col max-md:h-screen max-md:justify-center max-md:items-center  space-y-6 p-6 bg-[#fefefe]  shadow-lg rounded-md">
-                <div className="w-full " >
-                    {/*<Label htmlFor="name" className="text-primaryChart ">Name</Label>*/}
-                    {/*<Input id="name" type="text" placeholder="Enter your name" className="mt-1"/>*/}
-                    <FloatingLabelInput label="Name" id="name" type="text"/>
-                </div>
-
+                onSubmit={handleSubmit(onSubmit)}
+                className="flex flex-col max-md:h-screen max-md:justify-center max-md:items-center space-y-6 p-6 bg-[#fefefe] shadow-lg rounded-md"
+            >
+                {/* Charge Point Model Field */}
                 <div className="w-full">
-                    {/*<Label htmlFor="location" className="text-primaryChart ">Location</Label>*/}
-                    {/*<Input id="location" type="text" placeholder="Enter the location" className="mt-1"/>*/}
-                    <FloatingLabelInput label="Location" name="location"/>
+                    <Controller
+                        name="charge_point_model"
+                        control={control}
+                        render={({ field }) => (
+                            <FloatingLabelInput label="Charge Point Model" id="charge_point_model" type="text" {...field} />
+                        )}
+                    />
                 </div>
 
+                {/* Status Field */}
+
+                {/* Adresse Field */}
                 <div className="w-full">
-                    <FloatingLabelInput label="Status" name="status" type="select"/>
+                    <Controller
+                        name="adresse"
+                        control={control}
+                        render={({ field }) => (
+                            <FloatingLabelInput label="Adresse" id="adresse" {...field} />
+                        )}
+                    />
                 </div>
 
+                {/* Latitude Field */}
                 <div className="w-full">
-                    <FloatingLabelInput label="Power" type="number" />
+                    <Controller
+                        name="latitude"
+                        control={control}
+                        render={({ field }) => (
+                            <FloatingLabelInput label="Latitude" id="latitude" type="number" {...field} />
+                        )}
+                    />
                 </div>
 
-                <Button type="submit" className="w-full bg-primaryChart hover:bg-blue-700 text-white">
+                {/* Longitude Field */}
+                <div className="w-full">
+                    <Controller
+                        name="longitude"
+                        control={control}
+                        render={({ field }) => (
+                            <FloatingLabelInput label="Longitude" id="longitude" type="number" {...field} />
+                        )}
+                    />
+                </div>
+
+                {/* Energie Consommée Field */}
+                
+
+                {/* Submit Button */}
+                <Button type="submit"
+                onClick = {onclick}
+                 className="w-full bg-primaryChart hover:bg-blue-700 text-white">
                     Submit
                 </Button>
             </form>
-
-
         </div>
     );
 }
