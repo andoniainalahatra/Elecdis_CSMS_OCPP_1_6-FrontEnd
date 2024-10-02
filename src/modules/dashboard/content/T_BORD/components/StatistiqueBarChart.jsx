@@ -14,9 +14,11 @@ import { FILTER } from "@/_mock/constant";
  * @returns {JSX.Element} - return un tableau graphique contenant une courbe pour montrer la nouvelle valeur et une courbe pour montrer l'ancien valeur et un BarChart pour montrer la valeur exact de la nouvelle valeur
  */
 
-export default function StatistiqueBarChart({title, chartData, description, listFilterYearly, statiStiqueConfig}) {
+export default function StatistiqueBarChart({title, chartData, description, listFilterYearly, statiStiqueConfig, loading}) {
   const { oldvalue, currentValue, barconfig } = statiStiqueConfig  
   const [tickLength, setTickLength] = useState(3);
+  console.log(loading);
+  
   useEffect(() => {
     const updateTickLength = () => {
       const screenWidth = window.innerWidth;
@@ -38,6 +40,11 @@ export default function StatistiqueBarChart({title, chartData, description, list
     
     return () => window.removeEventListener('resize', updateTickLength);
   }, []);
+  if (loading) {
+    return (
+      <p>Loading...</p>
+    );
+  }
   return (
     <div className="shadow-combined rounded-xl w-full h-full bg-white">
       <div className="flex justify-between w-full items-center flex-wrap px-6 py-5">

@@ -14,6 +14,7 @@ export const ContextProvider = ({ children }) => {
 
   const [filterYear, setFilterYear] = useState(currentYear);
   const [filters, setFilters] = useState({
+    session:"all",
     bar: "mensuel",
     nombreSession: "journalier",
     energyDelivery: "journalier",
@@ -45,10 +46,6 @@ export const ContextProvider = ({ children }) => {
         handleFilterYear,
         filters,
         handleFilterChange,
-        // isAuthenticated,
-        // handleAuthenticated,
-        // userRole,
-        // handleUserRole,
       }}
     >
       {children}

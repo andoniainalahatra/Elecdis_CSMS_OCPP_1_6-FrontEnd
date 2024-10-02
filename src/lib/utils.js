@@ -17,5 +17,8 @@ export function getToken() {
  * @returns {number} - arrondissement de valeur du pourcentage 
  */
 export const calculPercentage = (newValue, oldValue) => {
+  if (oldValue === 0) {
+      return "∞";
+  }
   return Math.round((newValue * 100) / oldValue);
-}
+};
