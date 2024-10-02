@@ -12,7 +12,7 @@ import { useEffect } from 'react';
 const EtiquettesRfidTable = () => {
   const datasColumn = ['id', 'rfid', 'user_name', 'Actions'];
   const columns = Columns(datasColumn);
-  const actions = [{ name: 'detail' }, { name: 'edit' }, { name: 'delete' }];
+  const actions = [{ name: 'detail' }, { name: 'delete' }];
   const dispatch = useDispatch();
   const stationData = useSelector(selectRfid);
   const currentPage = useSelector(selectPage);

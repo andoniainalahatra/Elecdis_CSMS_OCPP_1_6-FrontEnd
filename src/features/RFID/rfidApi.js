@@ -23,14 +23,7 @@ export const useCreateRfid = () => {
       axiosInstance.post("/rfid", credentials).then((res) => res.data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["dataRFID"], exact: false });
-    },
-    onError: () => {
-      Swal.fire({
-        icon: "error",
-        title: "Opps!..",
-        text: "Une erreur s'est produit lors de la creation!",
-      });
-    },
+    }
   });
 };
 
@@ -41,19 +34,7 @@ export const useUpdateRfid = (id) => {
       axiosInstance.put(`/rfid/${id}`, credentials).then((res) => res.data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["dataRFID"], exact: false });
-      Swal.fire({
-        icon: "success",
-        title: "Succès",
-        text: "Le RFID a été supprimé avec succès!",
-      });
-    },
-    onError: () => {
-      Swal.fire({
-        icon: "error",
-        title: "Erreur",
-        text: "Une erreur s’est produite lors de la suppression du RFID.",
-      });
-    },
+    }
   });
 };
 
