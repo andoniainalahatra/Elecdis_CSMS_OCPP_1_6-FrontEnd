@@ -13,7 +13,7 @@ RUN npm install
 # Copier le reste des fichiers du projet au répertoire de travail
 COPY . .
 
-# Exposer le port 8000
+# Exposer le port 5173
 EXPOSE 5173
 
 # Commande par défaut pour démarrer l'application en mode développement
