@@ -51,7 +51,18 @@ export default function SessionTable() {
     error: errorDone,
     data: dataDone,
   } = useGetSession("transaction/done/", "repoSessionDone", currentPage, 10);
-  const [data, setData] = useState(dataAll);
+
+  const [data, setData] = useState();
+  useEffect(()=>{
+
+    if(dataAll){
+      setData(dataAll)
+    }
+
+  }, [dataAll])
+  
+  
+  
   const dispatch = useDispatch();
   const sessionData = useSelector(selectSession);
 

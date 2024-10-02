@@ -5,6 +5,7 @@ import ProtectedRoute from "@/ProtectedRoute";
 import Page403 from "@/components/Page403";
 import { ContextProvider } from "@/common/config/configs/Context";
 import { RotateLoader } from "react-spinners";
+import UserProfil from "@/components/UserProfil";
 
 // Utilisation de React.lazy pour le lazy loading des composants
 const ForgotPassword = lazy(() => import("@/modules/ForgotPassword/ForgotPassword"));
@@ -33,6 +34,7 @@ export function AppRoutes() {
           <Route path="/resetPassword" element={<ResetPassword />} />
           <Route path="/emailSend" element={<EmailSend />} />
           <Route path="/inscription" element={<Inscription />} />
+          <Route path="/profil" element={<UserProfil />} />
 
           <Route
             path="/dashboard"
