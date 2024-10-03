@@ -5,6 +5,7 @@ import userReducer from "@/features/Admin/userSlice";
 import rfidReducer from "@/features/RFID/rfidSlice";
 import sessionReducer from "@/features/sessions/sessionSlice";
 import clientReducer from "@/modules/dashboard/content/GRC/config/client/clientSlice";
+import filterCalendarDateReducer from "@/modules/dashboard/content/T_BORD/features/filterCalendarSlice";
 
 const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ const store = configureStore({
     rfid: rfidReducer,
     session: sessionReducer,
     client: clientReducer,
+    filterCalendarDate : filterCalendarDateReducer
   },
 });
 
