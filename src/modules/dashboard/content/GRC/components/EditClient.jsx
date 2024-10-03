@@ -8,6 +8,8 @@ import ErrorMessage from "@/components/ErrorMessage";
 import { useGetOneRfid, useUpdateRfid } from "@/features/RFID/rfidApi";
 import { PulseLoader } from "react-spinners";
 import FloatingLabelInput from "@/components/Privates/forms/FloatingLabelInput";
+import SelectList from "./SelectList";
+import { getSubscription } from "../config/client/clientApi";
 
 export default function EditClient({ action, id }) {
 
@@ -18,6 +20,11 @@ export default function EditClient({ action, id }) {
 
     const { control, formState: { errors }, handleSubmit, reset, } = useForm();
 
+    const { refetch: useSubscription, isPending: isPost, data: dataStart, error: errorStart } = getSubscription();
+
+
+
+
     useEffect(() => {
         if (data) {
             reset({
@@ -25,40 +32,42 @@ export default function EditClient({ action, id }) {
                 user_id: data.user_id,
             });
         }
+        useSubscription();
     }, [data, reset]);
 
 
     const onSubmit = (data) => {
-        update_rfid(data, {
-            onSuccess: () => {
-                Swal.fire({
-                    icon: "success",
-                    title: "Numéro RFID modifié avec succès !",
-                });
-                action();
-            },
-            onError: (error) => {
-                if (error.response?.status === 401) {
-                    setInvalidMessage("Identifiant utilisateur n'existe pas");
-                } else {
-                    Swal.fire({
-                        icon: "error",
-                        title: "Oops...",
-                        text: "Une erreur s'est produite. Veuillez réessayer plus tard.",
-                    });
-                }
-            },
-        });
+        // update_rfid(data, {
+        //     onSuccess: () => {
+        //         Swal.fire({
+        //             icon: "success",
+        //             title: "Numéro RFID modifié avec succès !",
+        //         });
+        //         action();
+        //     },
+        //     onError: (error) => {
+        //         if (error.response?.status === 401) {
+        //             setInvalidMessage("Identifiant utilisateur n'existe pas");
+        //         } else {
+        //             Swal.fire({
+        //                 icon: "error",
+        //                 title: "Oops...",
+        //                 text: "Une erreur s'est produite. Veuillez réessayer plus tard.",
+        //             });
+        //         }
+        //     },
+        // });
+        console.log(data);
     };
 
 
-    if (isLoading) {
-        return (
-            <div className="fixed top-0 left-0 flex items-center justify-center w-full h-screen bg-black bg-opacity-40">
-                <PulseLoader color="#F2505D" />
-            </div>
-        );
-    }
+    // if (isLoading) {
+    //     return (
+    //         <div className="fixed top-0 left-0 flex items-center justify-center w-full h-screen bg-black bg-opacity-40">
+    //             <PulseLoader color="#F2505D" />
+    //         </div>
+    //     );
+    // }
 
     return (
         <div className="fixed top-0 left-0 flex items-center justify-center w-full h-screen">
@@ -187,8 +196,7 @@ export default function EditClient({ action, id }) {
                                 }}
 
                                 render={({ field }) => (
-                                    // <Input type="text" label="Souscription" {...field} />
-                                    <FloatingLabelInput id="id_subscription" label="Souscription" type="select" />
+                                    <SelectList id="id_subscription" label="Souscription" type="select" {...field} data={''} />
                                 )}
                             />
                             {errors?.partner && <ErrorMessage message={errors.partner.message} />}
@@ -202,6 +210,11 @@ export default function EditClient({ action, id }) {
                     <div className="flex flex-col items-center justify-center w-full gap-7">
                         <Boutton isLoading={isPending} label="Mettre à jour" />
                     </div>
+
+                    {isPost && <p>En cours...</p>}
+                    {dataStart && <p>Données reçues : {JSON.stringify(dataStart.data)}</p>}
+                    {errorStart && <p>Erreur : {errorStart.message}</p>}
+
                     <div className="w-full">
                         <p className="text-center text-simpleText text-base mt-[1vh]">
                             Copyright, elecdis 2024

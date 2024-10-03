@@ -51,7 +51,6 @@ const ButtonAutorisation = ({ buttonProperty, Id }) => {
                 return null;
         }
     };
-
     return (
         <div className="flex items-center justify-center gap-2 max-md:flex-col">
             {buttonProperty.map((data, key) => renderButton(data.name, key))}

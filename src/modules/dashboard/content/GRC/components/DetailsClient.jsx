@@ -11,8 +11,6 @@ const DetailsClient = ({ Id }) => {
     // Fonction pour trouver l'utilisateur par Id
     const findUser = () => {
         return data.find((user) => user.id === Id);
-
-
     };
 
     const user = findUser();
