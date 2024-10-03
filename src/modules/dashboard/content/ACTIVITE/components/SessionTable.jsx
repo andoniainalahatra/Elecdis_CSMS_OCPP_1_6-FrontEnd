@@ -69,7 +69,6 @@ export default function SessionTable() {
   const listFiltre = ["tous", "en cours", "terminé"];
 
   const currentPage = useSelector(selectPage);
-  console.log(currentPage);
 
   const {
     isPending: loadingAll,

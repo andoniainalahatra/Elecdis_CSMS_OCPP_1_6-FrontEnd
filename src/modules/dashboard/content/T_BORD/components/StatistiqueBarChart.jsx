@@ -15,9 +15,10 @@ import { FILTER } from "@/_mock/constant";
  */
 
 export default function StatistiqueBarChart({title, chartData, description, listFilterYearly, statiStiqueConfig, loading}) {
+  console.log(chartData);
+  
   const { oldvalue, currentValue, barconfig } = statiStiqueConfig  
   const [tickLength, setTickLength] = useState(3);
-  console.log(loading);
   
   useEffect(() => {
     const updateTickLength = () => {

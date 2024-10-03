@@ -20,9 +20,10 @@ export default function Box({Title, Value, FirstIcone, SecondIcone, color, filte
       filter === "energyDelivery" ? Value + " kWh" : Value
       }</p>
       {filter && (
-        <div className="flex items-center gap-1">
-          <ButtonFilter filter={filter} listFilter={BOXFILTER} />
-          <CalendarFilter />
+        <div className="flex items-center ">
+          <CalendarFilter filter={filter} />
+          <CalendarFilter filter={filter} />
+          <CalendarFilter filter={filter} />
         </div>
       )}
     </div>
