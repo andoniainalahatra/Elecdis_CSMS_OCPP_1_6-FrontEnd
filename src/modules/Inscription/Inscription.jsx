@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/card";
 
 import { Checkbox } from "@/components/ui/checkbox";
-import logo from "/public/images/logo1.png";
+import logo from "@/assets/logo1.png";
 import { Controller, useForm } from "react-hook-form";
 import { FormElements } from "@/components/FormElements";
 import { Link } from "react-router-dom";
@@ -24,10 +24,10 @@ const Inscription = () => {
   const FloatingLabelInput = FormElements.getFloatingLabelInput();
   return (
     <React.Suspense fallback={<div>Loading...</div>}>
-      <div className="flex justify-center items-center min-h-screen bg-gray-50 max-md:bg-white">
+      <div className="flex items-center justify-center min-h-screen bg-gray-50 max-md:bg-white">
         <Card className="w-[450px] shadow-lg max-md:border-none max-md:shadow-none">
           <CardHeader>
-            <div className="mx-auto mb-3 rounded-md p-3">
+            <div className="p-3 mx-auto mb-3 rounded-md">
               <img src={logo} alt="" />
             </div>
             <CardTitle>Créer un compte</CardTitle>
@@ -36,7 +36,7 @@ const Inscription = () => {
           <form onSubmit={handleSubmit(Submit)}>
             <CardContent>
 
-              <div className="grid w-full items-center gap-4">
+              <div className="grid items-center w-full gap-4">
                 <div className="flex space-x-4">
                   <div className="flex flex-col w-1/2">
                     <Controller
@@ -82,7 +82,7 @@ const Inscription = () => {
 
                 </div>
                 <div className="flex space-x-4 max-md:flex-col max-md:space-x-0 max-md:gap-4">
-                  <div className="flex flex-col  w-1/2 max-md:w-full">
+                  <div className="flex flex-col w-1/2 max-md:w-full">
                     <Controller
                       name="password"
                       control={control}
@@ -131,7 +131,7 @@ const Inscription = () => {
             </CardFooter>
           </form>
           <div className="flex justify-center mt-4 mb-6">
-            <Link className="text-sm text-primaryChart underline" to="/" >Disposez-vous déjà d'un compte? Se connecter</Link>
+            <Link className="text-sm underline text-primaryChart" to="/" >Disposez-vous déjà d'un compte? Se connecter</Link>
           </div>
         </Card>
       </div>
