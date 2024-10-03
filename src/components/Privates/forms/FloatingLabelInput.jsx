@@ -5,9 +5,7 @@ import { useState } from "react";
 import { useRef } from "react";
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select.jsx";
 
-// eslint-disable-next-line react/prop-types
 const FloatingLabelInput = React.forwardRef(
-  // eslint-disable-next-line react/prop-types, no-unused-vars
   ({ id, label, value, type = "text", onChange }, forwardedRef) => {
     const [isFocused, setIsFocused] = useState(false);
     const inputRef = useRef();

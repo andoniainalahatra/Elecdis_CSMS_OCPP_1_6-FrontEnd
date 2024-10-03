@@ -1,15 +1,12 @@
 
 import { FaRegCheckCircle } from "react-icons/fa";
-import { IoMdAddCircleOutline } from "react-icons/io";
 import ChartSection from "@/modules/dashboard/content/T_BORD/components/ChartSection.jsx";
-// import {useSelector} from "react-redux";
-// import {selectStation} from "@/features/Stations/stationSelector.js";
 import { RiChargingPile2Line } from "react-icons/ri";
 import { BiLoaderCircle, BiSolidSend } from "react-icons/bi";
 import { CgUnavailable } from "react-icons/cg";
 import { useQuery } from '@tanstack/react-query';
 import axiosInstance from '@/lib/axiosInstance';
-import { IoPlayOutline, IoStopOutline } from "react-icons/io5";
+import { IoPlayOutline } from "react-icons/io5";
 import { useState } from "react";
 
 

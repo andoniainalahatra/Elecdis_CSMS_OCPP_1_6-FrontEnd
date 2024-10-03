@@ -13,7 +13,7 @@ import { RiDashboard2Fill } from "react-icons/ri";
 import { BsFillEvStationFill } from "react-icons/bs";
 import { RiReservedFill } from "react-icons/ri";
 import BoutonNav from './BoutonNav'
-import Logo from "../../../../public/images/logo1.png"
+import Logo from "@/assets/logo1.png"
 
 const Nav = ({ setSection }) => {
     return (

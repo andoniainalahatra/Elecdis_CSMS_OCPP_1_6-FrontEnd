@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { Button } from "@/components/ui/button.jsx";
 import FloatingLabelInput from "@/components/Privates/forms/FloatingLabelInput.jsx";
 import { useForm, Controller } from 'react-hook-form';
@@ -9,11 +9,8 @@ import axiosInstance from '@/lib/axiosInstance';
 
 function EditStation({ IdStation,onclick }) {
     const { handleSubmit, control, setValue } = useForm();
-
-    // Récupère toutes les stations du store
     const stationData = useSelector(selectStation);
     console.log('stationData:', stationData);
-    // Trouve la station correspondant à IdStation
     const station = stationData.data.find((element) => element.id === IdStation);
     const mutation = useMutation({
         mutationFn: (updatedStation) => axiosInstance.put(`/cp/update/${IdStation}`, updatedStation).then((res)=>console.log(res.data)),
@@ -35,7 +32,6 @@ function EditStation({ IdStation,onclick }) {
         
     };
 
-    // Préremplissage des champs avec les données de la station trouvée
     useEffect(() => {
         if (station) {
             Object.keys(station).forEach((key) => {
@@ -50,7 +46,6 @@ function EditStation({ IdStation,onclick }) {
                 onSubmit={handleSubmit(onSubmit)}
                 className="flex flex-col max-md:h-screen max-md:justify-center max-md:items-center space-y-6 p-6 bg-[#fefefe] shadow-lg rounded-md"
             >
-                {/* Charge Point Model Field */}
                 <div className="w-full">
                     <Controller
                         name="charge_point_model"
@@ -60,10 +55,6 @@ function EditStation({ IdStation,onclick }) {
                         )}
                     />
                 </div>
-
-                {/* Status Field */}
-
-                {/* Adresse Field */}
                 <div className="w-full">
                     <Controller
                         name="adresse"
@@ -73,8 +64,6 @@ function EditStation({ IdStation,onclick }) {
                         )}
                     />
                 </div>
-
-                {/* Latitude Field */}
                 <div className="w-full">
                     <Controller
                         name="latitude"
@@ -84,8 +73,6 @@ function EditStation({ IdStation,onclick }) {
                         )}
                     />
                 </div>
-
-                {/* Longitude Field */}
                 <div className="w-full">
                     <Controller
                         name="longitude"
@@ -95,11 +82,6 @@ function EditStation({ IdStation,onclick }) {
                         )}
                     />
                 </div>
-
-                {/* Energie Consommée Field */}
-                
-
-                {/* Submit Button */}
                 <Button type="submit"
                 onClick = {onclick}
                  className="w-full bg-primaryChart hover:bg-blue-700 text-white">

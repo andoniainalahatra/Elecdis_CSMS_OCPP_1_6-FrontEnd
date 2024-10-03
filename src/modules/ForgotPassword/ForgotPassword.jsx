@@ -10,7 +10,6 @@ export default function ForgotPassword() {
   const handleValue = (e) => {
     setValue(e.target.value)
   }
-  console.log(val);
   
   return (
     <div className="w-full flex justify-center items-center h-screen">

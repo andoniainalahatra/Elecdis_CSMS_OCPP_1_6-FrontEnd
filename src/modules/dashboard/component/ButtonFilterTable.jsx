@@ -1,18 +1,26 @@
 import { Context } from '@/common/config/configs/Context';
 import { useState, useEffect, useRef, useContext } from 'react';
 import { IoIosArrowDown } from 'react-icons/io';
+import { useDispatch } from 'react-redux';
+import { resetPageSession } from '@/features/sessions/sessionSlice';
 
 export default function ButtonFilterTable({ listFilter, filter}) {
   const { handleFilterChange } = useContext(Context)
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState("filtrer");
   const dropdownRef = useRef(null);
-
+  const dispatch = useDispatch();
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
 
   const handleSelect = (option) => {
+    if(filter === "session")
+      {
+        dispatch(resetPageSession())
+      }
+    // if(filter === "")
+    
     handleFilterChange(filter, option)
     setSelected(option);
     setIsOpen(false);

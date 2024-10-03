@@ -1,4 +1,5 @@
 
+import CalendarFilter from '@/modules/dashboard/component/CalendarFilter'
 import ButtonFilter from './ButtonFilter'
 import { BOXFILTER } from '@/_mock/constant'
 
@@ -19,7 +20,10 @@ export default function Box({Title, Value, FirstIcone, SecondIcone, color, filte
       filter === "energyDelivery" ? Value + " kWh" : Value
       }</p>
       {filter && (
-        <ButtonFilter filter={filter} listFilter={BOXFILTER} />
+        <div className="flex items-center gap-1">
+          <ButtonFilter filter={filter} listFilter={BOXFILTER} />
+          <CalendarFilter />
+        </div>
       )}
     </div>
     <p className='text-[3vw] sm:text-[2vw] md:text-[1.5vw] lg:text-[1vw] xl:text-[14px] font-bold text-[#919EAB]'>{Title}</p>

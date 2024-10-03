@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Boutton from "../Login/components/Boutton";
 import { MdOutlineEmail } from "react-icons/md";
 
 export default function EmailSend() {
@@ -8,8 +7,6 @@ export default function EmailSend() {
   const handleValue = (e) => {
     setValue(e.target.value)
   }
-  console.log(val);
-  
   return (
     <div className="w-full flex justify-center items-center h-screen">
       <div className="max-sm:shadow-none w-[400px] 2xl:w-[500px] shadow-xl p-6 bg-white rounded-lg">
