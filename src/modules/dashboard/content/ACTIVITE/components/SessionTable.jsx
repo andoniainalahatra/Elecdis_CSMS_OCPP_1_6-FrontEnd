@@ -1,11 +1,10 @@
-import Columns from "@/components/Privates/forms/tables/Columns";
 import DataTable from "@/components/Privates/forms/tables/DataTable";
 import { selectPage, selectSession } from "@/features/sessions/sessionSelector";
 import {
   getSession,
   nextPage,
   previousPage,
-  resetPage,
+  resetPageSession,
   totalPage,
 } from "@/features/sessions/sessionSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,23 +18,59 @@ import { useContext, useEffect, useState } from "react";
 export default function SessionTable() {
   const { filters } = useContext(Context);
   const datas = [
-    "id",
-    "user_name",
-    "rfid",
-    "charge_point_id",
-    "connector_id",
-    "start_time",
-    "end_time",
-    "consumed_energy",
-    "total_cost",
-    "statuts",
-    "Urgence",
+    {
+      accessorKey: "id",
+      header: "ID",
+    },
+    {
+      accessorKey: "user_name",
+      header: "Nom Utilisateur",
+      
+    },
+    {
+      accessorKey: "rfid",
+      header: "RFID",
+    },
+    {
+      accessorKey: "charge_point_id",
+      header: "ID de la borne",
+    },
+    {
+      accessorKey: "connector_id",
+      header: "ID Connecteur",
+    },
+    {
+      accessorKey: "start_time",
+      header: "Heure de début",
+    },
+    {
+      accessorKey: "end_time",
+      header: "Heure de fin",
+    },
+    {
+      accessorKey: "consumed_energy",
+      header: "Énergie consommée",
+    },
+    {
+      accessorKey: "total_cost",
+      header: "Coût total",
+    },
+    {
+      accessorKey: "statuts",
+      header: "Statut",
+    },
+    {
+      accessorKey: "Urgence",
+      header: "Urgence",
+    },
   ];
-  const columns = Columns(datas);
+  const columns = datas;
   const actions = [{ name: "detail" }, { name: "edit" }, { name: "delete" }];
   const listFiltre = ["tous", "en cours", "terminé"];
 
   const currentPage = useSelector(selectPage);
+  console.log(currentPage);
+
   const {
     isPending: loadingAll,
     error: errorAll,
@@ -45,7 +80,12 @@ export default function SessionTable() {
     isPending: loadingCurrent,
     error: errorCurrent,
     data: dataCurrent,
-  } = useGetSession("transaction/current/", "repoSessionCurrent", currentPage, 10);
+  } = useGetSession(
+    "transaction/current/",
+    "repoSessionCurrent",
+    currentPage,
+    10
+  );
   const {
     isPending: loadingDOne,
     error: errorDone,
@@ -53,16 +93,12 @@ export default function SessionTable() {
   } = useGetSession("transaction/done/", "repoSessionDone", currentPage, 10);
 
   const [data, setData] = useState();
-  useEffect(()=>{
-
-    if(dataAll){
-      setData(dataAll)
+  useEffect(() => {
+    if (dataAll) {
+      setData(dataAll);
     }
+  }, [dataAll]);
 
-  }, [dataAll])
-  
-  
-  
   const dispatch = useDispatch();
   const sessionData = useSelector(selectSession);
 
@@ -76,7 +112,7 @@ export default function SessionTable() {
     if (filters.session === "terminé") {
       setData(dataDone);
     }
-  }, [filters]);
+  }, [filters, dataDone, dataCurrent, dataAll]);
 
   if (loadingAll || loadingCurrent || loadingDOne) {
     return (
@@ -97,7 +133,7 @@ export default function SessionTable() {
   }
 
   return (
-    <div className="w-full">
+    <div className="w-full overflow-x-auto">
       <DataTable
         columns={columns}
         datas={sessionData}
@@ -105,7 +141,7 @@ export default function SessionTable() {
         ButtonAction={ButtonAutorisation}
         totalPage={totalPage}
         selectPage={currentPage}
-        resetPage={resetPage}
+        resetPage={resetPageSession}
         nextPage={nextPage}
         previousPage={previousPage}
         onFilter={true}

@@ -16,63 +16,66 @@ export default function ChartSection() {
   const {
     data: donuteData,
     error: errorDonute,
-    isPending: loadingDonute
+    isPending: loadingDonute,
   } = useQuery({
     queryKey: ["donuteChart"],
     queryFn: () =>
-      axiosInstance.get("/connector/graph_connector_status").then((res) => res.data),
+      axiosInstance
+        .get("/connector/graph_connector_status")
+        .then((res) => res.data),
     refetchInterval: 1000,
   });
 
   const {
     data: monthData,
     error: errorMonth,
-    isPending: monthLoading
+    isPending: monthLoading,
   } = useQuery({
     queryKey: ["monthDataChart"],
     queryFn: () =>
-      axiosInstance.get(`/cp/graph_conso_energie/?CurrentYear=${filterYear}`).then((res) => res.data),
+      axiosInstance
+        .get(`/cp/graph_conso_energie/?CurrentYear=${filterYear}`)
+        .then((res) => res.data),
     refetchInterval: 5000,
   });
 
   const {
     data: trimestreDataQuery,
     error: errorTrimestre,
-    isPending: trimestreLoading
+    isPending: trimestreLoading,
   } = useQuery({
     queryKey: ["trimestreDataChart"],
     queryFn: () =>
-      axiosInstance.get(`/cp/graph_trimestriel_conso_energie/?CurrentYear=${filterYear}`).then((res) => res.data),
+      axiosInstance
+        .get(`/cp/graph_trimestriel_conso_energie/?CurrentYear=${filterYear}`)
+        .then((res) => res.data),
     refetchInterval: 5000,
   });
 
   const {
     data: semestreData,
     error: errorSemestre,
-    isPending: semestreLoading
+    isPending: semestreLoading,
   } = useQuery({
     queryKey: ["semestreDataChart"],
     queryFn: () =>
-      axiosInstance.get(`/cp/graph_semestriel_conso_energie/?CurrentYear=${filterYear}`).then((res) => res.data),
+      axiosInstance
+        .get(`/cp/graph_semestriel_conso_energie/?CurrentYear=${filterYear}`)
+        .then((res) => res.data),
     refetchInterval: 5000,
   });
-  const isLoading = loadingDonute || monthLoading || trimestreLoading || semestreLoading;
-
-  // Initialize states with fallback to an empty array
+  const isLoading =
+    loadingDonute || monthLoading || trimestreLoading || semestreLoading;
   const [trimestreData, setTrimestreData] = useState(trimestreDataQuery || []);
   const [semestredata, setSemestreData] = useState(semestreData || []);
   const [statistiqueData, setStatistiqueData] = useState(monthData || []);
   const [percentData, setPercentData] = useState(monthData || []);
-
-  // Update data when filterYear or filters change
   useEffect(() => {
     if (filterYear) {
       setTrimestreData(trimestreDataQuery);
       setSemestreData(semestreData);
     }
   }, [filterYear, filters, trimestreDataQuery, semestreData]);
-
-  // Update chart data based on filter selection
   useEffect(() => {
     if (filters.bar === "Annuel") {
       setStatistiqueData(monthData);
@@ -93,7 +96,6 @@ export default function ChartSection() {
 
   const [litleDescri, setlitleDescri] = useState(null);
 
-  // Update description based on percent value
   useEffect(() => {
     if (filters.bar === "Annuel" || filters.bar === "Mensuel") {
       if (percentVal === "∞") {
@@ -120,7 +122,6 @@ export default function ChartSection() {
       </div>
     );
   }
-  // Handle errors
   if (errorDonute || errorMonth || errorSemestre || errorTrimestre) {
     Swal.fire({
       title: "Oops !",
@@ -129,8 +130,6 @@ export default function ChartSection() {
     });
     return null;
   }
-
- 
 
   return (
     <div className="grid max-sm:grid-cols-1 max-sm:place-items-center grid-cols-3 gap-6 w-full my-5">

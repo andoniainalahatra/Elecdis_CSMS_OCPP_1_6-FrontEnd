@@ -11,7 +11,6 @@ import {
 
 import { Checkbox } from "@/components/ui/checkbox";
 import logo from "/public/images/logo1.png";
-// import FloatingLabelInput from "@/components/Privates/forms/FloatingLabelInput";
 import { Controller, useForm } from "react-hook-form";
 import { FormElements } from "@/components/FormElements";
 import { Link } from "react-router-dom";
@@ -44,7 +43,6 @@ const Inscription = () => {
                       name="nom"
                       control={control}
                       defaultValue=""
-                      // render={({field})=> <FloatingLabelInput {...field} id="nom" label="Votre nom *"/>}
                       render={
                         ({ field }) => <FloatingLabelInput
                           {...field}
@@ -64,7 +62,6 @@ const Inscription = () => {
                           id="prenom"
                           label="Votre prenom *" />
                       }
-                    // render={({field})=> <FloatingLabelInput {...field} id="prenom" label="Votre prenom *"/>}
                     />
 
                   </div>
@@ -81,7 +78,6 @@ const Inscription = () => {
                         type="email"
                         label="Votre email *" />
                     }
-                  // render={({field})=> <FloatingLabelInput {...field} id="email" label="Votre email *" type="email"/>}
                   />
 
                 </div>
@@ -98,7 +94,6 @@ const Inscription = () => {
                           type="password"
                           label="Votre mot de passe *" />
                       }
-                    // render={({field})=> <FloatingLabelInput {...field} id="password" label="Votre mot de passe" type="password"/>}
                     />
 
                   </div>
@@ -114,7 +109,6 @@ const Inscription = () => {
                           type="password"
                           label="Confirmer votre Mdp *" />
                       }
-                    // render={({field})=> <FloatingLabelInput {...field} id="password" label="Votre mot de passe" type="password"/>}
                     />
 
                   </div>

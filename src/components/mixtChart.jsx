@@ -13,10 +13,10 @@ ChartJS.register(
 
 const MixedChart = () => {
     const data = {
-        labels: ['Q1', 'Q2', 'Q3', 'Q4', 'Q5'], // X-axis labels
+        labels: ['Q1', 'Q2', 'Q3', 'Q4', 'Q5'],
         datasets: [
             {
-                type: 'bar', // Bar chart
+                type: 'bar',
                 label: 'Bar Dataset 1',
                 data: [35, 44, 24, 34],
                 backgroundColor: 'rgba(75, 192, 192, 0.2)',
@@ -24,7 +24,7 @@ const MixedChart = () => {
                 borderWidth: 1,
             },
             {
-                type: 'bar', // Bar chart
+                type: 'bar',
                 label: 'Bar Dataset 2',
                 data: [51, 6, 49, 30],
                 backgroundColor: 'rgba(54, 162, 235, 0.2)',
@@ -32,7 +32,7 @@ const MixedChart = () => {
                 borderWidth: 1,
             },
             {
-                type: 'bar', // Bar chart
+                type: 'bar',
                 label: 'Bar Dataset 3',
                 data: [15, 25, 30, 50],
                 backgroundColor: 'rgba(255, 206, 86, 0.2)',
@@ -40,14 +40,14 @@ const MixedChart = () => {
                 borderWidth: 1,
             },
             {
-                type: 'bar', // Bar chart
+                type: 'bar',
                 label: 'Bar Dataset 4',
                 data: [60, 50, 15, 25],
                 backgroundColor: 'rgba(153, 102, 255, 0.2)',
                 borderColor: 'rgba(153, 102, 255, 1)',
                 borderWidth: 1,
             }, {
-                type: 'bar', // Bar chart
+                type: 'bar',
                 label: 'Bar Dataset 4',
                 data: [15, 30, 10, 18],
                 backgroundColor: 'rgba(153, 102, 0, 0.2)',
@@ -55,9 +55,9 @@ const MixedChart = () => {
                 borderWidth: 1,
             },
             {
-                type: 'line', // Line chart
+                type: 'line',
                 label: 'Line Dataset',
-                data: [20, 44, 30, 25, 20, 50], // Data points for the line chart
+                data: [20, 44, 30, 25, 20, 50],
                 borderColor: 'rgba(255, 99, 132, 1)',
                 borderWidth: 2,
                 fill: false,

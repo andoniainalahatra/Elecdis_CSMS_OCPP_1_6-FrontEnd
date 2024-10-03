@@ -19,7 +19,7 @@ const sessionSlice = createSlice({
             state.pageIndex=action.payload;
         }
         ,
-        resetPage:(state)=>{
+        resetPageSession:(state)=>{
             state.pageIndex=1
         }
         ,
@@ -30,5 +30,5 @@ const sessionSlice = createSlice({
 
 })
 
-export const {getSession, nextPage,previousPage,resetPage,totalPage} = sessionSlice.actions
+export const {getSession, nextPage,previousPage,resetPageSession,totalPage} = sessionSlice.actions
 export default sessionSlice.reducer

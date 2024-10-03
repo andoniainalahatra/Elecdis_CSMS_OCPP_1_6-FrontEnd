@@ -108,156 +108,162 @@ function DataTable({
   const rowCount = pagination?.total_items;
 
   return (
-    <div className=" py-6  shadow-combined rounded-lg overflow-x-auto bg-[#fffe]">
-      <div className="mb-4 flex gap-2 items-center">
+    <div className="w-full py-6 shadow-combined rounded-lg overflow-x-auto bg-[#fffe]">
+      <div className="w-full mb-4 flex gap-2 items-center">
         <Filters value={globalFilter} onChange={setGlobalFilter} />
-        {onFilter && <ButtonFilterTable filter={filter} listFilter={listFilter} />}
+        {onFilter && (
+          <ButtonFilterTable filter={filter} listFilter={listFilter} />
+        )}
       </div>
-      <Table className="text-center bg-[#fffe]">
-        <TableHeader className="bg-[#F4F6F8] text-center">
-          {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id}>
-              {headerGroup.headers.map((header) => (
-                <TableHead key={header.id} className="text-center">
-                  {flexRender(
-                    header.column.columnDef.header,
-                    header.getContext()
-                  )}
-                </TableHead>
-              ))}
-            </TableRow>
-          ))}
-        </TableHeader>
+      <div className="w-full">
+        <Table className="w-full text-center bg-[#fffe] overflow-x-auto">
+          <TableHeader className="bg-[#F4F6F8] text-center">
+            {table.getHeaderGroups().map((headerGroup) => (
+              <TableRow key={headerGroup.id}>
+                {headerGroup.headers.map((header) => (
+                  <TableHead key={header.id} className="text-center">
+                    {flexRender(
+                      header.column.columnDef.header,
+                      header.getContext()
+                    )}
+                  </TableHead>
+                ))}
+              </TableRow>
+            ))}
+          </TableHeader>
 
-        <TableBody>
-          {table.getRowModel().rows.map((row) => (
-            <TableRow key={row.id}>
-              {row.getVisibleCells().map((cell) => {
-                const cellValue = cell.getValue();
-                const id = row.original.id;
-                let cellClass = "";
-                console.log(cellValue);
-                const rowData = row.original;
-                if (cell.column.id === "Urgence") {
-                  if (rowData.statuts == "en cours") {
+          <TableBody className="w-full">
+            {table.getRowModel().rows.map((row) => (
+              <TableRow key={row.id}>
+                {row.getVisibleCells().map((cell) => {
+                  const cellValue = cell.getValue();
+                  const id = row.original.id;
+                  let cellClass = "";
+                  const rowData = row.original;
+                  if (cell.column.id === "Urgence") {
+                    if (rowData.statuts == "en cours") {
+                      return (
+                        <TableCell key={cell.id} className="text-center">
+                          <ButtonStopTransaction
+                            chargPointId={rowData.charge_point_id}
+                            transactionId={rowData.id}
+                          />
+                        </TableCell>
+                      );
+                    }
+                  }
+                  if (
+                    cell.column.id === "start_time" ||
+                    cell.column.id === "end_time"
+                  ) {
+                    const rawValue = cell.getValue();
+                    if (rawValue === null || rawValue === undefined) {
+                      return (
+                        <TableCell key={cell.id} className="text-center">
+                          Non disponible
+                        </TableCell>
+                      );
+                    }
+
+                    const date = new Date(rawValue);
+                    if (!isNaN(date.getTime())) {
+                      const cellValue = date.toLocaleString("fr-FR", {
+                        year: "numeric",
+                        month: "2-digit",
+                        day: "2-digit",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      });
+
+                      return (
+                        <TableCell key={cell.id} className="text-center">
+                          {cellValue}
+                        </TableCell>
+                      );
+                    } else {
+                      return (
+                        <TableCell key={cell.id} className="text-center">
+                          Date invalide
+                        </TableCell>
+                      );
+                    }
+                  }
+
+                  if (cell.column.columnDef.header === "Actions") {
                     return (
                       <TableCell key={cell.id} className="text-center">
-                        <ButtonStopTransaction
-                          chargPointId={rowData.charge_point_id}
-                          transactionId={rowData.id}
-                        />
+                        <ButtonAction buttonProperty={actions} Id={id} />
                       </TableCell>
                     );
                   }
-                }
-                if (
-                  cell.column.id === "start_time" ||
-                  cell.column.id === "end_time"
-                ) {
-                  const rawValue = cell.getValue();
-                  if (rawValue === null || rawValue === undefined) {
+
+                  if (
+                    cell.column.id === "status" ||
+                    cell.column.id === "statuts" ||
+                    cell.column.id === "connector1" ||
+                    cell.column.id === "connector2" ||
+                    cell.column.id === "heartBeat" ||
+                    cell.column.id === "statut"
+                  ) {
+                    switch (cellValue) {
+                      case "En attente":
+                      case "En cours":
+                      case "en cours":
+                        cellClass = orange;
+                        break;
+                      case "Disponible":
+                      case "Available":
+                      case "available":
+                      case "Terminée":
+                      case "terminé":
+                      case "Complétée":
+                      case "Accepté":
+                      case "active":
+                        cellClass = green;
+                        break;
+                      case "Échouée":
+                      case "inactive":
+                      case "Bloqué":
+                      case "Hors service":
+                      case "Unavailable":
+                        cellClass = red;
+                        break;
+                      case "maintenance":
+                      case "Occupe":
+                        cellClass = yellow;
+                        break;
+                      case "Preparing":
+                      case "preparing":
+                      case "Charging":
+                      case "charging":
+                        cellClass = blue;
+                        break;
+                      default:
+                        cellClass = defaultColor;
+                    }
                     return (
                       <TableCell key={cell.id} className="text-center">
-                        Non disponible
+                        <Badge className={cellClass}>{cellValue}</Badge>
                       </TableCell>
                     );
                   }
 
-                  const date = new Date(rawValue);
-                  if (!isNaN(date.getTime())) {
-                    const cellValue = date.toLocaleString("fr-FR", {
-                      year: "numeric",
-                      month: "2-digit",
-                      day: "2-digit",
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    });
-
-                    return (
-                      <TableCell key={cell.id} className="text-center">
-                        {cellValue}
-                      </TableCell>
-                    );
-                  } else {
-                    return (
-                      <TableCell key={cell.id} className="text-center">
-                        Date invalide
-                      </TableCell>
-                    );
-                  }
-                }
-
-                if (cell.column.columnDef.header === "Actions") {
                   return (
-                    <TableCell key={cell.id} className="text-center">
-                      <ButtonAction buttonProperty={actions} Id={id} />
+                    <TableCell key={cell.id}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
                     </TableCell>
                   );
-                }
+                })}
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
 
-                if (
-                  cell.column.id === "status" ||
-                  cell.column.id === "statuts" ||
-                  cell.column.id === "connector1" ||
-                  cell.column.id === "connector2" ||
-                  cell.column.id === "heartBeat" ||
-                  cell.column.id === "statut"
-                ) {
-                  switch (cellValue) {
-                    case "En attente":
-                    case "En cours":
-                    case "en cours":
-                      cellClass = orange;
-                      break;
-                    case "Disponible":
-                    case "Available":
-                    case "available":
-                    case "Terminée":
-                    case "terminé":
-                    case "Complétée":
-                    case "Accepté":
-                    case "active":
-                      cellClass = green;
-                      break;
-                    case "Échouée":
-                    case "inactive":
-                    case "Bloqué":
-                    case "Hors service":
-                    case "Unavailable":
-                      cellClass = red;
-                      break;
-                    case "maintenance":
-                    case "Occupe":
-                      cellClass = yellow;
-                      break;
-                    case "Preparing":
-                    case "preparing":
-                    case "Charging":
-                    case "charging":
-                      cellClass = blue;
-                      break;
-                    default:
-                      cellClass = defaultColor;
-                  }
-                  return (
-                    <TableCell key={cell.id} className="text-center">
-                      <Badge className={cellClass}>{cellValue}</Badge>
-                    </TableCell>
-                  );
-                }
-
-                return (
-                  <TableCell key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </TableCell>
-                );
-              })}
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-
-      <div className="flex items-center justify-between gap-4 p-2 m-3 max-md:flex-col max-md:justify-center">
+      <div className="w-full flex items-center justify-between gap-4 p-2 m-3 max-md:flex-col max-md:justify-center">
         <span className="text-sm text-[#64748b] ">
           Page {pageIndex} sur {totalPages}, affichage de {pageSize} resultats
           sur un total de {rowCount}

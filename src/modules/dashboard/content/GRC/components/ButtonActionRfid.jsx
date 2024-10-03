@@ -101,7 +101,6 @@ const ButtonActionRfid = ({ buttonProperty, Id }) => {
                     className="fixed top-0 left-0 z-10 flex items-center justify-center w-full h-screen overflow-auto backdrop-blur-md"
                     style={{ backgroundColor: "rgba(9,16,26,0.3)" }}
                 >
-                    {/* <DetailStation IdStation={Id} /> */}
                     <div className="">Hello</div>
                     <span
                         className="absolute cursor-pointer top-5 right-5"

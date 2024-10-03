@@ -1,6 +1,4 @@
-import React from "react";
 import BoutonAdd from "../../component/BoutonAdd";
-
 const Reçus = () => {
   const handleClick = () => alert("hello");
   return (
@@ -10,7 +8,7 @@ const Reçus = () => {
         <BoutonAdd action={handleClick} />
       </div>
       <div>
-        {/* <EtiquettesRfidTable /> */}
+        
       </div>
     </div>
   );

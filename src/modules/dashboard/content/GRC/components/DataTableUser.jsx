@@ -3,7 +3,7 @@ import Columns from "@/components/Privates/forms/tables/Columns";
 import { PulseLoader } from "react-spinners";
 import Swal from "sweetalert2";
 import { useDispatch, useSelector } from "react-redux";
-import { getStation, nextPage, previousPage, resetPage, totalPage } from "@/features/Stations/stationSlice.js";
+import { nextPage, previousPage, resetPage, totalPage } from "@/features/Stations/stationSlice.js";
 
 import { ClientApi } from "../config/client/clientApi";
 import { selectClient, selectPage } from "../config/client/clientSelector";

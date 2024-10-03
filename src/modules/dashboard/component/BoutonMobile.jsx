@@ -1,5 +1,5 @@
 import { Context } from '@/common/config/configs/Context';
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 
 const BoutonMobile = ({ IconButton, label, setSection, namePage }) => {
     const { isActive, setActive, closeNav } = useContext(Context);
