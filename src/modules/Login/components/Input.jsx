@@ -11,8 +11,6 @@ const Input = forwardRef(({ id, type = 'text', value = '', onChange, label }, re
       setIsFocused(true);
     }
   }, [value, inputRef]);
-
-  // Détecte si l'input a une valeur pour ajuster le label
   const hasValue = Boolean(value);
 
   return (

@@ -1,5 +1,5 @@
 import { XMarkIcon } from "@heroicons/react/20/solid";
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { RiDashboard2Fill } from "react-icons/ri";
 import BoutonMobile from "./BoutonMobile";
 import { FaHandsHelping } from "react-icons/fa";

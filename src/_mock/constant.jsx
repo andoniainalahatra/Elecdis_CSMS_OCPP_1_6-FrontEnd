@@ -4,4 +4,4 @@ export const MONTHLABELS = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin
   ];
 export const TRIMERSTRELABELS = ["1erTrimestre", "2èmTrimestre", "3èmTrimestre", "4èmTrimestre"]
 export const SEMESTRELABEL = ["1erSemestre", "2èmSemestre"]
-export const BOXFILTER = ["journalier", "mensuel", "trimestriel", "semestriel", "annuel"]
+export const BOXFILTER = ["mensuel","annuel"]

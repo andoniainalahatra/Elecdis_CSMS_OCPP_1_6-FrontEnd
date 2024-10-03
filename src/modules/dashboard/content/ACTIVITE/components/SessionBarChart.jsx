@@ -1,4 +1,3 @@
-import React from 'react'
 import ColorChartInformation from "@/components/ColorChartInformation";
 import { CardContent } from "@/components/ui/card";
 import { useEffect, useState } from "react";
@@ -62,9 +61,9 @@ export default function SessionBarChart({sessionConfig, data}) {
                   <YAxis
                     tickLine={false}
                     axisLine={false}
-                    tickCount={6} // Ajustez ceci en fonction de la hauteur de votre graphique et de l'incrément souhaité
-                    domain={[0, 200]} // Définissez le domaine jusqu'à la valeur maximale désirée
-                    interval={0} // Ajoutez cette ligne pour forcer l'affichage de tous les ticks
+                    tickCount={6}
+                    domain={[0, 200]}
+                    interval={0}
                     scale="linear"
                   />
                   <Tooltip cursor={false} />
@@ -76,8 +75,8 @@ export default function SessionBarChart({sessionConfig, data}) {
                   />
                   <Line
                     type="monotone"
-                    dataKey="moyenne"
-                    stroke={sessionConfig.sessionMoyen.color}
+                    dataKey="uniqueUsers"
+                    stroke={sessionConfig.uniqueUsers.color}
                     strokeWidth={3}
                     dot={false}
                   />

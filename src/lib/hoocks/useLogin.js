@@ -6,7 +6,6 @@ export const useLogin = () => {
   return useMutation({
     mutationFn: (credentials) => loginUser(credentials),
     onSuccess: (data) => {
-      // const tokenExpiry = data.rememberMe ? 7 : 1;
       const tokenExpiry = 1; // 7 jours si "rememberMe" est activé, sinon 1 jour
       Cookies.set("access_token", data.access_token, {
         expires: tokenExpiry,

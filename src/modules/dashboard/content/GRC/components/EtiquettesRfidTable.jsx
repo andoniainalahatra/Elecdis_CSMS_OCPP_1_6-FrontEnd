@@ -17,13 +17,11 @@ const EtiquettesRfidTable = () => {
   const stationData = useSelector(selectRfid);
   const currentPage = useSelector(selectPage);
   const { isPending, error, data } = useGetListRfid('rfid/all', 'dataRFID', currentPage, 10);
-
-  // Utilise useEffect pour mettre à jour l'état lorsque les données sont prêtes
   useEffect(() => {
     if (data) {
       dispatch(getRfid(data));
     }
-  }, [data, dispatch]); // Exécuter cet effet uniquement quand data ou dispatch change
+  }, [data, dispatch]);
 
   if (isPending) {
     return (
@@ -38,8 +36,7 @@ const EtiquettesRfidTable = () => {
       title: 'Oops ! Erreur de connexion.',
       icon: 'error',
     });
-    return null; // Retourne null pour éviter un autre rendu avec l'erreur
-  }
+    return null;}
 
   return (
     <DataTable

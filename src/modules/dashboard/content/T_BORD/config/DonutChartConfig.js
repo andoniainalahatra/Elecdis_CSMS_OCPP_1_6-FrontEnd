@@ -1,5 +1,5 @@
 export const DONUTECHARTCONFIG = {
-    chargin: {
+    charging: {
       label: "En cours d'utilisation",
       color: "#3D9DF2",
     },

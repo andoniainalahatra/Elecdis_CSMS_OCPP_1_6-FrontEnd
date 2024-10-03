@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import MobileNav from './component/MobileNav';
 import BarNav from './component/BarNav';
 
@@ -63,12 +63,9 @@ const Dashboard = () => {
     return (
         <div className="overflow-x-hidden bg-[#f8f9f7]">
             <div>
-                {/* NavBarMobile */}
                 <MobileNav setSection={setSection} />
-                {/* containair Section */}
                 <div className='flex w-full h-[100vh] space-x-1 '>
                     <div className=' w-[280px]  max-md:hidden overflow-auto custom-scrollbar'>
-                        {/* Navigation */}
                         <Nav setSection={setSection} />
                     </div>
 
@@ -76,27 +73,26 @@ const Dashboard = () => {
                         <BarNav onSearch={handleSearch} />
                         <div className=' mt-[9vh] m-2 h-[90vh] overflow-auto custom-scrollbar'>
                             {currentSection === "TableauDeBord" && <TableauDeBord />}
-                            {/* ACTIVITE */}
                             {currentSection === "Autorisations" && <Autorisation />}
                             {currentSection === "Réservations" && <Reservation />}
                             {currentSection === "sessionRecharge" && <SessionRecharge />}
                             {currentSection === "Transaction" && <Transactions />}
-                            {/* GRC */}
+                          
                             {currentSection === "Clients" && <Clients />}
                             {currentSection === "EtiquettesRFID" && <EtiquettesRfid />}
                             {currentSection === "Reçus" && <Reçus />}
-                            {/* ACTIFS */}
+                            
                             {currentSection === "PointsDecharges" && <PointsDecharges />}
                             {currentSection === "Locations" && <Locations />}
                             {currentSection === "CpNotices" && <CpNotices />}
                             {currentSection === "CpTemplates" && <CpTemplates />}
-                            {/* PARTENAIRES */}
+                           
                             {currentSection === "Partenaires" && <Partenaires />}
                             {currentSection === "Contrats" && <Contrats />}
-                            {/* TARIFS & VOUCHERS */}
+                           
                             {currentSection === "GroupesDestarifs" && <GroupesDesTarifs />}
                             {currentSection === "Tarifs" && <Tarifs />}
-                            {/* AUTHENTIFICATIONS */}
+                           
                             {currentSection === "Connexion" && <Connexion />}
                             {currentSection === "Inscription" && <Inscription />}
                             {currentSection === "RéinitialiserMotDepasse" && <RenitialiserMotDePasse />}

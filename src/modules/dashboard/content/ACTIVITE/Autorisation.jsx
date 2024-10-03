@@ -1,4 +1,3 @@
-import React from 'react'
 import BoutonAdd from '../../component/BoutonAdd';
 import AutorisationTable from '../../component/AutorisationTable';
 

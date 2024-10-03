@@ -1,4 +1,3 @@
-import React from 'react'
 /**
  * 
  * @param {Object} config - configuration de la chart dans le format doit etre un Objet d'objet contenant les proprietes label et color

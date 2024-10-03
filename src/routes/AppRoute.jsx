@@ -7,7 +7,6 @@ import { ContextProvider } from "@/common/config/configs/Context";
 import { RotateLoader } from "react-spinners";
 import UserProfil from "@/components/UserProfil";
 
-// Utilisation de React.lazy pour le lazy loading des composants
 const ForgotPassword = lazy(() => import("@/modules/ForgotPassword/ForgotPassword"));
 const ResetPassword = lazy(() => import("@/modules/ForgotPassword/ResetPassword"));
 const EmailSend = lazy(() => import("@/modules/ForgotPassword/EmailSend"));
@@ -35,7 +34,6 @@ export function AppRoutes() {
           <Route path="/emailSend" element={<EmailSend />} />
           <Route path="/inscription" element={<Inscription />} />
           <Route path="/profil" element={<UserProfil />} />
-
           <Route
             path="/dashboard"
             element={
