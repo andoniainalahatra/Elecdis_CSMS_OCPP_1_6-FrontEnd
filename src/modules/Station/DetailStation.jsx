@@ -35,8 +35,6 @@ function DetailStation({ IdStation }) {
 
 
 
-
-
     if (isrepostat) {
         return (<p>Loading</p>)
     }
@@ -61,10 +59,10 @@ function DetailStation({ IdStation }) {
                             <p>Location</p>
                         </div>
                         <div >
-                            <p className="truncate">{adminData[1].charge_point_model}</p>
-                            <p className="truncate"> {adminData[1].charge_point_vendors}</p>
-                            <p className="truncate">{adminData[1].id_charge_point}</p>
-                            <p className="truncate">{adminData[1].adresse}</p>
+                            <p className="truncate">{adminData.charge_point_model}</p>
+                            <p className="truncate"> {adminData.charge_point_vendors}</p>
+                            <p className="truncate">{adminData.id_charge_point}</p>
+                            <p className="truncate">{adminData.adresse}</p>
                             {/* <p>Andraharo</p> */}
                         </div>
                     </div>

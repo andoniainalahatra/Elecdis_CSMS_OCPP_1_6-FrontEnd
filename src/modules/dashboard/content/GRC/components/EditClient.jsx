@@ -7,6 +7,9 @@ import { IoMdCloseCircle } from "react-icons/io";
 import ErrorMessage from "@/components/ErrorMessage";
 import { useGetOneRfid, useUpdateRfid } from "@/features/RFID/rfidApi";
 import { PulseLoader } from "react-spinners";
+import FloatingLabelInput from "@/components/Privates/forms/FloatingLabelInput";
+import SelectList from "./SelectList";
+import { getSubscription } from "../config/client/clientApi";
 
 export default function EditClient({ action, id }) {
 
@@ -17,6 +20,11 @@ export default function EditClient({ action, id }) {
 
     const { control, formState: { errors }, handleSubmit, reset, } = useForm();
 
+    const { refetch: useSubscription, isPending: isPost, data: dataStart, error: errorStart } = getSubscription();
+
+
+
+
     useEffect(() => {
         if (data) {
             reset({
@@ -24,40 +32,42 @@ export default function EditClient({ action, id }) {
                 user_id: data.user_id,
             });
         }
+        useSubscription();
     }, [data, reset]);
 
 
     const onSubmit = (data) => {
-        update_rfid(data, {
-            onSuccess: () => {
-                Swal.fire({
-                    icon: "success",
-                    title: "Numéro RFID modifié avec succès !",
-                });
-                action();
-            },
-            onError: (error) => {
-                if (error.response?.status === 401) {
-                    setInvalidMessage("Identifiant utilisateur n'existe pas");
-                } else {
-                    Swal.fire({
-                        icon: "error",
-                        title: "Oops...",
-                        text: "Une erreur s'est produite. Veuillez réessayer plus tard.",
-                    });
-                }
-            },
-        });
+        // update_rfid(data, {
+        //     onSuccess: () => {
+        //         Swal.fire({
+        //             icon: "success",
+        //             title: "Numéro RFID modifié avec succès !",
+        //         });
+        //         action();
+        //     },
+        //     onError: (error) => {
+        //         if (error.response?.status === 401) {
+        //             setInvalidMessage("Identifiant utilisateur n'existe pas");
+        //         } else {
+        //             Swal.fire({
+        //                 icon: "error",
+        //                 title: "Oops...",
+        //                 text: "Une erreur s'est produite. Veuillez réessayer plus tard.",
+        //             });
+        //         }
+        //     },
+        // });
+        console.log(data);
     };
 
 
-    if (isLoading) {
-        return (
-            <div className="fixed top-0 left-0 flex items-center justify-center w-full h-screen bg-black bg-opacity-40">
-                <PulseLoader color="#F2505D" />
-            </div>
-        );
-    }
+    // if (isLoading) {
+    //     return (
+    //         <div className="fixed top-0 left-0 flex items-center justify-center w-full h-screen bg-black bg-opacity-40">
+    //             <PulseLoader color="#F2505D" />
+    //         </div>
+    //     );
+    // }
 
     return (
         <div className="fixed top-0 left-0 flex items-center justify-center w-full h-screen">
@@ -72,6 +82,7 @@ export default function EditClient({ action, id }) {
                     >
                         <IoMdCloseCircle size={40} />
                     </button>
+
                     <div className="flex flex-col items-center justify-center w-full">
                         <h4 className="text-importantText max-lg:text-[20px] xl:text-2xl mb-[4vh]">
                             Modifier l'information du client
@@ -79,46 +90,118 @@ export default function EditClient({ action, id }) {
 
                         <div className="w-full mb-[4vh]">
                             <Controller
-                                name="rfid"
+                                name="first_name"
                                 control={control}
                                 rules={{
-                                    required: "Le numéro RFID est requis",
+                                    required: "Ce champ est requis",
                                     pattern: {
                                         value: /[a-zA-Z0-9]/,
                                         message: "Format invalide",
                                     },
                                 }}
+
                                 render={({ field }) => (
-                                    <Input type="text" id="rfid" label="Numéro RFID" {...field} />
+                                    <Input type="text" label="Nom" {...field} />
                                 )}
                             />
-                            {errors?.rfid && <ErrorMessage message={errors.rfid.message} />}
+                            {errors?.first_name && <ErrorMessage message={errors.first_name.message} />}
                         </div>
 
                         <div className="w-full mb-[4vh]">
                             <Controller
-                                name="user_id"
+                                name="last_name"
                                 control={control}
                                 rules={{
-                                    required: "L'identifiant utilisateur est requis",
+                                    required: "Ce champ est requis",
                                     pattern: {
                                         value: /[a-zA-Z0-9]/,
                                         message: "Format invalide",
                                     },
                                 }}
+
                                 render={({ field }) => (
-                                    <Input
-                                        type="number"
-                                        id="idUser"
-                                        {...field}
-                                        label="Identifiant utilisateur lié"
-                                    />
+                                    <Input type="text" label="Prenom" {...field} />
                                 )}
                             />
-                            {errors?.user_id && (
-                                <ErrorMessage message={errors.user_id.message} />
-                            )}
+                            {errors?.last_name && <ErrorMessage message={errors.last_name.message} />}
                         </div>
+
+                        <div className="w-full mb-[4vh]">
+                            <Controller
+                                name="email"
+                                control={control}
+                                rules={{
+                                    required: "Ce champ est requis",
+                                    pattern: {
+                                        value: /[a-zA-Z0-9]/,
+                                        message: "Format invalide",
+                                    },
+                                }}
+
+                                render={({ field }) => (
+                                    <Input type="text" label="Email" {...field} />
+                                )}
+                            />
+                            {errors?.email && <ErrorMessage message={errors.email.message} />}
+                        </div>
+
+                        <div className="w-full mb-[4vh]">
+                            <Controller
+                                name="phone"
+                                control={control}
+                                rules={{
+                                    required: "Ce champ est requis",
+                                    pattern: {
+                                        value: /[a-zA-Z0-9]/,
+                                        message: "Format invalide",
+                                    },
+                                }}
+
+                                render={({ field }) => (
+                                    <Input type="text" label="Numero de telephone" {...field} />
+                                )}
+                            />
+                            {errors?.phone && <ErrorMessage message={errors.phone.message} />}
+                        </div>
+
+                        <div className="w-full mb-[4vh]">
+                            <Controller
+                                name="id_partner"
+                                control={control}
+                                rules={{
+                                    required: "Ce champ est requis",
+                                    pattern: {
+                                        value: /[a-zA-Z0-9]/,
+                                        message: "Format invalide",
+                                    },
+                                }}
+
+                                render={({ field }) => (
+                                    <Input type="text" label="Partenariat" {...field} />
+                                )}
+                            />
+                            {errors?.subscription && <ErrorMessage message={errors.subscription.message} />}
+                        </div>
+
+                        <div className="w-full mb-[4vh]">
+                            <Controller
+                                name="id_subscription"
+                                control={control}
+                                rules={{
+                                    required: "Ce champ est requis",
+                                    pattern: {
+                                        value: /[a-zA-Z0-9]/,
+                                        message: "Format invalide",
+                                    },
+                                }}
+
+                                render={({ field }) => (
+                                    <SelectList id="id_subscription" label="Souscription" type="select" {...field} data={''} />
+                                )}
+                            />
+                            {errors?.partner && <ErrorMessage message={errors.partner.message} />}
+                        </div>
+
                         {invalidMessage && (
                             <ErrorMessage message={invalidMessage} className="mb-[1vw]" />
                         )}
@@ -127,6 +210,11 @@ export default function EditClient({ action, id }) {
                     <div className="flex flex-col items-center justify-center w-full gap-7">
                         <Boutton isLoading={isPending} label="Mettre à jour" />
                     </div>
+
+                    {isPost && <p>En cours...</p>}
+                    {dataStart && <p>Données reçues : {JSON.stringify(dataStart.data)}</p>}
+                    {errorStart && <p>Erreur : {errorStart.message}</p>}
+
                     <div className="w-full">
                         <p className="text-center text-simpleText text-base mt-[1vh]">
                             Copyright, elecdis 2024

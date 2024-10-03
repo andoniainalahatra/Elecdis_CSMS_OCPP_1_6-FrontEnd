@@ -14,7 +14,7 @@ const Input = forwardRef(({ id, type = 'text', value = '', onChange, label }, re
   const hasValue = Boolean(value);
 
   return (
-    <div className="w-full relative">
+    <div className="relative w-full">
       <input
         id={id}
         type={type}
@@ -25,13 +25,13 @@ const Input = forwardRef(({ id, type = 'text', value = '', onChange, label }, re
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
       />
+
       <label
         htmlFor={id}
-        className={`absolute left-2 text-base bg-white px-2 py-0 transition-all duration-300 transform ${
-          isFocused || hasValue
-            ? '-translate-y-3 scale-90 text-[#F2505D]' // Garde le label réduit si l'input est focus ou a une valeur
-            : 'max-sm:translate-y-[1vh] translate-y-[1.2vh] 2xl:translate-y-5 scale-100 text-simpleText'
-        }`}
+        className={`absolute left-2 text-base bg-white px-2 py-0 transition-all duration-300 transform ${isFocused || hasValue
+          ? '-translate-y-3 scale-90 text-[#F2505D]' // Garde le label réduit si l'input est focus ou a une valeur
+          : 'max-sm:translate-y-[1vh] translate-y-[1.2vh] 2xl:translate-y-[1rem] scale-100 text-simpleText'
+          }`}
       >
         {label}
       </label>
