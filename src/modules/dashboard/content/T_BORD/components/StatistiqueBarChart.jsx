@@ -60,8 +60,8 @@ export default function StatistiqueBarChart({title, chartData, description, list
       </div>
       <ColorChartInformation config={statiStiqueConfig} padding="0" position="center" className="pl-6 pb-6 pr-7"/>
       <CardContent>
-        <div className="w-full">
-          <ResponsiveContainer width="100%" height={250}>
+        <div className="w-full h-[50vh]">
+        <ResponsiveContainer width="100%" height="100%">
             {chartData &&
                 <ComposedChart data={chartData} >
                 <CartesianGrid vertical={false} strokeDasharray="3 3" />
