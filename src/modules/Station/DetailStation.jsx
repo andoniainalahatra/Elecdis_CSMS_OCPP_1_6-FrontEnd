@@ -28,7 +28,7 @@ function DetailStation({ IdStation }) {
 
     const { refetch: remoteStart, isPending: ispost, data: dataStart, error: errorStart } = useQuery({
         queryKey: ['start', IdStation, idTag, adminData],
-        queryFn: () => axiosInstance.post(`/cp/send_remoteStartTransaction/${IdStation}/${idTag}/${adminData[1].id_connecteur}`)
+        queryFn: () => axiosInstance.post(`/cp/send_remoteStartTransaction/${IdStation}/${idTag}/${adminData[0].id_connecteur}`)
             .then((res) => res.data),
         enabled: false,
     });
@@ -59,10 +59,10 @@ function DetailStation({ IdStation }) {
                             <p>Location</p>
                         </div>
                         <div >
-                            <p className="truncate">{adminData.charge_point_model}</p>
-                            <p className="truncate"> {adminData.charge_point_vendors}</p>
-                            <p className="truncate">{adminData.id_charge_point}</p>
-                            <p className="truncate">{adminData.adresse}</p>
+                            <p className="truncate">{adminData[0].charge_point_model}</p>
+                            <p className="truncate"> {adminData[0].charge_point_vendors}</p>
+                            <p className="truncate">{adminData[0].id_charge_point}</p>
+                            <p className="truncate">{adminData[0].adresse}</p>
                             {/* <p>Andraharo</p> */}
                         </div>
                     </div>
@@ -72,11 +72,11 @@ function DetailStation({ IdStation }) {
                         <div>
                             <div className="flex items-start justify-center gap-4 ">
                                 {
-                                    (adminData[1].status_connector === "Unavailable" || adminData[1].status_connector === "unavalaible") && (
+                                    (adminData[0].status_connector === "Unavailable" || adminData[0].status_connector === "unavalaible") && (
                                         <div className="flex space-x-5">
                                             <div>
                                                 <CgUnavailable color="#F44336" size={117} />
-                                                <p className="text-[#F44336] font-bold mt-2 ">{adminData[1].status_connector}</p>
+                                                <p className="text-[#F44336] font-bold mt-2 ">{adminData[0].status_connector}</p>
                                             </div>
                                             <div className="text-center">
                                                 <h1 className="mb-2 font-medium text-center">Connecteur 1</h1>
@@ -90,11 +90,11 @@ function DetailStation({ IdStation }) {
                                 }
 
                                 {
-                                    (adminData[1].status_connector === "SuspendedEVSE" || adminData[1].status_connector === "suspendedEVSE") && (
+                                    (adminData[0].status_connector === "SuspendedEVSE" || adminData[0].status_connector === "suspendedEVSE") && (
                                         <div className="flex space-x-5">
                                             <div>
                                                 <CgUnavailable color="#F44336" size={117} />
-                                                <p className="text-[#F44336] font-bold mt-2 ">{adminData[1].status_connector}</p>
+                                                <p className="text-[#F44336] font-bold mt-2 ">{adminData[0].status_connector}</p>
                                             </div>
                                             <div className="text-center">
                                                 <h1 className="mb-2 font-medium text-center">Connecteur 1</h1>
@@ -107,11 +107,11 @@ function DetailStation({ IdStation }) {
                                         </div>)
                                 }
                                 {
-                                    (adminData[1].status_connector === "available" || adminData[1].status_connector === "Available") && (
+                                    (adminData[0].status_connector === "available" || adminData[0].status_connector === "Available") && (
                                         <div className="flex space-x-5">
                                             <div>
                                                 <FaRegCheckCircle color="#4CAF50" size={117} />
-                                                <p className="text-[#4CAF50] font-bold mt-2 ">{adminData[1].status_connector}</p>
+                                                <p className="text-[#4CAF50] font-bold mt-2 ">{adminData[0].status_connector}</p>
                                             </div>
                                             <div className="text-center">
                                                 <h1 className="mb-2 font-medium text-center">Connecteur 1</h1>
@@ -124,11 +124,11 @@ function DetailStation({ IdStation }) {
                                         </div>)
                                 }
                                 {
-                                    (adminData[1].status_connector === "charging" || adminData[1].status_connector === "Charging") && (
+                                    (adminData[0].status_connector === "charging" || adminData[0].status_connector === "Charging") && (
                                         <div className="flex space-x-5">
                                             <div>
                                                 <RiChargingPile2Line color="#2196F3" size={117} />
-                                                <p className="text-[#2196F3] font-bold mt-2 ">{adminData[1].status_connector}</p>
+                                                <p className="text-[#2196F3] font-bold mt-2 ">{adminData[0].status_connector}</p>
                                             </div>
                                             <div className="text-center">
                                                 <h1 className="mb-2 font-medium text-center">Connecteur 1</h1>
@@ -140,11 +140,11 @@ function DetailStation({ IdStation }) {
                                             </div>
                                         </div>)
                                 }{
-                                    (adminData[1].status_connector === "preparing" || adminData[1].status_connector === "Preparing") && (
+                                    (adminData[0].status_connector === "preparing" || adminData[0].status_connector === "Preparing") && (
                                         <div className="flex space-x-5">
                                             <div>
                                                 <BiLoaderCircle color="#2196F3" size={117} />
-                                                <p className="text-[#2196F3] font-bold mt-2 ">{adminData[1].status_connector}</p>
+                                                <p className="text-[#2196F3] font-bold mt-2 ">{adminData[0].status_connector}</p>
                                             </div>
                                             <div className="text-center">
                                                 <h1 className="mb-2 font-medium text-center">Connecteur 1</h1>
