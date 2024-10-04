@@ -132,7 +132,7 @@ export default function ChartSection() {
   }
 
   return (
-    <div className="grid max-sm:grid-cols-1 max-sm:place-items-center grid-cols-3 gap-6 w-full my-5">
+    <div className="grid max-sm:grid-cols-1 max-sm:place-items-center grid-cols-3 gap-6 w-full my-5 h-full">
       <div className="col-span-1 max-sm:w-full h-full">
         <DonuteChart
           chartConfig={DONUTECHARTCONFIG}
@@ -142,7 +142,7 @@ export default function ChartSection() {
           className="w-full p-5 flex flex-col shadow-combined rounded-xl bg-pink-300 h-full"
         />
       </div>
-      <div className="col-span-2 max-sm:w-full max-sm:col-span-1">
+      <div className="col-span-2 max-sm:w-full max-sm:col-span-1 h-full">
         <StatistiqueBarChart
           chartData={statistiqueData}
           statiStiqueConfig={STATISTIQUECONF}
@@ -150,6 +150,7 @@ export default function ChartSection() {
           listFilterYearly={YEARLABEL}
           title="Énergie délivrée par kWh"
           loading={isLoading}
+          className="h-full"
         />
       </div>
     </div>
