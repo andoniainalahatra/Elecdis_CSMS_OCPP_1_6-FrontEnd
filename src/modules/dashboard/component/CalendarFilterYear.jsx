@@ -65,7 +65,7 @@ function CalendarFilterYear({ filter }) {
       </button>
 
       {showInput && (
-        <div className="absolute -right-2 z-50 mt-2 p-4 bg-gray-100 rounded-lg shadow-md">
+        <div className="absolute -right-2 z-50 mt-2 p-4 bg-white border-[0.5px] border-[#918f8f] rounded-lg shadow-md">
           <input
             type="text"
             value={year}

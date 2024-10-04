@@ -6,7 +6,7 @@ import {
   filterDateForEnergy,
   filterDateForNewUser,
 } from "../content/T_BORD/features/filterCalendarSlice";
-import ButttonFilterDate from "./ButttonFilterDate"; // Composant pour le bouton
+import ButttonFilterDate from "./ButttonFilterDate"; 
 
 const months = [
   "Jan",
@@ -72,7 +72,7 @@ function CalendarFilterMonth({ filter }) {
       </button>
 
       {showMonths && (
-        <div className="w-[200px] absolute -right-2 z-50 mt-2 p-4 bg-gray-100 rounded-lg shadow-md">
+        <div className="w-[200px] bg-white border-[0.5px] border-[#918f8f] absolute -right-2 z-50 mt-2 p-4 rounded-lg shadow-md">
           <div className="flex items-center justify-center mb-4">
             <input
               type="number"
