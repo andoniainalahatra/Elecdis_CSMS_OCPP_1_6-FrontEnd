@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Boutton from "../Login/components/Boutton";
-import Logo from "../../../public/images/logo1.png"
+import Logo from "@/assets/logo1.png"
 import NavigateLink from "../Login/components/NavigateLink";
 import { Link } from "react-router-dom";
 

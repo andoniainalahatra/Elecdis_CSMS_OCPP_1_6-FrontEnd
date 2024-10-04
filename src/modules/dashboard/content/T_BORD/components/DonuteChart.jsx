@@ -22,14 +22,14 @@ export default function DonuteChart({chartConfig, chartData, title, label}) {
   },[chartData]
   ) 
   return (
-  <div className="w-full p-5 flex flex-col shadow-combined rounded-xl max-w-full bg-white max-sm:w-full ">
-  <h1 className="text-[#212B36] font-bold ">{title}</h1>
+  <div className="w-full p-5 flex flex-col shadow-combined rounded-xl max-w-full h-[65vh] bg-white max-sm:w-full ">
+  <h1 className="text-[#212B36] font-bold mb-4">{title}</h1>
   <div className="pb-0 h-auto w-full">
     <ChartContainer
       config={chartConfig}
       className="w-full mx-auto aspect-square max-h-full"
     >
-      <PieChart width={300} height={300} className="mx-auto">
+      <PieChart width="100%" height="100%">
         <ChartTooltip
           cursor={true}
           content={<ChartTooltipContent hideLabel />}
@@ -38,8 +38,8 @@ export default function DonuteChart({chartConfig, chartData, title, label}) {
           data={chartData}
           dataKey="value"
           nameKey="status"
-          innerRadius={50}
-          outerRadius={100}
+          innerRadius={100}
+          outerRadius={200}
           strokeWidth={5}
         >
           <Label
@@ -75,7 +75,7 @@ export default function DonuteChart({chartConfig, chartData, title, label}) {
       </PieChart>
     </ChartContainer>
   </div>
-  <ColorChartInformation config={chartConfig} padding={0} className="" position="start" />
+  <ColorChartInformation config={chartConfig} padding={0} className="mt-3" position="start" />
 </div>
 
 
