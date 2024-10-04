@@ -20,7 +20,7 @@ export default function Box({Title, Value, FirstIcone, SecondIcone, color, filte
       }</p>
       {filter && (
         <div className="flex items-center justify-center gap-1">
-          <CalendarFilterDay type="month" filter={filter} />
+          <CalendarFilterDay filter={filter} />
           <CalendarFilterMonth filter={filter} />
           <CalendarFilterYear filter={filter} />
 

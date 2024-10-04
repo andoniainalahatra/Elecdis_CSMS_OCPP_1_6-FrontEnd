@@ -41,8 +41,6 @@ function CalendarFilterYear({ filter }) {
     if (actionCreator) {
       dispatch(actionCreator(formattedDate));
     }
-
-    console.log(`Année soumise : ${formattedDate}`);
     setShowInput(false);
   };
 

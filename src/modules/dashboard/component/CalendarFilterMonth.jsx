@@ -49,7 +49,6 @@ function CalendarFilterMonth({ filter }) {
       dispatch(actionCreator(formattedDate));
     }
 
-    console.log(`Date sélectionnée : ${formattedDate}`);
     setShowMonths(false); 
   };
 

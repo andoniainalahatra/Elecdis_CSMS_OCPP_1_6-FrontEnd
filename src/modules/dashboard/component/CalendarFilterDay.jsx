@@ -10,10 +10,9 @@ import {
 } from "../content/T_BORD/features/filterCalendarSlice";
 import ButttonFilterDate from "./ButttonFilterDate";
 
-function CalendarFilter({ filter, type }) {
+function CalendarFilter({ filter }) {
   const [showCalendar, setShowCalendar] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [currentView, setCurrentView] = useState(type);
   const dispatch = useDispatch();
   const calendarRef = useRef(null);
 
@@ -21,29 +20,15 @@ function CalendarFilter({ filter, type }) {
     setShowCalendar(!showCalendar);
   };
 
-  const formatDate = (date, view) => {
-    if (view === "decade" || type === "decade") {
-      return date.getFullYear().toString();
-    } else if (view === "year" || type === "year") {
-      return `${date.getFullYear()}-${(date.getMonth() + 1)
-        .toString()
-        .padStart(2, "0")}`;
-    } else {
+  const formatDate = (date) => {
       const year = date.getFullYear();
       const month = (date.getMonth() + 1).toString().padStart(2, "0");
       const day = date.getDate().toString().padStart(2, "0");
       return `${year}-${month}-${day}`;
-    }
+    
   };
-
   const handleDateChange = (date) => {
-    console.log(
-      `handleDateChange called with date: ${date}, view: ${currentView}`
-    );
-
-    const formattedDate = formatDate(date, currentView);
-    console.log(`Formatted date: ${formattedDate}`);
-
+    const formattedDate = formatDate(date);
     let actionCreator;
     if (filter === "nombreSession") {
       actionCreator = filterDateForAllSession;
@@ -56,35 +41,12 @@ function CalendarFilter({ filter, type }) {
     }
 
     if (actionCreator) {
-      console.log(`Dispatching action: ${actionCreator.name}`);
       dispatch(actionCreator(formattedDate));
+      setSelectedDate(date)
     } else {
       console.warn(`No action creator found for filter: ${filter}`);
     }
-
-    setSelectedDate(date);
-    setTimeout(() => {
-      setCurrentView((prevView) => prevView);
-    }, 0);
-
-    console.log(`New selected date: ${date}`);
   };
-
-  const handleViewChange = (view) => {
-    console.log(`View changed to: ${view}`);
-    setCurrentView(view);
-    if (view === "year") {
-      handleDateChange(new Date(), view);
-    }
-  };
-
-  const handleActiveStartDateChange = ({ activeStartDate, view }) => {
-    console.log(`Active start date changed: ${activeStartDate}, view: ${view}`);
-    if ((view === "decade" || view === "year") && activeStartDate) {
-      handleDateChange(activeStartDate, view);
-    }
-  };
-
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (calendarRef.current && !calendarRef.current.contains(event.target)) {
@@ -97,16 +59,11 @@ function CalendarFilter({ filter, type }) {
     };
   }, []);
 
-  console.log(
-    `Rendering CalendarFilter with type: ${type}, filter: ${filter}, showCalendar: ${showCalendar}`
-  );
 
   return (
     <div className="relative">
       <button onClick={toggleCalendar} className="text-xl">
-        {type === "month" && <ButttonFilterDate text="J" />}
-        {type === "year" && <ButttonFilterDate text="M" />}
-        {type === "decade" && <ButttonFilterDate text="A" />}
+        <ButttonFilterDate text="J" />
       </button>
       {showCalendar && (
         <div
@@ -115,10 +72,8 @@ function CalendarFilter({ filter, type }) {
         >
           <Calendar
             onChange={handleDateChange}
-            onViewChange={handleViewChange}
-            onActiveStartDateChange={handleActiveStartDateChange}
             value={selectedDate}
-            view={currentView}
+            view="month"
             className="bg-gray-100 p-4 border-none rounded-lg shadow-md"
           />
         </div>

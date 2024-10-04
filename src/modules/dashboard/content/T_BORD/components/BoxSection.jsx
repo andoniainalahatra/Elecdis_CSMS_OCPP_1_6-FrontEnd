@@ -12,6 +12,7 @@ import { updateValue } from '@/lib/updateValue';
 import { useQuery } from '@tanstack/react-query';
 import axiosInstance from '@/lib/axiosInstance';
 import { MoonLoader } from 'react-spinners';
+import { useGetDataFilter } from '../features/BoxApi';
 export default function BoxSection() {
   const { filters } = useContext(Context);
   const [energyDeliveryValue, setEnergyDeliveryValue] = useState(0);
@@ -37,25 +38,9 @@ export default function BoxSection() {
 
   const { percentVal , colorPercent } = usePercent(0);
   const [litleDescri, setlitleDescri] = useState(null);
-  const { data : dataCurrentSession, isPending : loadingCurrentSession, error : errorCurrentSession} = 
-    useQuery({
-      queryKey: ["currentSession"],
-      queryFn: () =>
-        axiosInstance
-          .get('transaction/current/count')
-          .then((response) => response.data),
-          refetchInterval : 5000,
-      refetchOnWindowFocus: true,
-    });
-  const { data : defaillance, isPending : pendingFail, error : errorFail} = useQuery({
-    queryKey: ["defaillance"],
-    queryFn: () =>
-      axiosInstance
-        .get('/cp/count_status_cp/Unavailable')
-        .then((response) => response.data),
-        refetchInterval : 5000,
-    refetchOnWindowFocus: true,
-  });
+  const { data : dataCurrentSession, isPending : loadingCurrentSession, error : errorCurrentSession} = useGetDataFilter("transaction/current/count", "currentSession");
+  const { data : defaillance, isPending : pendingFail, error : errorFail} = useGetDataFilter("/cp/count_status_cp/Unavailable", "defaillance")
+
 
   useEffect(() => {
     if (colorPercent && percentVal) {
