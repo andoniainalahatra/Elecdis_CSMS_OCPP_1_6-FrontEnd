@@ -92,6 +92,12 @@ function DetailStation({ IdStation }) {
             .then((res) => res.data),
         refetchInterval: 1000,
     });
+    const { refetch: remoteStart, isPending: ispost, data: dataStart, error: errorStart } = useQuery({
+        queryKey: ['start', IdStation, idTag, adminData],
+        queryFn: () => axiosInstance.post(`/cp/send_remoteStartTransaction/${IdStation}/${idTag}/${adminData[0].id_connecteur}`)
+            .then((res) => res.data),
+        enabled: false,
+    });
 
     const isLoading =
     loadingDonute || monthLoading || trimestreLoading || semestreLoading;
@@ -161,16 +167,6 @@ function DetailStation({ IdStation }) {
   }
 
     console.log(adminData)
-
-
-    const { refetch: remoteStart, isPending: ispost, data: dataStart, error: errorStart } = useQuery({
-        queryKey: ['start', IdStation, idTag, adminData],
-        queryFn: () => axiosInstance.post(`/cp/send_remoteStartTransaction/${IdStation}/${idTag}/${adminData[0].id_connecteur}`)
-            .then((res) => res.data),
-        enabled: false,
-    });
-
-
 
     if (isrepostat) {
         return (<p>Loading</p>)
