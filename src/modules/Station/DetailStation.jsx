@@ -93,8 +93,16 @@ function DetailStation({ IdStation }) {
         refetchInterval: 1000,
     });
 
-    const isLoading =
-        loadingDonute || monthLoading || trimestreLoading || semestreLoading;
+
+    const { refetch: remoteStart, isPending: ispost, data: dataStart, error: errorStart } = useQuery({
+        queryKey: ['start', IdStation, idTag, adminData],
+        queryFn: () => axiosInstance.post(`/cp/send_remoteStartTransaction/${IdStation}/${idTag}/${adminData[0].id_connecteur}`)
+            .then((res) => res.data),
+        enabled: false,
+    });
+
+
+    const isLoading = loadingDonute || monthLoading || trimestreLoading || semestreLoading;
     const [trimestreData, setTrimestreData] = useState(trimestreDataQuery || []);
     const [semestredata, setSemestreData] = useState(semestreData || []);
     const [statistiqueData, setStatistiqueData] = useState(monthData || []);
@@ -163,12 +171,6 @@ function DetailStation({ IdStation }) {
     console.log(adminData)
 
 
-    const { refetch: remoteStart, isPending: ispost, data: dataStart, error: errorStart } = useQuery({
-        queryKey: ['start', IdStation, idTag, adminData],
-        queryFn: () => axiosInstance.post(`/cp/send_remoteStartTransaction/${IdStation}/${idTag}/${adminData[0].id_connecteur}`)
-            .then((res) => res.data),
-        enabled: false,
-    });
 
 
 
@@ -184,32 +186,34 @@ function DetailStation({ IdStation }) {
 
     return (
         <div className="container h-screen">
-            {adminData.map((item, index) => (
-                <div key={index}
-                    className="text-[#637381] grid grid-cols-3 max-md:grid-cols-1 mb-6 pt-10 gap-6 max-sm:grid-cols-1 max-sm:p-4 max-md:mt-[50px] mt-[50px]">
-                    <div className="text-[#637381] col-span-1 bg-[#ffffff] shadow-lg rounded-2xl p-6 ">
-                        <h1 className="text-2xl font-bold text-red-600 text-start">Stations</h1>
-                        <div className="grid grid-cols-2 gap-4 mt-2 text-gray-800 text-start ">
-                            <div>
-                                <p>Modele</p>
-                                <p>Marque</p>
-                                <p>Numero de serie</p>
-                                <p>Location</p>
-                            </div>
-
-                            <div key={index} >
-                                <p className="truncate">{item.charge_point_model}</p>
-                                <p className="truncate"> {item.charge_point_vendors}</p>
-                                <p className="truncate">{item.id_charge_point}</p>
-                                <p className="truncate">{item.adresse}</p>
-                                {/* <p>Andraharo</p> */}
-                            </div>
-
+            {/* {adminData.map((item,index)=>( */}
+            <div
+                className="text-[#637381] grid grid-cols-3 max-md:grid-cols-1 mb-6 pt-10 gap-6 max-sm:grid-cols-1 max-sm:p-4 max-md:mt-[50px] mt-[50px]">
+                <div className="text-[#637381] col-span-1 bg-[#ffffff] shadow-lg rounded-2xl p-6 ">
+                    <h1 className="text-2xl font-bold text-red-600 text-start">Stations</h1>
+                    <div className="grid grid-cols-2 gap-4 mt-2 text-gray-800 text-start ">
+                        <div>
+                            <p>Modele</p>
+                            <p>Marque</p>
+                            <p>Numero de serie</p>
+                            <p>Location</p>
                         </div>
+
+                        <div>
+                            <p className="truncate">{adminData[0].charge_point_model}</p>
+                            <p className="truncate"> {adminData[0].charge_point_vendors}</p>
+                            <p className="truncate">{adminData[0].id_charge_point}</p>
+                            <p className="truncate">{adminData[0].adresse}</p>
+                            {/* <p>Andraharo</p> */}
+                        </div>
+
                     </div>
-                    <div className="col-span-2 bg-[#ffffff] shadow-lg rounded-2xl max-sm:col-span-1">
-                        <div className="grid grid-cols-2 p-4 max-md:grid-cols-1 max-md:w-full">
-                            <div>
+                </div>
+                <div className="col-span-2 bg-[#ffffff] shadow-lg rounded-2xl max-sm:col-span-1">
+                    <div className="grid grid-cols-2 p-4 max-md:grid-cols-1 max-md:w-full">
+
+                        {adminData.map((item, index) => (
+                            <div key={index}>
                                 <div className="flex items-start justify-center gap-4 ">
                                     {
                                         (item.status_connector === "Unavailable" || item.status_connector === "unavalaible") && (
@@ -298,27 +302,13 @@ function DetailStation({ IdStation }) {
                                     }
                                 </div>
                             </div>
-                            {/* <div>
+                        ))}
 
-                            <div className="flex items-start justify-center gap-4 ">
-                                <div>
-                                    <IoMdAddCircleOutline color="#2196F3" size={117} />
-                                    <p className="text-[#53A7E3] font-bold mt-2 ">En Charge</p>
-                                </div>
-                                <div className="text-center">
-                                    <h1 className="mb-2 font-medium">Connecteur 3</h1>
-                                    <div
-                                        className="flex flex-col items-center justify-center gap-4 p-6 font-medium rounded-md bg-gradient-to-r from-blue-200 to-blue-300">
-                                        <p>Energie</p>
-                                        <p>209 Wh</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> */}
-                        </div>
+
                     </div>
                 </div>
-            ))}
+            </div>
+            {/* ))} */}
 
             <div
                 className="text-[#637381] bg-[#ffffff] shadow-lg border rounded-2xl max-md:place-items-center grid grid-cols-3 max-sm:grid-cols-1 max-sm:p-4 gap-6">

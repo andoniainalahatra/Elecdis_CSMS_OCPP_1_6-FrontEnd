@@ -1,10 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const formatDate = (date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Les mois commencent à 0 donc on ajoute +1
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+};
+
 const initialState = {
-    totalSession : null,
-    energyDelivery : null,
-    allRevenu : null,
-    newUser : null
+    totalSession: formatDate(new Date()),
+    energyDelivery: formatDate(new Date()),
+    allRevenu: formatDate(new Date()),
+    newUser: formatDate(new Date())
 };
 
 const filterDateSlice = createSlice({
