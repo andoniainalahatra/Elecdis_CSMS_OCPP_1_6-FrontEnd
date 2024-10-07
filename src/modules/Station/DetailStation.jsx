@@ -7,13 +7,83 @@ import { CgUnavailable } from "react-icons/cg";
 import { useQuery } from '@tanstack/react-query';
 import axiosInstance from '@/lib/axiosInstance';
 import { IoPlayOutline } from "react-icons/io5";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import StatistiqueBarChart from "../dashboard/content/T_BORD/components/StatistiqueBarChart";
+import { Context } from "@/common/config/configs/Context";
+import { usePercent } from "@/lib/hoocks/usePercent";
+import Swal from "sweetalert2";
+import { PulseLoader } from "react-spinners";
+import { STATISTIQUECONF } from "../dashboard/content/T_BORD/config/StatistiqueConfig";
+import { YEARLABEL } from "@/_mock/constant";
 
 
 function DetailStation({ IdStation }) {
 
+    const { filters, filterYear } = useContext(Context);
     const [isStart, setIsStart] = useState(false);
     const [idTag, setITag] = useState('');
+    const {
+        data: donuteData,
+        error: errorDonute,
+        isPending: loadingDonute,
+      } = useQuery({
+        queryKey: ["donuteChart"],
+        queryFn: () =>
+          axiosInstance
+            .get("/connector/graph_connector_status")
+            .then((res) => res.data),
+        refetchInterval: 1000,
+      });
+
+    /**
+     *  GrapheMensuel
+     */
+
+    const {
+        data: monthData,
+        error: errorMonth,
+        isPending: monthLoading,
+      } = useQuery({
+        queryKey: ["monthDataChart"],
+        queryFn: () =>
+          axiosInstance
+            .get(`/cp/graph_conso_energie_status/${IdStation}?CurrentYear=${filterYear}`)
+            .then((res) => res.data),
+        refetchInterval: 5000,
+      });
+
+      /**
+       * GrapheTrimestriel
+       */
+
+      const {
+        data: trimestreDataQuery,
+        error: errorTrimestre,
+        isPending: trimestreLoading,
+      } = useQuery({
+        queryKey: ["trimestreDataChart"],
+        queryFn: () =>
+          axiosInstance
+            .get(`/cp/graph_trimestriel_conso_energie_status/${IdStation}/?CurrentYear=${filterYear}`)
+            .then((res) => res.data),
+        refetchInterval: 5000,
+      });
+      /**
+       * GrapheSemestriel
+       */
+      const {
+        data: semestreData,
+        error: errorSemestre,
+        isPending: semestreLoading,
+      } = useQuery({
+        queryKey: ["semestreDataChart"],
+        queryFn: () =>
+          axiosInstance
+            .get(`/cp/graph_semestriel_conso_energie_status/${IdStation}/?CurrentYear=${filterYear}`)
+            .then((res) => res.data),
+        refetchInterval: 5000,
+      });
+
 
 
     const { isPending: isrepostat, data: adminData, error: errorStat } = useQuery({
@@ -23,12 +93,79 @@ function DetailStation({ IdStation }) {
         refetchInterval: 1000,
     });
 
+    const isLoading =
+    loadingDonute || monthLoading || trimestreLoading || semestreLoading;
+  const [trimestreData, setTrimestreData] = useState(trimestreDataQuery || []);
+  const [semestredata, setSemestreData] = useState(semestreData || []);
+  const [statistiqueData, setStatistiqueData] = useState(monthData || []);
+  const [percentData, setPercentData] = useState(monthData || []);
+  useEffect(() => {
+    if (filterYear) {
+      setTrimestreData(trimestreDataQuery);
+      setSemestreData(semestreData);
+    }
+  }, [filterYear, filters, trimestreDataQuery, semestreData]);
+  useEffect(() => {
+    if (filters.bar === "Annuel") {
+      setStatistiqueData(monthData);
+      setPercentData(monthData);
+    } else if (filters.bar === "Trimestriel") {
+      setStatistiqueData(trimestreData);
+      setPercentData(trimestreData);
+    } else if (filters.bar === "Semestriel") {
+      setStatistiqueData(semestredata);
+      setPercentData(semestredata);
+    } else {
+      setStatistiqueData(monthData);
+      setPercentData(monthData);
+    }
+  }, [filters, filterYear, monthData, trimestreData, semestredata]);
+
+  const { percentVal } = usePercent(percentData);
+
+  const [litleDescri, setlitleDescri] = useState(null);
+
+  useEffect(() => {
+    if (filters.bar === "Annuel" || filters.bar === "Mensuel") {
+      if (percentVal === "∞") {
+        setlitleDescri(
+          <div className="w-full flex items-center gap-1 text-[14px] text-[#637381]">
+            Augmentation infinie par rapport à l'année dernière
+          </div>
+        );
+      } else {
+        setlitleDescri(
+          <div className="w-full flex items-center gap-1 text-[14px] text-[#637381]">
+            {percentVal} que l'année dernière
+          </div>
+        );
+      }
+    } else {
+      setlitleDescri(null);
+    }
+  }, [filters, percentVal]);
+  if (isLoading) {
+    return (
+      <div className="w-full h-full flex justify-center items-center">
+        <PulseLoader color="#3498db" size={15} />
+      </div>
+    );
+  }
+  if (errorDonute || errorMonth || errorSemestre || errorTrimestre) {
+    Swal.fire({
+      title: "Oops !",
+      icon: "error",
+      text: "Une erreur est survenue, veuillez réessayer plus tard",
+    });
+    return null;
+  }
+
     console.log(adminData)
 
 
     const { refetch: remoteStart, isPending: ispost, data: dataStart, error: errorStart } = useQuery({
         queryKey: ['start', IdStation, idTag, adminData],
-        queryFn: () => axiosInstance.post(`/cp/send_remoteStartTransaction/${IdStation}/${idTag}/${adminData[1].id_connecteur}`)
+        queryFn: () => axiosInstance.post(`/cp/send_remoteStartTransaction/${IdStation}/${idTag}/${adminData[0].id_connecteur}`)
             .then((res) => res.data),
         enabled: false,
     });
@@ -47,7 +184,8 @@ function DetailStation({ IdStation }) {
 
     return (
         <div className="container h-screen">
-            <div
+            {adminData.map((item,index)=>(
+                <div key={index}
                 className="text-[#637381] grid grid-cols-3 max-md:grid-cols-1 mb-6 pt-10 gap-6 max-sm:grid-cols-1 max-sm:p-4 max-md:mt-[50px] mt-[50px]">
                 <div className="text-[#637381] col-span-1 bg-[#ffffff] shadow-lg rounded-2xl p-6 ">
                     <h1 className="text-2xl font-bold text-red-600 text-start">Stations</h1>
@@ -58,13 +196,15 @@ function DetailStation({ IdStation }) {
                             <p>Numero de serie</p>
                             <p>Location</p>
                         </div>
-                        <div >
-                            <p className="truncate">{adminData.charge_point_model}</p>
-                            <p className="truncate"> {adminData.charge_point_vendors}</p>
-                            <p className="truncate">{adminData.id_charge_point}</p>
-                            <p className="truncate">{adminData.adresse}</p>
+
+                        <div key={index} >
+                            <p className="truncate">{item.charge_point_model}</p>
+                            <p className="truncate"> {item.charge_point_vendors}</p>
+                            <p className="truncate">{item.id_charge_point}</p>
+                            <p className="truncate">{item.adresse}</p>
                             {/* <p>Andraharo</p> */}
                         </div>
+                        
                     </div>
                 </div>
                 <div className="col-span-2 bg-[#ffffff] shadow-lg rounded-2xl max-sm:col-span-1">
@@ -72,11 +212,11 @@ function DetailStation({ IdStation }) {
                         <div>
                             <div className="flex items-start justify-center gap-4 ">
                                 {
-                                    (adminData[1].status_connector === "Unavailable" || adminData[1].status_connector === "unavalaible") && (
+                                    (item.status_connector === "Unavailable" || item.status_connector === "unavalaible") && (
                                         <div className="flex space-x-5">
                                             <div>
                                                 <CgUnavailable color="#F44336" size={117} />
-                                                <p className="text-[#F44336] font-bold mt-2 ">{adminData[1].status_connector}</p>
+                                                <p className="text-[#F44336] font-bold mt-2 ">{item.status_connector}</p>
                                             </div>
                                             <div className="text-center">
                                                 <h1 className="mb-2 font-medium text-center">Connecteur 1</h1>
@@ -90,11 +230,11 @@ function DetailStation({ IdStation }) {
                                 }
 
                                 {
-                                    (adminData[1].status_connector === "SuspendedEVSE" || adminData[1].status_connector === "suspendedEVSE") && (
+                                    (item.status_connector === "SuspendedEVSE" || item.status_connector === "suspendedEVSE") && (
                                         <div className="flex space-x-5">
                                             <div>
                                                 <CgUnavailable color="#F44336" size={117} />
-                                                <p className="text-[#F44336] font-bold mt-2 ">{adminData[1].status_connector}</p>
+                                                <p className="text-[#F44336] font-bold mt-2 ">{item.status_connector}</p>
                                             </div>
                                             <div className="text-center">
                                                 <h1 className="mb-2 font-medium text-center">Connecteur 1</h1>
@@ -107,11 +247,11 @@ function DetailStation({ IdStation }) {
                                         </div>)
                                 }
                                 {
-                                    (adminData[1].status_connector === "available" || adminData[1].status_connector === "Available") && (
+                                    (item.status_connector === "available" || item.status_connector === "Available") && (
                                         <div className="flex space-x-5">
                                             <div>
                                                 <FaRegCheckCircle color="#4CAF50" size={117} />
-                                                <p className="text-[#4CAF50] font-bold mt-2 ">{adminData[1].status_connector}</p>
+                                                <p className="text-[#4CAF50] font-bold mt-2 ">{item.status_connector}</p>
                                             </div>
                                             <div className="text-center">
                                                 <h1 className="mb-2 font-medium text-center">Connecteur 1</h1>
@@ -124,11 +264,11 @@ function DetailStation({ IdStation }) {
                                         </div>)
                                 }
                                 {
-                                    (adminData[1].status_connector === "charging" || adminData[1].status_connector === "Charging") && (
+                                    (item.status_connector === "charging" || item.status_connector === "Charging") && (
                                         <div className="flex space-x-5">
                                             <div>
                                                 <RiChargingPile2Line color="#2196F3" size={117} />
-                                                <p className="text-[#2196F3] font-bold mt-2 ">{adminData[1].status_connector}</p>
+                                                <p className="text-[#2196F3] font-bold mt-2 ">{item.status_connector}</p>
                                             </div>
                                             <div className="text-center">
                                                 <h1 className="mb-2 font-medium text-center">Connecteur 1</h1>
@@ -140,11 +280,11 @@ function DetailStation({ IdStation }) {
                                             </div>
                                         </div>)
                                 }{
-                                    (adminData[1].status_connector === "preparing" || adminData[1].status_connector === "Preparing") && (
+                                    (item.status_connector === "preparing" || item.status_connector === "Preparing") && (
                                         <div className="flex space-x-5">
                                             <div>
                                                 <BiLoaderCircle color="#2196F3" size={117} />
-                                                <p className="text-[#2196F3] font-bold mt-2 ">{adminData[1].status_connector}</p>
+                                                <p className="text-[#2196F3] font-bold mt-2 ">{item.status_connector}</p>
                                             </div>
                                             <div className="text-center">
                                                 <h1 className="mb-2 font-medium text-center">Connecteur 1</h1>
@@ -178,6 +318,8 @@ function DetailStation({ IdStation }) {
                     </div>
                 </div>
             </div>
+            ))}
+            
             <div
                 className="text-[#637381] bg-[#ffffff] shadow-lg border rounded-2xl max-md:place-items-center grid grid-cols-3 max-sm:grid-cols-1 max-sm:p-4 gap-6">
 
@@ -252,7 +394,18 @@ function DetailStation({ IdStation }) {
             </div>
             <div className="text-[#fefefe] col-span-1 rounded-2xl py-6">
                 <h1 className="text-2xl font-bold text-red-600 text-start">Statistiques</h1>
-                <ChartSection />
+                {/* <ChartSection /> */}
+                <div className="col-span-2 max-sm:w-full max-sm:col-span-1 h-full">
+        <StatistiqueBarChart
+          chartData={statistiqueData}
+          statiStiqueConfig={STATISTIQUECONF}
+          description={litleDescri}
+          listFilterYearly={YEARLABEL}
+          title="Énergie délivrée par kWh"
+          loading={isLoading}
+          className="h-full"
+        />
+      </div>
             </div>
         </div>
     );
