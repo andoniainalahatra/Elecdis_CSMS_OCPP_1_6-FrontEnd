@@ -22,3 +22,22 @@ export const calculPercentage = (newValue, oldValue) => {
   }
   return Math.round((newValue * 100) / oldValue);
 };
+
+
+export const isFullDate = (dateString) => {
+  return (dateString.match(/-/g) || []).length === 2; // Deux tirets pour YYYY-MM-DD
+}
+
+export const isMonthPresent = (dateString) => {
+  return (dateString.match(/-/g) || []).length === 1; // Un tiret pour YYYY-MM
+}
+export const formatValue = (value) => {
+  const roundedValue = Number(value.toFixed(2));
+  if (roundedValue >= 1e6) {
+    return `${(roundedValue / 1e6).toFixed(1)}M`; // Millions
+  } else if (roundedValue >= 1e3) {
+    return `${(roundedValue / 1e3).toFixed(1)}K`; // Milliers
+  } else {
+    return roundedValue.toString(); // Valeur inférieure à 1000
+  }
+};

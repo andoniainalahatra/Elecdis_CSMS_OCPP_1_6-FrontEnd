@@ -17,8 +17,8 @@ import { useEffect } from "react";
 const EtiquettesRfidTable = () => {
   const datasColumn = [
     { accessorKey: "id", header: "Id" },
-    { accessorKey: "rfid", header: "Numero RFID" },
-    { accessorKey: "user_name", header: "Propietaire" },
+    { accessorKey: "rfid", header: "Numéro RFID" },
+    { accessorKey: "user_name", header: "Propiétaire" },
     { accessorKey: "Actions", header: "Actions" },
   ];
   const columns = datasColumn;

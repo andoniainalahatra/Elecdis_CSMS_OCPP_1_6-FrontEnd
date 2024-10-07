@@ -18,7 +18,7 @@ import {
 } from "@/features/Stations/stationSelector.js";
 
 const datas = [
-    {accessorKey : "id", header : "ID du point de recharge"}, {accessorKey : "adresse", header : "Adresse"}, {accessorKey : "status", header : "Statut"}, {accessorKey : "charge_point_model", header : "Modele du chargeur"}, {accessorKey : "charge_point_vendors", header : "Fournisseur du chargeur"}, {accessorKey : "energie_consomme", header : "Energie delivrée"}, {accessorKey : "Actions", header : "Actions"}
+    {accessorKey : "id", header : "ID du point de recharge"}, {accessorKey : "adresse", header : "Adresse"}, {accessorKey : "status", header : "Statut"}, {accessorKey : "charge_point_model", header : "Modèle du chargeur"}, {accessorKey : "charge_point_vendors", header : "Fournisseur du chargeur"}, {accessorKey : "energie_consomme", header : "Energie delivrée"}, {accessorKey : "Actions", header : "Actions"}
 ];
 const columns = datas;
 const actions = [{ name: "detail" }, { name: "edit" }, { name: "delete" }];
@@ -30,6 +30,8 @@ const DataTableStation = () => {
         currentPage,
         10
     );
+    console.log(data);
+    
     const dispatch = useDispatch();
     const stationData = useSelector(selectStation);
 
