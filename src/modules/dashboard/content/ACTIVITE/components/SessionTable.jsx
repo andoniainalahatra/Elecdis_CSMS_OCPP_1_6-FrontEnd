@@ -19,12 +19,8 @@ export default function SessionTable() {
   const { filters } = useContext(Context);
   const datas = [
     {
-      accessorKey: "id",
-      header: "ID",
-    },
-    {
       accessorKey: "user_name",
-      header: "Nom Utilisateur",
+      header: "Nom d'utilisateur",
       
     },
     {
@@ -41,11 +37,11 @@ export default function SessionTable() {
     },
     {
       accessorKey: "start_time",
-      header: "Heure de début",
+      header: "Date et heure de début",
     },
     {
       accessorKey: "end_time",
-      header: "Heure de fin",
+      header: "Date et heure de fin",
     },
     {
       accessorKey: "consumed_energy",

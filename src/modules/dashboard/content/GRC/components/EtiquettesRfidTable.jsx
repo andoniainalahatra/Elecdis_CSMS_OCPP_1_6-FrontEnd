@@ -1,22 +1,37 @@
-import DataTable from '@/components/Privates/forms/tables/DataTable';
-import Columns from '@/components/Privates/forms/tables/Columns';
-import { nextPage, getRfid, previousPage, resetPage, totalPage } from '@/features/RFID/rfidSlice';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectPage, selectRfid } from '@/features/RFID/rfidSelector';
-import { useGetListRfid } from '@/features/RFID/rfidApi';
-import { PulseLoader } from 'react-spinners';
-import Swal from 'sweetalert2';
-import ButtonActionRfid from './ButtonActionRfid';
-import { useEffect } from 'react';
+import DataTable from "@/components/Privates/forms/tables/DataTable";
+import {
+  nextPage,
+  getRfid,
+  previousPage,
+  resetPage,
+  totalPage,
+} from "@/features/RFID/rfidSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { selectPage, selectRfid } from "@/features/RFID/rfidSelector";
+import { useGetListRfid } from "@/features/RFID/rfidApi";
+import { PulseLoader } from "react-spinners";
+import Swal from "sweetalert2";
+import ButtonActionRfid from "./ButtonActionRfid";
+import { useEffect } from "react";
 
 const EtiquettesRfidTable = () => {
-  const datasColumn = ['id', 'rfid', 'user_name', 'Actions'];
-  const columns = Columns(datasColumn);
-  const actions = [{ name: 'detail' }, { name: 'delete' }];
+  const datasColumn = [
+    { accessorKey: "id", header: "Id" },
+    { accessorKey: "rfid", header: "Numero RFID" },
+    { accessorKey: "user_name", header: "Propietaire" },
+    { accessorKey: "Actions", header: "Actions" },
+  ];
+  const columns = datasColumn;
+  const actions = [{ name: "detail" }, { name: "delete" }];
   const dispatch = useDispatch();
   const stationData = useSelector(selectRfid);
   const currentPage = useSelector(selectPage);
-  const { isPending, error, data } = useGetListRfid('rfid/all', 'dataRFID', currentPage, 10);
+  const { isPending, error, data } = useGetListRfid(
+    "rfid/all",
+    "dataRFID",
+    currentPage,
+    10
+  );
   useEffect(() => {
     if (data) {
       dispatch(getRfid(data));
@@ -33,10 +48,11 @@ const EtiquettesRfidTable = () => {
 
   if (error) {
     Swal.fire({
-      title: 'Oops ! Erreur de connexion.',
-      icon: 'error',
+      title: "Oops ! Erreur de connexion.",
+      icon: "error",
     });
-    return null;}
+    return null;
+  }
 
   return (
     <DataTable
