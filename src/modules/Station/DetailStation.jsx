@@ -92,8 +92,6 @@ function DetailStation({ IdStation }) {
             .then((res) => res.data),
         refetchInterval: 1000,
     });
-
-
     const { refetch: remoteStart, isPending: ispost, data: dataStart, error: errorStart } = useQuery({
         queryKey: ['start', IdStation, idTag, adminData],
         queryFn: () => axiosInstance.post(`/cp/send_remoteStartTransaction/${IdStation}/${idTag}/${adminData[0].id_connecteur}`)
@@ -101,8 +99,8 @@ function DetailStation({ IdStation }) {
         enabled: false,
     });
 
-
-    const isLoading = loadingDonute || monthLoading || trimestreLoading || semestreLoading;
+    const isLoading =
+        loadingDonute || monthLoading || trimestreLoading || semestreLoading;
     const [trimestreData, setTrimestreData] = useState(trimestreDataQuery || []);
     const [semestredata, setSemestreData] = useState(semestreData || []);
     const [statistiqueData, setStatistiqueData] = useState(monthData || []);
@@ -170,10 +168,6 @@ function DetailStation({ IdStation }) {
 
     console.log(adminData)
 
-
-
-
-
     if (isrepostat) {
         return (<p>Loading</p>)
     }
@@ -211,7 +205,6 @@ function DetailStation({ IdStation }) {
                 </div>
                 <div className="col-span-2 bg-[#ffffff] shadow-lg rounded-2xl max-sm:col-span-1">
                     <div className="grid grid-cols-2 p-4 max-md:grid-cols-1 max-md:w-full">
-
                         {adminData.map((item, index) => (
                             <div key={index}>
                                 <div className="flex items-start justify-center gap-4 ">
@@ -304,7 +297,23 @@ function DetailStation({ IdStation }) {
                             </div>
                         ))}
 
+                        {/* <div>
 
+                            <div className="flex items-start justify-center gap-4 ">
+                                <div>
+                                    <IoMdAddCircleOutline color="#2196F3" size={117} />
+                                    <p className="text-[#53A7E3] font-bold mt-2 ">En Charge</p>
+                                </div>
+                                <div className="text-center">
+                                    <h1 className="mb-2 font-medium">Connecteur 3</h1>
+                                    <div
+                                        className="flex flex-col items-center justify-center gap-4 p-6 font-medium rounded-md bg-gradient-to-r from-blue-200 to-blue-300">
+                                        <p>Energie</p>
+                                        <p>209 Wh</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> */}
                     </div>
                 </div>
             </div>
