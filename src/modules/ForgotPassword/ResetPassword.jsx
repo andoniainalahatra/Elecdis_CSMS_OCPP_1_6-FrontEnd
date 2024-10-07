@@ -34,8 +34,8 @@ export default function ResetPassword() {
           <label
             htmlFor="email"
             className={`absolute left-2 text-base bg-white  px-2 py-0 transition-all duration-300 transform ${isFocused
-                ? "-translate-y-3 scale-90 text-[#F2505D]"
-                : "max-sm:translate-y-[1vh] translate-y-[1.2vh] 2xl:translate-y-5 scale-100 text-simpleText"
+              ? "-translate-y-3 scale-90 text-[#F2505D]"
+              : "max-sm:translate-y-[1vh] translate-y-[1.2vh] 2xl:translate-y-5 scale-100 text-simpleText"
               }`}
           >
             Nouveau mot de pass*
@@ -54,8 +54,8 @@ export default function ResetPassword() {
           <label
             htmlFor="email"
             className={`absolute left-2 text-base bg-white  px-2 py-0 transition-all duration-300 transform ${isFocused
-                ? "-translate-y-3 scale-90 text-[#F2505D]"
-                : "max-sm:translate-y-[1vh] translate-y-[1.2vh] 2xl:translate-y-5 scale-100 text-simpleText"
+              ? "-translate-y-3 scale-90 text-[#F2505D]"
+              : "max-sm:translate-y-[1vh] translate-y-[1.2vh] 2xl:translate-y-5 scale-100 text-simpleText"
               }`}
           >
             Saisir à nouveau le nouveau mot de pass*

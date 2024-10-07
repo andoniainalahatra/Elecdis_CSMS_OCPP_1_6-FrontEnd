@@ -10,10 +10,10 @@ export default defineConfig({
     },
   },
   server: {
-    host: '0.0.0.0', // Permet l'accès depuis l'extérieur
-    port: 5173,      // Assurez-vous que le port correspond
+    host: "0.0.0.0", // Permet l'accès depuis l'extérieur
+    port: 5173, // Assurez-vous que le port correspond
   },
   build: {
-    chunkSizeWarningLimit: 1000,  // Augmenter la limite de taille
-  }
+    chunkSizeWarningLimit: 1000, // Augmenter la limite de taille
+  },
 });
