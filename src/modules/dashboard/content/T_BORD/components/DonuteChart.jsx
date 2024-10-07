@@ -12,9 +12,6 @@ export default function DonuteChart({ chartConfig, chartData = [], title, label 
     if (!chartData || chartData.length === 0) return 0; 
     return chartData.reduce((sum, data) => sum + data.value, 0);
   }, [chartData]);
-  
-  console.log("chartData: ", chartData); // Pour débogage
-
   return (
     <div className="w-full p-5 flex flex-col shadow-combined rounded-xl max-w-full h-[65vh] bg-white max-sm:w-full ">
       <h1 className="text-[#212B36] font-bold mb-4">{title}</h1>

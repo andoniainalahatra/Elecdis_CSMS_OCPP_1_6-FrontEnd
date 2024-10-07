@@ -184,8 +184,8 @@ function DetailStation({ IdStation }) {
 
     return (
         <div className="container h-screen">
-            {/* {adminData.map((item,index)=>( */}
-                <div
+            {adminData.map((item,index)=>(
+                <div key={index}
                 className="text-[#637381] grid grid-cols-3 max-md:grid-cols-1 mb-6 pt-10 gap-6 max-sm:grid-cols-1 max-sm:p-4 max-md:mt-[50px] mt-[50px]">
                 <div className="text-[#637381] col-span-1 bg-[#ffffff] shadow-lg rounded-2xl p-6 ">
                     <h1 className="text-2xl font-bold text-red-600 text-start">Stations</h1>
@@ -197,11 +197,11 @@ function DetailStation({ IdStation }) {
                             <p>Location</p>
                         </div>
 
-                        <div>
-                            <p className="truncate">{adminData[0].charge_point_model}</p>
-                            <p className="truncate"> {adminData[0].charge_point_vendors}</p>
-                            <p className="truncate">{adminData[0].id_charge_point}</p>
-                            <p className="truncate">{adminData[0].adresse}</p>
+                        <div key={index} >
+                            <p className="truncate">{item.charge_point_model}</p>
+                            <p className="truncate"> {item.charge_point_vendors}</p>
+                            <p className="truncate">{item.id_charge_point}</p>
+                            <p className="truncate">{item.adresse}</p>
                             {/* <p>Andraharo</p> */}
                         </div>
                         
@@ -209,8 +209,7 @@ function DetailStation({ IdStation }) {
                 </div>
                 <div className="col-span-2 bg-[#ffffff] shadow-lg rounded-2xl max-sm:col-span-1">
                     <div className="grid grid-cols-2 p-4 max-md:grid-cols-1 max-md:w-full">
-                        {adminData.map((item,index)=>(
-                            <div key={index}>
+                        <div>
                             <div className="flex items-start justify-center gap-4 ">
                                 {
                                     (item.status_connector === "Unavailable" || item.status_connector === "unavalaible") && (
@@ -299,8 +298,6 @@ function DetailStation({ IdStation }) {
                                 }
                             </div>
                         </div>
-                        ))}
-                        
                         {/* <div>
 
                             <div className="flex items-start justify-center gap-4 ">
@@ -321,7 +318,7 @@ function DetailStation({ IdStation }) {
                     </div>
                 </div>
             </div>
-            {/* ))} */}
+            ))}
             
             <div
                 className="text-[#637381] bg-[#ffffff] shadow-lg border rounded-2xl max-md:place-items-center grid grid-cols-3 max-sm:grid-cols-1 max-sm:p-4 gap-6">
