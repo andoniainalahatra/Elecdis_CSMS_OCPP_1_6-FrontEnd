@@ -31,7 +31,7 @@ export default function ChartSection() {
     error: errorMonth,
     isPending: monthLoading,
   } = useQuery({
-    queryKey: ["monthDataChart"],
+    queryKey: ["monthDataChart", filterYear],
     queryFn: () =>
       axiosInstance
         .get(`/cp/graph_conso_energie/?CurrentYear=${filterYear}`)
@@ -44,7 +44,7 @@ export default function ChartSection() {
     error: errorTrimestre,
     isPending: trimestreLoading,
   } = useQuery({
-    queryKey: ["trimestreDataChart"],
+    queryKey: ["trimestreDataChart", filterYear],
     queryFn: () =>
       axiosInstance
         .get(`/cp/graph_trimestriel_conso_energie/?CurrentYear=${filterYear}`)
@@ -57,7 +57,7 @@ export default function ChartSection() {
     error: errorSemestre,
     isPending: semestreLoading,
   } = useQuery({
-    queryKey: ["semestreDataChart"],
+    queryKey: ["semestreDataChart", filterYear],
     queryFn: () =>
       axiosInstance
         .get(`/cp/graph_semestriel_conso_energie/?CurrentYear=${filterYear}`)
@@ -115,13 +115,7 @@ export default function ChartSection() {
       setlitleDescri(null);
     }
   }, [filters, percentVal]);
-  if (isLoading) {
-    return (
-      <div className="w-full h-full flex justify-center items-center">
-        <PulseLoader color="#3498db" size={15} />
-      </div>
-    );
-  }
+ 
   if (errorDonute || errorMonth || errorSemestre || errorTrimestre) {
     Swal.fire({
       title: "Oops !",
