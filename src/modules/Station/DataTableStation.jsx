@@ -1,5 +1,4 @@
 import DataTable from "@/components/Privates/forms/tables/DataTable";
-import Columns from "@/components/Privates/forms/tables/Columns";
 import ButtonAction from "@/components/Privates/forms/tables/ButtonAction";
 import { StationApi } from "@/features/Stations/stationApi.js";
 import { PulseLoader } from "react-spinners";
@@ -19,15 +18,9 @@ import {
 } from "@/features/Stations/stationSelector.js";
 
 const datas = [
-    "id",
-    "adresse",
-    "status",
-    "charge_point_model",
-    "charge_point_vendors",
-    "energie_consomme",
-    "Actions",
+    {accessorKey : "id", header : "ID du point de recharge"}, {accessorKey : "adresse", header : "Adresse"}, {accessorKey : "status", header : "Statut"}, {accessorKey : "charge_point_model", header : "Modele du chargeur"}, {accessorKey : "charge_point_vendors", header : "Fournisseur du chargeur"}, {accessorKey : "energie_consomme", header : "Energie delivrée"}, {accessorKey : "Actions", header : "Actions"}
 ];
-const columns = Columns(datas);
+const columns = datas;
 const actions = [{ name: "detail" }, { name: "edit" }, { name: "delete" }];
 const DataTableStation = () => {
     const currentPage = useSelector(selectPage);
