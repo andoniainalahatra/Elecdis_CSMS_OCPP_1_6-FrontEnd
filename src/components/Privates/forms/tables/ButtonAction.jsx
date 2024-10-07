@@ -69,7 +69,7 @@ const ButtonAction = ({ buttonProperty, Id }) => {
             )}
             {section === "edit" && (
                 <div
-                    className="fixed top-0 left-0 flex items-center justify-center w-full h-screen overflow-auto z-1000 backdrop-blur-md"
+                    className="fixed top-0 left-0 flex items-center justify-center w-full h-screen overflow-auto z-10 backdrop-blur-md"
                     style={{ backgroundColor: "rgba(9,16,26,0.7)" }}
                 >
                     <EditStation IdStation={Id} onclick={()=>setSection("")}/>
