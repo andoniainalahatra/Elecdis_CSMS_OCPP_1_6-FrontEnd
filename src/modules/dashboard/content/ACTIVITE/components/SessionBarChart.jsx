@@ -1,5 +1,6 @@
 import ColorChartInformation from "@/components/ColorChartInformation";
 import { CardContent } from "@/components/ui/card";
+import CalendarFilter from "@/modules/dashboard/component/CalendarFilterDay";
 import { useEffect, useState } from "react";
 import {
   Bar,
@@ -11,7 +12,8 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-export default function SessionBarChart({sessionConfig, data}) {
+import { handleChageDate } from "../features/chartSessionSlice";
+export default function SessionBarChart({sessionConfig, data, loading, erreur}) {
     const [tickLength, setTickLength] = useState(3);
   useEffect(() => {
     const updateTickLength = () => {
@@ -35,10 +37,11 @@ export default function SessionBarChart({sessionConfig, data}) {
   return (
     <div className="col-span-2 max-sm:w-full max-sm:col-span-1 shadow-combined rounded-xl w-full h-full bg-white">
           <div className="flex justify-between w-full items-center flex-wrap px-6 py-5">
-            <div>
+            <div className="w-full flex justify-between items-center">
               <h2 className="text-[#212B36] font-bold ">
                 Sessions et utilisateurs unique 24h passé
               </h2>
+              <CalendarFilter filter="test" className="right-0" action={handleChageDate} />
             </div>
           </div>
           <ColorChartInformation
@@ -49,7 +52,8 @@ export default function SessionBarChart({sessionConfig, data}) {
           />
           <CardContent>
             <div className="w-full">
-              <ResponsiveContainer width="100%" height={250}>
+              
+              {loading ? <p>Loading...</p> : erreur ? <p>erreur...</p> : <ResponsiveContainer width="100%" height={250}>
                 <ComposedChart data={data}>
                   <CartesianGrid vertical={false} strokeDasharray="3 3" />
                   <XAxis
@@ -62,7 +66,7 @@ export default function SessionBarChart({sessionConfig, data}) {
                     tickLine={false}
                     axisLine={false}
                     tickCount={6}
-                    domain={[0, 200]}
+                    domain={[0, 10]}
                     interval={0}
                     scale="linear"
                   />
@@ -81,7 +85,7 @@ export default function SessionBarChart({sessionConfig, data}) {
                     dot={false}
                   />
                 </ComposedChart>
-              </ResponsiveContainer>
+              </ResponsiveContainer>}
             </div>
           </CardContent>
         </div>
