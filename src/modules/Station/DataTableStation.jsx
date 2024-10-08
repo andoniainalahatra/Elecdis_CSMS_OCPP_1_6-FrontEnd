@@ -53,17 +53,20 @@ const DataTableStation = () => {
     }
 
     return (
-        <DataTable
-            columns={columns}
-            datas={stationData}
-            actions={actions}
-            ButtonAction={ButtonAction}
-            totalPage={totalPage}
-            selectPage={currentPage}
-            resetPage={resetPage}
-            nextPage={nextPage}
-            previousPage={previousPage}
-        />
+        <div className="w-full overflow-x-auto">
+            <DataTable
+                columns={columns}
+                datas={stationData}
+                actions={actions}
+                ButtonAction={ButtonAction}
+                totalPage={totalPage}
+                selectPage={currentPage}
+                resetPage={resetPage}
+                nextPage={nextPage}
+                previousPage={previousPage}
+            />
+        </div>
+
     );
 };
 

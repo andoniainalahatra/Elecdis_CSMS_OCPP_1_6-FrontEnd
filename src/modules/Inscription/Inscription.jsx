@@ -19,7 +19,6 @@ const Inscription = () => {
   const { handleSubmit, control } = useForm()
   const Submit = (data) => {
     console.log(data);
-
   }
   const FloatingLabelInput = FormElements.getFloatingLabelInput();
   return (
