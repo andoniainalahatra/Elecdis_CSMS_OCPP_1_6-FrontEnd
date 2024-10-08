@@ -41,3 +41,14 @@ export const formatValue = (value) => {
     return roundedValue.toString(); // Valeur inférieure à 1000
   }
 };
+
+export const convertToMinutes = (timeString) => {
+  const [hours, minutes] = timeString.split(' ').filter((_, index) => index % 2 === 0).map(Number);
+  return hours * 60 + minutes;
+};
+
+
+export const convertTimeToHourFormat = (time) => {
+  const [hours, minutes] = time.split(':').map(Number);
+  return `${hours.toString().padStart(2, '0')}h${minutes.toString().padStart(2, '0')}`; 
+};

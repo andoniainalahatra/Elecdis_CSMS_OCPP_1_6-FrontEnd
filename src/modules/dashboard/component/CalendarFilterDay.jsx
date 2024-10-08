@@ -10,7 +10,7 @@ import {
 } from "../content/T_BORD/features/filterCalendarSlice";
 import ButttonFilterDate from "./ButttonFilterDate";
 
-function CalendarFilter({ filter }) {
+function CalendarFilter({ filter, className = "", action = "null" }) {
   const [showCalendar, setShowCalendar] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const dispatch = useDispatch();
@@ -38,6 +38,8 @@ function CalendarFilter({ filter }) {
       actionCreator = filterDateForAllRevenu;
     } else if (filter === "newClient") {
       actionCreator = filterDateForNewUser;
+    } else{
+      actionCreator = action;
     }
 
     if (actionCreator) {
@@ -67,7 +69,7 @@ function CalendarFilter({ filter }) {
       </button>
       {showCalendar && (
         <div
-          className="calendar-container absolute z-50 -right-24 transition-opacity duration-300 ease-in-out opacity-100"
+          className={`${className} calendar-container absolute z-50 -right-24 transition-opacity duration-300 ease-in-out opacity-100`}
           ref={calendarRef}
         >
           <Calendar
