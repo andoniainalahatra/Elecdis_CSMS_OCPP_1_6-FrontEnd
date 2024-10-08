@@ -10,7 +10,6 @@ import axiosInstance from '@/lib/axiosInstance';
 function EditStation({ IdStation,onclick }) {
     const { handleSubmit, control, setValue } = useForm();
     const stationData = useSelector(selectStation);
-    console.log('stationData:', stationData);
     const station = stationData.data.find((element) => element.id === IdStation);
     const mutation = useMutation({
         mutationFn: (updatedStation) => axiosInstance.put(`/cp/update/${IdStation}`, updatedStation).then((res)=>console.log(res.data)),
