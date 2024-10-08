@@ -7,24 +7,18 @@ import { IoMdCloseCircle } from "react-icons/io";
 import ErrorMessage from "@/components/ErrorMessage";
 import { useGetOneRfid, useUpdateRfid } from "@/features/RFID/rfidApi";
 import { PulseLoader } from "react-spinners";
-import FloatingLabelInput from "@/components/Privates/forms/FloatingLabelInput";
 import SelectList from "./SelectList";
 import { getSubscription } from "../config/client/clientApi";
 
 export default function EditClient({ action, id }) {
-
     const { data, error, isLoading } = useGetOneRfid(id);
     const [invalidMessage, setInvalidMessage] = useState("");
-
     const { mutate: update_rfid, isPending } = useUpdateRfid(id);
+    const { control, formState: { errors }, handleSubmit, reset } = useForm();
+    const { refetch: fetchSubscription, isPending: isFetchingSubscriptions, data: subscriptions, error: errorStart } = getSubscription();
+    const [datas, setDatas] = useState([]);
 
-    const { control, formState: { errors }, handleSubmit, reset, } = useForm();
-
-    const { refetch: useSubscription, isPending: isPost, data: dataStart, error: errorStart } = getSubscription();
-
-
-
-
+    // Fetch and set data for form and subscriptions
     useEffect(() => {
         if (data) {
             reset({
@@ -32,18 +26,23 @@ export default function EditClient({ action, id }) {
                 user_id: data.user_id,
             });
         }
-        useSubscription();
+        fetchSubscription();
     }, [data, reset]);
 
+    useEffect(() => {
+        if (subscriptions) {
+            setDatas(subscriptions.data);
+        }
+    }, [subscriptions]);
 
-    const onSubmit = (data) => {
-        // update_rfid(data, {
+    const onSubmit = (formData) => {
+        // update_rfid(formData, {
         //     onSuccess: () => {
         //         Swal.fire({
         //             icon: "success",
         //             title: "Numéro RFID modifié avec succès !",
         //         });
-        //         action();
+        //         action(); // Close the modal
         //     },
         //     onError: (error) => {
         //         if (error.response?.status === 401) {
@@ -57,29 +56,14 @@ export default function EditClient({ action, id }) {
         //         }
         //     },
         // });
-        console.log(data);
+        console.log(formData);
     };
 
-
-    // if (isLoading) {
-    //     return (
-    //         <div className="fixed top-0 left-0 flex items-center justify-center w-full h-screen bg-black bg-opacity-40">
-    //             <PulseLoader color="#F2505D" />
-    //         </div>
-    //     );
-    // }
-
     return (
-        <div className="fixed top-0 left-0 flex items-center justify-center w-full h-screen">
-            <form
-                onSubmit={handleSubmit(onSubmit)}
-                className="flex items-center justify-center w-full h-screen bg-black bg-opacity-40"
-            >
+        <div className="fixed top-0 left-0 z-10 flex items-center justify-center w-full h-screen">
+            <form onSubmit={handleSubmit(onSubmit)} className="flex items-center justify-center w-full h-screen bg-black bg-opacity-40">
                 <div className="relative bg-white shadow-xl backdrop-blur max-sm:shadow-none w-[400px] 2xl:w-[500px] h-auto p-6 flex items-center justify-center flex-col gap-[4vh] rounded-lg">
-                    <button
-                        className="absolute bg-white top-1 right-1"
-                        onClick={() => action()}
-                    >
+                    <button className="absolute bg-white top-1 right-1" onClick={() => action()}>
                         <IoMdCloseCircle size={40} />
                     </button>
 
@@ -88,6 +72,7 @@ export default function EditClient({ action, id }) {
                             Modifier l'information du client
                         </h4>
 
+                        {/* First Name */}
                         <div className="w-full mb-[4vh]">
                             <Controller
                                 name="first_name"
@@ -99,7 +84,6 @@ export default function EditClient({ action, id }) {
                                         message: "Format invalide",
                                     },
                                 }}
-
                                 render={({ field }) => (
                                     <Input type="text" label="Nom" {...field} />
                                 )}
@@ -107,6 +91,7 @@ export default function EditClient({ action, id }) {
                             {errors?.first_name && <ErrorMessage message={errors.first_name.message} />}
                         </div>
 
+                        {/* Last Name */}
                         <div className="w-full mb-[4vh]">
                             <Controller
                                 name="last_name"
@@ -118,7 +103,6 @@ export default function EditClient({ action, id }) {
                                         message: "Format invalide",
                                     },
                                 }}
-
                                 render={({ field }) => (
                                     <Input type="text" label="Prenom" {...field} />
                                 )}
@@ -126,6 +110,7 @@ export default function EditClient({ action, id }) {
                             {errors?.last_name && <ErrorMessage message={errors.last_name.message} />}
                         </div>
 
+                        {/* Email */}
                         <div className="w-full mb-[4vh]">
                             <Controller
                                 name="email"
@@ -137,7 +122,6 @@ export default function EditClient({ action, id }) {
                                         message: "Format invalide",
                                     },
                                 }}
-
                                 render={({ field }) => (
                                     <Input type="text" label="Email" {...field} />
                                 )}
@@ -145,6 +129,7 @@ export default function EditClient({ action, id }) {
                             {errors?.email && <ErrorMessage message={errors.email.message} />}
                         </div>
 
+                        {/* Phone */}
                         <div className="w-full mb-[4vh]">
                             <Controller
                                 name="phone"
@@ -156,7 +141,6 @@ export default function EditClient({ action, id }) {
                                         message: "Format invalide",
                                     },
                                 }}
-
                                 render={({ field }) => (
                                     <Input type="text" label="Numero de telephone" {...field} />
                                 )}
@@ -164,57 +148,38 @@ export default function EditClient({ action, id }) {
                             {errors?.phone && <ErrorMessage message={errors.phone.message} />}
                         </div>
 
-                        <div className="w-full mb-[4vh]">
-                            <Controller
-                                name="id_partner"
-                                control={control}
-                                rules={{
-                                    required: "Ce champ est requis",
-                                    pattern: {
-                                        value: /[a-zA-Z0-9]/,
-                                        message: "Format invalide",
-                                    },
-                                }}
-
-                                render={({ field }) => (
-                                    <Input type="text" label="Partenariat" {...field} />
-                                )}
-                            />
-                            {errors?.subscription && <ErrorMessage message={errors.subscription.message} />}
-                        </div>
-
+                        {/* Subscription Select List */}
                         <div className="w-full mb-[4vh]">
                             <Controller
                                 name="id_subscription"
                                 control={control}
-                                rules={{
-                                    required: "Ce champ est requis",
-                                    pattern: {
-                                        value: /[a-zA-Z0-9]/,
-                                        message: "Format invalide",
-                                    },
-                                }}
-
+                                rules={{ required: "Ce champ est requis" }}
                                 render={({ field }) => (
-                                    <SelectList id="id_subscription" label="Souscription" type="select" {...field} data={''} />
+                                    <SelectList
+                                        id="id_subscription"
+                                        label="Souscription"
+                                        type="select"
+                                        value={field.value}
+                                        datas={datas}
+                                        onChange={field.onChange}
+                                    />
                                 )}
                             />
-                            {errors?.partner && <ErrorMessage message={errors.partner.message} />}
+                            {errors?.id_subscription && <ErrorMessage message={errors.id_subscription.message} />}
                         </div>
 
+                        {/* Error Message */}
                         {invalidMessage && (
                             <ErrorMessage message={invalidMessage} className="mb-[1vw]" />
                         )}
                     </div>
 
+                    {/* Submit Button */}
                     <div className="flex flex-col items-center justify-center w-full gap-7">
                         <Boutton isLoading={isPending} label="Mettre à jour" />
                     </div>
 
-                    {isPost && <p>En cours...</p>}
-                    {dataStart && <p>Données reçues : {JSON.stringify(dataStart.data)}</p>}
-                    {errorStart && <p>Erreur : {errorStart.message}</p>}
-
+                    {/* Footer */}
                     <div className="w-full">
                         <p className="text-center text-simpleText text-base mt-[1vh]">
                             Copyright, elecdis 2024
