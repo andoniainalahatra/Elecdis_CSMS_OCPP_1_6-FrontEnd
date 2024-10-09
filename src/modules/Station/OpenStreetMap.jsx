@@ -27,12 +27,11 @@ function OpenStreetMap() {
             <div className="mb-4">
                 {/* Sélection du thème de la carte */}
                 <label>Choisissez un thème :</label>
-                <select onChange={handleThemeChange} className="ml-2 p-2 border">
+                <select onChange={handleThemeChange} className="ml-2 p-2  py-2 border bg-white focus:ring-0 focus:outline-none focus-visible:ring-white focus:ring-offset-0">
                     <option value="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png">Standard</option>
-                    <option value="https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png">Relief (Topographique)</option>
-                    <option value="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png">Alidade Smooth</option>
-                    <option value="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png">Carto Light</option>
-                    <option value="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png">Carto Dark</option>
+                    <option value="https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png">Humanitarian</option>
+                    <option value="https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png">CyclOSM</option>
+                    <option value="https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png">Topographic</option>
                 </select>
             </div>
 
