@@ -12,7 +12,7 @@ const [open,setOpen]=useState(false);
                 <h2 className="text-[#212B36] text-xl">Charge Point</h2>
                 <BoutonAdd  Composant={CreateStation}  setOpen={setOpen} open={open}/>
             </div>
-            <div className="bg-white p-4 m-2 border-1 border">
+            <div className="w-full">
                 <OpenStreetMap/>
                 <DataTableStation />
             </div>
