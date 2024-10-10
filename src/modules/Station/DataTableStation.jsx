@@ -30,7 +30,6 @@ const DataTableStation = () => {
         currentPage,
         10
     );
-    console.log(data);
     
     const dispatch = useDispatch();
     const stationData = useSelector(selectStation);
