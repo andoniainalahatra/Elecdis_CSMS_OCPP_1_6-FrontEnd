@@ -30,7 +30,7 @@ const getIcon = (status) => {
 
     return L.icon({
         iconUrl: iconUrl,
-        iconSize: [50, 100], // Taille de l'icône
+        iconSize: [40, 80], // Taille de l'icône
         iconAnchor: [40, 122], // Ajustement du point d'ancrage
         popupAnchor: [0, -82], // Position de la popup ajustée
     });
