@@ -21,7 +21,7 @@ export default function SessionTable() {
     {
       accessorKey: "user_name",
       header: "Nom d'utilisateur",
-      
+
     },
     {
       accessorKey: "rfid",

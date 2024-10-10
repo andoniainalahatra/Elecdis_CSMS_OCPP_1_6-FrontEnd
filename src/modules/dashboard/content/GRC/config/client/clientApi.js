@@ -37,6 +37,29 @@ export const useUpdateClient = (id) => {
   });
 };
 
+export const useDeleteClient = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (id) =>
+      axiosInstance.delete(`/users/${id}`).then((res) => res.data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["clientList"], exact: false });
+      Swal.fire({
+        icon: "success",
+        title: "Succès",
+        text: "Client supprimé avec succès!",
+      });
+    },
+    onError: () => {
+      Swal.fire({
+        icon: "error",
+        title: "Erreur",
+        text: "Une erreur s’est produite lors de la suppression du Client.",
+      });
+    },
+  });
+};
+
 export const getSubscription = () => {
   return useQuery({
     queryKey: ["getsubscription"],
