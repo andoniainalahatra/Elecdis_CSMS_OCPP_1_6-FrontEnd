@@ -10,11 +10,48 @@ import { selectClient, selectPage } from "../config/client/clientSelector";
 import { getClient } from "../config/client/clientSlice";
 import ButtonActionClient from "./BoutonActionClient";
 
+// const datas = [
+//     "id", "first_name", "last_name", "email", "role", "phone", "subscription", "Actions"
+// ];
+
 const datas = [
-    "id", "first_name", "last_name", "email", "role", "phone", "subscription", "partner", "Actions"
+    {
+        accessorKey: "id",
+        header: "Id",
+
+    },
+    {
+        accessorKey: "first_name",
+        header: "Nom",
+    },
+    {
+        accessorKey: "last_name",
+        header: "Prenom",
+    },
+    {
+        accessorKey: "email",
+        header: "Email",
+    },
+    {
+        accessorKey: "role",
+        header: "Role",
+    },
+    {
+        accessorKey: "phone",
+        header: "Telephone",
+    },
+    {
+        accessorKey: "subscription",
+        header: "Souscription",
+    },
+    {
+        accessorKey: "Actions",
+        header: "Actions",
+    },
 ];
 
-const columns = Columns(datas);
+// const columns = Columns(datas);
+const columns = datas;
 const actions = [{ name: "detail" }, { name: "edit" }, { name: "delete" }];
 
 const DataTableUser = () => {

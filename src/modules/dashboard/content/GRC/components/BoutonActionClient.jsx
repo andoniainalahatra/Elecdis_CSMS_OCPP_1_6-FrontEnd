@@ -5,12 +5,19 @@ import { FiEdit } from "react-icons/fi";
 import { IoMdClose } from "react-icons/io";
 import DetailsClient from "./DetailsClient";
 import EditClient from "./EditClient";
+import { useDeleteClient } from "../config/client/clientApi";
 
 
 
 const ButtonActionClient = ({ buttonProperty, Id }) => {
     const [section, setSection] = useState("");
-    const handleClosed = () => { setSection("") }
+    const handleClosed = () => { setSection("") };
+
+    const { mutate: deleteClient } = useDeleteClient();
+
+    const handleDelete = (clientId) => {
+        deleteClient(clientId);
+    };
 
     const renderButton = (name, key) => {
         switch (name) {
@@ -30,9 +37,11 @@ const ButtonActionClient = ({ buttonProperty, Id }) => {
                 return (
                     <span
                         key={key}
+                        onClick={() => { handleDelete(Id) }}
                         className="m-1 text-red-500 bg-transparent hover:bg-transparent hover:text-red-600"
                     >
                         <RiDeleteBin6Line />
+                        {/* delete */}
                     </span>
                 );
             case "edit":
