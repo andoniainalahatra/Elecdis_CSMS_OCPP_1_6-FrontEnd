@@ -4,17 +4,21 @@ import FloatingLabelInput from "@/components/Privates/forms/FloatingLabelInput.j
 import { useForm, Controller } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import { selectStation } from '@/features/Stations/stationSelector';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axiosInstance from '@/lib/axiosInstance';
 
-function EditStation({ IdStation,onclick }) {
+function EditStation({ IdStation, onclick }) {
     const { handleSubmit, control, setValue } = useForm();
     const stationData = useSelector(selectStation);
     const station = stationData.data.find((element) => element.id === IdStation);
+    const queryClient = useQueryClient();
+    
     const mutation = useMutation({
-        mutationFn: (updatedStation) => axiosInstance.put(`/cp/update/${IdStation}`, updatedStation).then((res)=>console.log(res.data)),
+        mutationFn: (updatedStation) => axiosInstance.put(`/cp/update/${IdStation}`, updatedStation).then((res) => console.log(res.data)),
         onSuccess: (data) => {
             console.log("Station mise à jour avec succès", data);
+            queryClient.invalidateQueries("repoMap");
+            if (onclick) onclick();  // Assurez-vous qu'onclick est défini avant de l'appeler
         },
         onError: (error) => {
             if (error.response) {
@@ -28,13 +32,14 @@ function EditStation({ IdStation,onclick }) {
     const onSubmit = (station) => {
         console.log("Form Data:", station);
         mutation.mutate(station);
-        
     };
 
     useEffect(() => {
         if (station) {
             Object.keys(station).forEach((key) => {
-                setValue(key, station[key]);
+                if (station[key] !== undefined) {
+                    setValue(key, station[key]);
+                }
             });
         }
     }, [station, setValue]);
@@ -68,7 +73,7 @@ function EditStation({ IdStation,onclick }) {
                         name="latitude"
                         control={control}
                         render={({ field }) => (
-                            <FloatingLabelInput label="Latitude" id="latitude" type="number" {...field} />
+                            <FloatingLabelInput label="Latitude" id="latitude" type="text" {...field} />
                         )}
                     />
                 </div>
@@ -77,13 +82,11 @@ function EditStation({ IdStation,onclick }) {
                         name="longitude"
                         control={control}
                         render={({ field }) => (
-                            <FloatingLabelInput label="Longitude" id="longitude" type="number" {...field} />
+                            <FloatingLabelInput label="Longitude" id="longitude" type="text" {...field} />
                         )}
                     />
                 </div>
-                <Button type="submit"
-                onClick = {onclick}
-                 className="w-full bg-primaryChart hover:bg-blue-700 text-white">
+                <Button type="submit" className="w-full bg-primaryChart hover:bg-blue-700 text-white">
                     Submit
                 </Button>
             </form>

@@ -3,7 +3,6 @@ import { useQuery } from "@tanstack/react-query";
 const useGetDataNoParams = (url, querykey) => {
   return useQuery({
     queryKey: [querykey],
-
     queryFn: () =>
       axiosInstance
         .get(url)
