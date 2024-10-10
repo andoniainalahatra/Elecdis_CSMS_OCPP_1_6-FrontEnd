@@ -8,8 +8,8 @@ import { IoSearch } from "react-icons/io5";
 
 const SelectList = React.forwardRef(({ id, label, value, type = "text", onChange, datas }, forwardedRef) => {
     const [isFocused, setIsFocused] = useState(false);
-    const [selectValue, setSelectValue] = useState(value);
-    const [selectedLabel, setSelectedLabel] = useState(""); // Pour afficher la valeur sélectionnée
+    const [selectValue, setSelectValue] = useState();
+    const [selectedLabel, setSelectedLabel] = useState(value); // Pour afficher la valeur sélectionnée
     const [searchTerm, setSearchTerm] = useState("");  // État pour le champ de recherche
     const inputRef = useRef();
 
@@ -45,8 +45,8 @@ const SelectList = React.forwardRef(({ id, label, value, type = "text", onChange
                     >
                         <SelectTrigger id="status" className={`mt-1 focus:ring-0 bg-transparent border focus:ring-offset-0 h-[60px] ${isFocused || selectValue ? "border-primaryChart" : "border-gray-300"}`}>
                             {/* On affiche la valeur (label) sélectionnée */}
-                            <SelectValue placeholder="Select status">
-                                {selectedLabel || "Sélectionnez un statut"}
+                            <SelectValue placeholder={value}>
+                                {selectedLabel}
                             </SelectValue>
                         </SelectTrigger>
 

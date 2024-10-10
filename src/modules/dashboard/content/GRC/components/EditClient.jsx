@@ -8,55 +8,84 @@ import ErrorMessage from "@/components/ErrorMessage";
 import { useGetOneRfid, useUpdateRfid } from "@/features/RFID/rfidApi";
 import { PulseLoader } from "react-spinners";
 import SelectList from "./SelectList";
-import { getSubscription } from "../config/client/clientApi";
+import { getSubscription, useUpdateClient } from "../config/client/clientApi";
+import { useSelector } from "react-redux";
+import { selectClient } from "../config/client/clientSelector";
 
-export default function EditClient({ action, id }) {
-    const { data, error, isLoading } = useGetOneRfid(id);
+export default function EditClient({ action, Id }) {
     const [invalidMessage, setInvalidMessage] = useState("");
-    const { mutate: update_rfid, isPending } = useUpdateRfid(id);
-    const { control, formState: { errors }, handleSubmit, reset } = useForm();
-    const { refetch: fetchSubscription, isPending: isFetchingSubscriptions, data: subscriptions, error: errorStart } = getSubscription();
-    const [datas, setDatas] = useState([]);
 
-    // Fetch and set data for form and subscriptions
+    const { mutate: updateClient, isPending } = useUpdateClient(Id);
+    const { control, formState: { errors }, handleSubmit, reset } = useForm();
+    const { refetch: fetchSubscription, isPending: isFetchingSubscriptions, data: subscriptions } = getSubscription();
+    const [datas, setDatas] = useState([]);
+    const [defaultItem, setDefaultItem] = useState('');
+
+    const { data } = useSelector(selectClient);
+
+    // Fonction pour trouver le client par ID
+    const dataFind = (Id) => {
+        return data.find((item) => item.id === Id);
+    };
+
+    // Récupérer les données spécifiques du client
+    const clientData = dataFind(Id);
+
+    // Fonction pour trouver l'ID de souscription correspondant au type_subscription
+    const defaultID = (value) => datas.find(item => item.type_subscription === value);
+
+    // Gestion du reset avec les données du client
     useEffect(() => {
-        if (data) {
+        if (clientData && subscriptions) {
+            const subscriptionItem = defaultID(clientData.subscription);
+            if (subscriptionItem) {
+                setDefaultItem(subscriptionItem.id); // Définir l'ID comme valeur par défaut
+            }
+        }
+    }, [clientData, subscriptions, datas]);
+
+    // Initialiser les valeurs du formulaire une fois les données du client et les souscriptions disponibles
+    useEffect(() => {
+        if (clientData) {
             reset({
-                rfid: data.rfid,
-                user_id: data.user_id,
+                first_name: clientData.first_name || "",
+                last_name: clientData.last_name || "",
+                phone: clientData.phone || "",
+                email: clientData.email || "",
+                id_subscription: defaultItem || "",  // Utiliser l'ID extrait de la souscription
             });
         }
-        fetchSubscription();
-    }, [data, reset]);
+        fetchSubscription();  // Récupérer les souscriptions
+    }, [clientData, subscriptions, reset, defaultItem]);
 
     useEffect(() => {
         if (subscriptions) {
-            setDatas(subscriptions.data);
+            setDatas(subscriptions.data);  // Stocker les souscriptions dans l'état
         }
     }, [subscriptions]);
 
     const onSubmit = (formData) => {
-        // update_rfid(formData, {
-        //     onSuccess: () => {
-        //         Swal.fire({
-        //             icon: "success",
-        //             title: "Numéro RFID modifié avec succès !",
-        //         });
-        //         action(); // Close the modal
-        //     },
-        //     onError: (error) => {
-        //         if (error.response?.status === 401) {
-        //             setInvalidMessage("Identifiant utilisateur n'existe pas");
-        //         } else {
-        //             Swal.fire({
-        //                 icon: "error",
-        //                 title: "Oops...",
-        //                 text: "Une erreur s'est produite. Veuillez réessayer plus tard.",
-        //             });
-        //         }
-        //     },
-        // });
-        console.log(formData);
+
+        updateClient(formData, {
+            onSuccess: () => {
+                Swal.fire({
+                    icon: "success",
+                    title: "Client modifié avec succès !",
+                });
+                action(); // Fermer la modale après mise à jour
+            },
+            onError: (error) => {
+                if (error.response?.status === 401) {
+                    setInvalidMessage("Identifiant utilisateur n'existe pas");
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Une erreur s'est produite. Veuillez réessayer plus tard.",
+                    });
+                }
+            },
+        });
     };
 
     return (
@@ -159,7 +188,7 @@ export default function EditClient({ action, id }) {
                                         id="id_subscription"
                                         label="Souscription"
                                         type="select"
-                                        value={field.value}
+                                        value={clientData?.subscription}  // Valeur actuelle
                                         datas={datas}
                                         onChange={field.onChange}
                                     />

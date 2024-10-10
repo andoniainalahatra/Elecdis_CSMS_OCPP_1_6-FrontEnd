@@ -1,6 +1,6 @@
 import axiosInstance from "@/lib/axiosInstance";
 import useGetDataWithPagination from "@/lib/hoocks/useGetDataWithPagination.js";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 
 export const ClientApi = (url, queryKey, page, number_items) =>
@@ -9,23 +9,29 @@ export const ClientApi = (url, queryKey, page, number_items) =>
 export const useUpdateClient = (id) => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (credentials) =>
+    mutationFn: (clientData) =>
       axiosInstance
-        .put(`/users/profile/${id}`, credentials)
+        .put(`/users/profile/${id}`, clientData)
         .then((res) => res.data),
     onSuccess: () => {
+      // Invalider les queries client pour les actualiser après la mise à jour
       queryClient.invalidateQueries({ queryKey: ["clientList"], exact: false });
+
+      // Afficher un message de succès
       Swal.fire({
         icon: "success",
         title: "Succès",
-        text: "Le RFID a été supprimé avec succès!",
+        text: "Le profil du client a été mis à jour avec succès !",
       });
     },
-    onError: () => {
+    onError: (error) => {
+      // Gérer les erreurs lors de la mise à jour
       Swal.fire({
         icon: "error",
         title: "Erreur",
-        text: "Une erreur s’est produite lors de la suppression du RFID.",
+        text: `Une erreur s’est produite lors de la mise à jour du profil du client : ${
+          error?.response?.data?.message || "Erreur inconnue"
+        }`,
       });
     },
   });
@@ -41,7 +47,7 @@ export const getSubscription = () => {
           // subscription/subscriptions/?page=1&number_items=1000
         )
         .then((res) => res.data),
-    enabled: true, // Désactivé jusqu'à ce qu'il soit explicitement activé par `refetch`
+    refetchOnWindowFocus: true, // Désactivé jusqu'à ce qu'il soit explicitement activé par `refetch`
   });
 };
 

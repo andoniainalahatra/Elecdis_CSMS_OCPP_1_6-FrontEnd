@@ -23,7 +23,7 @@ export const useCreateRfid = () => {
       axiosInstance.post("/rfid", credentials).then((res) => res.data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["dataRFID"], exact: false });
-    }
+    },
   });
 };
 
@@ -34,7 +34,7 @@ export const useUpdateRfid = (id) => {
       axiosInstance.put(`/rfid/${id}`, credentials).then((res) => res.data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["dataRFID"], exact: false });
-    }
+    },
   });
 };
 
