@@ -11,7 +11,7 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setLoading(false); 
+    setLoading(false);
   }, []);
 
   return (
