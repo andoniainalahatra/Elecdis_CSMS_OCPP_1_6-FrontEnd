@@ -8,8 +8,8 @@ const Autorisation = () => {
         alert("hello");
     };
     return (
-        <div>
-            <div className='flex justify-between m-1'>
+        <div className=' p-6'>
+            <div className='flex justify-between mb-6'>
                 <span className=' text-[24px] text-[#212B36]'>Personnels</span>
                 <BoutonAdd action={handleClick} />
             </div>
