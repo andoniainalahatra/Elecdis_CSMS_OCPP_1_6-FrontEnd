@@ -1,13 +1,12 @@
 import { BiSolidDashboard } from "react-icons/bi";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { FiEdit } from "react-icons/fi";
-import { IoMdClose } from "react-icons/io";
 import { useState } from "react";
 import { useDeleteRfid } from "@/features/RFID/rfidApi";
 import UpdateRfid from "./UpdateRfid";
 import Swal from "sweetalert2";
 import { PulseLoader } from "react-spinners";
-import DetailRfid from "@/DetailRfid";
+import DetailRfid from "@/modules/dashboard/content/GRC/components/DetailRfid";
 
 const ButtonActionRfid = ({ buttonProperty, Id }) => {
     const [section, setSection] = useState("");
