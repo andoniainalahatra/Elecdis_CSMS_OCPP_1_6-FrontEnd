@@ -7,9 +7,13 @@ import { useDeleteRfid } from "@/features/RFID/rfidApi";
 import UpdateRfid from "./UpdateRfid";
 import Swal from "sweetalert2";
 import { PulseLoader } from "react-spinners";
+import DetailRfid from "@/DetailRfid";
 
 const ButtonActionRfid = ({ buttonProperty, Id }) => {
     const [section, setSection] = useState("");
+    const handleCloseSection = () => {
+        setSection("")
+    }
     const { mutate, isPending, isError, isSuccess } = useDeleteRfid();
     const deleteRfid = (id) => {
         mutate(id);
@@ -97,18 +101,10 @@ const ButtonActionRfid = ({ buttonProperty, Id }) => {
         <div className="flex items-center justify-center gap-2 max-md:flex-col">
             {buttonProperty.map((data, key) => renderButton(data.name, key))}
             {section === "detail" && (
-                <div
-                    className="fixed top-0 left-0 z-10 flex items-center justify-center w-full h-screen overflow-auto backdrop-blur-md"
-                    style={{ backgroundColor: "rgba(9,16,26,0.3)" }}
-                >
-                    <div className="">Hello</div>
-                    <span
-                        className="absolute cursor-pointer top-5 right-5"
-                        onClick={() => setSection("")}
-                    >
-                        <IoMdClose className="text-white hover:text-amber-400" size={50} />
-                    </span>
-                </div>
+                
+                     <DetailRfid fermer={handleCloseSection} supprimer={confirmDelete} />
+                
+                   
             )}
             {section === "edit" && (
                 <UpdateRfid action={handleClosed} id={Id} />
