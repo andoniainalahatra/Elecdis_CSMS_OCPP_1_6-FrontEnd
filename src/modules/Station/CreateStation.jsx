@@ -30,8 +30,8 @@ function CreateStation({setOpen}) {
         const stationData = {
             ...data,
             status: "Unavailable",     // Valeur par défaut
-            longitude: 0,              // Valeur par défaut
-            latitude: 0                // Valeur par défaut
+            // longitude: 0,              // Valeur par défaut
+            // latitude: 0                // Valeur par défaut
         };
         mutation.mutate(stationData)
         console.log(stationData);
@@ -97,6 +97,27 @@ function CreateStation({setOpen}) {
                               )}
                           />
                       </div>
+                      <div className="w-full">
+                          <Controller
+                              name="latitude"
+                              control={control}
+                              render={({field}) => (
+                                  <FloatingLabelInput label="Latitude" id="latitude"
+                                                      type="text" {...field} />
+                              )}
+                          />
+                      </div>
+                      <div className="w-full">
+                          <Controller
+                              name="longitude"
+                              control={control}
+                              render={({field}) => (
+                                  <FloatingLabelInput label="Longitude" id="longitude"
+                                                      type="text" {...field} />
+                              )}
+                          />
+                      </div>
+
 
                       <div className="w-full">
                           <Controller
