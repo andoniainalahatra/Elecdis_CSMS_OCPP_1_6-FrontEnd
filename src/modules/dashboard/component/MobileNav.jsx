@@ -37,7 +37,7 @@ const MobileNav = ({ setSection }) => {
                     <BoutonMobile IconButton={IdentificationIcon} label='Etiquettes RFID' setSection={setSection} namePage='EtiquettesRFID' />
                     <BoutonMobile IconButton={DocumentTextIcon} label='Réçus' setSection={setSection} namePage='Reçus' />
                     <BoutonMobile IconButton={BsFillEvStationFill} label='Points de charges' setSection={setSection} namePage='PointsDecharges' />
-                    <BoutonMobile IconButton={MapPinIcon} label='Locations' setSection={setSection} namePage='Locations' />
+                    {/* <BoutonMobile IconButton={MapPinIcon} label='Locations' setSection={setSection} namePage='Locations' /> */}
                     <BoutonMobile IconButton={BellIcon} label='CP Notices' setSection={setSection} namePage='CpNotices' />
                     <BoutonMobile IconButton={DocumentPlusIcon} label='CP Templates' setSection={setSection} namePage='CpTemplates' />
                     <BoutonMobile IconButton={FaHandsHelping} label='Partenaires' setSection={setSection} namePage='Partenaires' />
