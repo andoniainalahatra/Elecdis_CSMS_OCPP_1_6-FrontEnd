@@ -1,9 +1,9 @@
 import { useState } from "react";
-import BoutonAdd from "../../component/BoutonAdd";
 import EtiquettesRfidTable from "./components/EtiquettesRfidTable";
 import CreateRfid from "./components/CreateRfid";
 import BouttonImporterCSV from "../../component/BouttonImporterCSV";
 import CsvUploader from "../../component/CsvUploader";
+import AddButton from "./components/AddButton";
 const Transactions = () => {
   const [isCreated, setIsCreated] = useState(false);
   const [isImported, setIsImported] = useState(false);
@@ -28,7 +28,7 @@ const Transactions = () => {
         <h2 className="text-[#212B36] text-xl">Listes RFID</h2>
         <div className="flex gap-2">
           <BouttonImporterCSV action={handleImportCSV} />
-          <BoutonAdd action={handleAdd} />
+          <AddButton action={handleAdd} />
         </div>
       </div>
       <div>
