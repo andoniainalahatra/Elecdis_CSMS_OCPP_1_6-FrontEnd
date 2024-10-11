@@ -77,22 +77,22 @@ const Dashboard = () => {
                             {currentSection === "Réservations" && <Reservation />}
                             {currentSection === "sessionRecharge" && <SessionRecharge />}
                             {currentSection === "Transaction" && <Transactions />}
-                          
+
                             {currentSection === "Clients" && <Clients />}
                             {currentSection === "EtiquettesRFID" && <EtiquettesRfid />}
                             {currentSection === "Reçus" && <Reçus />}
-                            
+
                             {currentSection === "PointsDecharges" && <PointsDecharges />}
                             {currentSection === "Locations" && <Locations />}
                             {currentSection === "CpNotices" && <CpNotices />}
                             {currentSection === "CpTemplates" && <CpTemplates />}
-                           
+
                             {currentSection === "Partenaires" && <Partenaires />}
                             {currentSection === "Contrats" && <Contrats />}
-                           
+
                             {currentSection === "GroupesDestarifs" && <GroupesDesTarifs />}
                             {currentSection === "Tarifs" && <Tarifs />}
-                           
+
                             {currentSection === "Connexion" && <Connexion />}
                             {currentSection === "Inscription" && <Inscription />}
                             {currentSection === "RéinitialiserMotDepasse" && <RenitialiserMotDePasse />}
