@@ -1,5 +1,12 @@
 import React, { useState, useCallback, useMemo } from "react";
-import { FaCheckCircle, FaEye, FaHourglassHalf, FaQuestionCircle, FaTimesCircle, FaTrash } from "react-icons/fa";
+import {
+  FaCheckCircle,
+  FaEye,
+  FaHourglassHalf,
+  FaQuestionCircle,
+  FaTimesCircle,
+  FaTrash,
+} from "react-icons/fa";
 
 // Données statiques (à remplacer par un appel API dans un environnement de production)
 const transactionsData = [
@@ -133,9 +140,10 @@ const Transactions = () => {
 
   // Filtrer les transactions en fonction du texte de recherche
   const filteredTransactions = useMemo(() => {
-    return transactionsData.filter(transaction =>
-      transaction.client.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      transaction.id.toLowerCase().includes(searchTerm.toLowerCase())
+    return transactionsData.filter(
+      (transaction) =>
+        transaction.client.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        transaction.id.toLowerCase().includes(searchTerm.toLowerCase())
     );
   }, [searchTerm]);
 
@@ -167,22 +175,26 @@ const Transactions = () => {
   // Fonction pour rendre l'icône de statut
   const renderStatusIcon = (status) => {
     switch (status) {
-      case "Success": return <FaCheckCircle className="text-green-500" />;
-      case "Pending": return <FaHourglassHalf className="text-orange-500" />;
-      case "Failed": return <FaTimesCircle className="text-red-500" />;
-      default: return <FaQuestionCircle className="text-gray-500" />;
+      case "Success":
+        return <FaCheckCircle className="text-green-500" />;
+      case "Pending":
+        return <FaHourglassHalf className="text-orange-500" />;
+      case "Failed":
+        return <FaTimesCircle className="text-red-500" />;
+      default:
+        return <FaQuestionCircle className="text-gray-500" />;
     }
   };
 
   return (
     <div className="w-full h-auto p-6">
       <h2 className="text-[#212B36] text-xl mb-6">Transactions de paiement</h2>
-      
+
       {/* Champ de recherche */}
       <input
         type="text"
         placeholder="Rechercher par nom de client ou ID..."
-        className="mb-4 p-2 border rounded w-full"
+        className="mb-4 p-2 border rounded w-[32%]"
         value={searchTerm}
         onChange={handleSearchChange}
       />
@@ -190,10 +202,15 @@ const Transactions = () => {
       {/* Liste des transactions */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {currentTransactions.map((transaction) => (
-          <div key={transaction.id} className="bg-[#ffffff] p-4 rounded-lg shadow-combined flex flex-col">
+          <div
+            key={transaction.id}
+            className="bg-[#ffffff] p-4 rounded-lg shadow-combined flex flex-col"
+          >
             {/* En-tête : Nom du client et statut */}
             <div className="flex justify-between items-center mb-2">
-              <h3 className="text-xl font-bold text-white">{transaction.client}</h3>
+              <h3 className="text-xl font-bold text-white">
+                {transaction.client}
+              </h3>
               {renderStatusIcon(transaction.statut)}
             </div>
 
@@ -220,9 +237,9 @@ const Transactions = () => {
 
       {/* Pagination */}
       <div className="flex justify-between items-center mt-6">
-        <button 
-          onClick={handlePreviousPage} 
-          disabled={currentPage === 1} 
+        <button
+          onClick={handlePreviousPage}
+          disabled={currentPage === 1}
           className="bg-blue-500 text-white px-4 py-2 rounded disabled:opacity-50"
         >
           Précédent
@@ -230,9 +247,9 @@ const Transactions = () => {
         <span className="text-lg">
           Page {currentPage} sur {totalPages}
         </span>
-        <button 
-          onClick={handleNextPage} 
-          disabled={currentPage === totalPages} 
+        <button
+          onClick={handleNextPage}
+          disabled={currentPage === totalPages}
           className="bg-blue-500 text-white px-4 py-2 rounded disabled:opacity-50"
         >
           Suivant

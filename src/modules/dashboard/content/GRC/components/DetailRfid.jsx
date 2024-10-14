@@ -7,20 +7,18 @@ import {
 } from "react-icons/fa"; // Des icônes futuristes
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { BsArrowReturnRight } from "react-icons/bs";
+import { useGetOneRfid } from "@/features/RFID/rfidApi";
 
-const DetailRfid = ({ fermer, supprimer }) => {
-  const rfidData = {
-    id: "12345",
-    numero: "A7B8C9D",
-    proprietaire: "John Doe",
-    status: "active",
-    lastUsed: "2024-10-01 15:30",
-    enregistrement: "2023-06-15",
-    historique: [
-      { date: "2024-10-01 15:30", action: "Accès autorisé" },
-      { date: "2024-09-20 10:22", action: "Accès refusé" },
-    ],
-  };
+const DetailRfid = ({ id, fermer, supprimer }) => {
+ const { data : rfidData, error, isPending } = useGetOneRfid(id);
+  if(error)
+  {
+    return <p>Une erreur est survenue...</p>
+  }
+  if(isPending)
+    {
+      return <p>Loading...</p>
+    }
   return (
     <div className="fixed z-10 top-0 left-0 w-full h-screen flex justify-center items-center">
       <div className="w-full bg-black bg-opacity-40 h-screen flex items-center justify-center">
@@ -37,12 +35,12 @@ const DetailRfid = ({ fermer, supprimer }) => {
               </div>
               <div className="flex flex-col w-full items-start">
                 <h3 className="text-gray-300">Numéro RFID</h3>
-                <p className="text-lgs text-white font-bold">{rfidData.numero}</p>
+                <p className="text-lgs text-white font-bold">{rfidData.rfid}</p>
               </div>
               <div className="flex flex-col w-full items-start">
                 <h3 className="text-gray-300">Propriétaire</h3>
                 <p className="text-lgs text-white font-bold flex items-center">
-                  <FaUserAlt className="mr-2" /> {rfidData.proprietaire}
+                  <FaUserAlt className="mr-2" /> {rfidData.user_name}
                 </p>
               </div>
             </div>
@@ -68,13 +66,13 @@ const DetailRfid = ({ fermer, supprimer }) => {
               <div className="flex flex-col w-full items-start">
                 <h3 className="text-gray-300">Dernière utilisation</h3>
                 <p className="flexs text-white flex items-center justify-center">
-                  <FaCalendarAlt className="mr-2" /> {rfidData.lastUsed}
+                  <FaCalendarAlt className="mr-2" /> {rfidData.last_used}
                 </p>
               </div>
               <div className="flex flex-col w-full items-start">
                 <h3 className="text-gray-300">Date d'enregistrement</h3>
                 <p className="flexs text-white flex items-center justify-center">
-                  <FaCalendarAlt className="mr-2" /> {rfidData.enregistrement}
+                  <FaCalendarAlt className="mr-2" /> {rfidData.registration}
                 </p>
               </div>
             </div>
@@ -86,7 +84,7 @@ const DetailRfid = ({ fermer, supprimer }) => {
               Historique des Utilisations
             </h2>
             <div className="space-y-2">
-              {rfidData.historique.map((item, index) => (
+              {rfidData.history.map((item, index) => (
                 <div
                   key={index}
                   className="bg-gray-700 p-3 text-white rounded-md flex items-center justify-between"
