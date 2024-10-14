@@ -101,7 +101,7 @@ const ButtonActionRfid = ({ buttonProperty, Id }) => {
             {buttonProperty.map((data, key) => renderButton(data.name, key))}
             {section === "detail" && (
                 
-                     <DetailRfid fermer={handleCloseSection} supprimer={confirmDelete} />
+                     <DetailRfid id={Id} fermer={handleCloseSection} supprimer={confirmDelete} />
                 
                    
             )}
