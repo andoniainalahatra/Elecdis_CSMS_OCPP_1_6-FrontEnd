@@ -8,17 +8,16 @@ import {
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { BsArrowReturnRight } from "react-icons/bs";
 import { useGetOneRfid } from "@/features/RFID/rfidApi";
+import { convertDate } from "@/lib/utils";
 
 const DetailRfid = ({ id, fermer, supprimer }) => {
- const { data : rfidData, error, isPending } = useGetOneRfid(id);
-  if(error)
-  {
-    return <p>Une erreur est survenue...</p>
+  const { data: rfidData, error, isPending } = useGetOneRfid(id);
+  if (error) {
+    return <p>Une erreur est survenue...</p>;
   }
-  if(isPending)
-    {
-      return <p>Loading...</p>
-    }
+  if (isPending) {
+    return <p>Loading...</p>;
+  }
   return (
     <div className="fixed z-10 top-0 left-0 w-full h-screen flex justify-center items-center">
       <div className="w-full bg-black bg-opacity-40 h-screen flex items-center justify-center">
@@ -66,13 +65,15 @@ const DetailRfid = ({ id, fermer, supprimer }) => {
               <div className="flex flex-col w-full items-start">
                 <h3 className="text-gray-300">Dernière utilisation</h3>
                 <p className="flexs text-white flex items-center justify-center">
-                  <FaCalendarAlt className="mr-2" /> {rfidData.last_used}
+                  <FaCalendarAlt className="mr-2" />{" "}
+                  {convertDate(rfidData.last_used)}
                 </p>
               </div>
               <div className="flex flex-col w-full items-start">
                 <h3 className="text-gray-300">Date d'enregistrement</h3>
                 <p className="flexs text-white flex items-center justify-center">
-                  <FaCalendarAlt className="mr-2" /> {rfidData.registration}
+                  <FaCalendarAlt className="mr-2" />{" "}
+                  {convertDate(rfidData.registration)}
                 </p>
               </div>
             </div>
@@ -83,17 +84,25 @@ const DetailRfid = ({ id, fermer, supprimer }) => {
             <h2 className="text-xl font-semibold text-blue-400 mb-4">
               Historique des Utilisations
             </h2>
-            <div className="space-y-2">
+
+            {/* Si plus de deux éléments dans l'historique, rendre scrollable */}
+            <div
+              className={`space-y-2 ${
+                rfidData.history.length > 2 ? "max-h-32 overflow-y-auto" : ""
+              }`}
+            >
               {rfidData.history.map((item, index) => (
                 <div
                   key={index}
-                  className="bg-gray-700 p-3 text-white rounded-md flex items-center justify-between"
+                  className="bg-gray-700 p-3 text-white rounded-md flex flex-wrap items-center justify-between"
                 >
                   <div className="flex items-center">
                     <FaHistory className="text-gray-400 mr-2" />
                     <span>{item.date}</span>
                   </div>
-                  <span className="py-1 px-2 bg-slate-400 rounded-md">{item.action}</span>
+                  <span className="py-1 px-2 bg-slate-400 rounded-md">
+                    {item.action}
+                  </span>
                 </div>
               ))}
             </div>
