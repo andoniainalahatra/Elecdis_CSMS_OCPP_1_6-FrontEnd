@@ -65,14 +65,14 @@ const DetailRfid = ({ id, fermer, supprimer }) => {
               <div className="flex flex-col w-full items-start">
                 <h3 className="text-gray-300">Dernière utilisation</h3>
                 <p className="flexs text-white flex items-center justify-center">
-                  <FaCalendarAlt className="mr-2" />{" "}
+                  <FaCalendarAlt className="mr-2" />
                   {convertDate(rfidData.last_used)}
                 </p>
               </div>
               <div className="flex flex-col w-full items-start">
                 <h3 className="text-gray-300">Date d'enregistrement</h3>
                 <p className="flexs text-white flex items-center justify-center">
-                  <FaCalendarAlt className="mr-2" />{" "}
+                  <FaCalendarAlt className="mr-2" />
                   {convertDate(rfidData.registration)}
                 </p>
               </div>
