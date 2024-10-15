@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -66,4 +73,56 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+@layer components {
+  .nav-link {
+    @apply relative font-semibold cursor-pointer text-white text-[17px] w-fit md:block after:block after:content-[''] 
+    after:absolute after:h-[3px] after:bg-yellow-400 after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition 
+    after:duration-300 after:origin-center hidden;
+  }
+  .nav-link-mobile {
+    @apply relative mb-[1rem] font-semibold cursor-pointer text-white text-[27px] w-fit md:block after:block after:content-[''] 
+    after:absolute after:bottom-[-3px] after:h-[3px] after:bg-[#F2505D] after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition 
+    after:duration-300 after:origin-center;
+  }
+  .heading{
+    @apply text-center text-white text-[28px] sm:text-[33px] md:text-[45px] font-bold uppercase
+  }
+  .input-style{
+    @apply w-full h-[6vh] rounded-md border-solid border-[#CDCBCB] border-[0.5px] indent-2 text-[#5a5858] text-base focus:outline-none focus:border-[#F2505D]
+  }
+}
+
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 300ms ease-in-out forwards;
+}
+
+
+/* Exemple de styles pour la scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 0px; /* Largeur de la scrollbar */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Couleur de l'arrière-plan de la piste */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  /* background: #888;  */
+  background: #F2B3B3; /* Couleur de la barre de défilement */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Couleur de la barre de défilement au survol */
 }

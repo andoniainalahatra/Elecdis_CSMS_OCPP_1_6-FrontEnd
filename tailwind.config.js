@@ -17,7 +17,23 @@ module.exports = {
       },
     },
     extend: {
+      boxShadow: {
+        'combined': 'rgba(145, 158, 171, 0.08) 0px 0px 2px 0px, rgba(145, 158, 171, 0.08) 0px 12px 24px -4px',
+      },
       colors: {
+        //____Notre-chart-color------
+        primaryChart:"#F2505D",
+        MenuActiveBg:"#F2B3B3",
+        simpleText:"#637381",
+        importantText:"#212B36",
+        dangerText:"#B71D12",
+        successChart:"#36E73D",
+        actif:"#007867",
+        actifBg:"#00A76F",
+
+        //____Chart-color-par-defaut-----
+
+
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -73,5 +89,7 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"), require('@tailwindcss/forms')({
+    strategy: 'class', 
+  }),],
 }
