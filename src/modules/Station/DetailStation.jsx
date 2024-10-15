@@ -215,11 +215,11 @@ function DetailStation({ IdStation }) {
                                                 <p className="text-[#F44336] font-bold mt-2 ">{item.status_connector}</p>
                                             </div>
                                             <div className="text-center">
-                                                <h1 className="mb-2 font-medium text-center">Connecteur 1</h1>
+                                                <h1 className="mb-2 font-medium text-center">Connecteur {item.id_connecteur}</h1>
                                                 <div
                                                     className="flex flex-col items-center justify-center gap-4 p-6 font-medium rounded-md bg-gradient-to-r from-red-200 to-red-300">
                                                     <p>Energie</p>
-                                                    <p>209 Wh</p>
+                                                    <p>{item.energie_delivre} Wh</p>
                                                 </div>
                                             </div>
                                         </div>)
@@ -233,11 +233,11 @@ function DetailStation({ IdStation }) {
                                                 <p className="text-[#F44336] font-bold mt-2 ">{item.status_connector}</p>
                                             </div>
                                             <div className="text-center">
-                                                <h1 className="mb-2 font-medium text-center">Connecteur 1</h1>
+                                                <h1 className="mb-2 font-medium text-center">Connecteur {item.id_connecteur}</h1>
                                                 <div
                                                     className="flex flex-col items-center justify-center gap-4 p-6 font-medium rounded-md bg-gradient-to-r from-red-200 to-red-300">
                                                     <p>Energie</p>
-                                                    <p>209 Wh</p>
+                                                    <p>{item.energie_delivre} Wh</p>
                                                 </div>
                                             </div>
                                         </div>)
@@ -247,14 +247,14 @@ function DetailStation({ IdStation }) {
                                         <div className="flex space-x-5">
                                             <div>
                                                 <FaRegCheckCircle color="#4CAF50" size={117} />
-                                                <p className="text-[#4CAF50] font-bold mt-2 ">{item.status_connector}</p>
+                                                <p className="text-[#4CAF50] font-bold mt-2 ">Connecteur {item.id_connecteur}</p>
                                             </div>
                                             <div className="text-center">
-                                                <h1 className="mb-2 font-medium text-center">Connecteur 1</h1>
+                                                <h1 className="mb-2 font-medium text-center">Connecteur {item.id_connecteur}</h1>
                                                 <div
                                                     className="flex flex-col items-center justify-center gap-4 p-6 font-medium rounded-md bg-gradient-to-r from-green-200 to-green-300">
                                                     <p>Energie</p>
-                                                    <p>209 Wh</p>
+                                                    <p>{item.energie_delivre} Wh</p>
                                                 </div>
                                             </div>
                                         </div>)
@@ -267,11 +267,11 @@ function DetailStation({ IdStation }) {
                                                 <p className="text-[#2196F3] font-bold mt-2 ">{item.status_connector}</p>
                                             </div>
                                             <div className="text-center">
-                                                <h1 className="mb-2 font-medium text-center">Connecteur 1</h1>
+                                                <h1 className="mb-2 font-medium text-center">Connecteur {item.id_connecteur}</h1>
                                                 <div
                                                     className="flex flex-col items-center justify-center gap-4 p-6 font-medium rounded-md bg-gradient-to-r from-blue-200 to-blue-300">
                                                     <p>Energie</p>
-                                                    <p>209 Wh</p>
+                                                    <p>{item.energie_delivre} Wh</p>
                                                 </div>
                                             </div>
                                         </div>)
@@ -283,11 +283,11 @@ function DetailStation({ IdStation }) {
                                                 <p className="text-[#2196F3] font-bold mt-2 ">{item.status_connector}</p>
                                             </div>
                                             <div className="text-center">
-                                                <h1 className="mb-2 font-medium text-center">Connecteur 1</h1>
+                                                <h1 className="mb-2 font-medium text-center">Connecteur {item.id_connecteur}</h1>
                                                 <div
                                                     className="flex flex-col items-center justify-center gap-4 p-6 font-medium rounded-md bg-gradient-to-r from-blue-200 to-blue-300">
                                                     <p>Energie</p>
-                                                    <p>209 Wh</p>
+                                                    <p>{item.energie_delivre} Wh</p>
                                                 </div>
                                             </div>
                                         </div>)
