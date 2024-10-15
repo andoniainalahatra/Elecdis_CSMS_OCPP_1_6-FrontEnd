@@ -1,6 +1,12 @@
+import ChargePointTemplates from "@/modules/Station/ChargePointTemplates"
+
 const CpTemplates = () => {
     return (
-        <div>CpTemplates</div>
+        <div>
+            <h2>CpTemplates</h2>
+             <ChargePointTemplates/>
+        </div>
+       
     )
 }
 
