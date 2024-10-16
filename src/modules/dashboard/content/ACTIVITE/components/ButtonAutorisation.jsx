@@ -6,10 +6,18 @@ import { FiEdit } from "react-icons/fi";
 import { IoMdClose } from "react-icons/io";
 import DetailAutorisation from "./DetailAutorisation";
 import EditAutorisation from "./EditAutorisation";
+import UpdateAdmin from "./updateAdmin";
+import { useDeleteClient } from "../../GRC/config/client/clientApi";
 
 
 const ButtonAutorisation = ({ buttonProperty, Id }) => {
     const [section, setSection] = useState("");
+
+    const { mutate: deleteClient } = useDeleteClient();
+
+    const handleDelete = (Id) => {
+        deleteClient(Id);
+    };
 
     const renderButton = (name, key) => {
         switch (name) {
@@ -29,6 +37,7 @@ const ButtonAutorisation = ({ buttonProperty, Id }) => {
                 return (
                     <span
                         key={key}
+                        onClick={() => { handleDelete(Id) }}
                         className="m-1 text-red-500 bg-transparent hover:bg-transparent hover:text-red-600"
                     >
                         <RiDeleteBin6Line />
@@ -74,7 +83,8 @@ const ButtonAutorisation = ({ buttonProperty, Id }) => {
                     className="fixed top-0 left-0 z-10 flex items-center justify-center w-full h-screen overflow-auto backdrop-blur-md"
                     style={{ backgroundColor: "rgba(9,16,26,0.7)" }}
                 >
-                    <EditAutorisation />
+                    {/* <EditAutorisation /> */}
+                    {/* <UpdateAdmin /> */}
                     <span
                         className="absolute cursor-pointer top-5 right-5"
                         onClick={() => setSection("")}
