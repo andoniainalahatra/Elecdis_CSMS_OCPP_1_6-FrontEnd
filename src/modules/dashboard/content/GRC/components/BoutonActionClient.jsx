@@ -41,7 +41,10 @@ const ButtonActionClient = ({ buttonProperty, Id }) => {
                         className="m-1 text-red-500 bg-transparent hover:bg-transparent hover:text-red-600"
                     >
                         <RiDeleteBin6Line />
-                        {/* delete */}
+                        {
+                            alert('heloo')
+                        }
+
                     </span>
                 );
             case "edit":
