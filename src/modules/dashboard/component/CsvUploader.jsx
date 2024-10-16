@@ -90,7 +90,7 @@ const CsvUploader = ({
   };
 
   return (
-    <div className="fixed top-0 left-0 w-full h-screen flex justify-center items-center bg-black bg-opacity-40">
+    <div className="fixed top-0 left-0 w-full h-screen flex justify-center items-center bg-black bg-opacity-40 z-30">
       <div className="relative bg-white rounded-lg w-[400px] p-4 flex flex-col justify-center items-center gap-4">
         <button
           className="absolute bg-transparent top-1 right-1 "

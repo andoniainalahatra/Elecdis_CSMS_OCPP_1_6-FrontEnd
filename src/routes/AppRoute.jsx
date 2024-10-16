@@ -34,6 +34,7 @@ export function AppRoutes() {
           <Route path="/emailSend" element={<EmailSend />} />
           <Route path="/inscription" element={<Inscription />} />
           <Route path="/profil" element={<UserProfil />} />
+
           <Route
             path="/dashboard"
             element={

@@ -72,7 +72,7 @@ const Dashboard = () => {
                     <div className='relative w-full'>
                         <BarNav onSearch={handleSearch} />
                         <div className=' mt-[9vh] m-2 h-[90vh] overflow-auto custom-scrollbar'>
-                            {currentSection === "TableauDeBord" && <TableauDeBord />}
+                            {currentSection === "TableauDeBord" && <TableauDeBord setSection={setSection} />}
                             {currentSection === "Autorisations" && <Autorisation />}
                             {currentSection === "Réservations" && <Reservation />}
                             {currentSection === "sessionRecharge" && <SessionRecharge />}
