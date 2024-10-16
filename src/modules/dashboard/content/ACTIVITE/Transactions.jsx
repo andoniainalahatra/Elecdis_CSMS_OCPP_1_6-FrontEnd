@@ -6,6 +6,7 @@ import {
   FaQuestionCircle,
   FaTimesCircle,
   FaTrash,
+  FaDollarSign,  // Import de l'icône pour les revenus
 } from "react-icons/fa";
 
 // Données statiques (à remplacer par un appel API dans un environnement de production)
@@ -13,7 +14,7 @@ const transactionsData = [
   {
     id: "TXN001",
     client: "John Doe",
-    montant: "50.00",
+    montant: 50.00,
     date: "2024-10-05",
     heure: "14:35",
     type: "Recharge",
@@ -23,7 +24,7 @@ const transactionsData = [
   {
     id: "TXN002",
     client: "Jane Smith",
-    montant: "30.50",
+    montant: 30.50,
     date: "2024-10-04",
     heure: "11:20",
     type: "Recharge",
@@ -33,7 +34,7 @@ const transactionsData = [
   {
     id: "TXN003",
     client: "Alice Johnson",
-    montant: "25.75",
+    montant: 25.75,
     date: "2024-10-03",
     heure: "16:15",
     type: "Recharge",
@@ -43,7 +44,7 @@ const transactionsData = [
   {
     id: "TXN004",
     client: "Michael Brown",
-    montant: "80.00",
+    montant: 80.00,
     date: "2024-10-02",
     heure: "09:45",
     type: "Recharge",
@@ -53,7 +54,7 @@ const transactionsData = [
   {
     id: "TXN005",
     client: "Sarah Lee",
-    montant: "60.25",
+    montant: 60.25,
     date: "2024-10-01",
     heure: "13:30",
     type: "Recharge",
@@ -63,7 +64,7 @@ const transactionsData = [
   {
     id: "TXN006",
     client: "Robert Wilson",
-    montant: "45.50",
+    montant: 45.50,
     date: "2024-09-30",
     heure: "15:50",
     type: "Recharge",
@@ -73,7 +74,7 @@ const transactionsData = [
   {
     id: "TXN007",
     client: "Emily Davis",
-    montant: "72.00",
+    montant: 72.00,
     date: "2024-09-29",
     heure: "18:20",
     type: "Recharge",
@@ -83,51 +84,11 @@ const transactionsData = [
   {
     id: "TXN008",
     client: "David Harris",
-    montant: "35.75",
+    montant: 35.75,
     date: "2024-09-28",
     heure: "10:15",
     type: "Recharge",
     methode: "PayPal",
-    statut: "Pending",
-  },
-  {
-    id: "TXN001",
-    client: "John Doe",
-    montant: "50.00",
-    date: "2024-10-05",
-    heure: "14:35",
-    type: "Recharge",
-    methode: "Carte de crédit",
-    statut: "Success",
-  },
-  {
-    id: "TXN002",
-    client: "Jane Smith",
-    montant: "30.50",
-    date: "2024-10-04",
-    heure: "11:20",
-    type: "Recharge",
-    methode: "PayPal",
-    statut: "Failed",
-  },
-  {
-    id: "TXN003",
-    client: "Alice Johnson",
-    montant: "25.75",
-    date: "2024-10-03",
-    heure: "16:15",
-    type: "Recharge",
-    methode: "Carte de débit",
-    statut: "Success",
-  },
-  {
-    id: "TXN004",
-    client: "Michael Brown",
-    montant: "80.00",
-    date: "2024-10-02",
-    heure: "09:45",
-    type: "Recharge",
-    methode: "Apple Pay",
     statut: "Pending",
   },
   // Ajoute d'autres transactions si nécessaire
@@ -136,7 +97,7 @@ const transactionsData = [
 const Transactions = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
+  const itemsPerPage = 5; // Réduit le nombre de transactions par page pour une meilleure pagination
 
   // Filtrer les transactions en fonction du texte de recherche
   const filteredTransactions = useMemo(() => {
@@ -157,6 +118,14 @@ const Transactions = () => {
     const startIndex = (currentPage - 1) * itemsPerPage;
     return filteredTransactions.slice(startIndex, startIndex + itemsPerPage);
   }, [currentPage, filteredTransactions]);
+
+  // Calculer les revenus totaux des transactions réussies
+  const totalRevenue = useMemo(() => {
+    return transactionsData
+      .filter((transaction) => transaction.statut === "Success")
+      .reduce((total, transaction) => total + transaction.montant, 0)
+      .toFixed(2); // Limiter à deux décimales
+  }, []);
 
   // Gestionnaires d'événements
   const handleSearchChange = useCallback((e) => {
@@ -188,6 +157,17 @@ const Transactions = () => {
 
   return (
     <div className="w-full h-auto p-6">
+      {/* Div pour le design avec l'icône et les revenus totaux */}
+      <div className="bg-gradient-to-r from-blue-500 to-green-500 text-white p-6 rounded-lg shadow-lg mb-6 flex items-center justify-between">
+        <div className="flex items-center">
+          <FaDollarSign className="text-4xl mr-4" />
+          <div>
+            <h3 className="text-2xl font-semibold">Revenus totaux</h3>
+            <p className="text-lg">{totalRevenue} €</p>
+          </div>
+        </div>
+      </div>
+
       <h2 className="text-[#212B36] text-xl mb-6">Transactions de paiement</h2>
 
       {/* Champ de recherche */}
@@ -201,38 +181,42 @@ const Transactions = () => {
 
       {/* Liste des transactions */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {currentTransactions.map((transaction) => (
-          <div
-            key={transaction.id}
-            className="bg-[#ffffff] p-4 rounded-lg shadow-combined flex flex-col"
-          >
-            {/* En-tête : Nom du client et statut */}
-            <div className="flex justify-between items-center mb-2">
-              <h3 className="text-xl font-bold text-white">
-                {transaction.client}
-              </h3>
-              {renderStatusIcon(transaction.statut)}
-            </div>
+        {currentTransactions.length > 0 ? (
+          currentTransactions.map((transaction) => (
+            <div
+              key={transaction.id}
+              className="bg-[#ffffff] p-4 rounded-lg shadow-combined flex flex-col"
+            >
+              {/* En-tête : Nom du client et statut */}
+              <div className="flex justify-between items-center mb-2">
+                <h3 className="text-xl font-bold text-[#212B36]">
+                  {transaction.client}
+                </h3>
+                {renderStatusIcon(transaction.statut)}
+              </div>
 
-            {/* Détails de la transaction */}
-            <p className="text-[#3b4853]">ID : {transaction.id}</p>
-            <p className="text-[#3b4853]">Montant : {transaction.montant}€</p>
-            <p className="text-[#3b4853]">Date : {transaction.date}</p>
-            <p className="text-[#3b4853]">Heure : {transaction.heure}</p>
-            <p className="text-[#3b4853]">Type : {transaction.type}</p>
-            <p className="text-[#3b4853]">Méthode : {transaction.methode}</p>
+              {/* Détails de la transaction */}
+              <p className="text-[#3b4853]">ID : {transaction.id}</p>
+              <p className="text-[#3b4853]">Montant : {transaction.montant}€</p>
+              <p className="text-[#3b4853]">Date : {transaction.date}</p>
+              <p className="text-[#3b4853]">Heure : {transaction.heure}</p>
+              <p className="text-[#3b4853]">Type : {transaction.type}</p>
+              <p className="text-[#3b4853]">Méthode : {transaction.methode}</p>
 
-            {/* Boutons d'action */}
-            <div className="mt-4 flex justify-between">
-              <button className="text-blue-500 hover:text-blue-400 flex items-center">
-                <FaEye className="mr-1" /> Détails
-              </button>
-              <button className="text-red-500 hover:text-red-400 flex items-center">
-                <FaTrash className="mr-1" /> Supprimer
-              </button>
+              {/* Boutons d'action */}
+              <div className="mt-4 flex justify-between">
+                <button className="text-blue-500 hover:text-blue-400 flex items-center">
+                  <FaEye className="mr-1" /> Détails
+                </button>
+                <button className="text-red-500 hover:text-red-400 flex items-center">
+                  <FaTrash className="mr-1" /> Supprimer
+                </button>
+              </div>
             </div>
-          </div>
-        ))}
+          ))
+        ) : (
+          <p className="text-[#3b4853]">Aucune transaction trouvée</p>
+        )}
       </div>
 
       {/* Pagination */}

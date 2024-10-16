@@ -1,6 +1,6 @@
 import {
     ArrowsRightLeftIcon, BellIcon, BoltIcon, DocumentPlusIcon, DocumentTextIcon,
-    IdentificationIcon, LockClosedIcon, MapPinIcon, UserCircleIcon, UserGroupIcon
+    IdentificationIcon, LockClosedIcon, UserCircleIcon, UserGroupIcon
 } from '@heroicons/react/16/solid'
 import { FaHandsHelping } from "react-icons/fa";
 import { HiDocumentCheck } from "react-icons/hi2";
@@ -11,7 +11,6 @@ import { IoMdPersonAdd } from "react-icons/io";
 import { MdLockReset } from "react-icons/md";
 import { RiDashboard2Fill } from "react-icons/ri";
 import { BsFillEvStationFill } from "react-icons/bs";
-import { RiReservedFill } from "react-icons/ri";
 import BoutonNav from './BoutonNav'
 import Logo from "@/assets/logo1.png"
 
@@ -31,7 +30,7 @@ const Nav = ({ setSection }) => {
             <div className='mt-5 font-semibold text-[#637381] '>
                 <span className='text-[#4188eb] font-bold ml-4'>ACTIVITE</span>
                 <BoutonNav IconButton={LockClosedIcon} label='Autorisations' setSection={setSection} namePage='Autorisations' />
-                <BoutonNav IconButton={RiReservedFill} label='Réservations' setSection={setSection} namePage='Réservations' />
+                {/* <BoutonNav IconButton={RiReservedFill} label='Réservations' setSection={setSection} namePage='Réservations' /> */}
                 <BoutonNav IconButton={BoltIcon} label='Sessions  de recharge' setSection={setSection} namePage='sessionRecharge' />
                 <BoutonNav IconButton={ArrowsRightLeftIcon} label='Transactions' setSection={setSection} namePage='Transaction' />
             </div>
