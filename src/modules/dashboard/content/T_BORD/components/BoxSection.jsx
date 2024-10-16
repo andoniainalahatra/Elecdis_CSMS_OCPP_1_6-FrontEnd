@@ -22,7 +22,7 @@ import {
   selectSessionDateSpecific,
 } from "../features/filterCalendarSelector";
 import { isFullDate, isMonthPresent } from "@/lib/utils";
-export default function BoxSection() {
+export default function BoxSection({setSection}) {
   const { filters } = useContext(Context);
   const nombreSession = useSelector(selectSessionDateSpecific);
   const nombreEnergyDateSpecifique = useSelector(
@@ -164,6 +164,8 @@ export default function BoxSection() {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-col-4 gap-6">
       <Box
+        setSection={setSection} 
+        SectionName="sessionRecharge"
         Title="Nombre total de Session"
         Value={sessionData.data?.sessions_numbers}
         FirstIcone={BsFillEvStationFill}
@@ -174,6 +176,8 @@ export default function BoxSection() {
         isLoading={sessionData.isPending}
       />
       <Box
+        setSection={setSection} 
+        SectionName="PointsDecharges"
         Title="Total énergie délivrée"
         Value={energyData.data?.energy}
         FirstIcone={BsFillEvStationFill}
@@ -184,6 +188,8 @@ export default function BoxSection() {
         isLoading={energyData.isPending}
       />
       <Box
+        setSection={setSection} 
+        SectionName="Transaction"
         Title="Revenus totaux"
         Value={revenuData.data?.total_revenus}
         FirstIcone={BsFillEvStationFill}
@@ -194,6 +200,8 @@ export default function BoxSection() {
         isLoading={revenuData.isPending}
       />
       <Box
+        setSection={setSection} 
+        SectionName="CpNotices"
         Title="Défaillance et perte de connexion"
         Value={dataDefaillance && dataDefaillance[0]?.nombre}
         FirstIcone={BsFillEvStationFill}
@@ -204,6 +212,8 @@ export default function BoxSection() {
         isLoading={pendingFail}
       />
       <Box
+        setSection={setSection} 
+        SectionName="sessionRecharge"
         Title="Session de recharge en cours"
         Value={dataCurrentSession?.count_current_session}
         FirstIcone={BsFillEvStationFill}
@@ -214,6 +224,8 @@ export default function BoxSection() {
         isLoading={loadingCurrentSession}
       />
       <Box
+        setSection={setSection} 
+        SectionName="Clients"
         Title="Nouveaux clients"
         Value={newUserData.data?.new_users_numbers}
         FirstIcone={FaUser}

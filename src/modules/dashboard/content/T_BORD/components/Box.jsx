@@ -1,12 +1,25 @@
+import { Context } from '@/common/config/configs/Context';
 import { formatValue } from '@/lib/utils';
 import CalendarFilterDay from '@/modules/dashboard/component/CalendarFilterDay';
 import CalendarFilterMonth from '@/modules/dashboard/component/CalendarFilterMonth';
 import CalendarFilterYear from '@/modules/dashboard/component/CalendarFilterYear';
+import { useContext } from 'react';
 import { ClipLoader } from 'react-spinners';  // Exemple d'import de react-spinners
 
-export default function Box({ Title, Value, FirstIcone, SecondIcone, color, filter, litleStatistique, isLoading }) {
+export default function Box({ setSection, SectionName, Title, Value, FirstIcone, SecondIcone, color, filter, litleStatistique, isLoading }) {
+  const { handleFilterChange } = useContext(Context)
+
+  const handleClick = () => {
+    setSection(SectionName)
+  if(Title == "Nombre total de Session"){
+    handleFilterChange("session", "tous")
+  }else if(Title == "Session de recharge en cours"){
+    handleFilterChange("session", "en cours")
+  }
+}
   return (
-    <div className="relative rounded-2xl px-[10px] py-[2vw] shadow-combined bg-[#ffffff] flex justify-center items-start gap-[2vw]">
+    <div onClick={handleClick} className="relative rounded-2xl px-[10px] py-[2vw] shadow-combined bg-[#ffffff] flex justify-center items-start gap-[2vw] 
+        transition-transform transform hover:scale-105 hover:shadow-2xl duration-300">
       <div className="w-[20%] flex justify-center max-2xl:mt-[1vw] items-center relative">
         <div className="w-full flex justify-center items-center relative">
           <FirstIcone color={color} className={`w-[3vw] h-[2.5vw] max-sm:invisible`} />
