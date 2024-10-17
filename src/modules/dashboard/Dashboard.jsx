@@ -18,10 +18,11 @@ import Partenaires from './content/PARTENAIRES/Partenaires';
 import Contrats from './content/PARTENAIRES/Contrats';
 import GroupesDesTarifs from './content/TARIFS/GroupesDesTarifs';
 import Tarifs from './content/TARIFS/Tarifs';
-import Connexion from './content/AUTHENTIFICATIONS/Connexion';
-import Inscription from './content/AUTHENTIFICATIONS/Inscription';
-import RenitialiserMotDePasse from './content/AUTHENTIFICATIONS/RenitialiserMotDePasse';
+// import Connexion from './content/AUTHENTIFICATIONS/Connexion';
+// import Inscription from './content/AUTHENTIFICATIONS/Inscription';
+// import RenitialiserMotDePasse from './content/AUTHENTIFICATIONS/RenitialiserMotDePasse';
 import Clients from './content/GRC/Clients';
+import UserProfil from '@/components/UserProfil';
 
 
 const Dashboard = () => {
@@ -70,7 +71,7 @@ const Dashboard = () => {
                     </div>
 
                     <div className='relative w-full'>
-                        <BarNav onSearch={handleSearch} />
+                        <BarNav onSearch={handleSearch} setSection={setSection} />
                         <div className=' mt-[9vh] m-2 h-[90vh] overflow-auto custom-scrollbar'>
                             {currentSection === "TableauDeBord" && <TableauDeBord setSection={setSection} />}
                             {currentSection === "Autorisations" && <Autorisation />}
@@ -92,10 +93,8 @@ const Dashboard = () => {
 
                             {currentSection === "GroupesDestarifs" && <GroupesDesTarifs />}
                             {currentSection === "Tarifs" && <Tarifs />}
-
-                            {currentSection === "Connexion" && <Connexion />}
-                            {currentSection === "Inscription" && <Inscription />}
-                            {currentSection === "RéinitialiserMotDepasse" && <RenitialiserMotDePasse />}
+                            {currentSection === "UserProfil" && <UserProfil />}
+                           
                         </div>
                     </div>
                 </div>
