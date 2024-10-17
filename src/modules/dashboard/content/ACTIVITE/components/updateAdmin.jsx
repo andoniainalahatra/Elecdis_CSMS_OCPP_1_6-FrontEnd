@@ -5,13 +5,14 @@ import Input from "@/modules/Login/components/Input";
 import Boutton from "@/modules/Login/components/Boutton";
 import { IoMdCloseCircle } from "react-icons/io";
 import ErrorMessage from "@/components/ErrorMessage";
-
 import { useSelector } from "react-redux";
-import SelectList from "../../GRC/components/SelectList";
 import { getSubscription, useUpdateClient } from "../../GRC/config/client/clientApi";
-import { selectClient } from "../../GRC/config/client/clientSelector";
+// import { selectClient } from "../../GRC/config/client/clientSelector";
 
-export default function UpdateAdmin({ action, Id }) {
+import SelectList from "../../GRC/components/SelectList";
+import { selectUser } from "@/features/Admin/userSelector";
+
+export default function EditClient({ action, Id, setSection }) {
     const [invalidMessage, setInvalidMessage] = useState("");
 
     const { mutate: updateClient, isPending } = useUpdateClient(Id);
@@ -20,7 +21,7 @@ export default function UpdateAdmin({ action, Id }) {
     const [datas, setDatas] = useState([]);
     const [defaultItem, setDefaultItem] = useState('');
 
-    const { data } = useSelector(selectClient);
+    const { data } = useSelector(selectUser);
 
     // Fonction pour trouver le client par ID
     const dataFind = (Id) => {
@@ -71,7 +72,8 @@ export default function UpdateAdmin({ action, Id }) {
                     icon: "success",
                     title: "Client modifié avec succès !",
                 });
-                action(); // Fermer la modale après mise à jour
+                // Fermer la modale après mise à jour
+                setSection('')
             },
             onError: (error) => {
                 if (error.response?.status === 401) {
@@ -91,7 +93,7 @@ export default function UpdateAdmin({ action, Id }) {
         <div className="fixed top-0 left-0 z-10 flex items-center justify-center w-full h-screen">
             <form onSubmit={handleSubmit(onSubmit)} className="flex items-center justify-center w-full h-screen bg-black bg-opacity-40">
                 <div className="relative bg-white shadow-xl backdrop-blur max-sm:shadow-none w-[400px] 2xl:w-[500px] h-auto p-6 flex items-center justify-center flex-col gap-[4vh] rounded-lg">
-                    <button className="absolute bg-white top-1 right-1" onClick={() => action()}>
+                    <button className="absolute bg-white top-1 right-1" onClick={() => setSection('')}>
                         <IoMdCloseCircle size={40} />
                     </button>
 

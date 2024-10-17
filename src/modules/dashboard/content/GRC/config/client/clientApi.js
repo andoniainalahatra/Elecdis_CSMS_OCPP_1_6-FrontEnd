@@ -15,7 +15,10 @@ export const useUpdateClient = (id) => {
         .then((res) => res.data),
     onSuccess: () => {
       // Invalider les queries client pour les actualiser après la mise à jour
-      queryClient.invalidateQueries({ queryKey: ["clientList"], exact: false });
+      queryClient.invalidateQueries({
+        queryKey: ["clientList", "repoUser"],
+        exact: false,
+      });
 
       // Afficher un message de succès
       Swal.fire({
