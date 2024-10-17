@@ -1,11 +1,5 @@
 import React, { useState, useCallback, useMemo } from "react";
 import {
-  FaCheckCircle,
-  FaEye,
-  FaHourglassHalf,
-  FaQuestionCircle,
-  FaTimesCircle,
-  FaTrash,
   FaDollarSign,  // Import de l'icône pour les revenus
 } from "react-icons/fa";
 
@@ -97,40 +91,38 @@ const transactionsData = [
 const Transactions = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5; // Réduit le nombre de transactions par page pour une meilleure pagination
+  const [filterStatus, setFilterStatus] = useState("Tous"); // Filtre par statut
+  const itemsPerPage = 5;
 
-  // Filtrer les transactions en fonction du texte de recherche
   const filteredTransactions = useMemo(() => {
-    return transactionsData.filter(
-      (transaction) =>
-        transaction.client.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        transaction.id.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-  }, [searchTerm]);
+    return transactionsData
+      .filter((transaction) =>
+        transaction.client.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+      .filter((transaction) =>
+        filterStatus === "Tous" ? true : transaction.statut === filterStatus
+      );
+  }, [searchTerm, filterStatus]);
 
-  // Calculer le nombre total de pages
   const totalPages = useMemo(() => {
     return Math.ceil(filteredTransactions.length / itemsPerPage);
   }, [filteredTransactions.length]);
 
-  // Obtenir les transactions de la page actuelle
   const currentTransactions = useMemo(() => {
     const startIndex = (currentPage - 1) * itemsPerPage;
     return filteredTransactions.slice(startIndex, startIndex + itemsPerPage);
   }, [currentPage, filteredTransactions]);
 
-  // Calculer les revenus totaux des transactions réussies
   const totalRevenue = useMemo(() => {
     return transactionsData
       .filter((transaction) => transaction.statut === "Success")
       .reduce((total, transaction) => total + transaction.montant, 0)
-      .toFixed(2); // Limiter à deux décimales
+      .toFixed(2);
   }, []);
 
-  // Gestionnaires d'événements
   const handleSearchChange = useCallback((e) => {
     setSearchTerm(e.target.value);
-    setCurrentPage(1); // Réinitialiser à la première page lors du changement de recherche
+    setCurrentPage(1);
   }, []);
 
   const handlePreviousPage = useCallback(() => {
@@ -141,23 +133,20 @@ const Transactions = () => {
     setCurrentPage((prev) => Math.min(prev + 1, totalPages));
   }, [totalPages]);
 
-  // Fonction pour rendre l'icône de statut
-  const renderStatusIcon = (status) => {
-    switch (status) {
-      case "Success":
-        return <FaCheckCircle className="text-green-500" />;
-      case "Pending":
-        return <FaHourglassHalf className="text-orange-500" />;
-      case "Failed":
-        return <FaTimesCircle className="text-red-500" />;
-      default:
-        return <FaQuestionCircle className="text-gray-500" />;
-    }
+  const handleFilterChange = (e) => {
+    setFilterStatus(e.target.value);
+    setCurrentPage(1); // Réinitialiser à la première page lors du changement de filtre
   };
+
+  const statusStyles = {
+    Success: "bg-green-100 text-green-800",
+    Pending: "bg-yellow-100 text-yellow-800",
+    Failed: "bg-red-100 text-red-800",
+  };
+
 
   return (
     <div className="w-full h-auto p-6">
-      {/* Div pour le design avec l'icône et les revenus totaux */}
       <div className="bg-gradient-to-r from-blue-500 to-green-500 text-white p-6 rounded-lg shadow-lg mb-6 flex items-center justify-between">
         <div className="flex items-center">
           <FaDollarSign className="text-4xl mr-4" />
@@ -170,14 +159,27 @@ const Transactions = () => {
 
       <h2 className="text-[#212B36] text-xl mb-6">Transactions de paiement</h2>
 
-      {/* Champ de recherche */}
-      <input
-        type="text"
-        placeholder="Rechercher par nom de client ou ID..."
-        className="mb-4 p-2 border rounded w-[32%]"
-        value={searchTerm}
-        onChange={handleSearchChange}
-      />
+      {/* Filtres */}
+      <div className="mb-4 flex justify-between">
+        <input
+          type="text"
+          placeholder="Rechercher..."
+          className="p-2 border rounded w-[30%]"
+          value={searchTerm}
+          onChange={handleSearchChange}
+        />
+
+        <select
+          value={filterStatus}
+          onChange={handleFilterChange}
+          className="p-2 border rounded"
+        >
+          <option value="Tous">Tous les statuts</option>
+          <option value="Success">Succès</option>
+          <option value="Pending">En attente</option>
+          <option value="Failed">Échoué</option>
+        </select>
+      </div>
 
       {/* Liste des transactions */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -185,31 +187,40 @@ const Transactions = () => {
           currentTransactions.map((transaction) => (
             <div
               key={transaction.id}
-              className="bg-[#ffffff] p-4 rounded-lg shadow-combined flex flex-col"
+              className="bg-white p-4 rounded-lg shadow-lg"
             >
-              {/* En-tête : Nom du client et statut */}
+              {/* Date et heure en haut comme un reçu */}
+              <div className="flex justify-between items-center mb-2 text-sm text-gray-600">
+                <span>{transaction.date}</span>
+                <span>{transaction.heure}</span>
+              </div>
+
+              {/* Nom du client et statut */}
               <div className="flex justify-between items-center mb-2">
-                <h3 className="text-xl font-bold text-[#212B36]">
+                <h3 className="text-lg font-bold text-[#212B36]">
                   {transaction.client}
                 </h3>
-                {renderStatusIcon(transaction.statut)}
+                <span className={`px-2 py-1 rounded-full text-sm font-medium ${statusStyles[transaction.statut]}`}>
+                      {transaction.statut === 'Success' ? 'Payée' : transaction.statut === 'Pending' ? 'En attente' : 'Annulé'}
+                    </span>
               </div>
 
               {/* Détails de la transaction */}
-              <p className="text-[#3b4853]">ID : {transaction.id}</p>
-              <p className="text-[#3b4853]">Montant : {transaction.montant}€</p>
-              <p className="text-[#3b4853]">Date : {transaction.date}</p>
-              <p className="text-[#3b4853]">Heure : {transaction.heure}</p>
-              <p className="text-[#3b4853]">Type : {transaction.type}</p>
-              <p className="text-[#3b4853]">Méthode : {transaction.methode}</p>
+              <p className="text-sm text-[#3b4853]">ID : {transaction.id}</p>
+              <p className="text-sm text-[#3b4853]">
+                Montant : {transaction.montant}€
+              </p>
+              <p className="text-sm text-[#3b4853]">
+                Méthode : {transaction.methode}
+              </p>
 
               {/* Boutons d'action */}
               <div className="mt-4 flex justify-between">
-                <button className="text-blue-500 hover:text-blue-400 flex items-center">
-                  <FaEye className="mr-1" /> Détails
+                <button className="text-blue-500 hover:text-blue-400 text-sm">
+                  Détails
                 </button>
-                <button className="text-red-500 hover:text-red-400 flex items-center">
-                  <FaTrash className="mr-1" /> Supprimer
+                <button className="text-red-500 hover:text-red-400 text-sm">
+                  Supprimer
                 </button>
               </div>
             </div>
