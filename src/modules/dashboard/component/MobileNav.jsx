@@ -6,14 +6,11 @@ import { FaHandsHelping } from "react-icons/fa";
 import { HiDocumentCheck } from "react-icons/hi2";
 import { FaDollarSign } from "react-icons/fa";
 import { AiOutlineGroup } from "react-icons/ai";
-import { TbLogout2 } from "react-icons/tb";
-import { IoMdPersonAdd } from "react-icons/io";
-import { MdLockReset } from "react-icons/md";
 import { BsFillEvStationFill } from "react-icons/bs";
 import { RiReservedFill } from "react-icons/ri";
 import {
     ArrowsRightLeftIcon, BellIcon, BoltIcon, DocumentPlusIcon, DocumentTextIcon,
-    IdentificationIcon, LockClosedIcon, MapPinIcon, UserGroupIcon
+    IdentificationIcon, LockClosedIcon, UserGroupIcon
 } from '@heroicons/react/16/solid'
 import { Context } from "@/common/config/configs/Context";
 
@@ -37,16 +34,13 @@ const MobileNav = ({ setSection }) => {
                     <BoutonMobile IconButton={IdentificationIcon} label='Etiquettes RFID' setSection={setSection} namePage='EtiquettesRFID' />
                     <BoutonMobile IconButton={DocumentTextIcon} label='Réçus' setSection={setSection} namePage='Reçus' />
                     <BoutonMobile IconButton={BsFillEvStationFill} label='Points de charges' setSection={setSection} namePage='PointsDecharges' />
-                    {/* <BoutonMobile IconButton={MapPinIcon} label='Locations' setSection={setSection} namePage='Locations' /> */}
                     <BoutonMobile IconButton={BellIcon} label='CP Notices' setSection={setSection} namePage='CpNotices' />
                     <BoutonMobile IconButton={DocumentPlusIcon} label='CP Templates' setSection={setSection} namePage='CpTemplates' />
                     <BoutonMobile IconButton={FaHandsHelping} label='Partenaires' setSection={setSection} namePage='Partenaires' />
                     <BoutonMobile IconButton={HiDocumentCheck} label='Contrats' setSection={setSection} namePage='Contrats' />
                     <BoutonMobile IconButton={AiOutlineGroup} label='Groupes des tarifs' setSection={setSection} namePage='GroupesDestarifs' />
                     <BoutonMobile IconButton={FaDollarSign} label='Tarifs' setSection={setSection} namePage='Tarifs' />
-                    <BoutonMobile IconButton={TbLogout2} label='Connexion' setSection={setSection} namePage='Connexion' />
-                    <BoutonMobile IconButton={IoMdPersonAdd} label='Inscription' setSection={setSection} namePage='Inscription' />
-                    <BoutonMobile IconButton={MdLockReset} label='Réinitialiser mot de passe' setSection={setSection} namePage='RéinitialiserMotDepasse' />
+                    
                 </div>
             </div>
 
