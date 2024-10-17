@@ -15,7 +15,7 @@ pipeline {
                     if (fileExists('.git')) {
                         sh 'git reset --hard'
                         sh 'git clean -fd'
-                        sh 'git pull origin develop'
+                        sh 'git pull origin main'
                     } else {
                         git branch: 'main', url: 'https://github.com/andoniainalahatra/Elecdis_CSMS_OCPP_1_6-FrontEnd.git', credentialsId: 'github-credentials-id'
                     }
