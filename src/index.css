@@ -126,3 +126,7 @@ body {
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: #555; /* Couleur de la barre de défilement au survol */
 }
+.input{
+  /*outline: none;*/
+  outline-color: #f1f1f1 !important;
+}
