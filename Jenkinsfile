@@ -48,7 +48,7 @@ pipeline {
         stage('Run Docker') {
             steps {
                 sh 'docker build -t my-app .' 
-                sh 'docker run -d -p 8081:80 --name my-nginx-app my-app'
+                sh 'docker run -d -p 80:80 --name my-nginx-app my-app'
             }
         }
         
