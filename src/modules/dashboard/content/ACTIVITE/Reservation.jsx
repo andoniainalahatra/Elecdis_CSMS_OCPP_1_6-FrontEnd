@@ -1,7 +1,7 @@
 import BoutonAdd from '../../component/BoutonAdd'
 
 const Reservation = () => {
-    const handleClick = () => alert("hello");
+    // const handleClick = () => alert("hello");
     return (
         <div>
             <div className='flex justify-between m-1'>

@@ -6,7 +6,6 @@ import Page403 from "@/components/Page403";
 import { ContextProvider } from "@/common/config/configs/Context";
 import { RotateLoader } from "react-spinners";
 import UserProfil from "@/components/UserProfil";
-import DetailRfid from "@/modules/dashboard/content/GRC/components/DetailRfid";
 
 const ForgotPassword = lazy(() => import("@/modules/ForgotPassword/ForgotPassword"));
 const ResetPassword = lazy(() => import("@/modules/ForgotPassword/ResetPassword"));
@@ -35,7 +34,6 @@ export function AppRoutes() {
           <Route path="/emailSend" element={<EmailSend />} />
           <Route path="/inscription" element={<Inscription />} />
           <Route path="/profil" element={<UserProfil />} />
-
           <Route
             path="/dashboard"
             element={

@@ -16,6 +16,7 @@ function DeleteStation({ IdStation, onclick }) {
         onSuccess: () => {
             console.log(`Station with ID ${IdStation} has been deleted successfully.`);
             onclick();
+
         },
         onError: (error) => {
             if (error.response) {

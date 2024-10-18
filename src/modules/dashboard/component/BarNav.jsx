@@ -9,7 +9,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import Notification from "./Notification";
 import ProfileButton from "./ProfileButton";
 
-const BarNav = ({ onSearch }) => {
+const BarNav = ({ onSearch, setSection }) => {
   const { openNav } = useContext(Context);
   const [search, setSearch] = useState(false);
   const searchRef = useRef(null);
@@ -85,7 +85,7 @@ const BarNav = ({ onSearch }) => {
             <div className="w-[1.8rem] h-[1.8rem] cursor-pointer border-2 border-[#D9D9D9] rounded-[50%]">
               <img className="w-full h-full" src={UserIcon} alt="" />
             </div>
-            <ProfileButton isVisible={profileButton} />
+            <ProfileButton isVisible={profileButton} setSection={setSection} />
           </div>
           <div onClick={openNav} className="md:hidden">
             <Bars3Icon className="w-[2rem] h-[2rem] cursor-pointer text-[#637381]" />
