@@ -6,6 +6,7 @@ import { IoMdClose } from "react-icons/io";
 import DetailsClient from "./DetailsClient";
 import EditClient from "./EditClient";
 import { useDeleteClient } from "../config/client/clientApi";
+import UserProfil from "@/components/UserProfil";
 
 
 
@@ -68,11 +69,12 @@ const ButtonActionClient = ({ buttonProperty, Id }) => {
             {buttonProperty.map((data, key) => renderButton(data.name, key))}
             {section === "detail" && (
                 <div
-                    className="fixed top-0 left-0 z-10 flex items-center justify-center w-full h-screen overflow-auto backdrop-blur-md"
-                    style={{ backgroundColor: "rgba(9,16,26,0.2)" }}
+                    className="fixed top-0 left-0 z-10  w-full h-screen overflow-auto bg-[#F9FAFB]"
+
 
                 >
-                    <DetailsClient Id={Id} />
+                    {/* <DetailsClient Id={Id} /> */}
+                    <UserProfil id={Id} />
                     <span
                         className="absolute cursor-pointer top-5 right-5"
                         onClick={() => setSection("")}

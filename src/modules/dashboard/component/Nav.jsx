@@ -6,9 +6,9 @@ import { FaHandsHelping } from "react-icons/fa";
 import { HiDocumentCheck } from "react-icons/hi2";
 import { FaDollarSign } from "react-icons/fa";
 import { AiOutlineGroup } from "react-icons/ai";
-import { TbLogout2 } from "react-icons/tb";
-import { IoMdPersonAdd } from "react-icons/io";
-import { MdLockReset } from "react-icons/md";
+// import { TbLogout2 } from "react-icons/tb";
+// import { IoMdPersonAdd } from "react-icons/io";
+// import { MdLockReset } from "react-icons/md";
 import { RiDashboard2Fill } from "react-icons/ri";
 import { BsFillEvStationFill } from "react-icons/bs";
 import BoutonNav from './BoutonNav'
@@ -20,7 +20,7 @@ const Nav = ({ setSection }) => {
             <div className='mt-2'>
                 <img src={Logo} alt="" />
             </div>
-            <div className=' flex items-center h-[72px] bg-[#919EAB] bg-opacity-10 p-2 rounded-md space-x-2 font-semibold mt-8'>
+            <div onClick={() => setSection('UserProfil')} className=' flex items-center h-[72px] bg-[#919EAB] bg-opacity-10 p-2 rounded-md space-x-2 font-semibold mt-8'>
                 <UserCircleIcon className="w-[1.5rem]  h-[1.5rem] cursor-pointer text-gray-500" />
                 <span>John Doe</span>
             </div>
@@ -57,12 +57,12 @@ const Nav = ({ setSection }) => {
                 <BoutonNav IconButton={AiOutlineGroup} label='Groupes des tarifs' setSection={setSection} namePage='GroupesDestarifs' />
                 <BoutonNav IconButton={FaDollarSign} label='Tarifs' setSection={setSection} namePage='Tarifs' />
             </div>
-            <div className='mt-5 font-semibold text-[#637381] '>
+            {/* <div className='mt-5 font-semibold text-[#637381] '>
                 <span className='text-[#4188eb] font-bold ml-4 '>AUTHENTIFICATIONS</span>
                 <BoutonNav IconButton={TbLogout2} label='Connexion' setSection={setSection} namePage='Connexion' />
                 <BoutonNav IconButton={IoMdPersonAdd} label='Inscription' setSection={setSection} namePage='Inscription' />
                 <BoutonNav IconButton={MdLockReset} label='Réinitialiser mot de passe' setSection={setSection} namePage='RéinitialiserMotDepasse' />
-            </div>
+            </div> */}
         </div>
     )
 }
