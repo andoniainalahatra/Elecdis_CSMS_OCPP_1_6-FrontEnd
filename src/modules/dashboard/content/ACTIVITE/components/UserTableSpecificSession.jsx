@@ -95,7 +95,6 @@ export default function UserTableSpecificSession() {
   }
 
   return (
-    <div className="w-full overflow-x-auto">
       <DataTable
         columns={columns}
         datas={sessionData}
@@ -110,6 +109,5 @@ export default function UserTableSpecificSession() {
         listFilter={listFiltre}
         filter="session"
       />
-    </div>
   );
 }
