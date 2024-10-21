@@ -9,7 +9,7 @@ import { useGetSpecificSession } from "@/components/features/SpecificSession/ses
 import { getSession, nextPage, previousPage, resetPageSession, totalPage } from "@/components/features/SpecificSession/sessionSpecificSlice";
 import { useEffect, useState } from "react";
 
-export default function UserTableSpecificSession() {
+export default function UserTableSpecificSession({ id }) {
   const datas = [
     {
       accessorKey: "user_name",
@@ -63,7 +63,7 @@ export default function UserTableSpecificSession() {
     isPending: loadingAll,
     error: errorAll,
     data: dataAll,
-  } = useGetSpecificSession("transaction", 2, "specificSession", currentPage, 10);
+  } = useGetSpecificSession("transaction", id, "specificSession", currentPage, 10);
 
   const [data, setData] = useState();
   useEffect(() => {
@@ -76,14 +76,14 @@ export default function UserTableSpecificSession() {
   const sessionData = useSelector(selectSession);
 
 
-  if (loadingAll ) {
+  if (loadingAll) {
     return (
       <div className="w-full flex justify-center items-center h-[70vh]">
         <PulseLoader color="#f87" />
       </div>
     );
   }
-  if (errorAll ) {
+  if (errorAll) {
     return Swal.fire({
       title: "Oops ! Erreur de connexion .",
       icon: "error",
