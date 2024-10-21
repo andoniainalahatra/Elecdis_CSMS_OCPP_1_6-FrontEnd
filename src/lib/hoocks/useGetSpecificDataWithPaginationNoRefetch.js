@@ -2,7 +2,7 @@ import axiosInstance from "@/lib/axiosInstance.js";
 import { useQuery } from "@tanstack/react-query";
 const useGetSpecificDataWithPaginationNoRefetch = (url, id, queryKey, page, number_items) => {
   return useQuery({
-    queryKey: [`${queryKey}`, page],
+    queryKey: [`${queryKey}`, page, id],
 
     queryFn: () =>
       axiosInstance

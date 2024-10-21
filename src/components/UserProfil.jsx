@@ -9,10 +9,11 @@ import InfoUser from "./InfoUser";
 import UserInfoCoordonner from "./UserInfoCoordonner";
 import TransactionList from "@/modules/dashboard/content/ACTIVITE/components/TransactionList";
 import { useState } from "react";
-import SessionTable from "@/modules/dashboard/content/ACTIVITE/components/SessionTable";
+// import SessionTable from "@/modules/dashboard/content/ACTIVITE/components/SessionTable";
 import UserTableSpecificRFID from "./UserTableSpecificRFID";
 import useGetDataNoParams from "@/lib/hoocks/useGetDataNoParams";
 import { PulseLoader } from "react-spinners";
+import UserTableSpecificSession from "@/modules/dashboard/content/ACTIVITE/components/UserTableSpecificSession";
 function UserProfil({id}) {
   const dataTransactionHistorique = [
     {
@@ -109,7 +110,7 @@ if(error)
         <div className="col-span-2 bg-[#F9FAFB] p-6">
           {affiche == "RFID" && <UserTableSpecificRFID id={12} />}
           {affiche == "historyTransaction" && <TransactionList transactionsData={dataTransactionHistorique} />}
-          {affiche == "historySession" && <SessionTable />}
+          {affiche == "historySession" && <UserTableSpecificSession />}
         </div>
       </div>
     </div>
