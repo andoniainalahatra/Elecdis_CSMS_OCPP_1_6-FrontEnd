@@ -25,7 +25,7 @@ const PartnerForm = ({ addPartner }) => {
 
   return (
     <form onSubmit={handleSubmit} className="bg-white shadow-lg rounded-lg p-6">
-      <h2 className="text-2xl font-bold mb-4 text-gray-800">Add New Partner</h2>
+      <h2 className="text-[#212B36] text-xl mb-6">Add New Partner</h2>
 
       <div className="space-y-4">
         <input

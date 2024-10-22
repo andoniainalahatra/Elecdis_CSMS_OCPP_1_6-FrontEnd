@@ -11,7 +11,7 @@ const contractsData = [
 const ContractsTable = () => {
   return (
     <div className="container mx-auto p-6">
-      <h1 className="text-2xl font-semibold text-gray-800 mb-4">Liste des Contrats</h1>
+      <h1 className="text-[#212B36] text-xl mb-6">Liste des Contrats</h1>
       <table className="min-w-full bg-white rounded-lg shadow-md">
         <thead>
           <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
