@@ -203,12 +203,14 @@ function DataTable({
                     cell.column.id === "connector1" ||
                     cell.column.id === "connector2" ||
                     cell.column.id === "heartBeat" ||
-                    cell.column.id === "statut"
+                    cell.column.id === "statut" ||
+                    cell.column.id === "historique_erreur"
                   ) {
                     switch (cellValue) {
                       case "En attente":
                       case "En cours":
                       case "en cours":
+                      case "NotEmplemented":
                         cellClass = orange;
                         break;
                       case "Disponible":
@@ -226,6 +228,9 @@ function DataTable({
                       case "Bloqué":
                       case "Hors service":
                       case "Unavailable":
+                      case "InternalError":
+                      case "FormationViolation":
+                      case "NotSupported":
                         cellClass = red;
                         break;
                       case "maintenance":

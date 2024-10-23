@@ -9,7 +9,7 @@ const useGetDataWithPagination = (url, queryKey, page, number_items) => {
         .get(`/${url}?page=${page}&number_items=${number_items}`)
         .then((response) => response.data),
     refetchOnWindowFocus: true,
-    refetchInterval: 1000,
+    refetchInterval: 10000,
   });
 };
 export default useGetDataWithPagination;

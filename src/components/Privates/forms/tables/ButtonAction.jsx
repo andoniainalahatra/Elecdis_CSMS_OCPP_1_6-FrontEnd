@@ -6,14 +6,56 @@ import { IoMdClose } from "react-icons/io";
 import EditStation from "@/modules/Station/EditStation.jsx";
 import { useState } from "react";
 import DeleteStation from "@/modules/Station/DeleteStation";
-
+import { SiIfixit } from "react-icons/si";
+import axiosInstance from "@/lib/axiosInstance";
+import { useMutation } from "@tanstack/react-query";
 const ButtonAction = ({ buttonProperty, Id }) => {
     const [section, setSection] = useState("");
 
+    const mutation = useMutation({
+        mutationFn: (updatedEtatDefaillance) => axiosInstance.put(`/historique_defaillance/update/${Id}`, updatedEtatDefaillance).then((res) => console.log(res.data)),
+        onSuccess: (data) => {
+
+            console.log("Station mise à jour avec succès", data);
+            // queryClient.invalidateQueries("repoMap");
+            // if (onclick) onclick();  // Assurez-vous qu'onclick est défini avant de l'appeler
+            // console.log(data)
+
+        },
+        onError: (error) => {
+            if (error.response) {
+                console.error("Erreur lors de la mise à jour de la station", error.response.status, error.response.data);
+            } else {
+                console.error("Erreur lors de la mise à jour de la station", error);
+            }
+        }
+    });
+    const handleClick = (Id) =>{
+        // alert(Id);
+        console.log("Form Data:", Id);
+        // mutation.mutate(Id);   
+        // console.log(mutation.mutate.data)  
+    }
+
+
     const renderButton = (name, key) => {
         switch (name) {
-            case "detail":
+            case"Non resolu":
                 return (
+                    <span
+                        key={key}
+                        className="m-1 text-red-500 bg-transparent hover:bg-transparent hover:text-red-600"
+                        onClick={()=>{
+                            handleClick(Id)
+                        }}
+                    >
+                       <SiIfixit/>
+                    </span>
+                );
+            case "detail":
+
+                return (
+
                     <span
                         key={key}
                         onClick={() => {
@@ -49,6 +91,7 @@ const ButtonAction = ({ buttonProperty, Id }) => {
                         <FiEdit />
                     </span>
                 );
+
             default:
                 return null;
         }
@@ -99,8 +142,17 @@ const ButtonAction = ({ buttonProperty, Id }) => {
                         >
                             <IoMdClose className="text-white hover:text-amber-400" size={50} />
                         </span>
-                    </div>
-                )} 
+                    </div>)
+           }
+            {
+                section === "Non resolu" && (
+                    <p>
+                        test
+                    </p>
+                )
+            }
+
+
 
         </div>
     );
