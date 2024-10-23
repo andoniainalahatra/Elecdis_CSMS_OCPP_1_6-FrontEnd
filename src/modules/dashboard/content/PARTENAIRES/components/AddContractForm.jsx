@@ -22,7 +22,7 @@ const AddContractForm = () => {
 
   return (
     <form onSubmit={handleSubmit} className="mb-6 bg-white p-6 rounded-lg shadow-md">
-      <h2 className="text-[#212B36] text-xl mb-6">Ajouter un Contrat</h2>
+      <h2 className="text-[24px] text-[#212B36] mb-6">Ajouter un Contrat</h2>
       <input
         type="text"
         placeholder="Nom du Contrat"

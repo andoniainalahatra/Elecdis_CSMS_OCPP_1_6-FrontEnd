@@ -37,7 +37,7 @@ const Partenaires = () => {
 
   return (
     <div className="min-h-screen bg-[#f8f9f7] p-6">
-      <h1 className="text-[#212B36] text-xl mb-6">Partnership Management</h1>
+      <h1 className="text-[24px] text-[#212B36] mb-6">Partnership Management</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Partner Stats Section */}

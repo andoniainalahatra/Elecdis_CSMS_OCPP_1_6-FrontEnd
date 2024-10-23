@@ -106,7 +106,7 @@ const Transactions = () => {
         <div className="flex items-center">
           <FaDollarSign className="text-4xl mr-4" />
           <div>
-            <h3 className="text-2xl font-semibold">Revenus totaux</h3>
+            <h3 className="text-[24px] text-[#212B36] font-semibold">Revenus totaux</h3>
             <p className="text-lg">{totalRevenue} €</p>
           </div>
         </div>
