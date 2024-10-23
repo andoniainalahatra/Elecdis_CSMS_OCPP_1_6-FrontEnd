@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "../features/auth/authSlice";
 import stationReducer from "../features/Stations/stationSlice";
+import defaillanceReducer from "../features/Defaillance/defaillanceSlice.js";
 import userReducer from "@/features/Admin/userSlice";
 import rfidReducer from "@/features/RFID/rfidSlice";
 import sessionReducer from "@/features/sessions/sessionSlice";
@@ -15,6 +16,7 @@ const store = configureStore({
     auth: authReducer,
     station: stationReducer,
     user: userReducer,
+    defaillance:defaillanceReducer,
     rfid: rfidReducer,
     session: sessionReducer,
     client: clientReducer,

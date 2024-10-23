@@ -46,15 +46,18 @@ export const useDeleteClient = () => {
     mutationFn: (id) =>
       axiosInstance.delete(`/users/${id}`).then((res) => res.data),
     onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["clientList", "repoUser"],
-        exact: false,
-      });
-      Swal.fire({
-        icon: "success",
-        title: "Succès",
-        text: "Client supprimé avec succès!",
-      });
+      queryClient.invalidateQueries(
+        {
+          queryKey: ["clientList", "repoUser"],
+          exact: false,
+        },
+
+        Swal.fire({
+          icon: "success",
+          title: "Succès",
+          text: "Client supprimé avec succès!",
+        })
+      );
     },
     onError: () => {
       Swal.fire({

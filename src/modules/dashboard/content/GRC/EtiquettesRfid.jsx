@@ -25,7 +25,7 @@ const Transactions = () => {
   return (
     <div className="w-full h-auto p-6 relative">
       <div className="flex items-center justify-between w-full mb-6">
-        <h2 className="text-[#212B36] text-xl">Listes RFID</h2>
+        <h2 className="text-[24px] text-[#212B36]">Listes RFID</h2>
         <div className="flex gap-2">
           <BouttonImporterCSV action={handleImportCSV} />
           <AddButton action={handleAdd} />

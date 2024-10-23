@@ -1,22 +1,15 @@
 import DataTable from "@/components/Privates/forms/tables/DataTable";
-import { selectPage, selectSession } from "@/features/sessions/sessionSelector";
-import {
-  getSession,
-  nextPage,
-  previousPage,
-  resetPageSession,
-  totalPage,
-} from "@/features/sessions/sessionSlice";
+
 import { useDispatch, useSelector } from "react-redux";
 import { PulseLoader } from "react-spinners";
 import Swal from "sweetalert2";
-import { useGetSession } from "@/features/sessions/sessionApi";
-import { Context } from "@/common/config/configs/Context";
-import { useContext, useEffect, useState } from "react";
-import ButtonActionSession from "./ButtonSession";
+import ButtonAutorisation from "./ButtonAutorisation";
+import { selectPage, selectSession } from "@/components/features/SpecificSession/sessionSpecificSelector";
+import { useGetSpecificSession } from "@/components/features/SpecificSession/sessionSpecificApi copy";
+import { getSession, nextPage, previousPage, resetPageSession, totalPage } from "@/components/features/SpecificSession/sessionSpecificSlice";
+import { useEffect, useState } from "react";
 
-export default function SessionTable() {
-  const { filters } = useContext(Context);
+export default function UserTableSpecificSession({ id }) {
   const datas = [
     {
       accessorKey: "user_name",
@@ -26,6 +19,14 @@ export default function SessionTable() {
     {
       accessorKey: "rfid",
       header: "RFID",
+    },
+    {
+      accessorKey: "charge_point_id",
+      header: "ID de la borne",
+    },
+    {
+      accessorKey: "connector_id",
+      header: "ID Connecteur",
     },
     {
       accessorKey: "start_time",
@@ -51,13 +52,9 @@ export default function SessionTable() {
       accessorKey: "Urgence",
       header: "Urgence",
     },
-    {
-      accessorKey : "Actions",
-      header: "Actions"
-    }
   ];
   const columns = datas;
-  const actions = [{ name: "detail" }];
+  const actions = [{ name: "detail" }, { name: "edit" }, { name: "delete" }];
   const listFiltre = ["tous", "en cours", "terminé"];
 
   const currentPage = useSelector(selectPage);
@@ -66,22 +63,7 @@ export default function SessionTable() {
     isPending: loadingAll,
     error: errorAll,
     data: dataAll,
-  } = useGetSession("transaction/all/", "repoSessionAll", currentPage, 10);
-  const {
-    isPending: loadingCurrent,
-    error: errorCurrent,
-    data: dataCurrent,
-  } = useGetSession(
-    "transaction/current/",
-    "repoSessionCurrent",
-    currentPage,
-    10
-  );
-  const {
-    isPending: loadingDOne,
-    error: errorDone,
-    data: dataDone,
-  } = useGetSession("transaction/done/", "repoSessionDone", currentPage, 10);
+  } = useGetSpecificSession("transaction", id, "specificSession", currentPage, 10);
 
   const [data, setData] = useState();
   useEffect(() => {
@@ -93,26 +75,15 @@ export default function SessionTable() {
   const dispatch = useDispatch();
   const sessionData = useSelector(selectSession);
 
-  useEffect(() => {
-    if (filters.session === "All" || filters.session === "tous") {
-      setData(dataAll);
-    }
-    if (filters.session === "en cours") {
-      setData(dataCurrent);
-    }
-    if (filters.session === "terminé") {
-      setData(dataDone);
-    }
-  }, [filters, dataDone, dataCurrent, dataAll]);
 
-  if (loadingAll || loadingCurrent || loadingDOne) {
+  if (loadingAll) {
     return (
       <div className="w-full flex justify-center items-center h-[70vh]">
         <PulseLoader color="#f87" />
       </div>
     );
   }
-  if (errorAll || errorCurrent || errorDone) {
+  if (errorAll) {
     return Swal.fire({
       title: "Oops ! Erreur de connexion .",
       icon: "error",
@@ -124,21 +95,19 @@ export default function SessionTable() {
   }
 
   return (
-    <div className="w-full overflow-x-auto">
       <DataTable
         columns={columns}
         datas={sessionData}
         actions={actions}
-        ButtonAction={ButtonActionSession}
+        ButtonAction={ButtonAutorisation}
         totalPage={totalPage}
         selectPage={currentPage}
         resetPage={resetPageSession}
         nextPage={nextPage}
         previousPage={previousPage}
-        onFilter={true}
+        onFilter={false}
         listFilter={listFiltre}
         filter="session"
       />
-    </div>
   );
 }

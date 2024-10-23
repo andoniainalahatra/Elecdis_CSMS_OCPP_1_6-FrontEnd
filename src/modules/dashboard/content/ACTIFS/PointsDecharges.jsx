@@ -13,7 +13,7 @@ const [openCsv,setOpenCsv]=useState(false);
     return (
         <div className="w-full h-auto p-6">
             <div className="flex items-center justify-between w-full mb-6">
-                <h2 className="text-[#212B36] text-xl">Charge Point</h2>
+                <h2 className="text-[24px] text-[#212B36]">Charge Point</h2>
                <div className="flex flex-row gap-2">
                    <BouttonImporterCSV  action={()=>setOpenCsv(true)}/>
                    <BoutonAdd  Composant={CreateStation}  setOpen={setOpen} open={open}/>
