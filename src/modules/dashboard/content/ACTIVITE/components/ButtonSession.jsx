@@ -60,8 +60,8 @@ const ButtonActionSession = ({ buttonProperty, Id }) => {
             {buttonProperty.map((data, key) => renderButton(data.name, key))}
             {section === "detail" && (
                 <div
-                    className="fixed top-0 left-0 z-20 flex items-center justify-center w-full h-screen overflow-auto backdrop-blur-md"
-                    style={{ backgroundColor: "rgba(9,16,26,0.3)" }}
+                    className="fixed top-0 left-0 z-20 flex items-center justify-center w-full h-screen overflow-auto bg-black bg-opacity-40"
+                   
                 >
                     <SessionDetails close={setSection} />
                     {/* <span

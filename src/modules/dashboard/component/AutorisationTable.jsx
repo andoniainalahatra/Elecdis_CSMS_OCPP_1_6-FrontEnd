@@ -1,5 +1,4 @@
 import DataTable from '@/components/Privates/forms/tables/DataTable';
-import Columns from '@/components/Privates/forms/tables/Columns';
 import ButtonAutorisation from '../content/ACTIVITE/components/ButtonAutorisation';
 import { useDispatch, useSelector } from 'react-redux';
 import { nextPage, previousPage, resetPage, totalPage } from '@/features/Stations/stationSlice';
@@ -11,8 +10,42 @@ import Swal from 'sweetalert2';
 
 
 const AutorisationTable = () => {
-    const datas = ["id", "first_name", "last_name", "email", "role", "phone", "subscription", "Actions"];
-    const columns = Columns(datas);
+    // const datas = [{"id"}, "first_name", "last_name", "email", "role", "phone", "subscription", "Actions"];
+    const datas = [
+        {
+        accessorKey : "id",
+        header: "ID"
+    },
+    {
+        accessorKey : "first_name",
+        header : "Nom"
+    },
+    {
+        accessorKey : "last_name",
+        header : "Prénom"
+    },
+    {
+        accessorKey : "email",
+        header : "Adresse email"
+    },
+    {
+        accessorKey : "role",
+        header : "Role"
+    },
+    {
+        accessorKey : "phone",
+        header : "Téléphone"
+    },
+    {
+        accessorKey : "subscription",
+        header : "Souscription"
+    },
+    {
+        accessorKey : "Actions",
+        header : "Actions"
+    }
+]
+    const columns = datas;
     const actions = [{ name: "detail" }, { name: "edit" }, { name: "delete" }]
 
     const currentPage = useSelector(selectPage)
