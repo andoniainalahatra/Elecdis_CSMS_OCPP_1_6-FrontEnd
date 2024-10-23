@@ -365,24 +365,47 @@ function DetailStation({ IdStation }) {
                     <h1 className="text-2xl font-bold text-red-600 text-start">Urgence</h1>
                     <div className="grid w-full grid-cols-1 gap-4 mt-2 text-gray-800 text-start max-md:gap-6">
                         <div className="flex gap-8">
-                            <button className="text-[#4CAF50]" onClick={() => setIsStart(isstart => !isstart)}>
-                                <IoPlayOutline size={50} />
-                            </button>
+                            <div className="flex flex-col">
+                                <button className="text-[#4CAF50]" onClick={() => setIsStart(isstart => !isstart)}>
+                                    <IoPlayOutline size={50}/>
+                                </button>
+
+                            </div>
 
                             {isStart ? (
-                                <div className="flex space-x-2 transition-opacity duration-300 ease-in-out border-b opacity-100 animate-fade-in">
-                                    <input
-                                        onChange={(e) => setITag(e.target.value)}
-                                        placeholder="Id Tag"
-                                        className="text-xl h-[50px] p-1 outline-none"
-                                        type="text"
-                                    />
-                                    <button onClick={() => {
-                                        remoteStart();
-                                        setIsStart(false); // Close input after sending
-                                    }}>
-                                        <BiSolidSend size={30} />
-                                    </button>
+                                <div
+                                    className="flex transition-opacity duration-300 ease-in-out  opacity-100 animate-fade-in flex-col">
+                                    <div className="flex">
+                                        <input
+                                            onChange={(e) => setITag(e.target.value)}
+                                            placeholder="Id Tag"
+                                            className="text-xl h-[50px] p-1 outline-none border-b"
+                                            type="text"
+                                        />
+
+                                        <button onClick={() => {
+                                            remoteStart();
+                                            setIsStart(false); // Close input after sending
+                                        }}>
+                                            <BiSolidSend size={30}/>
+                                        </button>
+                                    </div>
+                                    <div>
+                                        <input
+                                            onChange={(e) => setITag(e.target.value)}
+                                            placeholder="Id Connecteur"
+                                            className="text-xl h-[50px] p-1 outline-none border-b"
+                                            type="text"
+                                        />
+
+                                        {/*<button onClick={() => {*/}
+                                        {/*    remoteStart();*/}
+                                        {/*    setIsStart(false); // Close input after sending*/}
+                                        {/*}}>*/}
+                                        {/*    <BiSolidSend size={30}/>*/}
+                                        {/*</button>*/}
+                                    </div>
+
                                 </div>
                             ) : null}
                         </div>
@@ -394,16 +417,16 @@ function DetailStation({ IdStation }) {
                 <h1 className="text-2xl font-bold text-red-600 text-start">Statistiques</h1>
                 {/* <ChartSection /> */}
                 <div className="col-span-2 max-sm:w-full max-sm:col-span-1 h-full">
-        <StatistiqueBarChart
-          chartData={statistiqueData}
-          statiStiqueConfig={STATISTIQUECONF}
-          description={litleDescri}
-          listFilterYearly={YEARLABEL}
-          title="Énergie délivrée par kWh"
-          loading={isLoading}
-          className="h-full"
-        />
-      </div>
+                    <StatistiqueBarChart
+                        chartData={statistiqueData}
+                        statiStiqueConfig={STATISTIQUECONF}
+                        description={litleDescri}
+                        listFilterYearly={YEARLABEL}
+                        title="Énergie délivrée par kWh"
+                        loading={isLoading}
+                        className="h-full"
+                    />
+                </div>
             </div>
         </div>
     );

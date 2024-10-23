@@ -1,7 +1,27 @@
+import { useEffect, useState } from "react";
 import { GiAutoRepair } from "react-icons/gi";
 import { IoMdTime } from "react-icons/io";
 import { IoCheckmarkDone } from "react-icons/io5";
 export default function Notification({ isVisible }) {
+  // const ENDPOINT="http://172.16.87.24:9002/frontend"
+  const [ws, setWs] = useState(null);
+  const [message, setMessage] = useState(null);
+
+  useEffect(() => {
+    // const socket = io(ENDPOINT);
+    const websocket = new WebSocket('ws://172.16.87.24:9001/frontend'); // Remplacez par votre URL WebSocket
+    setWs(websocket);
+      // Écouter les messages du serveur
+      websocket.onmessage = (event) => {
+        setMessage(event.data);
+      };
+      return () => {
+        websocket.close();
+      };
+  }, [])
+  console.log(message)
+
+
   return (
     <div
       className={`max-sm:w-[200px] w-[350px] rounded-lg bg-white absolute right-0 top-6 shadow-lg z-50 transform transition-all duration-300 ease-[cubic-bezier(0.25, 1, 0.5, 1)]
