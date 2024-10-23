@@ -46,7 +46,7 @@ const Inscription = () => {
     // }
 
     console.log(data);
-    // mutation.mutate(data)
+    mutation.mutate(data)
   }
   // const FloatingLabelInput = FormElements.getFloatingLabelInput();
   return (
