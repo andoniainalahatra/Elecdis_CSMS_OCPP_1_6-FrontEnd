@@ -34,3 +34,38 @@ export const useAddAdmin = () => {
     },
   });
 };
+
+export const useAddClient = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (adminData) =>
+      axiosInstance
+        .post(`/auth/register_client`, adminData)
+        .then((res) => res.data),
+
+    onSuccess: () => {
+      // Invalider les queries pour actualiser les données après la mise à jour
+      queryClient.invalidateQueries({
+        queryKey: ["repoUser", "clientList"],
+        exact: false,
+      });
+
+      // Afficher un message de succès
+      Swal.fire({
+        icon: "success",
+        title: "Succès",
+        text: "Client ajouté avec succès !",
+      });
+    },
+    onError: (error) => {
+      // Gérer les erreurs lors de l'ajout
+      Swal.fire({
+        icon: "error",
+        title: "Erreur",
+        text: `Une erreur s’est produite lors de l'ajout : ${
+          error?.response?.data?.message || "Erreur inconnue"
+        }`,
+      });
+    },
+  });
+};

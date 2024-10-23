@@ -30,6 +30,7 @@ function DeleteStation({ IdStation, onclick }) {
     /**
      * Execution de la suppression.
      */
+
     const handleDelete = () => {
         if (station) {
             mutation.mutate();  // Exécuter la mutation pour supprimer la station

@@ -6,12 +6,16 @@ import Boutton from "@/modules/Login/components/Boutton";
 import ErrorMessage from "@/components/ErrorMessage";
 import SelectList from "./SelectList";
 import { getSubscription } from "../config/client/clientApi";
-import { useAddAdmin } from "../../ACTIVITE/config/Api/AdminApi";
+import { useAddClient } from "../../ACTIVITE/config/Api/AdminApi";
 
 export default function AddClient({ Id }) {
     const [invalidMessage, setInvalidMessage] = useState("");
 
-    const { mutate: addAdmin, isPending } = useAddAdmin();
+
+
+
+
+    const { mutate: addClient, isPending } = useAddClient();
 
     const { control, formState: { errors }, handleSubmit, reset } = useForm();
     const { refetch: fetchSubscription, isPending: isFetchingSubscriptions, data: subscriptions } = getSubscription();
@@ -39,25 +43,7 @@ export default function AddClient({ Id }) {
     }, [subscriptions]);
 
     const onSubmit = (formData) => {
-        addAdmin(formData, {
-            onSuccess: () => {
-                Swal.fire({
-                    icon: "success",
-                    title: "Client ajouter avec succès !",
-                });
-            },
-            onError: (error) => {
-                if (error.response?.status === 401) {
-                    setInvalidMessage("L'identifiant utilisateur n'existe pas");
-                } else {
-                    Swal.fire({
-                        icon: "error",
-                        title: "Oops...",
-                        text: "Une erreur s'est produite. Veuillez réessayer plus tard.",
-                    });
-                }
-            },
-        });
+        addClient(formData);
     }
 
     return (

@@ -9,9 +9,6 @@ import { selectSessionDate } from "../features/chartSessionSelector";
 export default function SessionChart() {
 
   const dateSession = useSelector(selectSessionDate)
-  console.log(dateSession);
-  
-
   const { data : dataSession, error : errorSession, isPending : loadingSession } = useGetDataByDay('/transaction/graphes_sessions', 'dataSession', dateSession);
 
   const { data : averageData, error : averageError, isPending : averagePending } = useGetDataNoParams('/transaction/average_duration', 'average');

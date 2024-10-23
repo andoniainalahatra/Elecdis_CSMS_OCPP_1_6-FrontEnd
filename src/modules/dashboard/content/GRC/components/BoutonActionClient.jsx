@@ -7,6 +7,7 @@ import DetailsClient from "./DetailsClient";
 import EditClient from "./EditClient";
 import { useDeleteClient } from "../config/client/clientApi";
 import UserProfil from "@/components/UserProfil";
+import Swal from "sweetalert2";
 
 
 
@@ -14,10 +15,24 @@ const ButtonActionClient = ({ buttonProperty, Id }) => {
     const [section, setSection] = useState("");
     const handleClosed = () => { setSection("") };
 
-    const { mutate: deleteClient } = useDeleteClient();
+    const { mutate: deleteClient, isPending } = useDeleteClient();
 
     const handleDelete = (clientId) => {
-        deleteClient(clientId);
+        Swal.fire({
+            title: "Ete vous sur de supprimer ?",
+            text: "Vous ne pourrez pas revenir en arriere !",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Oui ,suprimez-le',
+            cancelButtonText: 'Annuler'
+        }).then((res) => {
+            if (res.isConfirmed) {
+                deleteClient(clientId)
+            }
+
+        })
     };
 
     const renderButton = (name, key) => {

@@ -6,56 +6,15 @@ import { IoMdClose } from "react-icons/io";
 import EditStation from "@/modules/Station/EditStation.jsx";
 import { useState } from "react";
 import DeleteStation from "@/modules/Station/DeleteStation";
-import { SiIfixit } from "react-icons/si";
-import axiosInstance from "@/lib/axiosInstance";
-import { useMutation } from "@tanstack/react-query";
-const ButtonAction = ({ buttonProperty, Id }) => {
+import SessionDetails from "./SessionDetails";
+
+const ButtonActionSession = ({ buttonProperty, Id }) => {
     const [section, setSection] = useState("");
-
-    const mutation = useMutation({
-        mutationFn: (updatedEtatDefaillance) => axiosInstance.put(`/historique_defaillance/update/${Id}`, updatedEtatDefaillance).then((res) => console.log(res.data)),
-        onSuccess: (data) => {
-
-            console.log("Station mise à jour avec succès", data);
-            // queryClient.invalidateQueries("repoMap");
-            // if (onclick) onclick();  // Assurez-vous qu'onclick est défini avant de l'appeler
-            // console.log(data)
-
-        },
-        onError: (error) => {
-            if (error.response) {
-                console.error("Erreur lors de la mise à jour de la station", error.response.status, error.response.data);
-            } else {
-                console.error("Erreur lors de la mise à jour de la station", error);
-            }
-        }
-    });
-    const handleClick = (Id) =>{
-        // alert(Id);
-        console.log("Form Data:", Id);
-        // mutation.mutate(Id);   
-        // console.log(mutation.mutate.data)  
-    }
-
 
     const renderButton = (name, key) => {
         switch (name) {
-            case"Non resolu":
-                return (
-                    <span
-                        key={key}
-                        className="m-1 text-red-500 bg-transparent hover:bg-transparent hover:text-red-600"
-                        onClick={()=>{
-                            handleClick(Id)
-                        }}
-                    >
-                       <SiIfixit/>
-                    </span>
-                );
             case "detail":
-
                 return (
-
                     <span
                         key={key}
                         onClick={() => {
@@ -91,7 +50,6 @@ const ButtonAction = ({ buttonProperty, Id }) => {
                         <FiEdit />
                     </span>
                 );
-
             default:
                 return null;
         }
@@ -102,16 +60,16 @@ const ButtonAction = ({ buttonProperty, Id }) => {
             {buttonProperty.map((data, key) => renderButton(data.name, key))}
             {section === "detail" && (
                 <div
-                    className="fixed top-0 left-0 z-20 flex items-center justify-center w-full h-screen overflow-auto backdrop-blur-md"
-                    style={{ backgroundColor: "rgba(9,16,26,0.3)" }}
+                    className="fixed top-0 left-0 z-20 flex items-center justify-center w-full h-screen overflow-auto bg-black bg-opacity-40"
+                   
                 >
-                    <DetailStation IdStation={Id} />
-                    <span
+                    <SessionDetails close={setSection} />
+                    {/* <span
                         className="absolute cursor-pointer top-5 right-5"
                         onClick={() => setSection("")}
-                    >
-                        <IoMdClose className="text-white hover:text-amber-400" size={50} />
-                    </span>
+                    > */}
+                        {/* <IoMdClose className="text-white hover:text-amber-400" size={50} /> */}
+                    {/* </span> */}
                 </div>
             )}
             {section === "edit" && (
@@ -142,20 +100,11 @@ const ButtonAction = ({ buttonProperty, Id }) => {
                         >
                             <IoMdClose className="text-white hover:text-amber-400" size={50} />
                         </span>
-                    </div>)
-           }
-            {
-                section === "Non resolu" && (
-                    <p>
-                        test
-                    </p>
-                )
-            }
-
-
+                    </div>
+                )} 
 
         </div>
     );
 };
 
-export default ButtonAction;
+export default ButtonActionSession;
