@@ -1,7 +1,14 @@
-import React from 'react';
-import { FaUser, FaPlug, FaMoneyBill, FaClock, FaMapMarkerAlt } from 'react-icons/fa';
+import React from "react";
+import {
+  FaUser,
+  FaPlug,
+  FaMoneyBill,
+  FaClock,
+  FaMapMarkerAlt,
+  FaCheckCircle,
+} from "react-icons/fa";
 
-const SessionDetails = ({close}) => {
+const SessionDetails = ({ close }) => {
   return (
     <div className="bg-white p-8 rounded-lg shadow-lg max-w-4xl mx-auto my-8">
       <h2 className="text-2xl font-bold text-blue-600 mb-4 flex items-center">
@@ -14,8 +21,12 @@ const SessionDetails = ({close}) => {
           <FaUser className="mr-2" /> Informations de l'utilisateur
         </h3>
         <div className="grid grid-cols-2 gap-4 text-gray-600">
-          <p><strong>Nom d'utilisateur:</strong> Kevin Rak</p>
-          <p><strong>RFID:</strong> 5</p>
+          <p>
+            <strong>Nom d'utilisateur:</strong> Kevin Rak
+          </p>
+          <p>
+            <strong>RFID:</strong> 5
+          </p>
         </div>
       </div>
 
@@ -25,10 +36,21 @@ const SessionDetails = ({close}) => {
           <FaClock className="mr-2" /> Détails de la Session
         </h3>
         <div className="grid grid-cols-2 gap-4 text-gray-600">
-          <p><strong>ID de la borne:</strong> 927344</p>
-          <p><strong>ID Connecteur:</strong> 10932894</p>
-          <p><strong>Début:</strong> 12/12/24 09h36</p>
-          <p><strong>Fin:</strong> 12/12/24 10h00</p>
+          <p>
+            <strong>ID de la borne:</strong> 927344
+          </p>
+          <p>
+            <strong>ID Connecteur:</strong> 10932894
+          </p>
+          <p>
+            <strong>Début:</strong> 12/12/24 09h36
+          </p>
+          <p>
+            <strong>Fin:</strong> 12/12/24 10h00
+          </p>
+          <div className="flex items-center gap-2 text-white">
+          <FaCheckCircle className="text-green-500" /><strong className="text-gray-700">Termine</strong>
+          </div>
         </div>
       </div>
 
@@ -38,8 +60,12 @@ const SessionDetails = ({close}) => {
           <FaMoneyBill className="mr-2" /> Coûts et Consommation
         </h3>
         <div className="grid grid-cols-2 gap-4 text-gray-600">
-          <p><strong>Énergie consommée:</strong> 14 kWh</p>
-          <p><strong>Coût total:</strong> 10 000 Ar</p>
+          <p>
+            <strong>Énergie consommée:</strong> 14 kWh
+          </p>
+          <p>
+            <strong>Coût total:</strong> 10 000 Ar
+          </p>
         </div>
       </div>
 
@@ -49,7 +75,9 @@ const SessionDetails = ({close}) => {
           <FaMapMarkerAlt className="mr-2" /> Lieu de la Session
         </h3>
         <div className="text-gray-600">
-          <p><strong>Lieu:</strong> Andraharo, Antananarivo</p>
+          <p>
+            <strong>Lieu:</strong> Andraharo, Antananarivo
+          </p>
         </div>
       </div>
 
@@ -70,7 +98,10 @@ const SessionDetails = ({close}) => {
         <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
           Télécharger le Reçu
         </button>
-        <button onClick={()=>close("")} className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+        <button
+          onClick={() => close("")}
+          className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
+        >
           Retour
         </button>
       </div>
