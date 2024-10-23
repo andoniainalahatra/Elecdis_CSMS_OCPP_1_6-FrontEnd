@@ -76,7 +76,7 @@ function CalendarFilter({ filter, className = "", action = "null" }) {
             onChange={handleDateChange}
             value={selectedDate}
             view="month"
-            className="bg-gray-100 p-4 border-none rounded-lg shadow-md"
+            className="bg-gray-100 z-50 p-4 border-none rounded-lg shadow-md"
           />
         </div>
       )}
