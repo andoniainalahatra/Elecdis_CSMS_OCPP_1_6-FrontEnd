@@ -10,7 +10,10 @@ export const useAddAdmin = () => {
 
     onSuccess: () => {
       // Invalider les queries pour actualiser les données après la mise à jour
-      queryClient.invalidateQueries({ queryKey: ["repoUser"], exact: false });
+      queryClient.invalidateQueries({
+        queryKey: ["repoUser", "clientList"],
+        exact: false,
+      });
 
       // Afficher un message de succès
       Swal.fire({

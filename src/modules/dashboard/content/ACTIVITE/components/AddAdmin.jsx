@@ -3,13 +3,10 @@ import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import Input from "@/modules/Login/components/Input";
 import Boutton from "@/modules/Login/components/Boutton";
-import { IoMdCloseCircle } from "react-icons/io";
 import ErrorMessage from "@/components/ErrorMessage";
-
-import { useSelector } from "react-redux";
 import SelectList from "../../GRC/components/SelectList";
-import { getSubscription, useUpdateClient } from "../../GRC/config/client/clientApi";
-import { selectClient } from "../../GRC/config/client/clientSelector";
+import { getSubscription } from "../../GRC/config/client/clientApi";
+
 import { useAddAdmin } from "../config/Api/AdminApi";
 
 export default function AddAdmin({ Id }) {
@@ -49,7 +46,7 @@ export default function AddAdmin({ Id }) {
             onSuccess: () => {
                 Swal.fire({
                     icon: "success",
-                    title: "Admin modifié avec succès !",
+                    title: "Admin ajouter avec succès !",
                 });
             },
             onError: (error) => {
@@ -76,7 +73,7 @@ export default function AddAdmin({ Id }) {
 
                     <div className="flex flex-col items-center justify-center w-full">
                         <h4 className="text-importantText max-lg:text-[20px] xl:text-2xl mb-[4vh]">
-                            Modifier l'information du client
+                            Ajout de l'Admin
                         </h4>
 
                         {/* First Name */}
