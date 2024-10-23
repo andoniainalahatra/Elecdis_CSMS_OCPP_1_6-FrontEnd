@@ -17,9 +17,10 @@ import { useMutation } from "@tanstack/react-query";
 import axiosInstance from "@/lib/axiosInstance";
 import ErrorMessage from "@/components/ErrorMessage";
 import FloatingLabelInput from "@/components/Privates/forms/FloatingLabelInput";
+import Boutton from "../Login/components/Boutton";
 
 const Inscription = () => {
-  const mutation = useMutation({
+  const {mutate ,isPending} = useMutation({
     mutationFn: (newAdmin) => {
         return axiosInstance.post('/auth/register', newAdmin); // Endpoint pour créer la station
     },
@@ -43,7 +44,7 @@ const Inscription = () => {
       id_partner: 1
     }
     console.log(userData);
-    mutation.mutate(userData)
+    mutate(userData)
   }
   // const FloatingLabelInput = FormElements.getFloatingLabelInput();
   return (
@@ -67,6 +68,12 @@ const Inscription = () => {
                       name="last_name"
                       control={control}
                       defaultValue=""
+                      rules={{required:"Nom requis",
+                        // pattern: {
+                        //   value: /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/,
+                        //   message: "Adresse mail invalide",
+                        // },
+                      }}
                       render={
                         ({ field }) => <FloatingLabelInput
                           {...field}
@@ -74,12 +81,20 @@ const Inscription = () => {
                           label="Votre nom *" />
                       }
                     />
+                    {errors?.last_name && <ErrorMessage  message={errors.last_name.message}/>}
+
                   </div>
                   <div className="flex flex-col w-1/2">
                     <Controller
                       name="first_name"
                       control={control}
                       defaultValue=""
+                      rules={{required:" Prenom requis",
+                        // pattern: {
+                        //   value: /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/,
+                        //   message: "Adresse mail invalide",
+                        // },
+                      }}
                       render={
                         ({ field }) => <FloatingLabelInput
                           {...field}
@@ -87,6 +102,8 @@ const Inscription = () => {
                           label="Votre prenom *" />
                       }
                     />
+                    {errors?.first_name && <ErrorMessage  message={errors.first_name.message}/>}
+
 
                   </div>
                 </div>
@@ -104,12 +121,18 @@ const Inscription = () => {
                           label="Votre telephone *" />
                       }
                     />
+
                 </div>
                 <div className="flex flex-col w-1/2">
                   <Controller
                     name="email"
                     control={control}
                     defaultValue=""
+                    rules={{required:"Email requis",
+                      pattern: {
+                        value: /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/,
+                        message: "Adresse mail invalide",
+                      },}}
                     render={
                       ({ field }) => <FloatingLabelInput
                         {...field}
@@ -118,6 +141,8 @@ const Inscription = () => {
                         label="Votre email *" />
                     }
                   />
+                    {errors?.email && <ErrorMessage  message={errors.email.message}/>}
+                  
                 </div>
                </div>
                 <div className="flex space-x-4 max-md:flex-col max-md:space-x-0 max-md:gap-4">
@@ -126,6 +151,13 @@ const Inscription = () => {
                       name="password"
                       control={control}
                       defaultValue=""
+                      rules={{
+                        required: "password requis",
+                        // pattern: {
+                        //   value: /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/,
+                        //   message: "Adresse mail invalide",
+                        // },
+                      }}
                       render={({ field }) => (
                         <FloatingLabelInput
                           {...field}
@@ -135,6 +167,8 @@ const Inscription = () => {
                         />
                       )}
                     />
+                    {errors?.password && <ErrorMessage  message={errors.password.message}/>}
+
                     
 
                   </div>
@@ -173,9 +207,17 @@ const Inscription = () => {
                 </div>
               </div>
             </CardContent>
-            <CardFooter className="flex justify-between">
-              <Button variant="outline">Annuler</Button>
-              <Button className="bg-primaryChart hover:bg-red-600" type="submit">S'inscrire</Button>
+            <CardFooter className="flex justify-between ">
+              <div className="flex w-full space-x-4">
+                  <div className="w-1/2" >
+                    <Button variant="outline" >Annuler</Button>
+                  </div>
+                  {/* <Button className="bg-primaryChart hover:bg-red-600" type="submit">S'inscrire</Button> */}
+                    <div className="w-1/2">
+                      <Boutton className="bg-primaryChart hover:bg-red-600 w-1/2" isLoading={isPending} label="S'incrire" />
+
+                    </div>
+              </div>
             </CardFooter>
           </form>
           <div className="flex justify-center mt-4 mb-6">
