@@ -3,60 +3,38 @@ import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import Input from "@/modules/Login/components/Input";
 import Boutton from "@/modules/Login/components/Boutton";
-import { IoMdCloseCircle } from "react-icons/io";
 import ErrorMessage from "@/components/ErrorMessage";
-import { useGetOneRfid, useUpdateRfid } from "@/features/RFID/rfidApi";
-import { PulseLoader } from "react-spinners";
 import SelectList from "./SelectList";
-import { getSubscription, useUpdateClient } from "../config/client/clientApi";
-import { useSelector } from "react-redux";
-import { selectClient } from "../config/client/clientSelector";
+import { getSubscription } from "../config/client/clientApi";
+import { useAddClient } from "../../ACTIVITE/config/Api/AdminApi";
 
-export default function AddClient({ action, Id }) {
+export default function AddClient({ Id }) {
     const [invalidMessage, setInvalidMessage] = useState("");
 
-    const { mutate: updateClient, isPending } = useUpdateClient(Id);
+
+
+
+
+    const { mutate: addClient, isPending } = useAddClient();
+
     const { control, formState: { errors }, handleSubmit, reset } = useForm();
     const { refetch: fetchSubscription, isPending: isFetchingSubscriptions, data: subscriptions } = getSubscription();
     const [datas, setDatas] = useState([]);
-    const [defaultItem, setDefaultItem] = useState('');
-
-    const { data } = useSelector(selectClient);
-
-    // Fonction pour trouver le client par ID
-    const dataFind = (Id) => {
-        return data.find((item) => item.id === Id);
-    };
-
-    // Récupérer les données spécifiques du client
-    const clientData = dataFind(Id);
-
-    // Fonction pour trouver l'ID de souscription correspondant au type_subscription
-    const defaultID = (value) => datas.find(item => item.type_subscription === value);
-
-    // Gestion du reset avec les données du client
-    useEffect(() => {
-        if (clientData && subscriptions) {
-            const subscriptionItem = defaultID(clientData.subscription);
-            if (subscriptionItem) {
-                setDefaultItem(subscriptionItem.id); // Définir l'ID comme valeur par défaut
-            }
-        }
-    }, [clientData, subscriptions, datas]);
 
     // Initialiser les valeurs du formulaire une fois les données du client et les souscriptions disponibles
     useEffect(() => {
-        if (clientData) {
-            reset({
-                first_name: clientData.first_name || "",
-                last_name: clientData.last_name || "",
-                phone: clientData.phone || "",
-                email: clientData.email || "",
-                id_subscription: defaultItem || "",  // Utiliser l'ID extrait de la souscription
-            });
-        }
+        reset({
+            first_name: "",
+            last_name: "",
+            phone: "",
+            email: "",
+            id_subscription: "",
+            id_user_group: 2,  // Utiliser l'ID extrait de la souscription
+            password: "000000",
+            confirm_password: "000000",
+        });
         fetchSubscription();  // Récupérer les souscriptions
-    }, [clientData, subscriptions, reset, defaultItem]);
+    }, [subscriptions, reset]);
 
     useEffect(() => {
         if (subscriptions) {
@@ -65,40 +43,18 @@ export default function AddClient({ action, Id }) {
     }, [subscriptions]);
 
     const onSubmit = (formData) => {
-
-        updateClient(formData, {
-            onSuccess: () => {
-                Swal.fire({
-                    icon: "success",
-                    title: "Client modifié avec succès !",
-                });
-                action(); // Fermer la modale après mise à jour
-            },
-            onError: (error) => {
-                if (error.response?.status === 401) {
-                    setInvalidMessage("Identifiant utilisateur n'existe pas");
-                } else {
-                    Swal.fire({
-                        icon: "error",
-                        title: "Oops...",
-                        text: "Une erreur s'est produite. Veuillez réessayer plus tard.",
-                    });
-                }
-            },
-        });
-    };
+        addClient(formData);
+    }
 
     return (
         <div className="fixed top-0 left-0 z-10 flex items-center justify-center w-full h-screen">
             <form onSubmit={handleSubmit(onSubmit)} className="flex items-center justify-center w-full h-screen bg-black bg-opacity-40">
                 <div className="relative bg-white shadow-xl backdrop-blur max-sm:shadow-none w-[400px] 2xl:w-[500px] h-auto p-6 flex items-center justify-center flex-col gap-[4vh] rounded-lg">
-                    <button className="absolute bg-white top-1 right-1" onClick={() => action()}>
-                        <IoMdCloseCircle size={40} />
-                    </button>
+
 
                     <div className="flex flex-col items-center justify-center w-full">
                         <h4 className="text-importantText max-lg:text-[20px] xl:text-2xl mb-[4vh]">
-                            Modifier l'information du client
+                            Ajout de l'Admin
                         </h4>
 
                         {/* First Name */}
@@ -188,7 +144,7 @@ export default function AddClient({ action, Id }) {
                                         id="id_subscription"
                                         label="Souscription"
                                         type="select"
-                                        value={clientData?.subscription}  // Valeur actuelle
+                                        value={field?.subscription}  // Valeur actuelle
                                         datas={datas}
                                         onChange={field.onChange}
                                     />
@@ -201,6 +157,7 @@ export default function AddClient({ action, Id }) {
                         {invalidMessage && (
                             <ErrorMessage message={invalidMessage} className="mb-[1vw]" />
                         )}
+
                     </div>
 
                     {/* Submit Button */}
