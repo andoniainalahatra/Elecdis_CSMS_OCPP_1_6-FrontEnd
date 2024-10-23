@@ -10,10 +10,10 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { PulseLoader } from "react-spinners";
 import Swal from "sweetalert2";
-import ButtonAutorisation from "./ButtonAutorisation";
 import { useGetSession } from "@/features/sessions/sessionApi";
 import { Context } from "@/common/config/configs/Context";
 import { useContext, useEffect, useState } from "react";
+import ButtonActionSession from "./ButtonSession";
 
 export default function SessionTable() {
   const { filters } = useContext(Context);
@@ -26,14 +26,6 @@ export default function SessionTable() {
     {
       accessorKey: "rfid",
       header: "RFID",
-    },
-    {
-      accessorKey: "charge_point_id",
-      header: "ID de la borne",
-    },
-    {
-      accessorKey: "connector_id",
-      header: "ID Connecteur",
     },
     {
       accessorKey: "start_time",
@@ -59,9 +51,13 @@ export default function SessionTable() {
       accessorKey: "Urgence",
       header: "Urgence",
     },
+    {
+      accessorKey : "Actions",
+      header: "Actions"
+    }
   ];
   const columns = datas;
-  const actions = [{ name: "detail" }, { name: "edit" }, { name: "delete" }];
+  const actions = [{ name: "detail" }];
   const listFiltre = ["tous", "en cours", "terminé"];
 
   const currentPage = useSelector(selectPage);
@@ -133,7 +129,7 @@ export default function SessionTable() {
         columns={columns}
         datas={sessionData}
         actions={actions}
-        ButtonAction={ButtonAutorisation}
+        ButtonAction={ButtonActionSession}
         totalPage={totalPage}
         selectPage={currentPage}
         resetPage={resetPageSession}
