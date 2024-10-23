@@ -12,7 +12,6 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import logo from "@/assets/logo1.png";
 import { Controller, useForm } from "react-hook-form";
-import { FormElements } from "@/components/FormElements";
 import { Link } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import axiosInstance from "@/lib/axiosInstance";
@@ -37,16 +36,14 @@ const Inscription = () => {
   // const confirmPassword=watch("confirmPassoword")
 
   const Submit = (data) => {
-    // if(password!== confirmPassword){
-    //   setError("confirmPassword",{
-    //     type: "manual",
-    //     message: "Les mots de passe ne correspondent pas",
-    //   });
-    //   return;
-    // }
-
-    console.log(data);
-    mutation.mutate(data)
+    const userData={
+      ...data,
+      id_subscription: 1,
+      id_user_group: 1,
+      id_partner: 1
+    }
+    console.log(userData);
+    mutation.mutate(userData)
   }
   // const FloatingLabelInput = FormElements.getFloatingLabelInput();
   return (
@@ -143,7 +140,7 @@ const Inscription = () => {
                   </div>
                   <div className="flex flex-col w-1/2 max-md:w-full">
                     <Controller
-                      name="confirmPassword"
+                      name="confirm_password"
                       control={control}
                       defaultValue=""
                       rules={{required:"Confirmation requis",
@@ -155,12 +152,12 @@ const Inscription = () => {
                         ({ field }) => <FloatingLabelInput
                           {...field}
                           
-                          id="confirmPassword"
+                          id="confirm_password"
                           type="password"
                           label="Confirmer votre Mdp *" />
                       }
                     />
-                    {errors?.confirmPassword && <ErrorMessage message={errors.confirmPassword.message}/>}
+                    {errors?.confirm_password && <ErrorMessage message={errors.confirm_password.message}/>}
 
                   </div>
                 </div>
