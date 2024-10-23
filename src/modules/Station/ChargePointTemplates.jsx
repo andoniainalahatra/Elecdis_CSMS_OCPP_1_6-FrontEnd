@@ -1,5 +1,4 @@
 import React from 'react'
-import FloatingLabelInput from "@/components/Privates/forms/FloatingLabelInput.jsx";
 import {Input} from "@/components/ui/input.jsx";
 import {Button} from "@/components/ui/button.jsx";
 import {Controller, useForm} from "react-hook-form";
@@ -42,9 +41,9 @@ function ChargePointTemplates() {
     }
     return (
         <div className=''>
-            <div className="bg-white p-4  rounded-md">
+            <div className="bg-white p-4 my-3  rounded-md">
                 <div className="grid grid-rows-2 ">
-                    <h1 className='underline '>Charge Point Templates</h1>
+                    <h1 className='underline mb-3'>Charge Point Templates</h1>
                     <p className='text-gray-500'> Ici, vous pouvez créer votre point de charge personnalisé</p>
                 </div>
             </div>
@@ -54,7 +53,7 @@ function ChargePointTemplates() {
                     <div className="">
                         <h2> Contenu du ChargePoint Templates</h2>
                         <form  onSubmit={handleSubmit(onSubmit)}>
-                            <h2 className='m-4 font-semibold text-blue-600'>Informations concernant le materiel</h2>
+                            <h2 className='m-4 font-semibold text-simpleText'>Informations concernant le materiel</h2>
                             <div className="grid grid-cols-2 gap-4 ">
                                 <div className="">
                                     <label htmlFor="id" className='text-gray-600'>Identifiant</label>
@@ -98,7 +97,7 @@ function ChargePointTemplates() {
                                     />
                                 </div>
                             </div>
-                            <h2 className='m-4 font-semibold text-blue-600'>Informations concernant la localisation du
+                            <h2 className='m-4 font-semibold text-simpleText'>Informations concernant la localisation du
                                 point de charge</h2>
 
                             <div className="grid grid-cols-3 gap-4 p-4">
@@ -133,7 +132,7 @@ function ChargePointTemplates() {
                                     />
                                 </div>
                             </div>
-                           <Button className='bg-blue-500 hover:bg-blue-600 '>
+                           <Button className='bg-[#F89BA3] text-[#000000] hover:bg-red-500 mt-3 ml-4 '>
                                Creer le point de charge
                            </Button>
                         </form>
