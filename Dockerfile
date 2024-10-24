@@ -26,6 +26,8 @@ FROM nginx:alpine
 # Copie le contenu du dossier dist dans le répertoire par défaut de Nginx
 COPY ./dist /usr/share/nginx/html
 
+COPY ./nginx.conf /etc/nginx/conf.d/default.conf
+
 # Expose le port 80
 EXPOSE 80
 

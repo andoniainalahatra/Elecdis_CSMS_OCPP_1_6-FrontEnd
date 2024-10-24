@@ -1,10 +1,10 @@
 export const STATISTIQUECONF = {
     oldvalue: {
-      label: "Statistique ancien",
+      label: "Statistique ancienne",
       color: "#F29F05"
     },
     currentValue: {
-      label: "Statistique actuel",
+      label: "Statistique actuellle",
       color: "#3D9DF2"
     },
     barconfig: {
