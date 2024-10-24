@@ -10,17 +10,17 @@ import {
 
 const SessionDetails = ({ close }) => {
   return (
-    <div className="bg-white p-8 rounded-lg shadow-lg max-w-4xl mx-auto my-8">
+    <div className="bg-white p-8 rounded-lg shadow-lg  w-full">
       <h2 className="text-2xl font-bold text-blue-600 mb-4 flex items-center">
         <FaPlug className="mr-2" /> Détails de la Session de Recharge
       </h2>
 
       {/* Section: Utilisateur */}
-      <div className="mb-6">
+      <div className="ml-6 mb-6">
         <h3 className="text-lg font-semibold text-gray-700 mb-2 flex items-center">
           <FaUser className="mr-2" /> Informations de l'utilisateur
         </h3>
-        <div className="grid grid-cols-2 gap-4 text-gray-600">
+        <div className="grid grid-cols-2 gap-2 text-gray-600 w-[40%]">
           <p>
             <strong>Nom d'utilisateur:</strong> Kevin Rak
           </p>
@@ -31,11 +31,11 @@ const SessionDetails = ({ close }) => {
       </div>
 
       {/* Section: Détails de la session */}
-      <div className="mb-6">
+      <div className="ml-6 mb-6">
         <h3 className="text-lg font-semibold text-gray-700 mb-2 flex items-center">
           <FaClock className="mr-2" /> Détails de la Session
         </h3>
-        <div className="grid grid-cols-2 gap-4 text-gray-600">
+        <div className="grid grid-cols-2 gap-2 text-gray-600 w-[40%]">
           <p>
             <strong>ID de la borne:</strong> 927344
           </p>
@@ -49,17 +49,19 @@ const SessionDetails = ({ close }) => {
             <strong>Fin:</strong> 12/12/24 10h00
           </p>
           <div className="flex items-center gap-2 text-white">
-          <FaCheckCircle className="text-green-500" /><strong className="text-gray-700">Termine</strong>
+            <strong className="text-gray-700">Statut</strong>
+            <FaCheckCircle className="text-green-500" />
+            <p className="text-gray-700">Termine</p>
           </div>
         </div>
       </div>
 
       {/* Section: Coûts et consommation */}
-      <div className="mb-6">
+      <div className="ml-6 mb-6">
         <h3 className="text-lg font-semibold text-gray-700 mb-2 flex items-center">
           <FaMoneyBill className="mr-2" /> Coûts et Consommation
         </h3>
-        <div className="grid grid-cols-2 gap-4 text-gray-600">
+        <div className="grid grid-cols-2 gap-2 text-gray-600 w-[40%]">
           <p>
             <strong>Énergie consommée:</strong> 14 kWh
           </p>
@@ -70,7 +72,7 @@ const SessionDetails = ({ close }) => {
       </div>
 
       {/* Section: Lieu */}
-      <div className="mb-6">
+      <div className="ml-6 mb-6">
         <h3 className="text-lg font-semibold text-gray-700 mb-2 flex items-center">
           <FaMapMarkerAlt className="mr-2" /> Lieu de la Session
         </h3>
@@ -82,7 +84,7 @@ const SessionDetails = ({ close }) => {
       </div>
 
       {/* Section: Tarifs inclus */}
-      <div className="mb-6">
+      <div className="ml-6 mb-6">
         <h3 className="text-lg font-semibold text-gray-700 mb-2 flex items-center">
           <FaMoneyBill className="mr-2" /> Liste des Tarifs Inclus
         </h3>
@@ -91,19 +93,6 @@ const SessionDetails = ({ close }) => {
           <li>S2</li>
           <li>S3</li>
         </ul>
-      </div>
-
-      {/* Action buttons */}
-      <div className="flex justify-end space-x-4">
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-          Télécharger le Reçu
-        </button>
-        <button
-          onClick={() => close("")}
-          className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
-        >
-          Retour
-        </button>
       </div>
     </div>
   );

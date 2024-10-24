@@ -9,7 +9,8 @@ import { STATISTIQUECONF } from "../config/StatistiqueConfig";
 import { useQuery } from "@tanstack/react-query";
 import axiosInstance from "@/lib/axiosInstance";
 import Swal from "sweetalert2";
-import { PulseLoader } from "react-spinners";
+import { DONUTECHARTCONFIGGER } from "../config/DONUTECHARTCONFIGCHARGER";
+import OpenStreetMap from "@/modules/Station/OpenStreetMap";
 export default function ChartSection() {
   const { filters, filterYear } = useContext(Context);
 
@@ -115,7 +116,7 @@ export default function ChartSection() {
       setlitleDescri(null);
     }
   }, [filters, percentVal]);
- 
+
   if (errorDonute || errorMonth || errorSemestre || errorTrimestre) {
     Swal.fire({
       title: "Oops !",
@@ -126,17 +127,19 @@ export default function ChartSection() {
   }
 
   return (
-    <div className="grid max-sm:grid-cols-1 max-sm:place-items-center grid-cols-3 gap-6 w-full my-5 h-full">
-      <div className="col-span-1 max-sm:w-full h-full">
+    <div className="grid max-sm:grid-cols-1 grid-cols-3 gap-6 w-full my-6 h-full">
+      {/* Premier DonuteChart - 1ère colonne */}
+      <div className="col-span-1 max-sm:w-full h-full mb-4">
         <DonuteChart
           chartConfig={DONUTECHARTCONFIG}
           chartData={donuteData}
           title="Statut des connecteurs"
           label="Connecteurs"
-          className="w-full p-5 flex flex-col shadow-combined rounded-xl bg-pink-300 h-full"
         />
       </div>
-      <div className="col-span-2 max-sm:w-full max-sm:col-span-1 h-full">
+
+      {/* StatistiqueBarChart - 2ème colonne */}
+      <div className="col-span-2 max-sm:col-span-1">
         <StatistiqueBarChart
           chartData={statistiqueData}
           statiStiqueConfig={STATISTIQUECONF}
@@ -144,8 +147,23 @@ export default function ChartSection() {
           listFilterYearly={YEARLABEL}
           title="Énergie délivrée par kWh"
           loading={isLoading}
-          className="h-full"
+          className="w-full"
         />
+      </div>
+
+      {/* Second DonuteChart - 1ère colonne de la nouvelle ligne */}
+      <div className="col-span-1 max-sm:w-full h-full mb-4">
+        <DonuteChart
+          chartConfig={DONUTECHARTCONFIGGER}
+          chartData={donuteData}
+          title="Statut des chargeurs"
+          label="Chargeurs"
+        />
+      </div>
+
+      {/* OpenStreetMap - 2ème colonne de la nouvelle ligne */}
+      <div className="col-span-2 max-sm:w-full h-full">
+        <OpenStreetMap />
       </div>
     </div>
   );
