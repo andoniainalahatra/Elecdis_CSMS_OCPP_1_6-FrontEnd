@@ -1,8 +1,4 @@
-export const DONUTECHARTCONFIG = {
-    charging: {
-      label: "En cours d'utilisation",
-      color: "#3D9DF2",
-    },
+export const DONUTECHARTCONFIGGER = {
     available: {
       label: "Disponible",
       color: "#0fd32d",

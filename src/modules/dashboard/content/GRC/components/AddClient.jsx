@@ -8,9 +8,13 @@ import SelectList from "./SelectList";
 import { getSubscription } from "../config/client/clientApi";
 import { useAddClient } from "../../ACTIVITE/config/Api/AdminApi";
 
+import 'react-phone-number-input/style.css'
+import PhoneInput from 'react-phone-number-input'
+
+
 export default function AddClient({ Id }) {
     const [invalidMessage, setInvalidMessage] = useState("");
-
+    const [isFocused, setIsFocused] = useState(false);
 
 
 
@@ -44,6 +48,7 @@ export default function AddClient({ Id }) {
 
     const onSubmit = (formData) => {
         addClient(formData);
+
     }
 
     return (
@@ -127,7 +132,27 @@ export default function AddClient({ Id }) {
                                     },
                                 }}
                                 render={({ field }) => (
-                                    <Input type="text" label="Numero de telephone" {...field} />
+
+                                    <div>
+                                        <label
+                                            className={`absolute left-2 text-base bg-white px-7 py-0 transition-all duration-300 transform  -translate-y-3 scale-90
+                                            ${isFocused ? ' text-[#F2505D]' : 'text-gray-500'}`}
+                                        >
+                                            Téléphone
+                                        </label>
+
+                                        <PhoneInput
+                                            onFocus={() => setIsFocused(true)}
+                                            onBlur={() => setIsFocused(false)} // Ajout de la gestion du blur
+                                            international
+                                            defaultCountry="MG"
+                                            {...field}
+                                            className="input-phone-number h-[50px] p-4 border rounded-sm focus:outline-none focus:border-[#F2505D] transition duration-200"
+                                            placeholder="Entrez votre numéro" // Ajout d'un placeholder
+                                        />
+                                    </div>
+
+
                                 )}
                             />
                             {errors?.phone && <ErrorMessage message={errors.phone.message} />}
@@ -162,7 +187,7 @@ export default function AddClient({ Id }) {
 
                     {/* Submit Button */}
                     <div className="flex flex-col items-center justify-center w-full gap-7">
-                        <Boutton isLoading={isPending} label="Mettre à jour" />
+                        <Boutton isLoading={isPending} label="Ajouter" />
                     </div>
 
                     {/* Footer */}

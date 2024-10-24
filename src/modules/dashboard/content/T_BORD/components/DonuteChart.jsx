@@ -44,10 +44,10 @@ export default function DonuteChart({
     return () => window.removeEventListener('resize', handleResize);
   }, []);
   return (
-    <div className="w-full p-5 flex flex-col shadow-combined rounded-xl max-w-full h-[65vh] bg-white max-sm:w-full ">
-      <h1 className="text-[#212B36] font-bold mb-4">{title}</h1>
-      <div className="pb-0 w-full">
-        <ChartContainer config={chartConfig} className="w-full max-h-full">
+    <div className="w-full p-5 flex flex-col items-stretch shadow-combined rounded-xl max-w-full h-auto bg-white max-sm:w-full">
+      <h1 className="text-[#212B36] font-bold">{title}</h1>
+      <div className="w-full">
+        <ChartContainer config={chartConfig} className="mt-5 h-[50vh] w-full">
           <PieChart>
             <ChartTooltip
               cursor={true}
@@ -93,8 +93,6 @@ export default function DonuteChart({
             </Pie>
           </PieChart>
         </ChartContainer>
-      </div>
-      <div className="">
         <ColorChartInformation
           config={chartConfig}
           padding={0}
@@ -102,6 +100,7 @@ export default function DonuteChart({
           position="start"
         />
       </div>
+     
     </div>
   );
 }

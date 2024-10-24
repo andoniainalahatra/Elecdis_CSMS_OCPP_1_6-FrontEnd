@@ -333,10 +333,10 @@ function DataTable({
                 >
                     <ComponentModal IdStation={idDetail} />
                     <span
-                        className="absolute cursor-pointer top-5 right-5"
+                        className="absolute cursor-pointer top-5 z-50 right-5"
                         onClick={() => setIsDetail(false)}
                     >
-                        <IoMdClose className="text-white hover:text-amber-400" size={50} />
+                        <IoMdClose className="text-red-300 hover:text-red-500" size={50} />
                     </span>
                 </div>}
     </div>
