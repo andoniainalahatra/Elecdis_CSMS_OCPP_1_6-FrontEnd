@@ -8,6 +8,7 @@ import DetailAutorisation from "./DetailAutorisation";
 import EditAutorisation from "./EditAutorisation";
 import UpdateAdmin from "./updateAdmin";
 import { useDeleteClient } from "../../GRC/config/client/clientApi";
+import Swal from "sweetalert2";
 
 
 const ButtonAutorisation = ({ buttonProperty, Id }) => {
@@ -15,9 +16,25 @@ const ButtonAutorisation = ({ buttonProperty, Id }) => {
 
     const { mutate: deleteClient } = useDeleteClient();
 
-    const handleDelete = (Id) => {
-        deleteClient(Id);
+
+    const handleDelete = (clientId) => {
+        Swal.fire({
+            title: "Ete vous sur de supprimer ?",
+            text: "Vous ne pourrez pas revenir en arriere !",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Oui ,suprimez-le',
+            cancelButtonText: 'Annuler'
+        }).then((res) => {
+            if (res.isConfirmed) {
+                deleteClient(clientId)
+            }
+        })
+
     };
+
 
     const renderButton = (name, key) => {
         switch (name) {

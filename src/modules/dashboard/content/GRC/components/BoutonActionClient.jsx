@@ -31,8 +31,8 @@ const ButtonActionClient = ({ buttonProperty, Id }) => {
             if (res.isConfirmed) {
                 deleteClient(clientId)
             }
-
         })
+
     };
 
     const renderButton = (name, key) => {
