@@ -4,7 +4,7 @@ export const STATISTIQUECONF = {
       color: "#F29F05"
     },
     currentValue: {
-      label: "Statistique actuelle",
+      label: "Statistique actuellle",
       color: "#3D9DF2"
     },
     barconfig: {
