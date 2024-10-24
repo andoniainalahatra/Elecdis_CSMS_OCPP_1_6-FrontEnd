@@ -14,10 +14,15 @@ import { useGetSession } from "@/features/sessions/sessionApi";
 import { Context } from "@/common/config/configs/Context";
 import { useContext, useEffect, useState } from "react";
 import ButtonActionSession from "./ButtonSession";
+import SessionDetails from "./SessionDetails";
 
 export default function SessionTable() {
   const { filters } = useContext(Context);
   const datas = [
+    {
+      accessorKey : "id",
+      header : "Id"
+    },
     {
       accessorKey: "user_name",
       header: "Nom d'utilisateur",
@@ -50,10 +55,6 @@ export default function SessionTable() {
     {
       accessorKey: "Urgence",
       header: "Urgence",
-    },
-    {
-      accessorKey : "Actions",
-      header: "Actions"
     }
   ];
   const columns = datas;
@@ -138,6 +139,8 @@ export default function SessionTable() {
         onFilter={true}
         listFilter={listFiltre}
         filter="session"
+        onClickRow={true}
+        ComponentModal={SessionDetails}
       />
     </div>
   );

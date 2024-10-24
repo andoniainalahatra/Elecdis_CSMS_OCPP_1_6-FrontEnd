@@ -12,14 +12,14 @@ import 'react-phone-number-input/style.css'
 import PhoneInput from 'react-phone-number-input'
 
 
-export default function AddClient({ Id }) {
+export default function AddClient({ Id, setOpen }) {
     const [invalidMessage, setInvalidMessage] = useState("");
     const [isFocused, setIsFocused] = useState(false);
 
 
 
 
-    const { mutate: addClient, isPending } = useAddClient();
+    const { mutate: addClient, isPending, isSuccess } = useAddClient();
 
     const { control, formState: { errors }, handleSubmit, reset } = useForm();
     const { refetch: fetchSubscription, isPending: isFetchingSubscriptions, data: subscriptions } = getSubscription();
@@ -50,6 +50,11 @@ export default function AddClient({ Id }) {
         addClient(formData);
 
     }
+
+    if (isSuccess) {
+        setOpen(false)
+    }
+
 
     return (
         <div className="fixed top-0 left-0 z-10 flex items-center justify-center w-full h-screen">

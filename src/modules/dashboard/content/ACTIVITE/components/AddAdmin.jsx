@@ -16,7 +16,7 @@ export default function AddAdmin({ Id, setOpen }) {
     const [isFocused, setIsFocused] = useState(false);
 
     // const { mutate: updateClient, isPending } = useUpdateClient(Id);
-    const { mutate: addAdmin, isPending } = useAddAdmin();
+    const { mutate: addAdmin, isPending, isSuccess } = useAddAdmin();
 
     const { control, formState: { errors }, handleSubmit, reset } = useForm();
     const { refetch: fetchSubscription, isPending: isFetchingSubscriptions, data: subscriptions } = getSubscription();
@@ -49,7 +49,7 @@ export default function AddAdmin({ Id, setOpen }) {
         });
     }
 
-    if (isPending) {
+    if (isSuccess) {
         setOpen(false)
     }
 
