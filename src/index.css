@@ -130,3 +130,10 @@ body {
   /*outline: none;*/
   outline-color: #f1f1f1 !important;
 }
+
+
+.input-phone-number input:focus{
+  outline: none !important;
+  border:none !important;
+  box-shadow: none !important;
+}
