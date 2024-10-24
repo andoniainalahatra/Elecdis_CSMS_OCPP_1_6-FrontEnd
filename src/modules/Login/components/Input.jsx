@@ -27,7 +27,7 @@ const Input = forwardRef(({ id, type = 'text', value = '', onChange, label }, re
         id={id}
         type={type === 'password' && showPassword ? 'text' : type} // Change le type à 'text' si showPassword est true
         ref={inputRef}
-        className="peer input-style pr-10" // Ajoute de l'espace à droite pour l'icône
+        className="pr-10 peer input-style" // Ajoute de l'espace à droite pour l'icône
         value={value}
         onChange={(e) => onChange(e.target.value)}
         onFocus={() => setIsFocused(true)}
@@ -49,12 +49,12 @@ const Input = forwardRef(({ id, type = 'text', value = '', onChange, label }, re
         <button
           type="button"
           onClick={togglePasswordVisibility}
-          className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500"
+          className="absolute text-gray-500 transform -translate-y-1/2 right-2 top-1/2"
         >
           {showPassword ? (
-            <AiOutlineEyeInvisible className="h-5 w-5" /> // Icône pour cacher le mot de passe
+            <AiOutlineEyeInvisible className="w-5 h-5" /> // Icône pour cacher le mot de passe
           ) : (
-            <AiOutlineEye className="h-5 w-5" /> // Icône pour afficher le mot de passe
+            <AiOutlineEye className="w-5 h-5" /> // Icône pour afficher le mot de passe
           )}
         </button>
       )}

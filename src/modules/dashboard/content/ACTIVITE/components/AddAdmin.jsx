@@ -8,9 +8,12 @@ import SelectList from "../../GRC/components/SelectList";
 import { getSubscription } from "../../GRC/config/client/clientApi";
 
 import { useAddAdmin } from "../config/Api/AdminApi";
+import 'react-phone-number-input/style.css'
+import PhoneInput from 'react-phone-number-input'
 
-export default function AddAdmin({ Id }) {
+export default function AddAdmin({ Id, setOpen }) {
     const [invalidMessage, setInvalidMessage] = useState("");
+    const [isFocused, setIsFocused] = useState(false);
 
     // const { mutate: updateClient, isPending } = useUpdateClient(Id);
     const { mutate: addAdmin, isPending } = useAddAdmin();
@@ -43,25 +46,13 @@ export default function AddAdmin({ Id }) {
 
     const onSubmit = (formData) => {
         addAdmin(formData, {
-            onSuccess: () => {
-                Swal.fire({
-                    icon: "success",
-                    title: "Admin ajouter avec succès !",
-                });
-            },
-            onError: (error) => {
-                if (error.response?.status === 401) {
-                    setInvalidMessage("L'identifiant utilisateur n'existe pas");
-                } else {
-                    Swal.fire({
-                        icon: "error",
-                        title: "Oops...",
-                        text: "Une erreur s'est produite. Veuillez réessayer plus tard.",
-                    });
-                }
-            },
         });
     }
+
+    if (isPending) {
+        setOpen(false)
+    }
+
 
     return (
         <div className="fixed top-0 left-0 z-10 flex items-center justify-center w-full h-screen">
@@ -146,7 +137,24 @@ export default function AddAdmin({ Id }) {
                                     },
                                 }}
                                 render={({ field }) => (
-                                    <Input type="text" label="Numero de telephone" {...field} />
+                                    <div>
+                                        <label
+                                            className={`absolute left-2 text-base bg-white px-7 py-0 transition-all duration-300 transform  -translate-y-3 scale-90
+                                        ${isFocused ? ' text-[#F2505D]' : 'text-gray-500'}`}
+                                        >
+                                            Téléphone
+                                        </label>
+
+                                        <PhoneInput
+                                            onFocus={() => setIsFocused(true)}
+                                            onBlur={() => setIsFocused(false)} // Ajout de la gestion du blur
+                                            international
+                                            defaultCountry="MG"
+                                            {...field}
+                                            className="input-phone-number h-[50px] p-4 border rounded-sm focus:outline-none focus:border-[#F2505D] transition duration-200"
+                                            placeholder="Entrez votre numéro" // Ajout d'un placeholder
+                                        />
+                                    </div>
                                 )}
                             />
                             {errors?.phone && <ErrorMessage message={errors.phone.message} />}
@@ -183,7 +191,7 @@ export default function AddAdmin({ Id }) {
 
                     {/* Submit Button */}
                     <div className="flex flex-col items-center justify-center w-full gap-7">
-                        <Boutton isLoading={isPending} label="Mettre à jour" />
+                        <Boutton isLoading={isPending} label="Ajouter" />
                     </div>
 
                     {/* Footer */}
