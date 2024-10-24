@@ -16,7 +16,7 @@ import { STATISTIQUECONF } from "../dashboard/content/T_BORD/config/StatistiqueC
 import { YEARLABEL } from "@/_mock/constant";
 
 
-function DetailStation({ IdStation }) {
+function DetailStation({ IdStation}) {
 
     const { filters, filterYear } = useContext(Context);
     const [isStart, setIsStart] = useState(false);
@@ -176,7 +176,6 @@ function DetailStation({ IdStation }) {
 
 
 
-
     return (
         <div className="container h-screen">
             {/* {adminData.map((item,index)=>( */}
@@ -294,7 +293,7 @@ function DetailStation({ IdStation }) {
                                 }
                             </div>
                         </div>
-                        ))}
+                    ))}
                         
                         {/* <div>
 
@@ -333,7 +332,7 @@ function DetailStation({ IdStation }) {
                             <p>Intervalle de reconnection:</p>
                         </div>
                         <div>
-                            <p>ws://localhost:9220</p>
+                            <p>ws://localhost:9001</p>
                             <p>Chargeur-1</p>
                             <p>EV98jh</p>
                             <p>TEST</p>
@@ -344,20 +343,22 @@ function DetailStation({ IdStation }) {
                     <div>
                     </div>
                 </div>
-
+                
                 <div className="text-[#fefefe] col-span-1 rounded-2xl p-6 w-full ">
                     <h1 className="text-2xl font-bold text-red-600 text-start">Firmware</h1>
                     <div className="grid w-full grid-cols-1 gap-4 mt-2 text-gray-800 text-start max-md:gap-6">
-                        <div className="flex gap-4">
+                       {/* {adminData.map((item,index)=>( */}
+                        <div  className="flex gap-4">
                             <div>
-                                <p>Systeme d'exploitation:</p>
+                                {/* <p>Systeme d'exploitation:</p> */}
                                 <p>Protocole ocpp:</p>
                             </div>
                             <div>
-                                <p>Ubuntu 22.04 LTS</p>
+                                {/* <p>Ubuntu 22.04 LTS</p> */}
                                 <p>1.6</p>
                             </div>
                         </div>
+                        {/* ))} */}
                     </div>
                 </div>
 

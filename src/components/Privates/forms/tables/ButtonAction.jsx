@@ -56,11 +56,13 @@ const ButtonAction = ({ buttonProperty, Id }) => {
 
                 return (
 
-                    <span
+                    <span 
                         key={key}
-                        onClick={() => {
+                        onClick={(e) => {
+                            e.stopPropagation()
                             setSection("detail");
                             console.log(Id);
+                            
                         }}
                         className="m-1 text-blue-500 bg-transparent hover:bg-transparent hover:text-blue-600"
                     >
