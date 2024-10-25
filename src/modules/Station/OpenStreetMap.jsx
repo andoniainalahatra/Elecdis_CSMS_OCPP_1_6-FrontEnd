@@ -91,7 +91,7 @@ function OpenStreetMap() {
                 </select>
             </div>
 
-            <div className="w-full h-full">
+            <div className="relative w-full h-full -z-0">
                 <MapContainer center={defaultCenter} zoom={12} style={{ padding: "5px", height: "350px", width: "100%" }}>
                     <TileLayer
                         url={tileUrl}
