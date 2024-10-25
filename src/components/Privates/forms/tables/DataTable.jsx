@@ -25,6 +25,7 @@ import { useDispatch } from "react-redux";
 import ButtonStopTransaction from "@/modules/dashboard/component/ButtonStopTransaction";
 import ButtonFilterTable from "@/modules/dashboard/component/ButtonFilterTable";
 import { IoMdClose } from "react-icons/io";
+import { transformValue } from "@/lib/utils";
 /**
  * Génère un tableau paginé avec des actions.
  *
@@ -59,16 +60,16 @@ function DataTable({
   listFilter,
   onFilter = false,
   onClickRow = false,
-  ComponentModal
+  ComponentModal,
 }) {
-  const [isDetail, setIsDetail] = useState(false)
-  const [idDetail, setIdDetail] = useState(null)
+  const [isDetail, setIsDetail] = useState(false);
+  const [idDetail, setIdDetail] = useState(null);
   const handleClick = (Id) => {
     if (onClickRow) {
-      setIsDetail(true)
-      setIdDetail(Id)
+      setIsDetail(true);
+      setIdDetail(Id);
     }
-  }
+  };
   const [data, setData] = useState([]);
   const [pagination, setPagination] = useState({});
   useEffect(() => {
@@ -145,12 +146,39 @@ function DataTable({
 
           <TableBody className="w-full">
             {table.getRowModel().rows.map((row) => (
-              <TableRow key={row.id} onClick={() => handleClick(row.original.id)}>
+              <TableRow
+                key={row.id}
+                onClick={() => handleClick(row.original.id)}
+              >
                 {row.getVisibleCells().map((cell) => {
                   const cellValue = cell.getValue();
                   const id = row.original.id;
                   let cellClass = "";
                   const rowData = row.original;
+                  if (cell.column.id === "consumed_energy") {
+                    const rawValue = cell.getValue();
+
+                    const transformedValue = transformValue(rawValue);
+                    if (rawValue) {
+                      return (
+                        <TableCell key={cell.id} className="text-center">
+                          {transformedValue}
+                        </TableCell>
+                      );
+                    }
+                  }
+                  if (cell.column.id === "total_cost") {
+                    const rawValue = cell.getValue();
+
+                    const transformedValue = transformValue(rawValue);
+                    if (rawValue) {
+                      return (
+                        <TableCell key={cell.id} className="text-center">
+                          {transformedValue}
+                        </TableCell>
+                      );
+                    }
+                  }
                   if (cell.column.id === "Urgence") {
                     if (rowData.statuts == "en cours") {
                       return (
@@ -202,11 +230,18 @@ function DataTable({
 
                   if (cell.column.columnDef.header === "Actions") {
                     return (
-                      <TableCell onClick={(e) => { e.stopPropagation() }} key={cell.id} className="text-center">
+                      <TableCell
+                        onClick={(e) => {
+                          e.stopPropagation();
+                        }}
+                        key={cell.id}
+                        className="text-center"
+                      >
                         <ButtonAction buttonProperty={actions} Id={id} />
                       </TableCell>
                     );
                   }
+
 
                   if (
                     cell.column.id === "status" ||
@@ -325,20 +360,21 @@ function DataTable({
             <MdOutlineLastPage size={20} />
           </Button>
         </div>
-
       </div>
-      {isDetail && <div
-        className="fixed top-0 left-0 z-20 flex items-center justify-center w-full h-screen overflow-auto backdrop-blur-md"
-        style={{ backgroundColor: "rgba(9,16,26,0.3)" }}
-      >
-        <ComponentModal Id={idDetail} />
-        <span
-          className="absolute z-50 cursor-pointer top-5 right-5"
-          onClick={() => setIsDetail(false)}
+      {isDetail && (
+        <div
+          className="fixed top-0 left-0 z-20 flex items-center justify-center w-full h-screen overflow-auto backdrop-blur-md"
+          style={{ backgroundColor: "rgba(9,16,26,0.3)" }}
         >
-          <IoMdClose className="text-red-300 hover:text-red-500" size={50} />
-        </span>
-      </div>}
+          <ComponentModal Id={idDetail} />
+          <span
+            className="absolute z-50 cursor-pointer top-5 right-5"
+            onClick={() => setIsDetail(false)}
+          >
+            <IoMdClose className="text-red-300 hover:text-red-500" size={50} />
+          </span>
+        </div>
+      )}
     </div>
   );
 }
