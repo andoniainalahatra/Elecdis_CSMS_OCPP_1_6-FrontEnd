@@ -77,8 +77,7 @@ function OpenStreetMap() {
     if (isPending) {
         return <p>Chargement en cours...</p>;
     }
-    const markerPositions = coordonate?.map(marker => marker.position) || [];
-
+    // const markerPositions = coordonate?.map(marker => marker.position) || [];
     
     return (
         <div className="h-full shadow-combined rounded-lg bg-white p-6 z-0 mb-6">
@@ -93,12 +92,12 @@ function OpenStreetMap() {
             </div>
 
             <div className="w-full h-full">
-            <MapContainer center={defaultCenter} zoom={15} style={{ padding: "5px" ,height: "350px", width: "100%" }}>
+            <MapContainer center={defaultCenter} zoom={12} style={{ padding: "5px" ,height: "350px", width: "100%" }}>
                 <TileLayer
                     url={tileUrl}
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 />
-                <SetMapBounds coordinates={markerPositions} />
+                {/* <SetMapBounds coordinates={markerPositions} /> */}
                 {coordonate?.map(marker => (
                     <Marker key={marker.id} position={marker.position} icon={getIcon(marker.status)}>
                         <Popup>
