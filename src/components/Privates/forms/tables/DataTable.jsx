@@ -58,16 +58,16 @@ function DataTable({
   filter,
   listFilter,
   onFilter = false,
-  onClickRow=false,
+  onClickRow = false,
   ComponentModal
 }) {
-  const [isDetail,setIsDetail]=useState(false)
-  const [idDetail,setIdDetail]=useState(null)
-  const handleClick=(Id)=>{
-   if(onClickRow){
-    setIsDetail(true)
-    setIdDetail(Id)
-   }
+  const [isDetail, setIsDetail] = useState(false)
+  const [idDetail, setIdDetail] = useState(null)
+  const handleClick = (Id) => {
+    if (onClickRow) {
+      setIsDetail(true)
+      setIdDetail(Id)
+    }
   }
   const [data, setData] = useState([]);
   const [pagination, setPagination] = useState({});
@@ -120,7 +120,7 @@ function DataTable({
 
   return (
     <div className="w-full py-6 shadow-combined rounded-lg overflow-x-auto bg-[#fffe]">
-      <div className="w-full mb-4 flex gap-2 items-center">
+      <div className="flex items-center w-full gap-2 mb-4">
         <Filters value={globalFilter} onChange={setGlobalFilter} />
         {onFilter && (
           <ButtonFilterTable filter={filter} listFilter={listFilter} />
@@ -145,7 +145,7 @@ function DataTable({
 
           <TableBody className="w-full">
             {table.getRowModel().rows.map((row) => (
-              <TableRow key={row.id} onClick={()=>handleClick(row.original.id)}>
+              <TableRow key={row.id} onClick={() => handleClick(row.original.id)}>
                 {row.getVisibleCells().map((cell) => {
                   const cellValue = cell.getValue();
                   const id = row.original.id;
@@ -202,12 +202,12 @@ function DataTable({
 
                   if (cell.column.columnDef.header === "Actions") {
                     return (
-                      <TableCell onClick={(e)=>{e.stopPropagation()}} key={cell.id} className="text-center">
+                      <TableCell onClick={(e) => { e.stopPropagation() }} key={cell.id} className="text-center">
                         <ButtonAction buttonProperty={actions} Id={id} />
                       </TableCell>
                     );
                   }
-                  
+
                   if (
                     cell.column.id === "status" ||
                     cell.column.id === "statuts" ||
@@ -279,7 +279,7 @@ function DataTable({
         </Table>
       </div>
 
-      <div className="w-full flex items-center justify-between gap-4 p-2 m-3 max-md:flex-col max-md:justify-center">
+      <div className="flex items-center justify-between w-full gap-4 p-2 m-3 max-md:flex-col max-md:justify-center">
         <span className="text-sm text-[#64748b] ">
           Page {pageIndex} sur {totalPages}, affichage de {pageSize} resultats
           sur un total de {rowCount}
@@ -325,20 +325,20 @@ function DataTable({
             <MdOutlineLastPage size={20} />
           </Button>
         </div>
-      
+
       </div>
-      { isDetail &&  <div
-                    className="fixed top-0 left-0 z-20 flex items-center justify-center w-full h-screen overflow-auto backdrop-blur-md"
-                    style={{ backgroundColor: "rgba(9,16,26,0.3)" }}
-                >
-                    <ComponentModal IdStation={idDetail} />
-                    <span
-                        className="absolute cursor-pointer top-5 z-50 right-5"
-                        onClick={() => setIsDetail(false)}
-                    >
-                        <IoMdClose className="text-red-300 hover:text-red-500" size={50} />
-                    </span>
-                </div>}
+      {isDetail && <div
+        className="fixed top-0 left-0 z-20 flex items-center justify-center w-full h-screen overflow-auto backdrop-blur-md"
+        style={{ backgroundColor: "rgba(9,16,26,0.3)" }}
+      >
+        <ComponentModal Id={idDetail} />
+        <span
+          className="absolute z-50 cursor-pointer top-5 right-5"
+          onClick={() => setIsDetail(false)}
+        >
+          <IoMdClose className="text-red-300 hover:text-red-500" size={50} />
+        </span>
+      </div>}
     </div>
   );
 }
