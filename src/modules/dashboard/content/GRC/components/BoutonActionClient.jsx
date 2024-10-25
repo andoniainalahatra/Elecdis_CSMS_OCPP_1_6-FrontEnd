@@ -37,18 +37,18 @@ const ButtonActionClient = ({ buttonProperty, Id }) => {
 
     const renderButton = (name, key) => {
         switch (name) {
-            case "detail":
-                return (
-                    <span
-                        key={key}
-                        onClick={() => {
-                            setSection("detail");
-                        }}
-                        className="m-1 text-blue-500 bg-transparent hover:bg-transparent hover:text-blue-600"
-                    >
-                        <BiSolidDashboard />
-                    </span>
-                );
+            // case "detail":
+            //     return (
+            //         <span
+            //             key={key}
+            //             onClick={() => {
+            //                 setSection("detail");
+            //             }}
+            //             className="m-1 text-blue-500 bg-transparent hover:bg-transparent hover:text-blue-600"
+            //         >
+            //             <BiSolidDashboard />
+            //         </span>
+            //     );
             case "delete":
                 return (
                     <span
@@ -57,8 +57,6 @@ const ButtonActionClient = ({ buttonProperty, Id }) => {
                         className="m-1 text-red-500 bg-transparent hover:bg-transparent hover:text-red-600"
                     >
                         <RiDeleteBin6Line />
-
-
                     </span>
                 );
             case "edit":
@@ -85,8 +83,6 @@ const ButtonActionClient = ({ buttonProperty, Id }) => {
             {section === "detail" && (
                 <div
                     className="fixed top-0 left-0 z-10  w-full h-screen overflow-auto bg-[#F9FAFB]"
-
-
                 >
                     {/* <DetailsClient Id={Id} /> */}
                     <UserProfil id={Id} />
