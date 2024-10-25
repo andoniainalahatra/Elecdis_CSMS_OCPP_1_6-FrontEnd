@@ -3,12 +3,13 @@ import { useMutation } from '@tanstack/react-query';
 import { PulseLoader } from 'react-spinners';
 import Swal from 'sweetalert2';
 
-function ButtonStopTransaction({transactionId, chargPointId}) {
+function ButtonStopTransaction({ transactionId, chargPointId }) {
   const stopTransaction = async () => {
     const response = await axiosInstance.post(`/cp/send_remoteStopTransaction/${chargPointId}/${transactionId}`);
     return response.data;
   };
-  const {mutate, isError, isPending, isSuccess} = useMutation({mutationFn : stopTransaction,
+  const { mutate, isError, isPending, isSuccess } = useMutation({
+    mutationFn: stopTransaction,
   });
   const confirmDelete = () => {
     Swal.fire({
@@ -24,21 +25,21 @@ function ButtonStopTransaction({transactionId, chargPointId}) {
       if (result.isConfirmed) {
         mutate()
         if (isSuccess) {
-            Swal.fire(
-                'Arret !',
-                'La session a été arreter.',
-                'success'
-              );
+          Swal.fire(
+            'Arret !',
+            'La session a été arreter.',
+            'success'
+          );
         }
-        if (isError){
-            Swal.fire(
-                'Oops !',
-                'Une erreur s\'est produite',
-                'error'
-              );
+        if (isError) {
+          Swal.fire(
+            'Oops !',
+            'Une erreur s\'est produite',
+            'error'
+          );
         }
         if (isPending) {
-            <div className="w-full flex justify-center items-center h-[70vh]">
+          <div className="w-full flex justify-center items-center h-[70vh]">
             <PulseLoader color="#F2505D" />
           </div>
         }
@@ -46,7 +47,7 @@ function ButtonStopTransaction({transactionId, chargPointId}) {
     });
   };
   return (
-    <button onClick={()=>confirmDelete()} className='px-4 py-2 rounded-xl bg-red-400 text-white' >
+    <button onClick={() => confirmDelete()} className='px-4 py-2 text-white bg-red-400 rounded-xl' >
       Stopper
     </button>
   )
