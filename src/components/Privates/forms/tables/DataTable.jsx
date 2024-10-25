@@ -121,7 +121,7 @@ function DataTable({
 
   return (
     <div className="w-full py-6 shadow-combined rounded-lg overflow-x-auto bg-[#fffe]">
-      <div className="w-full mb-4 flex gap-2 items-center">
+      <div className="flex items-center w-full gap-2 mb-4">
         <Filters value={globalFilter} onChange={setGlobalFilter} />
         {onFilter && (
           <ButtonFilterTable filter={filter} listFilter={listFilter} />
@@ -242,6 +242,7 @@ function DataTable({
                     );
                   }
 
+
                   if (
                     cell.column.id === "status" ||
                     cell.column.id === "statuts" ||
@@ -313,7 +314,7 @@ function DataTable({
         </Table>
       </div>
 
-      <div className="w-full flex items-center justify-between gap-4 p-2 m-3 max-md:flex-col max-md:justify-center">
+      <div className="flex items-center justify-between w-full gap-4 p-2 m-3 max-md:flex-col max-md:justify-center">
         <span className="text-sm text-[#64748b] ">
           Page {pageIndex} sur {totalPages}, affichage de {pageSize} resultats
           sur un total de {rowCount}
@@ -365,7 +366,7 @@ function DataTable({
           className="fixed top-0 left-0 z-20 flex items-center justify-center w-full h-screen overflow-auto backdrop-blur-md"
           style={{ backgroundColor: "rgba(9,16,26,0.3)" }}
         >
-          <ComponentModal IdStation={idDetail} />
+          <ComponentModal Id={idDetail} />
           <span
             className="absolute cursor-pointer top-5 z-50 right-5"
             onClick={() => setIsDetail(false)}

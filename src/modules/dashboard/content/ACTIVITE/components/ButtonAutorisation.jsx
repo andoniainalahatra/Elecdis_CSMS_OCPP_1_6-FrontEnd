@@ -38,18 +38,18 @@ const ButtonAutorisation = ({ buttonProperty, Id }) => {
 
     const renderButton = (name, key) => {
         switch (name) {
-            case "detail":
-                return (
-                    <span
-                        key={key}
-                        onClick={() => {
-                            setSection("detail");
-                        }}
-                        className="m-1 text-blue-500 bg-transparent hover:bg-transparent hover:text-blue-600"
-                    >
-                        <BiSolidDashboard />
-                    </span>
-                );
+            // case "detail":
+            //     return (
+            //         <span
+            //             key={key}
+            //             onClick={() => {
+            //                 setSection("detail");
+            //             }}
+            //             className="m-1 text-blue-500 bg-transparent hover:bg-transparent hover:text-blue-600"
+            //         >
+            //             <BiSolidDashboard />
+            //         </span>
+            //     );
             case "delete":
                 return (
                     <span
