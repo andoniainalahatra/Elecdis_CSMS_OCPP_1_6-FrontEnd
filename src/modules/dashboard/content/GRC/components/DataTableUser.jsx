@@ -3,12 +3,13 @@ import Columns from "@/components/Privates/forms/tables/Columns";
 import { PulseLoader } from "react-spinners";
 import Swal from "sweetalert2";
 import { useDispatch, useSelector } from "react-redux";
-import { nextPage, previousPage, resetPage, totalPage } from "@/features/Stations/stationSlice.js";
+// import { nextPage, previousPage, resetPage, totalPage } from "@/features/Admin/userSlice";
 
 import { ClientApi } from "../config/client/clientApi";
 import { selectClient, selectPage } from "../config/client/clientSelector";
-import { getClient } from "../config/client/clientSlice";
+import { getClient, nextPage, previousPage, resetPage, totalPage } from "../config/client/clientSlice";
 import ButtonActionClient from "./BoutonActionClient";
+import UserProfil from "@/components/UserProfil";
 
 // const datas = [
 //     "id", "first_name", "last_name", "email", "role", "phone", "subscription", "Actions"
@@ -94,6 +95,8 @@ const DataTableUser = () => {
             resetPage={resetPage}
             nextPage={nextPage}
             previousPage={previousPage}
+            onClickRow={true}
+            ComponentModal={UserProfil}
         />
     );
 };

@@ -14,7 +14,7 @@ import UserTableSpecificRFID from "./UserTableSpecificRFID";
 import useGetDataNoParams from "@/lib/hoocks/useGetDataNoParams";
 import { PulseLoader } from "react-spinners";
 import UserTableSpecificSession from "@/modules/dashboard/content/ACTIVITE/components/UserTableSpecificSession";
-function UserProfil({ id }) {
+function UserProfil({ Id }) {
   const dataTransactionHistorique = [
     {
       id: "TXN001",
@@ -48,7 +48,7 @@ function UserProfil({ id }) {
     },
 
   ]
-  const { data, error, isPending } = useGetDataNoParams(`/users/profile/${id}`, 'specific_user')
+  const { data, error, isPending } = useGetDataNoParams(`/users/profile/${Id}`, 'specific_user')
 
 
   const [affiche, setAffiche] = useState("RFID")
@@ -106,9 +106,9 @@ function UserProfil({ id }) {
           <UserInfoCoordonner Icone={LiaHandshakeSolid} Value={data.user.partner === null ? "not a partner" : data.user.partner} />
         </div>
         <div className="col-span-2 bg-[#F9FAFB] p-6">
-          {affiche == "RFID" && <UserTableSpecificRFID id={id} />}
+          {affiche == "RFID" && <UserTableSpecificRFID id={Id} />}
           {affiche == "historyTransaction" && <TransactionList transactionsData={dataTransactionHistorique} />}
-          {affiche == "historySession" && <UserTableSpecificSession id={id} />}
+          {affiche == "historySession" && <UserTableSpecificSession id={Id} />}
         </div>
       </div>
     </div>
