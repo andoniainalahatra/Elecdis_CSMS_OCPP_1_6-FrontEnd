@@ -127,44 +127,45 @@ export default function ChartSection() {
   }
 
   return (
-    <div className="grid max-sm:grid-cols-1 grid-cols-3 gap-6 w-full my-6 h-full">
-      {/* Premier DonuteChart - 1ère colonne */}
-      <div className="col-span-1 max-sm:w-full h-full mb-4">
-        <DonuteChart
-          chartConfig={DONUTECHARTCONFIG}
-          chartData={donuteData}
-          title="Statut des connecteurs"
-          label="Connecteurs"
-        />
-      </div>
+<div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 w-full my-6 h-auto">
+  {/* Premier DonuteChart - 1ère colonne */}
+  <div className="col-span-1 w-full h-full mb-4">
+    <DonuteChart
+      chartConfig={DONUTECHARTCONFIGGER}
+      chartData={donuteData}
+      title="Statut des chargeurs"
+      label="Chargeurs"
+    />
+  </div>
 
-      {/* StatistiqueBarChart - 2ème colonne */}
-      <div className="col-span-2 max-sm:col-span-1">
-        <StatistiqueBarChart
-          chartData={statistiqueData}
-          statiStiqueConfig={STATISTIQUECONF}
-          description={litleDescri}
-          listFilterYearly={YEARLABEL}
-          title="Énergie délivrée par kWh"
-          loading={isLoading}
-          className="w-full"
-        />
-      </div>
+  {/* StatistiqueBarChart - 2ème colonne */}
+  <div className="col-span-1 md:col-span-2 w-full h-full">
+    <StatistiqueBarChart
+      chartData={statistiqueData}
+      statiStiqueConfig={STATISTIQUECONF}
+      description={litleDescri}
+      listFilterYearly={YEARLABEL}
+      title="Énergie délivrée par kWh"
+      loading={isLoading}
+      className="w-full h-full"
+    />
+  </div>
 
-      {/* Second DonuteChart - 1ère colonne de la nouvelle ligne */}
-      <div className="col-span-1 max-sm:w-full h-full mb-4">
-        <DonuteChart
-          chartConfig={DONUTECHARTCONFIGGER}
-          chartData={donuteData}
-          title="Statut des chargeurs"
-          label="Chargeurs"
-        />
-      </div>
+  {/* Second DonuteChart - 3ème colonne */}
+  <div className="col-span-1 w-full h-full mb-4">
+    <DonuteChart
+      chartConfig={DONUTECHARTCONFIG}
+      chartData={donuteData}
+      title="Statut des connecteurs"
+      label="Connecteurs"
+    />
+  </div>
 
-      {/* OpenStreetMap - 2ème colonne de la nouvelle ligne */}
-      <div className="col-span-2 max-sm:w-full h-full">
-        <OpenStreetMap />
-      </div>
-    </div>
+  {/* OpenStreetMap - 2ème colonne en responsive */}
+  <div className="col-span-1 md:col-span-2 w-full h-full">
+    <OpenStreetMap />
+  </div>
+</div>
+
   );
 }

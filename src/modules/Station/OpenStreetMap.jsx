@@ -81,7 +81,7 @@ function OpenStreetMap() {
 
     
     return (
-        <div className="relative shadow-combined rounded-lg bg-white p-6 z-0 mb-6">
+        <div className="relative h-full shadow-combined rounded-lg bg-white p-6 z-0 mb-6">
             <div className="mb-4">
                 <label>Choisissez un thème :</label>
                 <select onChange={handleThemeChange} className="ml-2 p-2 py-2 border bg-white focus:ring-0 rounded-sm focus:outline-none">
