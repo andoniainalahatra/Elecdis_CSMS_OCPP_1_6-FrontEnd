@@ -52,8 +52,8 @@ export const SetMapBounds = ({ coordinates }) => {
     return null;
 };
 
-function OpenStreetMap() {
-    const defaultCenter = [-18.933333, 47.516667];
+function OpenStreetMap() { 
+    const defaultCenter = [-18.8732982226088, 47.50762742330922];
 
     const [tileUrl, setTileUrl] = useState('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
     const [coordonate, setCoordonate] = useState(null);
@@ -77,11 +77,10 @@ function OpenStreetMap() {
     if (isPending) {
         return <p>Chargement en cours...</p>;
     }
-    const markerPositions = coordonate?.map(marker => marker.position) || [];
-
+    // const markerPositions = coordonate?.map(marker => marker.position) || [];
     
     return (
-        <div className="relative h-full shadow-combined rounded-lg bg-white p-6 z-0 mb-6">
+        <div className="h-full shadow-combined rounded-lg bg-white p-6 z-0 mb-6">
             <div className="mb-4">
                 <label>Choisissez un thème :</label>
                 <select onChange={handleThemeChange} className="ml-2 p-2 py-2 border bg-white focus:ring-0 rounded-sm focus:outline-none">
@@ -92,12 +91,13 @@ function OpenStreetMap() {
                 </select>
             </div>
 
-            <MapContainer center={defaultCenter} zoom={13} style={{ height: "350px", width: "100%" }}>
+            <div className="w-full h-full">
+            <MapContainer center={defaultCenter} zoom={12} style={{ padding: "5px" ,height: "350px", width: "100%" }}>
                 <TileLayer
                     url={tileUrl}
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 />
-                <SetMapBounds coordinates={markerPositions} />
+                {/* <SetMapBounds coordinates={markerPositions} /> */}
                 {coordonate?.map(marker => (
                     <Marker key={marker.id} position={marker.position} icon={getIcon(marker.status)}>
                         <Popup>
@@ -106,6 +106,7 @@ function OpenStreetMap() {
                     </Marker>
                 ))}
             </MapContainer>
+            </div>
         </div>
     );
 }
