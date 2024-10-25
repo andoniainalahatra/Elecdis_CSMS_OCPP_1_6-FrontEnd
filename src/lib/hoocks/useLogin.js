@@ -9,13 +9,13 @@ export const useLogin = () => {
       const tokenExpiry = 7; // 7 jours si "rememberMe" est activé, sinon 1 jour
       Cookies.set("access_token", data.access_token, {
         expires: tokenExpiry,
-        secure: true, // Obligatoire si SameSite=None
-        sameSite: "None", // Ou 'Lax', selon le comportement souhaité
+        secure: false, // Obligatoire si SameSite=None
+        sameSite: "Lax", // Ou 'Lax', selon le comportement souhaité
       });
       Cookies.set("user", JSON.stringify(data.user), {
         expires: tokenExpiry,
-        secure: true,
-        sameSite: "None",
+        secure: false,
+        sameSite: "Lax",
       });
     },
     onError: (error) => {
