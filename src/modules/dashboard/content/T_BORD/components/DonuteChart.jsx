@@ -17,6 +17,7 @@ export default function DonuteChart({
     if (!chartData || chartData.length === 0) return 0;
     return chartData.reduce((sum, data) => sum + data.value, 0);
   }, [chartData]);
+
   const [radius, setRadius] = useState({ innerRadius: 20, outerRadius: 30 });
 
   useEffect(() => {
@@ -25,8 +26,8 @@ export default function DonuteChart({
       const screenWidth = window.innerWidth;
 
       // Calculer les valeurs de radius dynamiquement en fonction de la largeur de l'écran
-      const dynamicInnerRadius = Math.max(50, screenWidth * 0.06); // 8% de la largeur de l'écran, avec un minimum de 60
-      const dynamicOuterRadius = Math.max(60, screenWidth * 0.09); // 16% de la largeur de l'écran, avec un minimum de 120
+      const dynamicInnerRadius = Math.max(50, screenWidth * 0.06); // 6% de la largeur de l'écran, avec un minimum de 50
+      const dynamicOuterRadius = Math.max(60, screenWidth * 0.09); // 9% de la largeur de l'écran, avec un minimum de 60
 
       setRadius({
         innerRadius: dynamicInnerRadius,
@@ -38,16 +39,23 @@ export default function DonuteChart({
     handleResize();
 
     // Écouter les changements de taille de la fenêtre
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
     // Nettoyage de l'événement lors du démontage du composant
-    return () => window.removeEventListener('resize', handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
+
   return (
-    <div className="w-full p-5 flex flex-col items-stretch shadow-combined rounded-xl max-w-full h-auto bg-white max-sm:w-full">
-      <h1 className="text-[#212B36] font-bold">{title}</h1>
-      <div className="w-full">
-        <ChartContainer config={chartConfig} className="mt-5 h-[50vh] w-full">
+    <div className="w-full max-sm:w-full p-5 flex flex-col items-center shadow-combined rounded-xl h-full bg-white">
+      {/* Titre */}
+      <h1 className="text-[#212B36] font-bold text-center">{title}</h1>
+
+      {/* Conteneur du graphique */}
+      <div className="w-full flex justify-center items-center">
+        <ChartContainer
+          config={chartConfig}
+          className="mt-5 w-full max-w-full h-[50vh] max-sm:h-[40vh]"
+        >
           <PieChart>
             <ChartTooltip
               cursor={true}
@@ -88,19 +96,21 @@ export default function DonuteChart({
                       </text>
                     );
                   }
+                  return null;
                 }}
               />
             </Pie>
           </PieChart>
         </ChartContainer>
-        <ColorChartInformation
-          config={chartConfig}
-          padding={0}
-          className="mt-[.8vw]"
-          position="start"
-        />
       </div>
-     
+
+      {/* Légende avec les couleurs */}
+      <ColorChartInformation
+        config={chartConfig}
+        padding={0}
+        className="mt-[.8vw]"
+        position="start"
+      />
     </div>
   );
 }

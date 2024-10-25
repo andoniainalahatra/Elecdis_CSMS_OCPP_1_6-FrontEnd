@@ -22,7 +22,7 @@ const [openCsv,setOpenCsv]=useState(false);
 
             </div>
             <div className="w-full">
-                <OpenStreetMap/>
+                 <OpenStreetMap/>
                 <DataTableStation />
                 {
                     openCsv  && <CsvUploader queryKey="stationCsv" action={()=>setOpenCsv(false)} endpoint="/cp/import_from_csv_cp"/>
