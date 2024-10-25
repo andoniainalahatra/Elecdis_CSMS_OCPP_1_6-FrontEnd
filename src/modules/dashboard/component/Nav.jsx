@@ -32,7 +32,7 @@ const Nav = ({ setSection }) => {
                 <BoutonNav IconButton={LockClosedIcon} label='Autorisations' setSection={setSection} namePage='Autorisations' />
                 {/* <BoutonNav IconButton={RiReservedFill} label='Réservations' setSection={setSection} namePage='Réservations' /> */}
                 <BoutonNav IconButton={BoltIcon} label='Transaction de recharge' setSection={setSection} namePage='sessionRecharge' />
-                <BoutonNav IconButton={ArrowsRightLeftIcon} label='Payements' setSection={setSection} namePage='Transaction' />
+                <BoutonNav IconButton={ArrowsRightLeftIcon} label='Paiements' setSection={setSection} namePage='Transaction' />
             </div>
             <div className='mt-5 font-semibold text-[#637381] '>
                 <span className='text-[#4188eb] font-bold ml-4 '>GRC</span>
