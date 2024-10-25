@@ -363,7 +363,7 @@ function DataTable({
       </div>
       {isDetail && (
         <div
-          className="fixed top-0 left-0 z-20 flex items-center justify-center w-full h-screen overflow-auto backdrop-blur-md"
+          className="fixed top-0 left-0 z-50 flex items-center justify-center w-full h-screen overflow-auto backdrop-blur-md"
           style={{ backgroundColor: "rgba(9,16,26,0.3)" }}
         >
           <ComponentModal Id={idDetail} />
