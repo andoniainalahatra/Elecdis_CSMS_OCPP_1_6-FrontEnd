@@ -19,6 +19,7 @@ const EtiquettesRfidTable = () => {
     { accessorKey: "id", header: "Id" },
     { accessorKey: "rfid", header: "Numéro RFID" },
     { accessorKey: "user_name", header: "Propriétaire" },
+    { accessorKey: "Solde", header: "Solde" },
     { accessorKey: "Actions", header: "Actions" },
   ];
   const columns = datasColumn;

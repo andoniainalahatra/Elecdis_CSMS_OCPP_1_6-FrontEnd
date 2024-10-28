@@ -12,6 +12,7 @@ function UserTableSpecificRFID({id}) {
         { accessorKey: "id", header: "Id" },
         { accessorKey: "tag", header: "Numéro RFID" },
         { accessorKey: "status", header: "Statut" },
+        { accessorKey: "Solde", header: "Solde" },
         { accessorKey: "Actions", header: "Actions" },
       ];
       const columns = datasColumn;

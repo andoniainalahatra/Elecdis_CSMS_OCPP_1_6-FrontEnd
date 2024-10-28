@@ -62,7 +62,7 @@ function UserProfil({ Id }) {
     return <p>Erreur...</p>
   }
   return (
-    <div className="relative w-full p-6 text-left">
+    <div className="relative w-full bg-white p-6 text-left">
       <h2 className="text-[#2idB36] text-xl mb-10 ">Information {data.user.role}</h2>
       <div className="flex items-center justify-between w-full">
         <div className="flex items-center justify-start gap-6">
