@@ -167,7 +167,7 @@ function DataTable({
                       );
                     }
                   }
-                  if(cell.column.id === "total_cost"){
+                  if (cell.column.id === "total_cost") {
                     const rawValue = cell.getValue();
 
                     const transformedValue = transformValue(rawValue);
@@ -363,12 +363,12 @@ function DataTable({
       </div>
       {isDetail && (
         <div
-          className="fixed top-0 left-0 z-20 flex items-center justify-center w-full h-screen overflow-auto backdrop-blur-md"
+          className="fixed top-0 left-0 z-50 flex items-center justify-center w-full h-screen overflow-auto backdrop-blur-md"
           style={{ backgroundColor: "rgba(9,16,26,0.3)" }}
         >
           <ComponentModal Id={idDetail} />
           <span
-            className="absolute cursor-pointer top-5 z-50 right-5"
+            className="absolute z-50 cursor-pointer top-5 right-5"
             onClick={() => setIsDetail(false)}
           >
             <IoMdClose className="text-red-300 hover:text-red-500" size={50} />

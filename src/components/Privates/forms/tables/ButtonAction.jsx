@@ -30,7 +30,7 @@ const ButtonAction = ({ buttonProperty, Id }) => {
             }
         }
     });
-    const handleClick = (Id) =>{
+    const handleClick = (Id) => {
         // alert(Id);
         console.log("Form Data:", Id);
         // mutation.mutate(Id);   
@@ -40,29 +40,29 @@ const ButtonAction = ({ buttonProperty, Id }) => {
 
     const renderButton = (name, key) => {
         switch (name) {
-            case"Non resolu":
+            case "Non resolu":
                 return (
                     <span
                         key={key}
                         className="m-1 text-red-500 bg-transparent hover:bg-transparent hover:text-red-600"
-                        onClick={()=>{
+                        onClick={() => {
                             handleClick(Id)
                         }}
                     >
-                       <SiIfixit/>
+                        <SiIfixit />
                     </span>
                 );
             case "detail":
 
                 return (
 
-                    <span 
+                    <span
                         key={key}
                         onClick={(e) => {
                             e.stopPropagation()
                             setSection("detail");
                             console.log(Id);
-                            
+
                         }}
                         className="m-1 text-blue-500 bg-transparent hover:bg-transparent hover:text-blue-600"
                     >
@@ -74,7 +74,7 @@ const ButtonAction = ({ buttonProperty, Id }) => {
                     <span
                         key={key}
                         className="m-1 text-red-500 bg-transparent hover:bg-transparent hover:text-red-600"
-                        onClick={()=>{
+                        onClick={() => {
                             setSection("delete");
                         }}
                     >
@@ -118,10 +118,10 @@ const ButtonAction = ({ buttonProperty, Id }) => {
             )}
             {section === "edit" && (
                 <div
-                    className="fixed top-0 left-0 flex items-center justify-center w-full h-screen overflow-auto z-20 backdrop-blur-md"
+                    className="fixed top-0 left-0 z-20 flex items-center justify-center w-full h-screen overflow-auto backdrop-blur-md"
                     style={{ backgroundColor: "rgba(9,16,26,0.7)" }}
                 >
-                    <EditStation IdStation={Id} onclick={()=>setSection("")}/>
+                    <EditStation IdStation={Id} onclick={() => setSection("")} />
                     <span
                         className="absolute cursor-pointer top-5 right-5"
                         onClick={() => setSection("")}
@@ -129,15 +129,15 @@ const ButtonAction = ({ buttonProperty, Id }) => {
                         <IoMdClose className="text-white hover:text-amber-400" size={50} />
                     </span>
                 </div>
-            )} 
-           {
-             section === "delete" && (
+            )}
+            {
+                section === "delete" && (
                     <div
-                        className="fixed top-0 left-0 flex items-center justify-center w-full h-screen overflow-auto z-20 backdrop-blur-md"
+                        className="fixed top-0 left-0 z-20 flex items-center justify-center w-full h-screen overflow-auto backdrop-blur-md"
                         style={{ backgroundColor: "rgba(9,16,26,0.7)" }}
                     >
                         {/* <EditStation IdStation={Id} onclick={()=>setSection("")}/> */}
-                        <DeleteStation IdStation={Id} onclick={()=>setSection("")}/>
+                        <DeleteStation IdStation={Id} onclick={() => setSection("")} />
                         <span
                             className="absolute cursor-pointer top-5 right-5"
                             onClick={() => setSection("")}
@@ -145,7 +145,7 @@ const ButtonAction = ({ buttonProperty, Id }) => {
                             <IoMdClose className="text-white hover:text-amber-400" size={50} />
                         </span>
                     </div>)
-           }
+            }
             {
                 section === "Non resolu" && (
                     <p>

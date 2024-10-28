@@ -16,8 +16,8 @@ import useGetDataNoParams from '@/lib/hoocks/useGetDataNoParams';
 
 const getIcon = (status) => {
     let iconUrl;
-    
-    switch(status) {
+
+    switch (status) {
         case "Available":
             iconUrl = AvailableIcon;
             break;
@@ -52,18 +52,18 @@ export const SetMapBounds = ({ coordinates }) => {
     return null;
 };
 
-function OpenStreetMap() { 
+function OpenStreetMap() {
     const defaultCenter = [-18.8732982226088, 47.50762742330922];
 
     const [tileUrl, setTileUrl] = useState('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
     const [coordonate, setCoordonate] = useState(null);
-    
+
     const handleThemeChange = (event) => {
         setTileUrl(event.target.value);
     };
-    
+
     const { data, error, isPending } = useGetDataNoParams("/cp/map_cp/", "repoMap");
-    
+
     useEffect(() => {
         if (data) {
             setCoordonate(data);
@@ -78,12 +78,12 @@ function OpenStreetMap() {
         return <p>Chargement en cours...</p>;
     }
     // const markerPositions = coordonate?.map(marker => marker.position) || [];
-    
+
     return (
-        <div className="h-full shadow-combined rounded-lg bg-white p-6 z-0 mb-6">
+        <div className="z-0 h-full p-6 mb-6 bg-white rounded-lg shadow-combined">
             <div className="mb-4">
                 <label>Choisissez un thème :</label>
-                <select onChange={handleThemeChange} className="ml-2 p-2 py-2 border bg-white focus:ring-0 rounded-sm focus:outline-none">
+                <select onChange={handleThemeChange} className="p-2 py-2 ml-2 bg-white border rounded-sm focus:ring-0 focus:outline-none">
                     <option value="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png">Standard</option>
                     <option value="https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png">Humanitarian</option>
                     <option value="https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png">CyclOSM</option>
@@ -91,21 +91,21 @@ function OpenStreetMap() {
                 </select>
             </div>
 
-            <div className="w-full h-full">
-            <MapContainer center={defaultCenter} zoom={12} style={{ padding: "5px" ,height: "350px", width: "100%" }}>
-                <TileLayer
-                    url={tileUrl}
-                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                />
-                {/* <SetMapBounds coordinates={markerPositions} /> */}
-                {coordonate?.map(marker => (
-                    <Marker key={marker.id} position={marker.position} icon={getIcon(marker.status)}>
-                        <Popup>
-                            {marker.status} <br /> {marker.name} <br /> Coordonnées: {marker.position[0]}, {marker.position[1]}
-                        </Popup>
-                    </Marker>
-                ))}
-            </MapContainer>
+            <div className="relative w-full h-full -z-0">
+                <MapContainer center={defaultCenter} zoom={12} style={{ padding: "5px", height: "350px", width: "100%" }}>
+                    <TileLayer
+                        url={tileUrl}
+                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    />
+                    {/* <SetMapBounds coordinates={markerPositions} /> */}
+                    {coordonate?.map(marker => (
+                        <Marker key={marker.id} position={marker.position} icon={getIcon(marker.status)}>
+                            <Popup>
+                                {marker.status} <br /> {marker.name} <br /> Coordonnées: {marker.position[0]}, {marker.position[1]}
+                            </Popup>
+                        </Marker>
+                    ))}
+                </MapContainer>
             </div>
         </div>
     );
