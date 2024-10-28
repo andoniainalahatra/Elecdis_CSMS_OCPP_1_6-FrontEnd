@@ -13,11 +13,18 @@ import { RiDashboard2Fill } from "react-icons/ri";
 import { BsFillEvStationFill } from "react-icons/bs";
 import BoutonNav from './BoutonNav'
 import Logo from "@/assets/logo1.png"
+import { Context } from '@/common/config/configs/Context';
+import { useContext } from 'react';
 
 const Nav = ({ setSection }) => {
+    const { setActive } = useContext(Context);
+    const handleClick = () => {
+        setSection("TableauDeBord"); 
+        setActive("TableauDeBord")
+    }
     return (
         <div className='w-full flex flex-col text-[14px] pl-3 truncate'>
-            <div className='mt-2'>
+            <div className='mt-2' onClick={() => handleClick() }>
                 <img src={Logo} alt="" />
             </div>
             <div onClick={() => setSection('UserProfil')} className=' flex items-center h-[72px] bg-[#919EAB] bg-opacity-10 p-2 rounded-md space-x-2 font-semibold mt-8'>

@@ -56,18 +56,22 @@ export const convertTimeToHourFormat = (time) => {
 };
 
 export const convertDate = (dateString) => {
-  const date = new Date(dateString);
+  if (dateString == null) {
+    return "Jamais utilisé";
+  } else {
+    const date = new Date(dateString);
 
-  // Obtenir le jour, le mois et l'année au format JJ/MM/AAAA
-  const day = String(date.getDate()).padStart(2, "0");
-  const month = String(date.getMonth() + 1).padStart(2, "0"); // Les mois sont indexés à partir de 0
-  const year = date.getFullYear();
+    // Obtenir le jour, le mois et l'année au format JJ/MM/AAAA
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0"); // Les mois sont indexés à partir de 0
+    const year = date.getFullYear();
 
-  // Obtenir l'heure et les minutes au format HH:MM
-  const hours = String(date.getHours()).padStart(2, "0");
-  const minutes = String(date.getMinutes()).padStart(2, "0");
+    // Obtenir l'heure et les minutes au format HH:MM
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
 
-  return `${day}/${month}/${year} à ${hours}:${minutes}`;
+    return `${day}/${month}/${year} à ${hours}:${minutes}`;
+  }
 };
 
 export const transformValue = (value) => {
@@ -77,10 +81,12 @@ export const transformValue = (value) => {
       return num.toLocaleString("fr-FR") + ` ${unit}`;
     }
     // Si les décimales sont nécessaires, applique le formatage
-    return num.toLocaleString("fr-FR", {
-      minimumFractionDigits: 3,
-      maximumFractionDigits: 3,
-    }) + ` ${unit}`;
+    return (
+      num.toLocaleString("fr-FR", {
+        minimumFractionDigits: 3,
+        maximumFractionDigits: 3,
+      }) + ` ${unit}`
+    );
   };
 
   if (value.includes("kwh")) {
@@ -93,4 +99,3 @@ export const transformValue = (value) => {
     return value; // Retourne la valeur originale si elle ne contient ni "kwh" ni "ar"
   }
 };
-
