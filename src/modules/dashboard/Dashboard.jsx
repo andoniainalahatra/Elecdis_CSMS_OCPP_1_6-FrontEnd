@@ -23,6 +23,7 @@ import Tarifs from './content/TARIFS/Tarifs';
 // import RenitialiserMotDePasse from './content/AUTHENTIFICATIONS/RenitialiserMotDePasse';
 import Clients from './content/GRC/Clients';
 import UserProfil from '@/components/UserProfil';
+import HistoriqueStatusCp from './content/ACTIFS/HistoriqueStatusCp';
 
 
 const Dashboard = () => {
@@ -89,6 +90,7 @@ const Dashboard = () => {
                             {currentSection === "Locations" && <Locations />}
                             {currentSection === "CpNotices" && <CpNotices />}
                             {currentSection === "CpTemplates" && <CpTemplates />}
+                            {currentSection === "HistoriqueStatusCp" && <HistoriqueStatusCp />}
 
                             {currentSection === "Partenaires" && <Partenaires />}
                             {currentSection === "Contrats" && <Contrats />}

@@ -9,7 +9,7 @@ import { AiOutlineGroup } from "react-icons/ai";
 // import { TbLogout2 } from "react-icons/tb";
 // import { IoMdPersonAdd } from "react-icons/io";
 // import { MdLockReset } from "react-icons/md";
-import { RiDashboard2Fill } from "react-icons/ri";
+import { RiDashboard2Fill, RiFileHistoryLine } from "react-icons/ri";
 import { BsFillEvStationFill } from "react-icons/bs";
 import BoutonNav from './BoutonNav'
 import Logo from "@/assets/logo1.png"
@@ -53,6 +53,7 @@ const Nav = ({ setSection }) => {
                 {/* <BoutonNav IconButton={MapPinIcon} label='Locations' setSection={setSection} namePage='Locations' /> */}
                 <BoutonNav IconButton={BellIcon} label='CP Notices' setSection={setSection} namePage='CpNotices' />
                 <BoutonNav IconButton={DocumentPlusIcon} label='CP Templates' setSection={setSection} namePage='CpTemplates' />
+                <BoutonNav IconButton={RiFileHistoryLine} label='Historique status' setSection={setSection} namePage='HistoriqueStatusCp' />
             </div>
             <div className='mt-5 font-semibold text-[#637381] '>
                 <span className='text-[#4188eb] font-bold ml-4 '>PARTENAIRES</span>
