@@ -13,6 +13,7 @@ import {
   useGetDataByMonth,
   useGetDataByYear,
   useGetDataFilter,
+  useGetDataHistorique,
 } from "../features/BoxApi";
 import { useSelector } from "react-redux";
 import {
@@ -22,7 +23,11 @@ import {
   selectSessionDateSpecific,
 } from "../features/filterCalendarSelector";
 import { isFullDate, isMonthPresent } from "@/lib/utils";
-export default function BoxSection({setSection}) {
+
+import { RiFileHistoryLine } from "react-icons/ri";
+import { MdOutlineHistory } from "react-icons/md";
+
+export default function BoxSection({ setSection }) {
   const { filters } = useContext(Context);
   const nombreSession = useSelector(selectSessionDateSpecific);
   const nombreEnergyDateSpecifique = useSelector(
@@ -145,6 +150,12 @@ export default function BoxSection({setSection}) {
     error: errorFail,
   } = useGetDataFilter("/cp/count_status_cp/Unavailable", "defaillance");
 
+  const {
+    data: dataDistoriqueCp,
+    isPending: pendingCp,
+    error: errorCp,
+  } = useGetDataFilter("cp/historique_status_chargepoint", "HistoriqueStatusCp");
+
   useEffect(() => {
     if (colorPercent && percentVal) {
       if (filters.bar === "Annuel" || filters.bar === "Mensuel") {
@@ -157,14 +168,14 @@ export default function BoxSection({setSection}) {
       }
     }
   }, [colorPercent, percentVal, filters]);
-  if (errorCurrentSession || errorFail || sessionData.error || revenuData.error || newUserData.error || energyData.error) {
+  if (errorCurrentSession || errorFail || sessionData.error || revenuData.error || newUserData.error || energyData.error || errorCp) {
     return <div className="">erreur...</div>;
   }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-col-4 gap-6">
+    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-col-4">
       <Box
-        setSection={setSection} 
+        setSection={setSection}
         SectionName="sessionRecharge"
         Title="Nombre total de Session"
         Value={sessionData.data?.sessions_numbers}
@@ -176,7 +187,7 @@ export default function BoxSection({setSection}) {
         isLoading={sessionData.isPending}
       />
       <Box
-        setSection={setSection} 
+        setSection={setSection}
         SectionName="PointsDecharges"
         Title="Total énergie délivrée"
         Value={energyData.data?.energy}
@@ -188,7 +199,7 @@ export default function BoxSection({setSection}) {
         isLoading={energyData.isPending}
       />
       <Box
-        setSection={setSection} 
+        setSection={setSection}
         SectionName="Transaction"
         Title="Revenus totaux"
         Value={revenuData.data?.total_revenus}
@@ -200,7 +211,7 @@ export default function BoxSection({setSection}) {
         isLoading={revenuData.isPending}
       />
       <Box
-        setSection={setSection} 
+        setSection={setSection}
         SectionName="CpNotices"
         Title="Défaillance et perte de connexion"
         Value={dataDefaillance && dataDefaillance[0]?.nombre}
@@ -212,7 +223,7 @@ export default function BoxSection({setSection}) {
         isLoading={pendingFail}
       />
       <Box
-        setSection={setSection} 
+        setSection={setSection}
         SectionName="sessionRecharge"
         Title="Session de recharge en cours"
         Value={dataCurrentSession?.count_current_session}
@@ -223,7 +234,7 @@ export default function BoxSection({setSection}) {
         filter={null}
         isLoading={loadingCurrentSession}
       />
-      <Box
+      {/* <Box
         setSection={setSection} 
         SectionName="Clients"
         Title="Nouveaux clients"
@@ -234,6 +245,19 @@ export default function BoxSection({setSection}) {
         color="#26BF78"
         filter="newClient"
         isLoading={newUserData.isPending}
+      /> */}
+
+      <Box
+        setSection={setSection}
+        SectionName="Historique"
+        Title="Historique status Charge Point"
+        Value={dataDistoriqueCp?.pagination.total_items}
+        FirstIcone={RiFileHistoryLine}
+        SecondIcone={MdOutlineHistory}
+        litleStatistique={null}
+        color="#26BF78"
+        filter={null}
+        isLoading={pendingCp}
       />
     </div>
   );
