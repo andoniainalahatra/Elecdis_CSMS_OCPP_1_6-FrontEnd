@@ -5,12 +5,24 @@ import Input from "@/modules/Login/components/Input";
 import Boutton from "@/modules/Login/components/Boutton";
 import { IoMdCloseCircle } from "react-icons/io";
 import ErrorMessage from "@/components/ErrorMessage";
-import { useGetOneRfid, useUpdateRfid } from "@/features/RFID/rfidApi";
+import { useGetOneRfid } from "@/features/RFID/rfidApi";
 import { PulseLoader } from "react-spinners";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import axiosInstance from "@/lib/axiosInstance";
 
-export default function UpdateRfid({ action, id }) {
+export default function AjoutCredit({ action, id }) {
   const { data, error, isLoading } = useGetOneRfid(id);
   const [invalidMessage, setInvalidMessage] = useState("");
+  const useUpdateRfid = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+      mutationFn: (credentials) =>
+      axiosInstance.post(`/account/add_credit?id_rfid=${credentials.rfid}&credit=${credentials.credit}`, credentials).then((res) => res.data),
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ["dataRFID"], exact: false });
+      },
+    });
+  };
   const { mutate: update_rfid, isPending } = useUpdateRfid(id);
 
   const {
@@ -22,8 +34,8 @@ export default function UpdateRfid({ action, id }) {
   useEffect(() => {
     if (data) {
       reset({
-        rfid: data.rfid,
-        user_id: data.user_id,
+        rfid: data.id,
+        credit: 0,
       });
     }
   }, [data, reset]);
@@ -74,11 +86,11 @@ export default function UpdateRfid({ action, id }) {
           </button>
           <div className="w-full flex items-center flex-col justify-center">
             <h4 className="text-importantText max-lg:text-[20px] xl:text-2xl mb-[4vh]">
-              Modifier le numéro RFID
+            Ajouter du Crédit
             </h4>
 
             <div className="w-full mb-[4vh]">
-              <Controller
+              {/* <Controller
                 name="rfid"
                 control={control}
                 rules={{
@@ -89,18 +101,18 @@ export default function UpdateRfid({ action, id }) {
                   },
                 }}
                 render={({ field }) => (
-                  <Input type="text" id="rfid" label="Numéro RFID" {...field} />
+                  <Input type="text" id="rfid" label="Id RFID" {...field} />
                 )}
               />
-              {errors?.rfid && <ErrorMessage message={errors.rfid.message} />}
+              {errors?.rfid && <ErrorMessage message={errors.rfid.message} />} */}
             </div>
 
             <div className="w-full mb-[4vh]">
               <Controller
-                name="user_id"
+                name="credit"
                 control={control}
                 rules={{
-                  required: "L'identifiant utilisateur est requis",
+                  required: "Le credit à ajouter est requis",
                   pattern: {
                     value: /[a-zA-Z0-9]/,
                     message: "Format invalide",
@@ -111,12 +123,12 @@ export default function UpdateRfid({ action, id }) {
                     type="number"
                     id="idUser"
                     {...field}
-                    label="Identifiant utilisateur lié"
+                    label="Valeur du crédit à ajouter (en kWh)"
                   />
                 )}
               />
-              {errors?.user_id && (
-                <ErrorMessage message={errors.user_id.message} />
+              {errors?.credit && (
+                <ErrorMessage message={errors.credit.message} />
               )}
             </div>
             {invalidMessage && (
@@ -125,7 +137,7 @@ export default function UpdateRfid({ action, id }) {
           </div>
 
           <div className="w-full flex items-center flex-col justify-center gap-7">
-            <Boutton isLoading={isPending} label="Mettre à jour" />
+            <Boutton isLoading={isPending} label="Ajouter" />
           </div>
           <div className="w-full">
             <p className="text-center text-simpleText text-base mt-[1vh]">
