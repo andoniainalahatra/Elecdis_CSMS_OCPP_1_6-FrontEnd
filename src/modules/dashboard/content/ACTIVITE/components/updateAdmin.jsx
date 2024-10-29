@@ -11,6 +11,7 @@ import { getSubscription, useUpdateClient } from "../../GRC/config/client/client
 
 import SelectList from "../../GRC/components/SelectList";
 import { selectUser } from "@/features/Admin/userSelector";
+import Search from "../../GRC/components/Search";
 
 export default function EditClient({ action, Id, setSection }) {
     const [invalidMessage, setInvalidMessage] = useState("");
@@ -185,14 +186,15 @@ export default function EditClient({ action, Id, setSection }) {
                                 control={control}
                                 rules={{ required: "Ce champ est requis" }}
                                 render={({ field }) => (
-                                    <SelectList
-                                        id="id_subscription"
-                                        label="Souscription"
-                                        type="select"
-                                        value={clientData?.subscription}  // Valeur actuelle
-                                        datas={datas}
-                                        onChange={field.onChange}
-                                    />
+                                    // <SelectList
+                                    //     id="id_subscription"
+                                    //     label="Souscription"
+                                    //     type="select"
+                                    //     value={clientData?.subscription}  // Valeur actuelle
+                                    //     datas={datas}
+                                    //     onChange={field.onChange}
+                                    // />
+                                    <Search defaultValue={clientData?.subscription} datas={datas} placeholder='Subscription' label={'Subscription'} onChange={field.onChange} searchKey="type_subscription" />
                                 )}
                             />
                             {errors?.id_subscription && <ErrorMessage message={errors.id_subscription.message} />}
