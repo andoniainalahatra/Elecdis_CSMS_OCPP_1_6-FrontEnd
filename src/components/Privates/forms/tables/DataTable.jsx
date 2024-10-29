@@ -26,6 +26,7 @@ import ButtonStopTransaction from "@/modules/dashboard/component/ButtonStopTrans
 import ButtonFilterTable from "@/modules/dashboard/component/ButtonFilterTable";
 import { IoMdClose } from "react-icons/io";
 import { transformValue } from "@/lib/utils";
+import ButtonReprendreTransaction from "@/modules/dashboard/component/ButtonReprendreTransaction";
 /**
  * Génère un tableau paginé avec des actions.
  *
@@ -187,6 +188,13 @@ function DataTable({
                             chargPointId={rowData.charge_point_id}
                             transactionId={rowData.id}
                           />
+                        </TableCell>
+                      );
+                    }
+                    else if (rowData.statuts == "terminé"){
+                      return (
+                        <TableCell key={cell.id} className="text-center">
+                          <ButtonReprendreTransaction />
                         </TableCell>
                       );
                     }
