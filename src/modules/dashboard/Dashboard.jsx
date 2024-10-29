@@ -76,7 +76,7 @@ const Dashboard = () => {
                         <BarNav onSearch={handleSearch} setSection={setSection} />
                         <div className=' mt-[9vh] m-2 h-[90vh] overflow-auto custom-scrollbar'>
                             {currentSection === "TableauDeBord" && <TableauDeBord setSection={setSection} />}
-                            {currentSection === "Autorisations" && <Autorisation />}
+                            {currentSection === "Administrateurs" && <Autorisation />}
                             {currentSection === "Réservations" && <Reservation />}
                             {currentSection === "sessionRecharge" && <SessionRecharge />}
                             {currentSection === "Transaction" && <Transactions />}
@@ -96,7 +96,7 @@ const Dashboard = () => {
                             {currentSection === "GroupesDestarifs" && <GroupesDesTarifs />}
                             {currentSection === "Tarifs" && <Tarifs />}
                             {currentSection === "UserProfil" && <UserProfil />}
-                           
+
                         </div>
                     </div>
                 </div>

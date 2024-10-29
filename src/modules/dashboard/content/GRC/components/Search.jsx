@@ -2,8 +2,8 @@ import { Label } from "@/components/ui/label";
 import * as React from "react";
 import { useState } from "react";
 
-const Search = ({ datas, label, onChange, searchKey = "type_subscription", placeholder }) => {
-    const [searchTerm, setSearchTerm] = useState("");
+const Search = ({ datas, label, onChange, searchKey = "type_subscription", placeholder, defaultValue }) => {
+    const [searchTerm, setSearchTerm] = useState(defaultValue);
     const [filteredResults, setFilteredResults] = useState([]);
     const [isFocused, setIsFocused] = useState(false);
 
@@ -39,7 +39,7 @@ const Search = ({ datas, label, onChange, searchKey = "type_subscription", place
                 onFocus={() => setIsFocused(true)}
                 onBlur={() => setTimeout(() => setIsFocused(false), 200)} // Ajoute un léger délai pour éviter la fermeture immédiate
                 placeholder={placeholder}
-                className="block w-full px-4 py-2 border rounded-lg focus:border-primary focus:outline-none"
+                className="block w-full px-4 py-2 border rounded-lg focus-visible:outline-none focus-visible:border-primaryChart focus:border-primary focus:outline-none"
             />
 
             <Label

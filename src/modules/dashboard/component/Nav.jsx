@@ -19,12 +19,12 @@ import { useContext } from 'react';
 const Nav = ({ setSection }) => {
     const { setActive } = useContext(Context);
     const handleClick = () => {
-        setSection("TableauDeBord"); 
+        setSection("TableauDeBord");
         setActive("TableauDeBord")
     }
     return (
         <div className='w-full flex flex-col text-[14px] pl-3 truncate'>
-            <div className='mt-2' onClick={() => handleClick() }>
+            <div className='mt-2' onClick={() => handleClick()}>
                 <img src={Logo} alt="" />
             </div>
             <div onClick={() => setSection('UserProfil')} className=' flex items-center h-[72px] bg-[#919EAB] bg-opacity-10 p-2 rounded-md space-x-2 font-semibold mt-8'>
@@ -36,7 +36,7 @@ const Nav = ({ setSection }) => {
             </div>
             <div className='mt-5 font-semibold text-[#637381] '>
                 <span className='text-[#4188eb] font-bold ml-4'>ACTIVITE</span>
-                <BoutonNav IconButton={LockClosedIcon} label='Autorisations' setSection={setSection} namePage='Autorisations' />
+                <BoutonNav IconButton={LockClosedIcon} label='Administrateurs' setSection={setSection} namePage='Administrateurs' />
                 {/* <BoutonNav IconButton={RiReservedFill} label='Réservations' setSection={setSection} namePage='Réservations' /> */}
                 <BoutonNav IconButton={BoltIcon} label='Transaction de recharge' setSection={setSection} namePage='sessionRecharge' />
                 <BoutonNav IconButton={ArrowsRightLeftIcon} label='Paiements' setSection={setSection} namePage='Transaction' />
