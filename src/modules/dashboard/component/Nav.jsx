@@ -36,7 +36,7 @@ const Nav = ({ setSection }) => {
             </div>
             <div className='mt-5 font-semibold text-[#637381] '>
                 <span className='text-[#4188eb] font-bold ml-4'>ACTIVITE</span>
-                <BoutonNav IconButton={LockClosedIcon} label='Administrateur' setSection={setSection} namePage='Administrateur' />
+                <BoutonNav IconButton={LockClosedIcon} label='Administrateurs' setSection={setSection} namePage='Administrateurs' />
                 {/* <BoutonNav IconButton={RiReservedFill} label='Réservations' setSection={setSection} namePage='Réservations' /> */}
                 <BoutonNav IconButton={BoltIcon} label='Transaction de recharge' setSection={setSection} namePage='sessionRecharge' />
                 <BoutonNav IconButton={ArrowsRightLeftIcon} label='Paiements' setSection={setSection} namePage='Transaction' />
