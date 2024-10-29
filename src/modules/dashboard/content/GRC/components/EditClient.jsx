@@ -11,6 +11,7 @@ import SelectList from "./SelectList";
 import { getSubscription, useUpdateClient } from "../config/client/clientApi";
 import { useSelector } from "react-redux";
 import { selectClient } from "../config/client/clientSelector";
+import Search from "./Search";
 
 export default function EditClient({ action, Id }) {
     const [invalidMessage, setInvalidMessage] = useState("");
@@ -184,14 +185,15 @@ export default function EditClient({ action, Id }) {
                                 control={control}
                                 rules={{ required: "Ce champ est requis" }}
                                 render={({ field }) => (
-                                    <SelectList
-                                        id="id_subscription"
-                                        label="Souscription"
-                                        type="select"
-                                        value={clientData?.subscription}  // Valeur actuelle
-                                        datas={datas}
-                                        onChange={field.onChange}
-                                    />
+                                    // <SelectList
+                                    //     id="id_subscription"
+                                    //     label="Souscription"
+                                    //     type="select"
+                                    //     value={clientData?.subscription}  // Valeur actuelle
+                                    //     datas={datas}
+                                    //     onChange={field.onChange}
+                                    // />
+                                    <Search defaultValue={clientData?.subscription} datas={datas} placeholder='Subscription' label={'Subscription'} onChange={field.onChange} searchKey="type_subscription" />
                                 )}
                             />
                             {errors?.id_subscription && <ErrorMessage message={errors.id_subscription.message} />}

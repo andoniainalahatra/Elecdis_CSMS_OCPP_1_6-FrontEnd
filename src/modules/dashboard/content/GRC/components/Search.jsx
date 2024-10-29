@@ -2,8 +2,8 @@ import { Label } from "@/components/ui/label";
 import * as React from "react";
 import { useState } from "react";
 
-const Search = ({ datas, label, onChange, searchKey = "type_subscription", placeholder }) => {
-    const [searchTerm, setSearchTerm] = useState("");
+const Search = ({ datas, label, onChange, searchKey = "type_subscription", placeholder, defaultValue }) => {
+    const [searchTerm, setSearchTerm] = useState(defaultValue);
     const [filteredResults, setFilteredResults] = useState([]);
     const [isFocused, setIsFocused] = useState(false);
 
