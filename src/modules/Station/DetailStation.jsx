@@ -1,6 +1,6 @@
 
 import { FaRegCheckCircle } from "react-icons/fa";
-import { RiChargingPile2Line } from "react-icons/ri";
+import { RiBaseStationFill, RiChargingPile2Line } from "react-icons/ri";
 import { BiLoaderCircle, BiSolidSend } from "react-icons/bi";
 import { CgUnavailable } from "react-icons/cg";
 import { useQuery } from '@tanstack/react-query';
@@ -14,6 +14,11 @@ import Swal from "sweetalert2";
 import { PulseLoader } from "react-spinners";
 import { STATISTIQUECONF } from "../dashboard/content/T_BORD/config/StatistiqueConfig";
 import { YEARLABEL } from "@/_mock/constant";
+import ConnectorStatus from "./ConnectorStatus";
+import { MdEmergencyShare } from "react-icons/md";
+import { FaChargingStation } from "react-icons/fa6";
+import { TbVersionsFilled } from "react-icons/tb";
+
 
 
 function DetailStation({ Id }) {
@@ -182,16 +187,20 @@ function DetailStation({ Id }) {
             <div
                 className="text-[#637381] grid grid-cols-3 max-md:grid-cols-1 mb-6 pt-10 gap-6 max-sm:grid-cols-1 max-sm:p-4 max-md:mt-[50px] mt-[50px]">
                 <div className="text-[#637381] col-span-1 bg-[#ffffff] shadow-lg rounded-2xl p-6 ">
-                    <h1 className="text-2xl font-bold text-red-600 text-start">Stations</h1>
-                    <div className="grid grid-cols-2 gap-4 mt-2 text-gray-800 text-start ">
-                        <div>
+                    <div className="flex justify-items-start text-gray-800 gap-2">
+                        <FaChargingStation size={25} />
+                        <h1 className="text-2xl font-medium mb-6 text-gray-800 text-start">Stations</h1>
+
+                    </div>
+                    <div className="grid grid-cols-2 gap-4 mt-2 text-gray-600 text-start ">
+                        <div className="flex flex-col gap-3">
                             <p>Modele</p>
                             <p>Marque</p>
                             <p>Numero de serie</p>
                             <p>Location</p>
                         </div>
 
-                        <div>
+                        <div className="flex flex-col gap-3">
                             <p className="truncate">{adminData[0].charge_point_model}</p>
                             <p className="truncate"> {adminData[0].charge_point_vendors}</p>
                             <p className="truncate">{adminData[0].id_charge_point}</p>
@@ -207,89 +216,107 @@ function DetailStation({ Id }) {
                             <div key={index}>
                                 <div className="flex items-start justify-center gap-4 ">
                                     {
-                                        (item.status_connector === "Unavailable" || item.status_connector === "unavalaible") && (
-                                            <div className="flex space-x-5">
-                                                <div>
-                                                    <CgUnavailable color="#F44336" size={117} />
-                                                    <p className="text-[#F44336] font-bold mt-2 ">{item.status_connector}</p>
-                                                </div>
-                                                <div className="text-center">
-                                                    <h1 className="mb-2 font-medium text-center">Connecteur {item.id_connecteur}</h1>
-                                                    <div
-                                                        className="flex flex-col items-center justify-center gap-4 p-6 font-medium rounded-md bg-gradient-to-r from-red-200 to-red-300">
-                                                        <p>Energie</p>
-                                                        <p>{item.energie_delivre} Wh</p>
-                                                    </div>
-                                                </div>
-                                            </div>)
+                                        // (item.status_connector.toLowerCase() === "unavailable") &&
+                                        //  (
+                                        //     <div className="flex space-x-5">
+                                        //         <div>
+                                        //             <CgUnavailable color="#F44336" size={117} />
+                                        //             <p className="text-[#F44336] font-medium mb-6 mt-2 ">{item.status_connector}</p>
+                                        //         </div>
+                                        //         <div className="text-center">
+                                        //             <h1 className="mb-2 font-medium text-center">Connecteur {item.id_connecteur}</h1>
+                                        //             <div
+                                        //                 className="flex flex-col items-center justify-center gap-4 p-6 font-medium rounded-md bg-gradient-to-r from-red-200 to-red-300">
+                                        //                 <p>Energie</p>
+                                        //                 <p>{item.energie_delivre} Wh</p>
+                                        //             </div>
+                                        //         </div>
+                                        //     </div>)
+                                        <ConnectorStatus status={item.status_connector} color="#F44336" label="unavailable"
+                                        connectorId={item.id_connecteur} icon={CgUnavailable} energy={item.energie_delivre} bg="red"/>
                                     }
 
                                     {
-                                        (item.status_connector === "SuspendedEVSE" || item.status_connector === "suspendedEVSE") && (
-                                            <div className="flex space-x-5">
-                                                <div>
-                                                    <CgUnavailable color="#F44336" size={117} />
-                                                    <p className="text-[#F44336] font-bold mt-2 ">{item.status_connector}</p>
-                                                </div>
-                                                <div className="text-center">
-                                                    <h1 className="mb-2 font-medium text-center">Connecteur {item.id_connecteur}</h1>
-                                                    <div
-                                                        className="flex flex-col items-center justify-center gap-4 p-6 font-medium rounded-md bg-gradient-to-r from-red-200 to-red-300">
-                                                        <p>Energie</p>
-                                                        <p>{item.energie_delivre} Wh</p>
-                                                    </div>
-                                                </div>
-                                            </div>)
+                                        (item.status_connector.toLowerCase() === "suspendedevse") && 
+                                        // (
+                                        //     <div className="flex space-x-5">
+                                        //         <div>
+                                        //             <CgUnavailable color="#F44336" size={117} />
+                                        //             <p className="text-[#F44336] font-medium mb-6 mt-2 ">{item.status_connector}</p>
+                                        //         </div>
+                                        //         <div className="text-center">
+                                        //             <h1 className="mb-2 font-medium text-center">Connecteur {item.id_connecteur}</h1>
+                                        //             <div
+                                        //                 className="flex flex-col items-center justify-center gap-4 p-6 font-medium rounded-md bg-gradient-to-r from-red-200 to-red-300">
+                                        //                 <p>Energie</p>
+                                        //                 <p>{item.energie_delivre} Wh</p>
+                                        //             </div>
+                                        //         </div>
+                                        //     </div>)
+                                        <ConnectorStatus status={item.status_connector} color="#F44336" label="suspendedevse" energy={item.energie_delivre} 
+                                        connectorId={item.id_connecteur} icon={CgUnavailable} bg="red"
+                                        />
                                     }
                                     {
-                                        (item.status_connector === "available" || item.status_connector === "Available") && (
-                                            <div className="flex space-x-5">
-                                                <div>
-                                                    <FaRegCheckCircle color="#4CAF50" size={117} />
-                                                    <p className="text-[#4CAF50] font-bold mt-2 ">Connecteur {item.id_connecteur}</p>
-                                                </div>
-                                                <div className="text-center">
-                                                    <h1 className="mb-2 font-medium text-center">Connecteur {item.id_connecteur}</h1>
-                                                    <div
-                                                        className="flex flex-col items-center justify-center gap-4 p-6 font-medium rounded-md bg-gradient-to-r from-green-200 to-green-300">
-                                                        <p>Energie</p>
-                                                        <p>{item.energie_delivre} Wh</p>
-                                                    </div>
-                                                </div>
-                                            </div>)
+                                        (item.status_connector.toLowerCase() === "available") && 
+                                        // (
+                                        //     <div className="flex space-x-5">
+                                        //         <div className=" justify-items-center">
+                                        //             <FaRegCheckCircle color="#4CAF50" size={117} />
+                                        //             <p className="text-[#4CAF50] font-bold mt-2 "> {item.status_connector}</p>
+                                        //         </div>
+                                        //         <div className="text-center">
+                                        //             <h1 className="mb-2 font-medium text-center">Connecteur {item.id_connecteur}</h1>
+                                        //             <div
+                                        //                 className="flex flex-col items-center justify-center gap-4 p-6 font-medium rounded-md bg-gradient-to-r from-green-200 to-green-300">
+                                        //                 <p>Energie</p>
+                                        //                 <p>{item.energie_delivre} Wh</p>
+                                        //             </div>
+                                        //         </div>
+                                        //     </div>)
+                                        <ConnectorStatus status={item.status_connector} color="#4CAF50" label="available" energy={item.energie_delivre} 
+                                         connectorId={item.id_connecteur} icon={FaRegCheckCircle} bg="green"/>
                                     }
                                     {
-                                        (item.status_connector === "charging" || item.status_connector === "Charging") && (
-                                            <div className="flex space-x-5">
-                                                <div>
-                                                    <RiChargingPile2Line color="#2196F3" size={117} />
-                                                    <p className="text-[#2196F3] font-bold mt-2 ">{item.status_connector}</p>
-                                                </div>
-                                                <div className="text-center">
-                                                    <h1 className="mb-2 font-medium text-center">Connecteur {item.id_connecteur}</h1>
-                                                    <div
-                                                        className="flex flex-col items-center justify-center gap-4 p-6 font-medium rounded-md bg-gradient-to-r from-blue-200 to-blue-300">
-                                                        <p>Energie</p>
-                                                        <p>{item.energie_delivre} Wh</p>
-                                                    </div>
-                                                </div>
-                                            </div>)
-                                    }{
-                                        (item.status_connector === "preparing" || item.status_connector === "Preparing") && (
-                                            <div className="flex space-x-5">
-                                                <div>
-                                                    <BiLoaderCircle color="#2196F3" size={117} />
-                                                    <p className="text-[#2196F3] font-bold mt-2 ">{item.status_connector}</p>
-                                                </div>
-                                                <div className="text-center">
-                                                    <h1 className="mb-2 font-medium text-center">Connecteur {item.id_connecteur}</h1>
-                                                    <div
-                                                        className="flex flex-col items-center justify-center gap-4 p-6 font-medium rounded-md bg-gradient-to-r from-blue-200 to-blue-300">
-                                                        <p>Energie</p>
-                                                        <p>{item.energie_delivre} Wh</p>
-                                                    </div>
-                                                </div>
-                                            </div>)
+                                        (item.status_connector.toLowerCase() === "charging") && 
+                                        // (
+                                        //     <div className="flex space-x-5">
+                                        //         <div>
+                                        //             <RiChargingPile2Line color="#2196F3" size={117} />
+                                        //             <p className="text-[#2196F3] font-bold mt-2 ">{item.status_connector}</p>
+                                        //         </div>
+                                        //         <div className="text-center">
+                                        //             <h1 className="mb-2 font-medium text-center">Connecteur {item.id_connecteur}</h1>
+                                        //             <div
+                                        //                 className="flex flex-col items-center justify-center gap-4 p-6 font-medium rounded-md bg-gradient-to-r from-blue-200 to-blue-300">
+                                        //                 <p>Energie</p>
+                                        //                 <p>{item.energie_delivre} Wh</p>
+                                        //             </div>
+                                        //         </div>
+                                        //     </div>)
+                                        <ConnectorStatus status={item.status_connector} color="#2196F3" label="charging" energy={item.energie_delivre} 
+                                        connectorId={item.id_connecteur} icon={RiChargingPile2Line} bg="blue"
+                                        />
+                                    }
+                                    {
+                                        (item.status_connector.toLowerCase() === "preparing") && 
+                                        // (
+                                        //     <div className="flex space-x-5">
+                                        //         <div>
+                                        //             <BiLoaderCircle color="#2196F3" size={117} />
+                                        //             <p className="text-[#2196F3] font-bold mt-2 ">{item.status_connector}</p>
+                                        //         </div>
+                                        //         <div className="text-center">
+                                        //             <h1 className="mb-2 font-medium text-center">Connecteur {item.id_connecteur}</h1>
+                                        //             <div
+                                        //                 className="flex flex-col items-center justify-center gap-4 p-6 font-medium rounded-md bg-gradient-to-r from-blue-200 to-blue-300">
+                                        //                 <p>Energie</p>
+                                        //                 <p>{item.energie_delivre} Wh</p>
+                                        //             </div>
+                                        //         </div>
+                                        //     </div>)
+                                        <ConnectorStatus status={item.status_connector} color="#2196F3" icon={BiLoaderCircle} 
+                                        energy={item.energie_delivre} label="preparing" connectorId={item.id_connecteur} bg="blue"/>
                                     }
                                 </div>
                             </div>
@@ -318,12 +345,15 @@ function DetailStation({ Id }) {
             {/* ))} */}
 
             <div
-                className="text-[#637381] bg-[#ffffff] shadow-lg border rounded-2xl max-md:place-items-center grid grid-cols-3 max-sm:grid-cols-1 max-sm:p-4 gap-6">
+                className="text-[#637381] bg-[#fefefe] shadow-lg border rounded-2xl max-md:place-items-center grid grid-cols-3 max-sm:grid-cols-1 max-sm:p-4 gap-6">
 
                 <div className="w-full col-span-1 p-6 text-gray-800 rounded-2xl ">
-                    <h1 className="text-2xl font-bold text-red-600 text-start">Websocket</h1>
+                    <div className="flex justify-items-start text-gray-800 gap-2">
+                        <RiBaseStationFill size={25}/>
+                        <h1 className="text-2xl font-medium mb-6 text-gray-800 text-start">Websocket</h1>
+                    </div>           
                     <div className="grid w-full grid-cols-2 gap-4 mt-2 text-start max-md:gap-6">
-                        <div>
+                        <div className="flex flex-col gap-3 ">
                             <p>Backend URL:</p>
                             <p>Chargeur Box ID:</p>
                             <p>Cle d&apos;autorisation:</p>
@@ -331,7 +361,7 @@ function DetailStation({ Id }) {
                             <p>Ping intervalle:</p>
                             <p>Intervalle de reconnection:</p>
                         </div>
-                        <div>
+                        <div className="flex flex-col gap-3">
                             <p>ws://localhost:9001</p>
                             <p>Chargeur-1</p>
                             <p>EV98jh</p>
@@ -345,15 +375,18 @@ function DetailStation({ Id }) {
                 </div>
 
                 <div className="text-[#fefefe] col-span-1 rounded-2xl p-6 w-full ">
-                    <h1 className="text-2xl font-bold text-red-600 text-start">Firmware</h1>
+                    <div className="flex text-gray-800 justify-items-start gap-2">
+                        <TbVersionsFilled size={25}/>
+                        <h1 className="text-2xl font-medium mb-6 text-gray-800 text-start">Firmware</h1>
+                    </div>
                     <div className="grid w-full grid-cols-1 gap-4 mt-2 text-gray-800 text-start max-md:gap-6">
                         {/* {adminData.map((item,index)=>( */}
                         <div className="flex gap-4">
-                            <div>
+                            <div className="flex flex-col gap-3">
                                 {/* <p>Systeme d'exploitation:</p> */}
                                 <p>Protocole ocpp:</p>
                             </div>
-                            <div>
+                            <div className="flex flex-col gap-3">
                                 {/* <p>Ubuntu 22.04 LTS</p> */}
                                 <p>1.6</p>
                             </div>
@@ -363,11 +396,14 @@ function DetailStation({ Id }) {
                 </div>
 
                 <div className="text-[#fefefe]  rounded-2xl p-6 w-full  ">
-                    <h1 className="text-2xl font-bold text-red-600 text-start">Urgence</h1>
+                    <div className="flex text-gray-800 justify-items-start gap-2">
+                        <MdEmergencyShare size={25} />
+                         <h1 className="text-2xl font-medium mb-6 text-gray-800">Urgence</h1>
+                    </div>
                     <div className="grid w-full grid-cols-1 gap-4 mt-2 text-gray-800 text-start max-md:gap-6">
                         <div className="flex gap-8">
                             <div className="flex flex-col">
-                                <button className="text-[#4CAF50]" onClick={() => setIsStart(isstart => !isstart)}>
+                                <button className="text-primaryChart" onClick={() => setIsStart(isstart => !isstart)}>
                                     <IoPlayOutline size={50} />
                                 </button>
 
@@ -387,7 +423,7 @@ function DetailStation({ Id }) {
                                         <button onClick={() => {
                                             remoteStart();
                                             setIsStart(false); // Close input after sending
-                                        }}>
+                                        }} className="text-primaryChart">
                                             <BiSolidSend size={30} />
                                         </button>
                                     </div>
@@ -415,7 +451,7 @@ function DetailStation({ Id }) {
                 </div>
             </div>
             <div className="text-[#fefefe] col-span-1 rounded-2xl py-6">
-                <h1 className="text-2xl font-bold text-red-600 text-start">Statistiques</h1>
+                {/* <h1 className="text-2xl font-medium mb-6 text-gray-500  text-start">Statistiques</h1> */}
                 {/* <ChartSection /> */}
                 <div className="h-full col-span-2 max-sm:w-full max-sm:col-span-1">
                     <StatistiqueBarChart
