@@ -100,10 +100,10 @@ const ButtonActionRfid = ({ buttonProperty, Id }) => {
         <div className="flex items-center justify-center gap-2 max-md:flex-col">
             {buttonProperty.map((data, key) => renderButton(data.name, key))}
             {section === "detail" && (
-                
-                     <DetailRfid id={Id} fermer={handleCloseSection} supprimer={confirmDelete} />
-                
-                   
+
+                <DetailRfid id={Id} fermer={handleCloseSection} supprimer={confirmDelete} />
+
+
             )}
             {section === "edit" && (
                 <UpdateRfid action={handleClosed} id={Id} />
