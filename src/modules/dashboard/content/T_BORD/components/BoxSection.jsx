@@ -249,7 +249,7 @@ export default function BoxSection({ setSection }) {
 
       <Box
         setSection={setSection}
-        SectionName="Historique"
+        SectionName="HistoriqueStatusCp"
         Title="Historique status Charge Point"
         Value={dataDistoriqueCp?.pagination.total_items}
         FirstIcone={RiFileHistoryLine}
