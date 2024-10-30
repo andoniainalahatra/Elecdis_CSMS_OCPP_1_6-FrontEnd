@@ -1,9 +1,11 @@
 import { BiSolidDashboard } from "react-icons/bi";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { FiEdit } from "react-icons/fi";
+// import { FiEdit } from "react-icons/fi";
+import { IoMdAddCircleOutline } from "react-icons/io";
+
 import { useState } from "react";
 import { useDeleteRfid } from "@/features/RFID/rfidApi";
-import UpdateRfid from "./UpdateRfid";
+import AjoutCredit from "./AjoutCredit";
 import Swal from "sweetalert2";
 import { PulseLoader } from "react-spinners";
 import DetailRfid from "@/modules/dashboard/content/GRC/components/DetailRfid";
@@ -73,22 +75,22 @@ const ButtonActionRfid = ({ buttonProperty, Id }) => {
                 return (
                     <span
                         key={key}
-                        className="m-1 text-red-500 bg-transparent hover:bg-transparent hover:text-red-600"
+                        className=" text-red-500 bg-transparent hover:bg-transparent hover:text-red-600"
                         onClick={() => confirmDelete()}
                     >
-                        <RiDeleteBin6Line />
+                        <RiDeleteBin6Line size={20} />
                     </span>
                 );
-            case "edit":
+            case "ajout_credit":
                 return (
                     <span
                         key={key}
                         onClick={() => {
-                            setSection("edit");
+                            setSection("ajout_credit");
                         }}
-                        className="m-1 text-black bg-transparent hover:bg-transparent hover:text-yellow-600"
+                        className=" text-black bg-transparent hover:bg-transparent hover:text-yellow-600"
                     >
-                        <FiEdit />
+                        <IoMdAddCircleOutline size={20} color="#1f8b39" />
                     </span>
                 );
             default:
@@ -105,8 +107,8 @@ const ButtonActionRfid = ({ buttonProperty, Id }) => {
 
 
             )}
-            {section === "edit" && (
-                <UpdateRfid action={handleClosed} id={Id} />
+            {section === "ajout_credit" && (
+                <AjoutCredit action={handleClosed} id={Id} />
             )}
         </div>
     );

@@ -5,13 +5,11 @@ import {
   FaTimesCircle,
   FaHistory,
 } from "react-icons/fa"; // Des icônes futuristes
-import { RiDeleteBin6Line } from "react-icons/ri";
-import { BsArrowReturnRight } from "react-icons/bs";
 import { useGetOneRfid } from "@/features/RFID/rfidApi";
 import { convertDate } from "@/lib/utils";
 
-const DetailRfid = ({ id, fermer, supprimer }) => {
-  const { data: rfidData, error, isPending } = useGetOneRfid(id);
+const DetailRfid = ({ Id }) => {
+  const { data: rfidData, error, isPending } = useGetOneRfid(Id);
   if (error) {
     return <p>Une erreur est survenue...</p>;
   }
@@ -21,7 +19,7 @@ const DetailRfid = ({ id, fermer, supprimer }) => {
   return (
     <div className="fixed z-10 top-0 left-0 w-full h-screen flex justify-center items-center">
       <div className="w-full bg-black bg-opacity-40 h-screen flex items-center justify-center">
-        <div className="relative bg-white shadow-xl backdrop-blur max-sm:shadow-none w-[400px] 2xl:w-[500px] h-auto p-6 flex items-center flex-col gap-[4vh] rounded-lg">
+        <div className="relative bg-white shadow-xl backdrop-blur max-sm:shadow-none w-[500px] 2xl:w-[500px] h-auto p-6 flex items-center flex-col gap-[4vh] rounded-lg">
           {/* Section 1: Informations de base */}
           <div className="w-full bg-gray-800 p-4 rounded-lg shadow-md">
             <h2 className="text-xl font-semibold text-blue-400 mb-4">
@@ -109,20 +107,7 @@ const DetailRfid = ({ id, fermer, supprimer }) => {
           </div>
 
           {/* Section 4: Actions */}
-          <div className="w-full flex justify-end space-x-4">
-            <button
-              onClick={() => supprimer()}
-              className="bg-red-600 hover:bg-red-500 px-4 py-2 rounded-md text-white"
-            >
-              <RiDeleteBin6Line />
-            </button>
-            <button
-              onClick={() => fermer()}
-              className="bg-blue-600 hover:bg-blue-500 px-4 py-2 rounded-md text-white"
-            >
-              <BsArrowReturnRight />
-            </button>
-          </div>
+          
         </div>
       </div>
     </div>
