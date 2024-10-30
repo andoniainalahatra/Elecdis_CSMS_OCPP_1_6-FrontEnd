@@ -78,7 +78,9 @@ const ButtonActionRfid = ({ buttonProperty, Id }) => {
                         className=" text-red-500 bg-transparent hover:bg-transparent hover:text-red-600"
                         onClick={() => confirmDelete()}
                     >
-                        <RiDeleteBin6Line size={20} />
+                        <div className="py-1 px-6 bg-red-400 rounded-xl">
+                            <RiDeleteBin6Line color="#ffffff" size={20} />
+                        </div>
                     </span>
                 );
             case "ajout_credit":
@@ -90,7 +92,10 @@ const ButtonActionRfid = ({ buttonProperty, Id }) => {
                         }}
                         className=" text-black bg-transparent hover:bg-transparent hover:text-yellow-600"
                     >
-                        <IoMdAddCircleOutline size={20} color="#1f8b39" />
+                        <div className="bg-blue-400 flex items-center justify-center rounded-xl gap-1 py-1 px-2">
+                        <IoMdAddCircleOutline size={16} color="#ffffff" />
+                        <p className="text-[#ffffff] font-semibold text-[16px] ">crédit</p>
+                        </div>
                     </span>
                 );
             default:
