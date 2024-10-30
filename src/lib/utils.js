@@ -55,6 +55,15 @@ export const convertTimeToHourFormat = (time) => {
     .padStart(2, "0")}`;
 };
 
+export const takeOnlyTime =  (date) => {
+  const [dateOnly, timeOnly] = date.split("T");
+  return timeOnly.slice(0,5)
+}
+export const takeOnlyDate = (date) => {
+  const [dateOnly, timeOnly] = date.split("T");
+  return dateOnly
+}
+
 export const convertDate = (dateString) => {
   if (dateString == null) {
     return "Jamais utilisé";
@@ -76,24 +85,27 @@ export const convertDate = (dateString) => {
 
 export const transformValue = (value) => {
   const formatNumber = (num, unit) => {
-    // Vérifie si le nombre arrondi est sans décimales significatives (.000)
-    if (num % 1 === 0) {
-      return num.toLocaleString("fr-FR") + ` ${unit}`;
+    // Arrondir le nombre à une décimale avant de formater
+    const roundedNum = Math.round(num * 10) / 10;
+
+    // Vérifier si le nombre arrondi est sans décimales significatives (.0)
+    if (roundedNum % 1 === 0) {
+      return roundedNum.toLocaleString("fr-FR") + ` ${unit}`;
     }
-    // Si les décimales sont nécessaires, applique le formatage
+
     return (
-      num.toLocaleString("fr-FR", {
-        minimumFractionDigits: 3,
-        maximumFractionDigits: 3,
+      roundedNum.toLocaleString("fr-FR", {
+        minimumFractionDigits: 1,
+        maximumFractionDigits: 1,
       }) + ` ${unit}`
     );
   };
 
-  if (value.includes("kwh")) {
-    const number = parseFloat(value.replace(" kwh", "").replace(",", "."));
+  if (value.toLowerCase().includes("kwh")) {
+    const number = parseFloat(value.replace(/ kwh/i, "").replace(",", "."));
     return formatNumber(number, "kWh");
-  } else if (value.includes("ar")) {
-    const number = parseFloat(value.replace(" ar", "").replace(",", "."));
+  } else if (value.toLowerCase().includes("ar")) {
+    const number = parseFloat(value.replace(/ ar/i, "").replace(",", "."));
     return formatNumber(number, "Ar");
   } else {
     return value; // Retourne la valeur originale si elle ne contient ni "kwh" ni "ar"

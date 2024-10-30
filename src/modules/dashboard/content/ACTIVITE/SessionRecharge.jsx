@@ -6,6 +6,7 @@ const SessionRecharge = () => {
       <h2 className="text-[24px] text-[#212B36] mb-6">Session de recharge</h2>
       <SessionChart />
       <SessionTable />
+      {/* <TransactionRechargeTable id={1} /> */}
     </div>
   );
 };

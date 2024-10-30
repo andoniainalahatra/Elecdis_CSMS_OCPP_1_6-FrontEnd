@@ -4,7 +4,7 @@ import { PulseLoader } from 'react-spinners';
 import Swal from 'sweetalert2';
 import { FaRegStopCircle } from "react-icons/fa";
 
-function ButtonStopTransaction({ transactionId, chargPointId }) {
+function ButtonStopTransaction({ transactionId, chargPointId, disabled }) {
   const stopTransaction = async () => {
     const response = await axiosInstance.post(`/cp/send_remoteStopTransaction/${chargPointId}/${transactionId}`);
     return response.data;
@@ -49,7 +49,7 @@ function ButtonStopTransaction({ transactionId, chargPointId }) {
     });
   };
   return (
-    <button onClick={(e) => confirmDelete(e)} className='px-4 py-2 text-white bg-red-400 rounded-xl' >
+    <button disabled={disabled} onClick={(e) => confirmDelete(e)} className={`p-2 text-white ${disabled ? "bg-red-200" : "bg-red-500"} rounded-xl`} >
       <FaRegStopCircle color='#ffffff' />
     </button>
   )

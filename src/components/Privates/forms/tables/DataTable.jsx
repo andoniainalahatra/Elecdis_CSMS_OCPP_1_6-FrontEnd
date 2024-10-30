@@ -148,6 +148,7 @@ function DataTable({
           <TableBody className="w-full">
             {table.getRowModel().rows.map((row) => (
               <TableRow
+                className={`${onClickRow ? "cursor-pointer" : "cursor-default"}`}
                 key={row.id}
                 onClick={() => handleClick(row.original.id)}
               >
@@ -181,20 +182,29 @@ function DataTable({
                     }
                   }
                   if (cell.column.id === "Urgence") {
-                    if (rowData.statuts == "en cours") {
+                    if (rowData.statuts === "en cours" || rowData.state === "en cours") {
                       return (
                         <TableCell key={cell.id} className="text-center">
+                          <ButtonReprendreTransaction disabled={true} />
                           <ButtonStopTransaction
                             chargPointId={rowData.charge_point_id}
                             transactionId={rowData.id}
+                            disabled={false}
                           />
                         </TableCell>
                       );
                     }
-                    else if (rowData.statuts == "terminé"){
+                    else if (rowData.statuts || rowData.state === "terminé"){
                       return (
                         <TableCell key={cell.id} className="text-center">
-                          <ButtonReprendreTransaction />
+                          <div className="flex items-center justify-center gap-3">
+                          <ButtonReprendreTransaction disabled={false} />
+                          <ButtonStopTransaction
+                            disabled={true}
+                            chargPointId={rowData.charge_point_id}
+                            transactionId={rowData.id}
+                          />
+                          </div>
                         </TableCell>
                       );
                     }
@@ -258,6 +268,7 @@ function DataTable({
                     cell.column.id === "connector2" ||
                     cell.column.id === "heartBeat" ||
                     cell.column.id === "statut" ||
+                    cell.column.id === "state" ||
                     cell.column.id === "historique_erreur"
                   ) {
                     switch (cellValue) {
