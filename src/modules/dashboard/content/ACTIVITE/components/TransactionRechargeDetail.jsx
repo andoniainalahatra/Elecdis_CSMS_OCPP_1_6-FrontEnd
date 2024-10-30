@@ -37,7 +37,7 @@ function TransactionRechargeDetail({ close }) {
               <div className="grid grid-cols-2 gap-2">
               <IconWithText Icon={IoCalendarClear} Value={"null"} />
               <div className="flex p-2 bg-gray-200 rounded-lg justify-start items-center mb-3 gap-4">
-                <IoTime color="#637381" />
+                <IoTime color="#637381" className="text-[1.2vw]" />
                 <div className="flex justify-start items-center gap-1">
                   <p className="text-[#637381] text-lg">{"null"}</p>
                   <FaLongArrowAltRight color="#637381" size={12} />
