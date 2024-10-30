@@ -10,6 +10,7 @@ import filterCalendarDateReducer from "@/modules/dashboard/content/T_BORD/featur
 import chartSessionReducer from "@/modules/dashboard/content/ACTIVITE/features/chartSessionSlice";
 import rfidSpecificReducer from "@/components/features/SpecificRFID/rfidSpecificSlice";
 import sessionSpecificReducer from "@/components/features/SpecificSession/sessionSpecificSlice";
+import transactionRechargeReducer from "@/features/TransactionRecharge/TransactionRechargeSlice";
 import HistoriqueCpReducer from "@/features/historiqueStatusCp/historiqueCpSlice";
 
 const store = configureStore({
@@ -26,6 +27,7 @@ const store = configureStore({
     rfidSPecific: rfidSpecificReducer,
     sessionSpecific: sessionSpecificReducer,
     historiqueStatusCp: HistoriqueCpReducer,
+    transactionRecharge: transactionRechargeReducer,
   },
 });
 
