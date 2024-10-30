@@ -9,7 +9,7 @@ const Autorisation = () => {
 
     return (
         <div className='p-6 '>
-            <div className='flex justify-between mb-6'>
+            <div className='flex justify-between mb-12'>
                 <span className='text-[24px] text-[#212B36]'>Personnels</span>
                 <BoutonAdd open={open} setOpen={setOpen} Composant={AddAdmin} />
             </div>
