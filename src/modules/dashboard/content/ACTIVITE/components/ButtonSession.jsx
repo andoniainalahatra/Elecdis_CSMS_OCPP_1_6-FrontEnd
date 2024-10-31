@@ -7,7 +7,8 @@ import { useState } from "react";
 import DeleteStation from "@/modules/Station/DeleteStation";
 import TransactionRechargeDetail from "./TransactionRechargeDetail";
 
-const ButtonActionSession = ({ buttonProperty, Id }) => {
+const ButtonActionSession = ({ buttonProperty, Id, dataObj}) => {
+
     const [section, setSection] = useState("");
 
     const renderButton = (name, key) => {
@@ -61,7 +62,7 @@ const ButtonActionSession = ({ buttonProperty, Id }) => {
                     className="fixed top-0 left-0 z-20 flex items-center justify-center w-full h-screen overflow-auto bg-black bg-opacity-40"
                    
                 >
-                    <TransactionRechargeDetail close={setSection} />
+                    <TransactionRechargeDetail close={setSection} dataObj={dataObj} />
                     {/* <span
                         className="absolute cursor-pointer top-5 right-5"
                         onClick={() => setSection("")}

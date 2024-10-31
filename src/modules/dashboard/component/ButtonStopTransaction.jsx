@@ -4,16 +4,18 @@ import { PulseLoader } from 'react-spinners';
 import Swal from 'sweetalert2';
 import { FaRegStopCircle } from "react-icons/fa";
 
-function ButtonStopTransaction({ transactionId, chargPointId, disabled }) {
+function ButtonStopTransaction({ sessionId, chargePointId, disabled }) {
+  
   const stopTransaction = async () => {
-    const response = await axiosInstance.post(`/cp/send_remoteStopTransaction/${chargPointId}/${transactionId}`);
+    const response = await axiosInstance.post(`/cp/send_remoteStopTransaction/${chargePointId}/${sessionId}`);
     return response.data;
   };
   const { mutate, isError, isPending, isSuccess } = useMutation({
     mutationFn: stopTransaction,
   });
-  const confirmDelete = (e) => {
-    e.stopTransaction()
+  const confirmeStop = (e) => {
+    console.log("sessionId :", sessionId, "chargePointId :", chargePointId );
+    e.stopPropagation()
     Swal.fire({
       title: 'Êtes-vous sûr ?',
       text: "Vous ne pourrez pas revenir en arrière !",
@@ -49,7 +51,7 @@ function ButtonStopTransaction({ transactionId, chargPointId, disabled }) {
     });
   };
   return (
-    <button disabled={disabled} onClick={(e) => confirmDelete(e)} className={`p-2 text-white ${disabled ? "bg-red-200" : "bg-red-500"} rounded-xl`} >
+    <button disabled={disabled} onClick={(e) => confirmeStop(e)} className={`p-2 text-white ${disabled ? "bg-red-200" : "bg-red-500"} rounded-xl`} >
       <FaRegStopCircle color='#ffffff' />
     </button>
   )

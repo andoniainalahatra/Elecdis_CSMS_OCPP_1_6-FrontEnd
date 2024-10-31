@@ -157,6 +157,7 @@ function DataTable({
                 {row.getVisibleCells().map((cell) => {
                   const cellValue = cell.getValue();
                   const id = row.original.id;
+                  const detailData = row.original
                   let cellClass = "";
                   const rowData = row.original;
                   if (cell.column.id === "consumed_energy") {
@@ -187,12 +188,14 @@ function DataTable({
                     if (rowData.statuts === "en cours" || rowData.state === "en cours") {
                       return (
                         <TableCell key={cell.id} className="text-center">
+                          <div className="flex items-center justify-center gap-3">
                           <ButtonReprendreTransaction disabled={true} />
                           <ButtonStopTransaction
-                            chargPointId={rowData.charge_point_id}
-                            transactionId={rowData.id}
+                            chargePointId={rowData.chargepoint_id}
+                            sessionId={rowData.id}
                             disabled={false}
                           />
+                          </div>
                         </TableCell>
                       );
                     }
@@ -200,11 +203,9 @@ function DataTable({
                       return (
                         <TableCell key={cell.id} className="text-center">
                           <div className="flex items-center justify-center gap-3">
-                          <ButtonReprendreTransaction disabled={false} />
+                          <ButtonReprendreTransaction idSession={rowData.id} idTag={rowData.rfid} idConnecteur={rowData.connector_id} disabled={false} />
                           <ButtonStopTransaction
                             disabled={true}
-                            chargPointId={rowData.charge_point_id}
-                            transactionId={rowData.id}
                           />
                           </div>
                         </TableCell>
@@ -257,7 +258,7 @@ function DataTable({
                         key={cell.id}
                         className="text-center"
                       >
-                        <ButtonAction buttonProperty={actions} Id={id} />
+                        <ButtonAction buttonProperty={actions} Id={id} dataObj={detailData} />
                       </TableCell>
                     );
                   }
