@@ -20,7 +20,9 @@ export const ContextProvider = ({ children }) => {
     energyDelivery: "journalier",
     revenu: "journalier",
     newClient: "journalier",
+    listClient: "tous"
   });
+
 
   // userRole;
   const handleFilterChange = useCallback((filterName, filterValue) => {
