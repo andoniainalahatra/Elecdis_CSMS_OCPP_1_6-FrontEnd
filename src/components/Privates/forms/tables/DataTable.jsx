@@ -199,7 +199,7 @@ function DataTable({
                         </TableCell>
                       );
                     }
-                    else if (rowData.statuts || rowData.state === "terminé"){
+                    else if (rowData.statuts || rowData.state === "terminé") {
                       return (
                         <TableCell key={cell.id} className="text-center">
                           <div className="flex items-center justify-center gap-3">
