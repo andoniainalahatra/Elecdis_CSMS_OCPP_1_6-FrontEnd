@@ -1,10 +1,27 @@
 import axiosInstance from "@/lib/axiosInstance";
+import useGetDataNoParams from "@/lib/hoocks/useGetDataNoParams";
 import useGetDataWithPagination from "@/lib/hoocks/useGetDataWithPagination.js";
+
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 
 export const ClientApi = (url, queryKey, page, number_items) =>
   useGetDataWithPagination(url, queryKey, page, number_items);
+
+export const ClientApiNew =(url,queryKey)=>useGetDataNoParams(url,queryKey);
+// export const ClientApiNewWithPagination (url, queryKey, page, number_items)=>useGet
+export const ClientApiNewWithPagination= (url, month,year, queryKey, page, number_items) => {
+  return useQuery({
+    queryKey: [`${queryKey}`, page, month,year],
+
+    queryFn: () =>
+      axiosInstance
+        .get(`/${url}/?month=${month}&year=${year}&page=${page}&number_items=${number_items}`)
+        .then((response) => response.data),
+    refetchOnWindowFocus: true,
+    refetchInterval: 1000,
+  });
+};
 
 export const useUpdateClient = (id) => {
   const queryClient = useQueryClient();
