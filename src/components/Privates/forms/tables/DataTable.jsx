@@ -196,16 +196,16 @@ function DataTable({
                         </TableCell>
                       );
                     }
-                    else if (rowData.statuts || rowData.state === "terminé"){
+                    else if (rowData.statuts || rowData.state === "terminé") {
                       return (
                         <TableCell key={cell.id} className="text-center">
                           <div className="flex items-center justify-center gap-3">
-                          <ButtonReprendreTransaction disabled={false} />
-                          <ButtonStopTransaction
-                            disabled={true}
-                            chargPointId={rowData.charge_point_id}
-                            transactionId={rowData.id}
-                          />
+                            <ButtonReprendreTransaction disabled={false} />
+                            <ButtonStopTransaction
+                              disabled={true}
+                              chargPointId={rowData.charge_point_id}
+                              transactionId={rowData.id}
+                            />
                           </div>
                         </TableCell>
                       );

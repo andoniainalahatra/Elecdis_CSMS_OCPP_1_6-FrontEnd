@@ -30,7 +30,7 @@ const MobileNav = ({ setSection }) => {
                     <BoutonMobile IconButton={RiReservedFill} label='Réservations' setSection={setSection} namePage='Réservations' />
                     <BoutonMobile IconButton={BoltIcon} label='Sessions  de recharge' setSection={setSection} namePage='sessionRecharge' />
                     <BoutonMobile IconButton={ArrowsRightLeftIcon} label='Transactions' setSection={setSection} namePage='Transaction' />
-                    <BoutonMobile IconButton={UserGroupIcon} label='Users' setSection={setSection} namePage='Users' />
+                    <BoutonMobile IconButton={UserGroupIcon} label='Clients' setSection={setSection} namePage='Clients' />
                     <BoutonMobile IconButton={IdentificationIcon} label='Etiquettes RFID' setSection={setSection} namePage='EtiquettesRFID' />
                     <BoutonMobile IconButton={DocumentTextIcon} label='Réçus' setSection={setSection} namePage='Reçus' />
                     <BoutonMobile IconButton={BsFillEvStationFill} label='Points de charges' setSection={setSection} namePage='PointsDecharges' />
@@ -40,7 +40,7 @@ const MobileNav = ({ setSection }) => {
                     <BoutonMobile IconButton={HiDocumentCheck} label='Contrats' setSection={setSection} namePage='Contrats' />
                     <BoutonMobile IconButton={AiOutlineGroup} label='Groupes des tarifs' setSection={setSection} namePage='GroupesDestarifs' />
                     <BoutonMobile IconButton={FaDollarSign} label='Tarifs' setSection={setSection} namePage='Tarifs' />
-                    
+
                 </div>
             </div>
 
