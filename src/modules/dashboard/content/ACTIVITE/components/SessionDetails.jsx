@@ -6,24 +6,24 @@ import { FaLongArrowAltRight } from "react-icons/fa";
 import { IoTime } from "react-icons/io5";
 import { FaLocationDot } from "react-icons/fa6";
 import { IoCalendarClear } from "react-icons/io5";
-import { FaBoltLightning } from "react-icons/fa6";
 import { FaCircleCheck } from "react-icons/fa6";
 import IconWithText from "@/modules/dashboard/component/IconWithText";
 import TransactionRechargeTable from "./TransactionRechargeTable";
 import { useSelector } from "react-redux";
 import { selectTransactionRecharge } from "@/features/TransactionRecharge/TransactionRechargeSelector";
 import { takeOnlyDate, takeOnlyTime } from "@/lib/utils";
+import { FiLoader } from "react-icons/fi";
 
-const SessionDetails = ({ Id }) => {
-  const { data } = useSelector(selectTransactionRecharge);
+
+const SessionDetails = ({ Id, dataObj }) => {
   const [detailSession, setDetailSession] = useState(null);
 
   useEffect(() => {
-    if (data) {
-      setDetailSession(data[0]);
+    if (dataObj) {
+      setDetailSession(dataObj);
     }
-  }, [data]);
-  console.log(detailSession);
+  }, [dataObj]);
+  
 
   return (
     <div className="bg-[#F9FAFB] p-8 rounded-lg shadow-lg h-auto  w-full">
@@ -51,7 +51,7 @@ const SessionDetails = ({ Id }) => {
             </h4>
             <IconWithText
               Icon={BiSolidEvStation}
-              Value={detailSession ? detailSession.charge_point_id : "null"}
+              Value={detailSession ? detailSession.chargepoint_id : "null"}
             />
             <IconWithText
               Icon={FaPlug}
@@ -85,7 +85,7 @@ const SessionDetails = ({ Id }) => {
             </div>
             <IconWithText
               Icon={FaLocationDot}
-              Value="Andraharo Galaxy Village"
+              Value={detailSession ? detailSession.address : "null"}
             />
             {/* <IconWithText Icon={FaBoltLightning} Value={detailSession ? detailSession.} /> */}
           </div>
@@ -94,8 +94,9 @@ const SessionDetails = ({ Id }) => {
               Statut de la session
             </h4>
             <div className="flex justify-start items-center mb-3 gap-4">
-              <FaCircleCheck color="#0cdf3f" size={24} />
-              <p className="text-[#637381] text-lg">Terminé</p>
+              {detailSession && detailSession.state == "terminé" ? <FaCircleCheck color="#0cdf3f" size={24} /> :
+              <FiLoader color="#3283ff" size={24} />}
+              <p className="text-[#637381] text-lg">{detailSession ? detailSession.state : "null"}</p>
             </div>
           </div>
         </div>
