@@ -15,7 +15,6 @@ const DetailAutorisation = ({ Id }) => {
     };
 
     const user = findUser();
-    console.log(user);
 
     // Vérifie si l'utilisateur est trouvé
     if (!user) {

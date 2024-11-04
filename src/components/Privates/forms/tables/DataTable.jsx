@@ -27,6 +27,8 @@ import ButtonFilterTable from "@/modules/dashboard/component/ButtonFilterTable";
 import { IoMdClose } from "react-icons/io";
 import { transformValue } from "@/lib/utils";
 import ButtonReprendreTransaction from "@/modules/dashboard/component/ButtonReprendreTransaction";
+import CalendarFilterMonth from "@/modules/dashboard/component/CalendarFilterMonth";
+import CalendarFilterYear from "@/modules/dashboard/component/CalendarFilterYear";
 /**
  * Génère un tableau paginé avec des actions.
  *
@@ -59,6 +61,7 @@ function DataTable({
   selectPage,
   filter,
   listFilter,
+  calendarFilter,
   onFilter = false,
   onClickRow = false,
   ComponentModal,
@@ -129,6 +132,16 @@ function DataTable({
         {onFilter && (
           <ButtonFilterTable filter={filter} listFilter={listFilter} />
         )}
+        {calendarFilter && (
+           <div className="flex items-center justify-center gap-1">
+           <div onClick={(e)=>e.stopPropagation()}>
+             <CalendarFilterMonth filter={calendarFilter} />
+           </div>
+           <div onClick={(e)=>e.stopPropagation()}>
+             <CalendarFilterYear filter={calendarFilter} />
+           </div>
+         </div>
+        )}
       </div>
       <div className="w-full">
         <Table className="w-full text-center bg-[#fffe] overflow-x-auto">
@@ -157,6 +170,7 @@ function DataTable({
                 {row.getVisibleCells().map((cell) => {
                   const cellValue = cell.getValue();
                   const id = row.original.id;
+                  const detailData = row.original
                   let cellClass = "";
                   const rowData = row.original;
                   if (cell.column.id === "consumed_energy") {
@@ -187,12 +201,14 @@ function DataTable({
                     if (rowData.statuts === "en cours" || rowData.state === "en cours") {
                       return (
                         <TableCell key={cell.id} className="text-center">
+                          <div className="flex items-center justify-center gap-3">
                           <ButtonReprendreTransaction disabled={true} />
                           <ButtonStopTransaction
-                            chargPointId={rowData.charge_point_id}
-                            transactionId={rowData.id}
+                            chargePointId={rowData.chargepoint_id}
+                            sessionId={rowData.id}
                             disabled={false}
                           />
+                          </div>
                         </TableCell>
                       );
                     }
@@ -200,12 +216,10 @@ function DataTable({
                       return (
                         <TableCell key={cell.id} className="text-center">
                           <div className="flex items-center justify-center gap-3">
-                            <ButtonReprendreTransaction disabled={false} />
-                            <ButtonStopTransaction
-                              disabled={true}
-                              chargPointId={rowData.charge_point_id}
-                              transactionId={rowData.id}
-                            />
+                          <ButtonReprendreTransaction idSession={rowData.id} idTag={rowData.rfid} idConnecteur={rowData.connector_id} disabled={false} />
+                          <ButtonStopTransaction
+                            disabled={true}
+                          />
                           </div>
                         </TableCell>
                       );
@@ -257,7 +271,7 @@ function DataTable({
                         key={cell.id}
                         className="text-center"
                       >
-                        <ButtonAction buttonProperty={actions} Id={id} />
+                        <ButtonAction buttonProperty={actions} Id={id} dataObj={detailData} />
                       </TableCell>
                     );
                   }

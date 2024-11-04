@@ -56,12 +56,20 @@ export const convertTimeToHourFormat = (time) => {
 };
 
 export const takeOnlyTime =  (date) => {
-  const [dateOnly, timeOnly] = date.split("T");
-  return timeOnly.slice(0,5)
+  if(date){
+    const [dateOnly, timeOnly] = date.split("T");
+    return timeOnly.slice(0,5)
+  }else{
+    return "en cours"
+  }
 }
 export const takeOnlyDate = (date) => {
-  const [dateOnly, timeOnly] = date.split("T");
+  if(date){
+    const [dateOnly, timeOnly] = date.split("T");
   return dateOnly
+  }else{
+    return "en cours"
+  }
 }
 
 export const convertDate = (dateString) => {

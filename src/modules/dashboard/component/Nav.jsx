@@ -15,6 +15,7 @@ import BoutonNav from './BoutonNav'
 import Logo from "@/assets/logo1.png"
 import { Context } from '@/common/config/configs/Context';
 import { useContext } from 'react';
+import Cookies from 'js-cookie';
 
 const Nav = ({ setSection }) => {
     const { setActive } = useContext(Context);
@@ -22,6 +23,8 @@ const Nav = ({ setSection }) => {
         setSection("TableauDeBord");
         setActive("TableauDeBord")
     }
+    const name = JSON.parse(Cookies.get('user')).first_name + " " + JSON.parse(Cookies.get('user')).last_name
+    
     return (
         <div className='w-full flex flex-col text-[14px] pl-3 truncate'>
             <div className='mt-2' onClick={() => handleClick()}>
@@ -29,7 +32,7 @@ const Nav = ({ setSection }) => {
             </div>
             <div onClick={() => setSection('UserProfil')} className=' flex items-center h-[72px] bg-[#919EAB] bg-opacity-10 p-2 rounded-md space-x-2 font-semibold mt-8'>
                 <UserCircleIcon className="w-[1.5rem]  h-[1.5rem] cursor-pointer text-gray-500" />
-                <span>John Doe</span>
+                <span>{name}</span>
             </div>
             <div className=' flex items-center h-[44px] text-[#637381] rounded-md space-x-2 font-semibold mt-8'>
                 <BoutonNav IconButton={RiDashboard2Fill} label='Tableau de bord' setSection={setSection} namePage='TableauDeBord' />
