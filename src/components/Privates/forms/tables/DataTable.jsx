@@ -27,6 +27,8 @@ import ButtonFilterTable from "@/modules/dashboard/component/ButtonFilterTable";
 import { IoMdClose } from "react-icons/io";
 import { transformValue } from "@/lib/utils";
 import ButtonReprendreTransaction from "@/modules/dashboard/component/ButtonReprendreTransaction";
+import CalendarFilterMonth from "@/modules/dashboard/component/CalendarFilterMonth";
+import CalendarFilterYear from "@/modules/dashboard/component/CalendarFilterYear";
 /**
  * Génère un tableau paginé avec des actions.
  *
@@ -59,6 +61,7 @@ function DataTable({
   selectPage,
   filter,
   listFilter,
+  calendarFilter,
   onFilter = false,
   onClickRow = false,
   ComponentModal,
@@ -128,6 +131,16 @@ function DataTable({
         <Filters value={globalFilter} onChange={setGlobalFilter} />
         {onFilter && (
           <ButtonFilterTable filter={filter} listFilter={listFilter} />
+        )}
+        {calendarFilter && (
+           <div className="flex items-center justify-center gap-1">
+           <div onClick={(e)=>e.stopPropagation()}>
+             <CalendarFilterMonth filter={calendarFilter} />
+           </div>
+           <div onClick={(e)=>e.stopPropagation()}>
+             <CalendarFilterYear filter={calendarFilter} />
+           </div>
+         </div>
         )}
       </div>
       <div className="w-full">

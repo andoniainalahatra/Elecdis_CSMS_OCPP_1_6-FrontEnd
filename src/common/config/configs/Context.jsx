@@ -20,7 +20,7 @@ export const ContextProvider = ({ children }) => {
     energyDelivery: "journalier",
     revenu: "journalier",
     newClient: "journalier",
-    listClient: "tous"
+    // listClient: "tous"
   });
 
 

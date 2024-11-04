@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import {
   filterDateForAllRevenu,
   filterDateForAllSession,
+  filterDateForClientTable,
   filterDateForEnergy,
   filterDateForNewUser,
 } from "../content/T_BORD/features/filterCalendarSlice";
@@ -36,6 +37,9 @@ function CalendarFilterYear({ filter }) {
       actionCreator = filterDateForAllRevenu;
     } else if (filter === "newClient") {
       actionCreator = filterDateForNewUser;
+    }
+    else if(filter==="filterClientTable"){
+      actionCreator = filterDateForClientTable
     }
 
     if (actionCreator) {

@@ -10,8 +10,9 @@ import { selectClient, selectPage } from "../config/client/clientSelector";
 import { getClient, nextPage, previousPage, resetPage, totalPage } from "../config/client/clientSlice";
 import ButtonActionClient from "./BoutonActionClient";
 import UserProfil from "@/components/UserProfil";
-import { Context } from "@/common/config/configs/Context";
-import { useContext, useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
+import { selectFilterCalendarTable } from "../../T_BORD/features/filterCalendarSelector";
+import { isMonthPresent } from "@/lib/utils";
 
 // const datas = [
 //     "id", "first_name", "last_name", "email", "role", "phone", "subscription", "Actions"
@@ -56,56 +57,54 @@ const datas = [
 // const columns = Columns(datas);
 const columns = datas;
 const actions = [{ name: "detail" }, { name: "edit" }, { name: "delete" }];
-const listFilter=["nouveau","tous"]
 const DataTableUser = () => {
-    const month=new Date().getMonth()
-    const year=new Date().getFullYear()
+    const date = useSelector(selectFilterCalendarTable);
     const currentPage = useSelector(selectPage);
-    const {filters}=useContext(Context)
-    const [data,setData]=useState()
-    const { 
-            data:dataForAll 
-           ,isPending:isPendingforAll,
-            error:errorForAll
-          } = ClientApi(
-        "users/client",
-        "clientList",
-        currentPage,
-        10
-    );
-
-    const {
-           data: dataForNew ,
-           isPending: isPendingForNew,
-           error: errorForNew} =
-           ClientApiNewWithPagination(
-          `users/new_clients`,month,year,
-          "newClient",currentPage,10
-
-    )
-//     const {
-//         data: dataForNew ,
-//         isPending: isPendingForNew,
-//         error: errorForNew
-//     } =
-//         ClientApiNew(
-//        `users/new_clients/?month=${month}&year=${year}`,
-//        "newClient"
-//  )
-
-
     const dispatch = useDispatch();
-    const userData = useSelector(selectClient);
-  
-    useEffect(() => {
-        if (filters.listClient === "tous") {
-          setData(dataForAll);
-        }
-        if (filters.listClient === "nouveau") {
-          setData(dataForNew);
-        }
-      }, [filters, dataForNew, dataForAll]);
+    const [data, setData] = useState();
+    const [month, setMonth] = useState(null);
+    const [year, setYear] = useState(null);
+    let userData = useSelector(selectClient);
 
+    // Appel API pour tous les clients
+    const { 
+        data: dataForAll,
+        isPending: isPendingforAll,
+        error: errorForAll,
+    } = ClientApi("users/client", "clientList", currentPage, 10);
+
+    // Appel API pour les nouveaux clients avec pagination
+    const {
+        data: dataForNew,
+        isPending: isPendingForNew,
+        error: errorForNew
+    } = ClientApiNewWithPagination("users/new_clients", month, year, "newClient", currentPage, 10);
+    
+    // Mise à jour des données à afficher
+    useEffect(() => {
+        if (isMonthPresent(date)) {
+            const [newYear, newMonth] = date.split("-");
+            setMonth(parseInt(newMonth, 10));
+            setYear(newYear);
+            setData(dataForNew);
+        }
+            else if(Number.isInteger(parseInt(date))){
+                setYear(date)
+                setData(dataForNew)
+            }
+         else {
+            setData(dataForAll);
+        }
+    }, [date, dataForNew, dataForAll]);
+    
+// console.log(date)
+    // Mise à jour du store avec les données récupérées
+    useEffect(() => {
+        if (data) {
+            dispatch(getClient(data));
+        }
+    }, [data, dispatch]);
+    // Affichage du chargement
     if (isPendingforAll || isPendingForNew) {
         return (
             <div className="w-full flex justify-center items-center h-[70vh]">
@@ -113,18 +112,17 @@ const DataTableUser = () => {
             </div>
         );
     }
-    // console.log(data)
+
+    // Gestion des erreurs de connexion
     if (errorForAll || errorForNew) {
-        return Swal.fire({
-            title: "Oops ! Erreur de connexion .",
+        Swal.fire({
+            title: "Oops ! Erreur de connexion.",
             icon: "error",
         });
-    }
-    if (data) {
-        dispatch(getClient(data));
+        return null;
     }
 
-   
+    // Affichage du tableau de données
     return (
         <DataTable
             columns={columns}
@@ -137,9 +135,7 @@ const DataTableUser = () => {
             nextPage={nextPage}
             previousPage={previousPage}
             onClickRow={true}
-            filter="listClient"
-            listFilter={listFilter}
-            onFilter={true}
+            calendarFilter="filterClientTable"
             ComponentModal={UserProfil}
         />
     );
