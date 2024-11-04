@@ -67,7 +67,7 @@ const SessionDetails = ({ Id }) => {
                 }
               />
               <div className="flex p-2 bg-gray-200 rounded-lg justify-start items-center mb-3 gap-4">
-                <IoTime color="#637381" />
+                <IoTime color="#637381" className="text-[1.2vw]" />
                 <div className="flex justify-start items-center gap-2">
                   <p className="text-[#637381] text-lg">
                     {detailSession

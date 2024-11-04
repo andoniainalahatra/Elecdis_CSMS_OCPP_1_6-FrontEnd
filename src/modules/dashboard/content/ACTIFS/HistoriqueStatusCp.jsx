@@ -64,8 +64,9 @@ const HistoriqueStatusCp = () => {
         <div>
             <div className="flex justify-between p-6">
                 <span className=" text-[24px] text-[#212B36]">Historiques status charges points</span>
+                
             </div>
-
+            <div className="p-6">
             <DataTable
                 columns={columns}
                 datas={historiqueData}
@@ -77,6 +78,9 @@ const HistoriqueStatusCp = () => {
                 nextPage={nextPage}
                 previousPage={previousPage}
             />
+            </div>
+
+            
         </div>
     )
 }

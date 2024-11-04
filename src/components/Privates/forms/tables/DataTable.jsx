@@ -65,10 +65,12 @@ function DataTable({
 }) {
   const [isDetail, setIsDetail] = useState(false);
   const [idDetail, setIdDetail] = useState(null);
-  const handleClick = (Id) => {
+  const [dataObj,setDataObj]=useState(null)
+  const handleClick = (obj) => {
     if (onClickRow) {
       setIsDetail(true);
-      setIdDetail(Id);
+      setIdDetail(obj.id);
+      setDataObj(obj)
     }
   };
   const [data, setData] = useState([]);
@@ -150,7 +152,7 @@ function DataTable({
               <TableRow
                 className={`${onClickRow ? "cursor-pointer" : "cursor-default"}`}
                 key={row.id}
-                onClick={() => handleClick(row.original.id)}
+                onClick={() => handleClick(row.original)}
               >
                 {row.getVisibleCells().map((cell) => {
                   const cellValue = cell.getValue();
@@ -385,7 +387,7 @@ function DataTable({
           className="fixed top-0 left-0 z-50 flex items-center justify-center w-full h-screen overflow-auto backdrop-blur-md"
           style={{ backgroundColor: "rgba(9,16,26,0.3)" }}
         >
-          <ComponentModal Id={idDetail} />
+          <ComponentModal Id={idDetail} dataObj={dataObj}  />
           <span
             className="absolute z-50 cursor-pointer top-5 right-5"
             onClick={() => setIsDetail(false)}
