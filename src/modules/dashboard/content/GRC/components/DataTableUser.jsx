@@ -12,7 +12,7 @@ import ButtonActionClient from "./BoutonActionClient";
 import UserProfil from "@/components/UserProfil";
 import {  useEffect, useState } from "react";
 import { selectFilterCalendarTable } from "../../T_BORD/features/filterCalendarSelector";
-import { isMonthPresent } from "@/lib/utils";
+import { isFullDate, isMonthPresent } from "@/lib/utils";
 
 // const datas = [
 //     "id", "first_name", "last_name", "email", "role", "phone", "subscription", "Actions"
@@ -98,6 +98,15 @@ const DataTableUser = () => {
             dispatch(getClient(data));
         }
     }, [data, dispatch]);
+
+    // console.log("fullDate:",isFullDate(date))
+    // console.log("withMonthPres:",isMonthPresent(date))
+    useEffect(()=>{
+        if(!isFullDate(date) && !isMonthPresent(date)){
+            setYear(date)
+            setData(dataForNew)
+        }
+    },[date,dataForNew])
     // Affichage du chargement
     if (isPendingforAll || isPendingForNew) {
         return (
