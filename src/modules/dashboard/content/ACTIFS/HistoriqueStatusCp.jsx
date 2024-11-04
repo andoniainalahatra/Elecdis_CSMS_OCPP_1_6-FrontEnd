@@ -15,7 +15,7 @@ const HistoriqueStatusCp = () => {
     const datas = [
         {
             accessorKey: "id_charge_point",
-            header: "Id",
+            header: "Id Charge Point",
 
         },
         {
