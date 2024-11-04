@@ -22,12 +22,15 @@ export const ClientApiNewWithPagination = (url, month, year, queryKey, page, num
           number_items: number_items,
         },
       })
-      .then((response) => {
+      .then((response) => 
+        {
         // console.log(response)
         const {data,pagination}=response.data['clients ']
         // console.log(data)
         return {data,pagination}
-      }),
+      }
+      // response.data
+    ),
     refetchOnWindowFocus: true,
     refetchInterval: 1000,
   });
