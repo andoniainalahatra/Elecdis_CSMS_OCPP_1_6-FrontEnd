@@ -10,6 +10,7 @@ import { useAddClient } from "../../ACTIVITE/config/Api/AdminApi";
 
 import 'react-phone-number-input/style.css'
 import PhoneInput from 'react-phone-number-input'
+import Search from "./Search";
 
 
 export default function AddClient({ Id, setOpen }) {
@@ -170,16 +171,18 @@ export default function AddClient({ Id, setOpen }) {
                                 control={control}
                                 rules={{ required: "Ce champ est requis" }}
                                 render={({ field }) => (
-                                    <SelectList
-                                        id="id_subscription"
-                                        label="Souscription"
-                                        type="select"
-                                        value={field?.subscription}  // Valeur actuelle
-                                        datas={datas}
-                                        onChange={field.onChange}
-                                    />
+                                    // <SelectList
+                                    //     id="id_subscription"
+                                    //     label="Souscription"
+                                    //     type="select"
+                                    //     value={field?.subscription}  // Valeur actuelle
+                                    //     datas={datas}
+                                    //     onChange={field.onChange}
+                                    // />
+                                    <Search datas={datas} placeholder='Subscription' label={'Subscription'} onChange={field.onChange} searchKey="type_subscription" />
                                 )}
                             />
+
                             {errors?.id_subscription && <ErrorMessage message={errors.id_subscription.message} />}
                         </div>
 

@@ -11,7 +11,8 @@ const initialState = {
     totalSession: formatDate(new Date()),
     energyDelivery: formatDate(new Date()),
     allRevenu: formatDate(new Date()),
-    newUser: formatDate(new Date())
+    newUser: formatDate(new Date()),
+    filterClientTable:formatDate(new Date()),
 };
 
 const filterDateSlice = createSlice({
@@ -29,9 +30,12 @@ const filterDateSlice = createSlice({
         },
         filterDateForNewUser : (state, action) => {
             state.newUser = action.payload
+        },
+        filterDateForClientTable:(state,action)=>{
+            state.filterClientTable=action.payload
         }
     }
 })
 
-export const { filterDateForAllRevenu, filterDateForAllSession, filterDateForEnergy, filterDateForNewUser } = filterDateSlice.actions;
+export const { filterDateForAllRevenu, filterDateForAllSession, filterDateForEnergy, filterDateForNewUser,filterDateForClientTable } = filterDateSlice.actions;
 export default filterDateSlice.reducer;

@@ -38,7 +38,7 @@ const Input = forwardRef(({ id, type = 'text', value = '', onChange, label }, re
         htmlFor={id}
         className={`absolute left-2 text-base bg-white px-2 py-0 transition-all duration-300 transform ${isFocused || hasValue
           ? '-translate-y-3 scale-90 text-[#F2505D]'
-          : 'max-sm:translate-y-[1vh] translate-y-[1.2vh] 2xl:translate-y-[1rem] scale-100 text-simpleText'
+          : 'max-sm:translate-y-[1vh] translate-y-[1.2vh] 2xl:translate-y-[.8rem] scale-100 text-simpleText'
           }`}
       >
         {label}

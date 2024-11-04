@@ -13,16 +13,18 @@ import { PulseLoader } from "react-spinners";
 import Swal from "sweetalert2";
 import ButtonActionRfid from "./ButtonActionRfid";
 import { useEffect } from "react";
+import DetailRfid from "./DetailRfid";
 
 const EtiquettesRfidTable = () => {
   const datasColumn = [
     { accessorKey: "id", header: "Id" },
     { accessorKey: "rfid", header: "Numéro RFID" },
     { accessorKey: "user_name", header: "Propriétaire" },
+    { accessorKey: "credit", header: "Crédit" },
     { accessorKey: "Actions", header: "Actions" },
   ];
   const columns = datasColumn;
-  const actions = [{ name: "detail" }, { name: "delete" }];
+  const actions = [{ name: "ajout_credit" }, { name: "delete" }];
   const dispatch = useDispatch();
   const stationData = useSelector(selectRfid);
   const currentPage = useSelector(selectPage);
@@ -65,6 +67,8 @@ const EtiquettesRfidTable = () => {
       resetPage={resetPage}
       nextPage={nextPage}
       previousPage={previousPage}
+      ComponentModal={DetailRfid}
+      onClickRow={true}
     />
   );
 };

@@ -15,9 +15,10 @@ import { Context } from "@/common/config/configs/Context";
 import { useContext, useEffect, useState } from "react";
 import ButtonActionSession from "./ButtonSession";
 import SessionDetails from "./SessionDetails";
+import { useGetTransactionRecharge } from "@/features/TransactionRecharge/TransactionRechargeApi";
 
 export default function SessionTable() {
-  const { filters } = useContext(Context);
+  // const { filters } = useContext(Context);
   const datas = [
     {
       accessorKey : "id",
@@ -40,16 +41,16 @@ export default function SessionTable() {
       accessorKey: "end_time",
       header: "Date et heure de fin",
     },
+    // {
+    //   accessorKey: "consumed_energy",
+    //   header: "Énergie consommée",
+    // },
+    // {
+    //   accessorKey: "total_cost",
+    //   header: "Coût total",
+    // },
     {
-      accessorKey: "consumed_energy",
-      header: "Énergie consommée",
-    },
-    {
-      accessorKey: "total_cost",
-      header: "Coût total",
-    },
-    {
-      accessorKey: "statuts",
+      accessorKey: "state",
       header: "Statut",
     },
     {
@@ -67,22 +68,22 @@ export default function SessionTable() {
     isPending: loadingAll,
     error: errorAll,
     data: dataAll,
-  } = useGetSession("transaction/all/", "repoSessionAll", currentPage, 10);
-  const {
-    isPending: loadingCurrent,
-    error: errorCurrent,
-    data: dataCurrent,
-  } = useGetSession(
-    "transaction/current/",
-    "repoSessionCurrent",
-    currentPage,
-    10
-  );
-  const {
-    isPending: loadingDOne,
-    error: errorDone,
-    data: dataDone,
-  } = useGetSession("transaction/done/", "repoSessionDone", currentPage, 10);
+  } = useGetTransactionRecharge("historique_session/", "repoSessionHistorique", currentPage, 10);
+  // const {
+  //   isPending: loadingCurrent,
+  //   error: errorCurrent,
+  //   data: dataCurrent,
+  // } = useGetSession(
+  //   "transaction/current/",
+  //   "repoSessionCurrent",
+  //   currentPage,
+  //   10
+  // );
+  // const {
+  //   isPending: loadingDOne,
+  //   error: errorDone,
+  //   data: dataDone,
+  // } = useGetSession("transaction/done/", "repoSessionDone", currentPage, 10);
 
   const [data, setData] = useState();
   useEffect(() => {
@@ -94,26 +95,28 @@ export default function SessionTable() {
   const dispatch = useDispatch();
   const sessionData = useSelector(selectSession);
 
-  useEffect(() => {
-    if (filters.session === "All" || filters.session === "tous") {
-      setData(dataAll);
-    }
-    if (filters.session === "en cours") {
-      setData(dataCurrent);
-    }
-    if (filters.session === "terminé") {
-      setData(dataDone);
-    }
-  }, [filters, dataDone, dataCurrent, dataAll]);
+  // useEffect(() => {
+  //   if (filters.session === "All" || filters.session === "tous") {
+  //     setData(dataAll);
+  //   }
+  //   if (filters.session === "en cours") {
+  //     setData(dataCurrent);
+  //   }
+  //   if (filters.session === "terminé") {
+  //     setData(dataDone);
+  //   }
+  // }, [filters, dataDone, dataCurrent, dataAll]);
 
-  if (loadingAll || loadingCurrent || loadingDOne) {
+ // if (loadingAll || loadingCurrent || loadingDOne) {
+  if (loadingAll ) {
     return (
       <div className="w-full flex justify-center items-center h-[70vh]">
         <PulseLoader color="#f87" />
       </div>
     );
   }
-  if (errorAll || errorCurrent || errorDone) {
+  // if (errorAll || errorCurrent || errorDone) {
+  if (errorAll) {
     return Swal.fire({
       title: "Oops ! Erreur de connexion .",
       icon: "error",

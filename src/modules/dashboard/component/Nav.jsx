@@ -9,27 +9,37 @@ import { AiOutlineGroup } from "react-icons/ai";
 // import { TbLogout2 } from "react-icons/tb";
 // import { IoMdPersonAdd } from "react-icons/io";
 // import { MdLockReset } from "react-icons/md";
-import { RiDashboard2Fill } from "react-icons/ri";
+import { RiDashboard2Fill, RiFileHistoryLine } from "react-icons/ri";
 import { BsFillEvStationFill } from "react-icons/bs";
 import BoutonNav from './BoutonNav'
 import Logo from "@/assets/logo1.png"
+import { Context } from '@/common/config/configs/Context';
+import { useContext } from 'react';
+import Cookies from 'js-cookie';
 
 const Nav = ({ setSection }) => {
+    const { setActive } = useContext(Context);
+    const handleClick = () => {
+        setSection("TableauDeBord");
+        setActive("TableauDeBord")
+    }
+    const name = JSON.parse(Cookies.get('user')).first_name + " " + JSON.parse(Cookies.get('user')).last_name
+    
     return (
         <div className='w-full flex flex-col text-[14px] pl-3 truncate'>
-            <div className='mt-2'>
+            <div className='mt-2' onClick={() => handleClick()}>
                 <img src={Logo} alt="" />
             </div>
             <div onClick={() => setSection('UserProfil')} className=' flex items-center h-[72px] bg-[#919EAB] bg-opacity-10 p-2 rounded-md space-x-2 font-semibold mt-8'>
                 <UserCircleIcon className="w-[1.5rem]  h-[1.5rem] cursor-pointer text-gray-500" />
-                <span>John Doe</span>
+                <span>{name}</span>
             </div>
             <div className=' flex items-center h-[44px] text-[#637381] rounded-md space-x-2 font-semibold mt-8'>
                 <BoutonNav IconButton={RiDashboard2Fill} label='Tableau de bord' setSection={setSection} namePage='TableauDeBord' />
             </div>
             <div className='mt-5 font-semibold text-[#637381] '>
                 <span className='text-[#4188eb] font-bold ml-4'>ACTIVITE</span>
-                <BoutonNav IconButton={LockClosedIcon} label='Autorisations' setSection={setSection} namePage='Autorisations' />
+                <BoutonNav IconButton={LockClosedIcon} label='Administrateurs' setSection={setSection} namePage='Administrateurs' />
                 {/* <BoutonNav IconButton={RiReservedFill} label='Réservations' setSection={setSection} namePage='Réservations' /> */}
                 <BoutonNav IconButton={BoltIcon} label='Transaction de recharge' setSection={setSection} namePage='sessionRecharge' />
                 <BoutonNav IconButton={ArrowsRightLeftIcon} label='Paiements' setSection={setSection} namePage='Transaction' />
@@ -46,6 +56,7 @@ const Nav = ({ setSection }) => {
                 {/* <BoutonNav IconButton={MapPinIcon} label='Locations' setSection={setSection} namePage='Locations' /> */}
                 <BoutonNav IconButton={BellIcon} label='CP Notices' setSection={setSection} namePage='CpNotices' />
                 <BoutonNav IconButton={DocumentPlusIcon} label='CP Templates' setSection={setSection} namePage='CpTemplates' />
+                <BoutonNav IconButton={RiFileHistoryLine} label='Historique status' setSection={setSection} namePage='HistoriqueStatusCp' />
             </div>
             <div className='mt-5 font-semibold text-[#637381] '>
                 <span className='text-[#4188eb] font-bold ml-4 '>PARTENAIRES</span>

@@ -109,7 +109,7 @@ export default function DonuteChart({
         config={chartConfig}
         padding={0}
         className="mt-[.8vw]"
-        position="start"
+        position="center"
       />
     </div>
   );

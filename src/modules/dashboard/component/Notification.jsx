@@ -4,22 +4,22 @@ import { IoMdTime } from "react-icons/io";
 import { IoCheckmarkDone } from "react-icons/io5";
 export default function Notification({ isVisible }) {
   // const ENDPOINT="http://172.16.87.24:9002/frontend"
-  const [ws, setWs] = useState(null);
-  const [message, setMessage] = useState(null);
+  // const [ws, setWs] = useState(null);
+  // const [message, setMessage] = useState(null);
 
-  useEffect(() => {
-    // const socket = io(ENDPOINT);
-    const websocket = new WebSocket('ws://172.16.87.24:9001/frontend'); // Remplacez par votre URL WebSocket
-    setWs(websocket);
-      // Écouter les messages du serveur
-      websocket.onmessage = (event) => {
-        setMessage(event.data);
-      };
-      return () => {
-        websocket.close();
-      };
-  }, [])
-  console.log(message)
+  // useEffect(() => {
+  //   // const socket = io(ENDPOINT);
+  //   const websocket = new WebSocket('ws://172.16.87.24:9001/frontend'); // Remplacez par votre URL WebSocket
+  //   setWs(websocket);
+  //     // Écouter les messages du serveur
+  //     websocket.onmessage = (event) => {
+  //       setMessage(event.data);
+  //     };
+  //     return () => {
+  //       websocket.close();
+  //     };
+  // }, [])
+  // console.log(message)
 
 
   return (

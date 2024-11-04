@@ -1,9 +1,11 @@
 import { BiSolidDashboard } from "react-icons/bi";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { FiEdit } from "react-icons/fi";
+// import { FiEdit } from "react-icons/fi";
+import { IoMdAddCircleOutline } from "react-icons/io";
+
 import { useState } from "react";
 import { useDeleteRfid } from "@/features/RFID/rfidApi";
-import UpdateRfid from "./UpdateRfid";
+import AjoutCredit from "./AjoutCredit";
 import Swal from "sweetalert2";
 import { PulseLoader } from "react-spinners";
 import DetailRfid from "@/modules/dashboard/content/GRC/components/DetailRfid";
@@ -73,22 +75,27 @@ const ButtonActionRfid = ({ buttonProperty, Id }) => {
                 return (
                     <span
                         key={key}
-                        className="m-1 text-red-500 bg-transparent hover:bg-transparent hover:text-red-600"
+                        className=" text-red-500 bg-transparent hover:bg-transparent hover:text-red-600"
                         onClick={() => confirmDelete()}
                     >
-                        <RiDeleteBin6Line />
+                        <div className="py-1 px-6 bg-red-400 rounded-xl">
+                            <RiDeleteBin6Line color="#ffffff" size={20} />
+                        </div>
                     </span>
                 );
-            case "edit":
+            case "ajout_credit":
                 return (
                     <span
                         key={key}
                         onClick={() => {
-                            setSection("edit");
+                            setSection("ajout_credit");
                         }}
-                        className="m-1 text-black bg-transparent hover:bg-transparent hover:text-yellow-600"
+                        className=" text-black bg-transparent hover:bg-transparent hover:text-yellow-600"
                     >
-                        <FiEdit />
+                        <div className="bg-blue-400 flex items-center justify-center rounded-xl gap-1 py-1 px-2">
+                        <IoMdAddCircleOutline size={16} color="#ffffff" />
+                        <p className="text-[#ffffff] font-semibold text-[16px] ">crédit</p>
+                        </div>
                     </span>
                 );
             default:
@@ -100,13 +107,13 @@ const ButtonActionRfid = ({ buttonProperty, Id }) => {
         <div className="flex items-center justify-center gap-2 max-md:flex-col">
             {buttonProperty.map((data, key) => renderButton(data.name, key))}
             {section === "detail" && (
-                
-                     <DetailRfid id={Id} fermer={handleCloseSection} supprimer={confirmDelete} />
-                
-                   
+
+                <DetailRfid id={Id} fermer={handleCloseSection} supprimer={confirmDelete} />
+
+
             )}
-            {section === "edit" && (
-                <UpdateRfid action={handleClosed} id={Id} />
+            {section === "ajout_credit" && (
+                <AjoutCredit action={handleClosed} id={Id} />
             )}
         </div>
     );

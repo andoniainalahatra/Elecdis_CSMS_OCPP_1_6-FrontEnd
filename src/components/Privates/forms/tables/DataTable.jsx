@@ -26,6 +26,9 @@ import ButtonStopTransaction from "@/modules/dashboard/component/ButtonStopTrans
 import ButtonFilterTable from "@/modules/dashboard/component/ButtonFilterTable";
 import { IoMdClose } from "react-icons/io";
 import { transformValue } from "@/lib/utils";
+import ButtonReprendreTransaction from "@/modules/dashboard/component/ButtonReprendreTransaction";
+import CalendarFilterMonth from "@/modules/dashboard/component/CalendarFilterMonth";
+import CalendarFilterYear from "@/modules/dashboard/component/CalendarFilterYear";
 /**
  * Génère un tableau paginé avec des actions.
  *
@@ -58,16 +61,19 @@ function DataTable({
   selectPage,
   filter,
   listFilter,
+  calendarFilter,
   onFilter = false,
   onClickRow = false,
   ComponentModal,
 }) {
   const [isDetail, setIsDetail] = useState(false);
   const [idDetail, setIdDetail] = useState(null);
-  const handleClick = (Id) => {
+  const [dataObj,setDataObj]=useState(null)
+  const handleClick = (obj) => {
     if (onClickRow) {
       setIsDetail(true);
-      setIdDetail(Id);
+      setIdDetail(obj.id);
+      setDataObj(obj)
     }
   };
   const [data, setData] = useState([]);
@@ -126,6 +132,16 @@ function DataTable({
         {onFilter && (
           <ButtonFilterTable filter={filter} listFilter={listFilter} />
         )}
+        {calendarFilter && (
+           <div className="flex items-center justify-center gap-1">
+           <div onClick={(e)=>e.stopPropagation()}>
+             <CalendarFilterMonth filter={calendarFilter} />
+           </div>
+           <div onClick={(e)=>e.stopPropagation()}>
+             <CalendarFilterYear filter={calendarFilter} />
+           </div>
+         </div>
+        )}
       </div>
       <div className="w-full">
         <Table className="w-full text-center bg-[#fffe] overflow-x-auto">
@@ -147,12 +163,14 @@ function DataTable({
           <TableBody className="w-full">
             {table.getRowModel().rows.map((row) => (
               <TableRow
+                className={`${onClickRow ? "cursor-pointer" : "cursor-default"}`}
                 key={row.id}
-                onClick={() => handleClick(row.original.id)}
+                onClick={() => handleClick(row.original)}
               >
                 {row.getVisibleCells().map((cell) => {
                   const cellValue = cell.getValue();
                   const id = row.original.id;
+                  const detailData = row.original
                   let cellClass = "";
                   const rowData = row.original;
                   if (cell.column.id === "consumed_energy") {
@@ -180,13 +198,29 @@ function DataTable({
                     }
                   }
                   if (cell.column.id === "Urgence") {
-                    if (rowData.statuts == "en cours") {
+                    if (rowData.statuts === "en cours" || rowData.state === "en cours") {
                       return (
                         <TableCell key={cell.id} className="text-center">
+                          <div className="flex items-center justify-center gap-3">
+                          <ButtonReprendreTransaction disabled={true} />
                           <ButtonStopTransaction
-                            chargPointId={rowData.charge_point_id}
-                            transactionId={rowData.id}
+                            chargePointId={rowData.chargepoint_id}
+                            sessionId={rowData.id}
+                            disabled={false}
                           />
+                          </div>
+                        </TableCell>
+                      );
+                    }
+                    else if (rowData.statuts || rowData.state === "terminé") {
+                      return (
+                        <TableCell key={cell.id} className="text-center">
+                          <div className="flex items-center justify-center gap-3">
+                          <ButtonReprendreTransaction idSession={rowData.id} idTag={rowData.rfid} idConnecteur={rowData.connector_id} disabled={false} />
+                          <ButtonStopTransaction
+                            disabled={true}
+                          />
+                          </div>
                         </TableCell>
                       );
                     }
@@ -237,7 +271,7 @@ function DataTable({
                         key={cell.id}
                         className="text-center"
                       >
-                        <ButtonAction buttonProperty={actions} Id={id} />
+                        <ButtonAction buttonProperty={actions} Id={id} dataObj={detailData} />
                       </TableCell>
                     );
                   }
@@ -250,6 +284,7 @@ function DataTable({
                     cell.column.id === "connector2" ||
                     cell.column.id === "heartBeat" ||
                     cell.column.id === "statut" ||
+                    cell.column.id === "state" ||
                     cell.column.id === "historique_erreur"
                   ) {
                     switch (cellValue) {
@@ -366,7 +401,7 @@ function DataTable({
           className="fixed top-0 left-0 z-50 flex items-center justify-center w-full h-screen overflow-auto backdrop-blur-md"
           style={{ backgroundColor: "rgba(9,16,26,0.3)" }}
         >
-          <ComponentModal Id={idDetail} />
+          <ComponentModal Id={idDetail} dataObj={dataObj}  />
           <span
             className="absolute z-50 cursor-pointer top-5 right-5"
             onClick={() => setIsDetail(false)}

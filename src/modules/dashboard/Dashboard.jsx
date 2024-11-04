@@ -23,6 +23,7 @@ import Tarifs from './content/TARIFS/Tarifs';
 // import RenitialiserMotDePasse from './content/AUTHENTIFICATIONS/RenitialiserMotDePasse';
 import Clients from './content/GRC/Clients';
 import UserProfil from '@/components/UserProfil';
+import HistoriqueStatusCp from './content/ACTIFS/HistoriqueStatusCp';
 
 
 const Dashboard = () => {
@@ -31,23 +32,25 @@ const Dashboard = () => {
         const lowerCaseQuery = query.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
         const sections = {
-            "tableaudebord": "TableauDeBord",
-            "autorisation": "Autorisations",
-            "reservation": "Réservations",
-            "sessionrecharge": "sessionRecharge",
-            "transaction": "Transaction",
-            "utilisateur": "Users",
-            "clients": "Users",
-            "etiquettesrfid": "EtiquettesRFID",
-            "reçus": "Reçus",
-            "points": "PointsDecharges",
+            "tabl": "TableauDeBord",
+            "auto": "Autorisations",
+            "res": "Réservations",
+            "sess": "sessionRecharge",
+            "tran": "Transaction",
+            "uti": "Clients",
+            "cli": "Clients",
+            "rfi": "EtiquettesRFID",
+            "reç": "Reçus",
+            "rec": "Reçus",
+            "poin": "PointsDecharges",
+            "charg": "PointsDecharges",
             "locations": "Locations",
-            "cpnotices": "CpNotices",
-            "cptemplates": "CpTemplates",
-            "partenaires": "Partenaires",
-            "contrats": "Contrats",
-            "groupesdestarifs": "GroupesDestarifs",
-            "tarifs": "Tarifs",
+            "notif": "CpNotices",
+            "templ": "CpTemplates",
+            "part": "Partenaires",
+            "contr": "Contrats",
+            "grou": "GroupesDestarifs",
+            "tar": "Tarifs",
             "connexion": "Connexion",
             "inscription": "Inscription",
             "réinitialisermotdepasse": "RéinitialiserMotDepasse",
@@ -74,7 +77,7 @@ const Dashboard = () => {
                         <BarNav onSearch={handleSearch} setSection={setSection} />
                         <div className=' mt-[9vh] m-2 h-[90vh] overflow-auto custom-scrollbar'>
                             {currentSection === "TableauDeBord" && <TableauDeBord setSection={setSection} />}
-                            {currentSection === "Autorisations" && <Autorisation />}
+                            {currentSection === "Administrateurs" && <Autorisation />}
                             {currentSection === "Réservations" && <Reservation />}
                             {currentSection === "sessionRecharge" && <SessionRecharge />}
                             {currentSection === "Transaction" && <Transactions />}
@@ -87,6 +90,7 @@ const Dashboard = () => {
                             {currentSection === "Locations" && <Locations />}
                             {currentSection === "CpNotices" && <CpNotices />}
                             {currentSection === "CpTemplates" && <CpTemplates />}
+                            {currentSection === "HistoriqueStatusCp" && <HistoriqueStatusCp />}
 
                             {currentSection === "Partenaires" && <Partenaires />}
                             {currentSection === "Contrats" && <Contrats />}
@@ -94,7 +98,7 @@ const Dashboard = () => {
                             {currentSection === "GroupesDestarifs" && <GroupesDesTarifs />}
                             {currentSection === "Tarifs" && <Tarifs />}
                             {currentSection === "UserProfil" && <UserProfil />}
-                           
+
                         </div>
                     </div>
                 </div>

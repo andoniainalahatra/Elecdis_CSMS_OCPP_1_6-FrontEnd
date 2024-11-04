@@ -55,42 +55,67 @@ export const convertTimeToHourFormat = (time) => {
     .padStart(2, "0")}`;
 };
 
+export const takeOnlyTime =  (date) => {
+  if(date){
+    const [dateOnly, timeOnly] = date.split("T");
+    return timeOnly.slice(0,5)
+  }else{
+    return "en cours"
+  }
+}
+export const takeOnlyDate = (date) => {
+  if(date){
+    const [dateOnly, timeOnly] = date.split("T");
+  return dateOnly
+  }else{
+    return "en cours"
+  }
+}
+
 export const convertDate = (dateString) => {
-  const date = new Date(dateString);
+  if (dateString == null) {
+    return "Jamais utilisé";
+  } else {
+    const date = new Date(dateString);
 
-  // Obtenir le jour, le mois et l'année au format JJ/MM/AAAA
-  const day = String(date.getDate()).padStart(2, "0");
-  const month = String(date.getMonth() + 1).padStart(2, "0"); // Les mois sont indexés à partir de 0
-  const year = date.getFullYear();
+    // Obtenir le jour, le mois et l'année au format JJ/MM/AAAA
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0"); // Les mois sont indexés à partir de 0
+    const year = date.getFullYear();
 
-  // Obtenir l'heure et les minutes au format HH:MM
-  const hours = String(date.getHours()).padStart(2, "0");
-  const minutes = String(date.getMinutes()).padStart(2, "0");
+    // Obtenir l'heure et les minutes au format HH:MM
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
 
-  return `${day}/${month}/${year} à ${hours}:${minutes}`;
+    return `${day}/${month}/${year} à ${hours}:${minutes}`;
+  }
 };
 
 export const transformValue = (value) => {
   const formatNumber = (num, unit) => {
-    // Vérifie si le nombre arrondi est sans décimales significatives (.000)
-    if (num % 1 === 0) {
-      return num.toLocaleString("fr-FR") + ` ${unit}`;
+    // Arrondir le nombre à une décimale avant de formater
+    const roundedNum = Math.round(num * 10) / 10;
+
+    // Vérifier si le nombre arrondi est sans décimales significatives (.0)
+    if (roundedNum % 1 === 0) {
+      return roundedNum.toLocaleString("fr-FR") + ` ${unit}`;
     }
-    // Si les décimales sont nécessaires, applique le formatage
-    return num.toLocaleString("fr-FR", {
-      minimumFractionDigits: 3,
-      maximumFractionDigits: 3,
-    }) + ` ${unit}`;
+
+    return (
+      roundedNum.toLocaleString("fr-FR", {
+        minimumFractionDigits: 1,
+        maximumFractionDigits: 1,
+      }) + ` ${unit}`
+    );
   };
 
-  if (value.includes("kwh")) {
-    const number = parseFloat(value.replace(" kwh", "").replace(",", "."));
+  if (value.toLowerCase().includes("kwh")) {
+    const number = parseFloat(value.replace(/ kwh/i, "").replace(",", "."));
     return formatNumber(number, "kWh");
-  } else if (value.includes("ar")) {
-    const number = parseFloat(value.replace(" ar", "").replace(",", "."));
+  } else if (value.toLowerCase().includes("ar")) {
+    const number = parseFloat(value.replace(/ ar/i, "").replace(",", "."));
     return formatNumber(number, "Ar");
   } else {
     return value; // Retourne la valeur originale si elle ne contient ni "kwh" ni "ar"
   }
 };
-

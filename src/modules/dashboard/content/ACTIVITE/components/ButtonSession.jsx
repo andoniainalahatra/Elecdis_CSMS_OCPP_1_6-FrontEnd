@@ -1,14 +1,14 @@
 import { BiSolidDashboard } from "react-icons/bi";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { FiEdit } from "react-icons/fi";
-import DetailStation from "@/modules/Station/DetailStation.jsx";
 import { IoMdClose } from "react-icons/io";
 import EditStation from "@/modules/Station/EditStation.jsx";
 import { useState } from "react";
 import DeleteStation from "@/modules/Station/DeleteStation";
-import SessionDetails from "./SessionDetails";
+import TransactionRechargeDetail from "./TransactionRechargeDetail";
 
-const ButtonActionSession = ({ buttonProperty, Id }) => {
+const ButtonActionSession = ({ buttonProperty, Id, dataObj}) => {
+
     const [section, setSection] = useState("");
 
     const renderButton = (name, key) => {
@@ -19,11 +19,10 @@ const ButtonActionSession = ({ buttonProperty, Id }) => {
                         key={key}
                         onClick={() => {
                             setSection("detail");
-                            console.log(Id);
                         }}
                         className="m-1 text-blue-500 bg-transparent hover:bg-transparent hover:text-blue-600"
                     >
-                        <BiSolidDashboard />
+                        <BiSolidDashboard size={18} />
                     </span>
                 );
             case "delete":
@@ -63,7 +62,7 @@ const ButtonActionSession = ({ buttonProperty, Id }) => {
                     className="fixed top-0 left-0 z-20 flex items-center justify-center w-full h-screen overflow-auto bg-black bg-opacity-40"
                    
                 >
-                    <SessionDetails close={setSection} />
+                    <TransactionRechargeDetail close={setSection} dataObj={dataObj} />
                     {/* <span
                         className="absolute cursor-pointer top-5 right-5"
                         onClick={() => setSection("")}

@@ -26,6 +26,18 @@ export default function ChartSection() {
         .then((res) => res.data),
     refetchInterval: 1000,
   });
+  const {
+    data: chargeData,
+    error: errorCharger,
+    isPending: loadingCharger,
+  } = useQuery({
+    queryKey: ["donuteChartCharger"],
+    queryFn: () =>
+      axiosInstance
+        .get("/cp/status_cp")
+        .then((res) => res.data),
+    refetchInterval: 1000,
+  });
 
   const {
     data: monthData,
@@ -66,7 +78,7 @@ export default function ChartSection() {
     refetchInterval: 5000,
   });
   const isLoading =
-    loadingDonute || monthLoading || trimestreLoading || semestreLoading;
+    loadingDonute || monthLoading || trimestreLoading || semestreLoading || loadingCharger;
   const [trimestreData, setTrimestreData] = useState(trimestreDataQuery || []);
   const [semestredata, setSemestreData] = useState(semestreData || []);
   const [statistiqueData, setStatistiqueData] = useState(monthData || []);
@@ -117,7 +129,7 @@ export default function ChartSection() {
     }
   }, [filters, percentVal]);
 
-  if (errorDonute || errorMonth || errorSemestre || errorTrimestre) {
+  if (errorDonute || errorMonth || errorSemestre || errorTrimestre || errorCharger) {
     Swal.fire({
       title: "Oops !",
       icon: "error",
@@ -132,7 +144,7 @@ export default function ChartSection() {
   <div className="col-span-1 w-full h-full mb-4">
     <DonuteChart
       chartConfig={DONUTECHARTCONFIGGER}
-      chartData={donuteData}
+      chartData={chargeData}
       title="Statut des chargeurs"
       label="Chargeurs"
     />
