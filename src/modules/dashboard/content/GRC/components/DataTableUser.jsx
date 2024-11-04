@@ -88,17 +88,11 @@ const DataTableUser = () => {
             setYear(newYear);
             setData(dataForNew);
         }
-            else if(Number.isInteger(parseInt(date))){
-                setYear(date)
-                setData(dataForNew)
-            }
          else {
             setData(dataForAll);
         }
     }, [date, dataForNew, dataForAll]);
-    
-// console.log(date)
-    // Mise à jour du store avec les données récupérées
+
     useEffect(() => {
         if (data) {
             dispatch(getClient(data));
