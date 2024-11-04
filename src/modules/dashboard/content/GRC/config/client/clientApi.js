@@ -10,18 +10,29 @@ export const ClientApi = (url, queryKey, page, number_items) =>
 
 export const ClientApiNew =(url,queryKey)=>useGetDataNoParams(url,queryKey);
 // export const ClientApiNewWithPagination (url, queryKey, page, number_items)=>useGet
-export const ClientApiNewWithPagination= (url, month,year, queryKey, page, number_items) => {
+export const ClientApiNewWithPagination = (url, month, year, queryKey, page, number_items) => {
   return useQuery({
-    queryKey: [`${queryKey}`, page, month,year],
-
+    queryKey: [`${queryKey}`, page, month, year],
     queryFn: () =>
-      axiosInstance
-        .get(`/${url}/?month=${month}&year=${year}&page=${page}&number_items=${number_items}`)
-        .then((response) => response.data),
+      axiosInstance.get(`/${url}/`, {
+        params: {
+          month: month || undefined,  // `month` sera ignoré si `undefined`
+          year: year,
+          page: page,
+          number_items: number_items,
+        },
+      })
+      .then((response) => {
+        // console.log(response)
+        const {data,pagination}=response.data['clients ']
+        // console.log(data)
+        return {data,pagination}
+      }),
     refetchOnWindowFocus: true,
     refetchInterval: 1000,
   });
 };
+
 
 export const useUpdateClient = (id) => {
   const queryClient = useQueryClient();
