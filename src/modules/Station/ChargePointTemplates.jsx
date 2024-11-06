@@ -41,20 +41,21 @@ function ChargePointTemplates() {
     }
     return (
         <div className=''>
-            <div className="bg-white p-4 my-3  rounded-md">
+            <div className="bg-white p-4 my-3 border  rounded-md">
                 <div className="grid grid-rows-2 ">
                     <h1 className='underline mb-3'>Charge Point Templates</h1>
                     <p className='text-gray-500'> Ici, vous pouvez créer votre point de charge personnalisé</p>
                 </div>
             </div>
 
-            <div className="bg-white  rounded-md p-4 mt-4">
+            <div className="bg-white border rounded-md p-4 mt-4">
                 <div className="grid grid-rows ">
                     <div className="">
-                        <h2> Contenu du ChargePoint Templates</h2>
+                        <h2 className='font-semibold mr-8'> Contenu du ChargePoint Templates</h2>
+                        <hr className='text-gray-500 m-4'/>
                         <form  onSubmit={handleSubmit(onSubmit)}>
-                            <h2 className='m-4 font-semibold text-simpleText'>Informations concernant le materiel</h2>
-                            <div className="grid grid-cols-2 gap-4 ">
+                            <h2 className='m-8 font-semibold text-simpleText'>Informations concernant le materiel</h2>
+                            <div className="m-8 grid grid-cols-2 gap-4 ">
                                 <div className="">
                                     <label htmlFor="id" className='text-gray-600'>Identifiant</label>
                                     <Controller
@@ -97,10 +98,10 @@ function ChargePointTemplates() {
                                     />
                                 </div>
                             </div>
-                            <h2 className='m-4 font-semibold text-simpleText'>Informations concernant la localisation du
+                            <h2 className='m-8 font-semibold text-simpleText'>Informations concernant la localisation du
                                 point de charge</h2>
 
-                            <div className="grid grid-cols-3 gap-4 p-4">
+                            <div className="m-8 grid grid-cols-3 gap-4 p-4">
                                 <div className="">
                                     <label htmlFor="adresse" className='text-gray-600'> Adresse</label>
                                     <Controller
@@ -132,7 +133,7 @@ function ChargePointTemplates() {
                                     />
                                 </div>
                             </div>
-                           <Button className='bg-[#F89BA3] text-[#000000] hover:bg-red-500 mt-3 ml-4 '>
+                           <Button className='bg-primaryChart text-[#fefefe] hover:bg-red-500 mt-3 ml-4 '>
                                Creer le point de charge
                            </Button>
                         </form>
