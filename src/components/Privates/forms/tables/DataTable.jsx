@@ -216,7 +216,7 @@ function DataTable({
                       return (
                         <TableCell key={cell.id} className="text-center">
                           <div className="flex items-center justify-center gap-3">
-                          <ButtonReprendreTransaction idSession={rowData.id} idTag={rowData.rfid} idConnecteur={rowData.connector_id} disabled={false} />
+                          <ButtonReprendreTransaction idSession={rowData.id} idTag={rowData.rfid} idChargePoint={rowData.chargepoint_id} idConnecteur={rowData.connector_id} disabled={false} />
                           <ButtonStopTransaction
                             disabled={true}
                           />
@@ -398,12 +398,13 @@ function DataTable({
       </div>
       {isDetail && (
         <div
-          className="fixed top-0 left-0 z-50 flex items-center justify-center w-full h-screen overflow-auto backdrop-blur-md"
+          className="fixed top-0 left-0 z-10 flex items-center justify-center w-full h-screen overflow-auto backdrop-blur-md"
           style={{ backgroundColor: "rgba(9,16,26,0.3)" }}
         >
           <ComponentModal Id={idDetail} dataObj={dataObj}  />
           <span
             className="absolute z-50 cursor-pointer top-5 right-5"
+            disabled="true"
             onClick={() => setIsDetail(false)}
           >
             <IoMdClose className="text-red-300 hover:text-red-500" size={50} />
