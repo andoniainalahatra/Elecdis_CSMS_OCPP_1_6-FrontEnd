@@ -51,14 +51,14 @@ const Login = ({ children, Title }) => {
       className="w-full bg-[#f8f9f7] h-screen flex items-center justify-center"
     >
       <div className="shadow-xl bg-white max-sm:shadow-none w-[400px] 2xl:w-[500px] h-auto p-6 flex items-center justify-center flex-col gap-[4vh] rounded-lg">
-        <div className="w-full flex items-center flex-col justify-center">
+        <div className="flex flex-col items-center justify-center w-full">
           <div className="w-full flex items-center justify-center h-2 pt-10 flex-col mb-[4vh]">
             {children}
           </div>
           <h4 className="text-importantText max-lg:text-[20px] xl:text-2xl mb-[4vh]">
             {Title}
           </h4>
-          
+
           <div className="w-full mb-[4vh]">
             <Controller
               name="username"
@@ -105,15 +105,15 @@ const Login = ({ children, Title }) => {
             <ErrorMessage message={invalidMessage} className="mb-[1vw]" />
           )}
         </div>
-        
-        <div className="w-full flex items-center flex-col justify-center gap-7">
+
+        <div className="flex flex-col items-center justify-center w-full gap-7">
           <Boutton isLoading={isPending} label="CONNEXION" />
-          <div className="w-full flex items-center min-2xl:text-center justify-between flex-col gap-5 min-2xl:flex-row">
-            <NavigateLink route="/forgotpassword" label="Mot de pass oublier" />
-            <NavigateLink
+          <div className="flex flex-col items-center justify-between w-full gap-5 min-2xl:text-center min-2xl:flex-row">
+            <NavigateLink route="/forgotpassword" label="Mot de passe oublié ?" />
+            {/* <NavigateLink
               route="/inscription"
               label="N'avez vous pas de compte, S'inscrire ?"
-            />
+            /> */}
           </div>
         </div>
         <div className="w-full">
