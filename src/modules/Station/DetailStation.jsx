@@ -233,7 +233,7 @@ function DetailStation({ Id }) {
                                         //         </div>
                                         //     </div>)
                                         <ConnectorStatus status={item.status_connector} color="#F44336" label="unavailable"
-                                        connectorId={item.id_connecteur} icon={CgUnavailable} energy={item.energie_delivre} bg="red"/>
+                                        connectorId={item.id_connecteur} icon={CgUnavailable} energy={item.energie_delivre?.toLocaleString("fr-FR")} bg="red"/>
                                     }
 
                                     {
@@ -253,7 +253,8 @@ function DetailStation({ Id }) {
                                         //             </div>
                                         //         </div>
                                         //     </div>)
-                                        <ConnectorStatus status={item.status_connector} color="#F44336" label="suspendedevse" energy={item.energie_delivre} 
+                                        // {const formattedValue=item.energie_delivre.LocalString("fr-FR")}
+                                        <ConnectorStatus status={item.status_connector} color="#F44336" label="suspendedevse" energy={item.energie_delivre?.toLocaleString("fr-FR")} 
                                         connectorId={item.id_connecteur} icon={CgUnavailable} bg="red"
                                         />
                                     }
@@ -274,7 +275,7 @@ function DetailStation({ Id }) {
                                         //             </div>
                                         //         </div>
                                         //     </div>)
-                                        <ConnectorStatus status={item.status_connector} color="#4CAF50" label="available" energy={item.energie_delivre} 
+                                        <ConnectorStatus status={item.status_connector} color="#4CAF50" label="available" energy={item.energie_delivre?.toLocaleString("fr-FR")}
                                          connectorId={item.id_connecteur} icon={FaRegCheckCircle} bg="green"/>
                                     }
                                     {
@@ -294,7 +295,7 @@ function DetailStation({ Id }) {
                                         //             </div>
                                         //         </div>
                                         //     </div>)
-                                        <ConnectorStatus status={item.status_connector} color="#2196F3" label="charging" energy={item.energie_delivre} 
+                                        <ConnectorStatus status={item.status_connector} color="#2196F3" label="charging" energy={item.energie_delivre?.toLocaleString("fr-FR")}
                                         connectorId={item.id_connecteur} icon={RiChargingPile2Line} bg="blue"
                                         />
                                     }
@@ -316,7 +317,7 @@ function DetailStation({ Id }) {
                                         //         </div>
                                         //     </div>)
                                         <ConnectorStatus status={item.status_connector} color="#2196F3" icon={BiLoaderCircle} 
-                                        energy={item.energie_delivre} label="preparing" connectorId={item.id_connecteur} bg="blue"/>
+                                        energy={item.energie_delivre?.toLocaleString("fr-FR")} label="preparing" connectorId={item.id_connecteur} bg="blue"/>
                                     }
                                 </div>
                             </div>
