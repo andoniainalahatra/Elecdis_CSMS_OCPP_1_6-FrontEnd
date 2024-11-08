@@ -4,11 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { PulseLoader } from "react-spinners";
 import Swal from "sweetalert2";
 import { selectPage, selectSession } from "@/components/features/SpecificSession/sessionSpecificSelector";
-import { useGetSpecificSession } from "@/components/features/SpecificSession/sessionSpecificApi";
+// import { useGetSpecificSession } from "@/components/features/SpecificSession/sessionSpecificApi";
 import { getSession, nextPage, previousPage, resetPageSession, totalPage } from "@/components/features/SpecificSession/sessionSpecificSlice";
 import { useEffect, useState } from "react";
 import SessionDetails from "./SessionDetails";
 import ButtonActionSession from "./ButtonSession";
+import useGetSpecificDataWithPaginationId_user from "@/lib/hoocks/usegetSpecificdataIdUser";
 
 export default function UserTableSpecificSession({ id }) {
   const datas = [
@@ -59,12 +60,13 @@ export default function UserTableSpecificSession({ id }) {
   const listFiltre = ["tous", "en cours", "terminé"];
 
   const currentPage = useSelector(selectPage);
+  // historique_session/users?id_user
 
   const {
     isPending: loadingAll,
     error: errorAll,
     data: dataAll,
-  } = useGetSpecificSession("transaction", id, "specificSession", currentPage, 10);
+  } = useGetSpecificDataWithPaginationId_user("historique_session/users", id, "specificSession", currentPage, 10);
 
   const [data, setData] = useState();
   useEffect(() => {
