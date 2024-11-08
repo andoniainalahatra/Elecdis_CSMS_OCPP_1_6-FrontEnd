@@ -109,13 +109,17 @@ export const transformValue = (value) => {
     );
   };
 
-  if (value.toLowerCase().includes("kwh")) {
-    const number = parseFloat(value.replace(/ kwh/i, "").replace(",", "."));
-    return formatNumber(number, "kWh");
-  } else if (value.toLowerCase().includes("ar")) {
-    const number = parseFloat(value.replace(/ ar/i, "").replace(",", "."));
-    return formatNumber(number, "Ar");
-  } else {
-    return value; // Retourne la valeur originale si elle ne contient ni "kwh" ni "ar"
+  if(value){
+    if (value.toLowerCase().includes("kwh")) {
+      const number = parseFloat(value.replace(/ kwh/i, "").replace(",", "."));
+      return formatNumber(number, "kWh");
+    } else if (value.toLowerCase().includes("ar")) {
+      const number = parseFloat(value.replace(/ ar/i, "").replace(",", "."));
+      return formatNumber(number, "Ar");
+    } else {
+      return value; // Retourne la valeur originale si elle ne contient ni "kwh" ni "ar"
+    }
+  }else{
+    return "null"
   }
 };
