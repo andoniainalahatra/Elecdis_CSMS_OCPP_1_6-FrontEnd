@@ -5,7 +5,6 @@ import Swal from 'sweetalert2';
 import { FaRegStopCircle } from "react-icons/fa";
 
 function ButtonStopTransaction({ sessionId, chargePointId, disabled }) {
-  
   const stopTransaction = async () => {
     const response = await axiosInstance.post(`/cp/send_remoteStopTransaction/${chargePointId}/${sessionId}`);
     return response.data;
