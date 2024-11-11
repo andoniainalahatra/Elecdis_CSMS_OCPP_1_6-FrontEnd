@@ -2,7 +2,7 @@ import { forwardRef, useState, useEffect, useRef } from 'react';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'; // Importation des icônes
 
 // eslint-disable-next-line react/display-name
-const Input = forwardRef(({ id, type = 'text', value = '', onChange, label }, ref) => {
+const Input = forwardRef(({ id, type = 'text', value = '', onChange, label , placeHolder = ''}, ref) => {
   const [isFocused, setIsFocused] = useState(false);
   const [showPassword, setShowPassword] = useState(false); // État pour afficher/masquer le mot de passe
   const inputRef = ref || useRef(null);
@@ -32,13 +32,14 @@ const Input = forwardRef(({ id, type = 'text', value = '', onChange, label }, re
         onChange={(e) => onChange(e.target.value)}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
+        placeholder={placeHolder}
       />
 
       <label
         htmlFor={id}
         className={`absolute left-2 text-base bg-white px-2 py-0 transition-all duration-300 transform ${isFocused || hasValue
           ? '-translate-y-3 scale-90 text-[#F2505D]'
-          : 'max-sm:translate-y-[1vh] translate-y-[1.2vh] 2xl:translate-y-[.8rem] scale-100 text-simpleText'
+          : 'max-sm:translate-y-[1vh] translate-y-[1.2vh] 2xl:translate-y-[1rem] scale-100 text-simpleText'
           }`}
       >
         {label}

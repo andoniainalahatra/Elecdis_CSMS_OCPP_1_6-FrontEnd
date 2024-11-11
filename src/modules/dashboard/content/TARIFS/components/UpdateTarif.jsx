@@ -1,17 +1,30 @@
 import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
-// import Swal from "sweetalert2";
 import Input from "@/modules/Login/components/Input";
 import Boutton from "@/modules/Login/components/Boutton";
 import { IoMdCloseCircle } from "react-icons/io";
 import ErrorMessage from "@/components/ErrorMessage";
-// import { useCreateRfid } from "@/features/RFID/rfidApi";
 import ColorPickerComponent from "@/components/ColorPickerComponent";
+import Swal from "sweetalert2";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import axiosInstance from "@/lib/axiosInstance";
 
-export default function CreateTarif({ action }) {
-  //   const [invalidMessage, setInvalidMessage] = useState("");
-  //   const { mutate: create_rfid, isPending: isCreating } = useCreateRfid();
-
+export default function UpdateTarif({ action, id }) {
+  const useUpdateTarif = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+      mutationFn: (credentials) =>
+        axiosInstance.put(`/tarifs/${id}`, credentials).then((res) => res.data),
+      onSuccess: () => {
+        queryClient.invalidateQueries({
+          queryKey: ["listTarif"],
+          exact: false,
+        });
+      },
+    });
+  };
+  const { mutate: update_rfid, isPending: isModifier } = useUpdateTarif();
+  const [invalidMessage, setInvalidMessage] = useState("");
   const {
     control,
     formState: { errors },
@@ -33,28 +46,27 @@ export default function CreateTarif({ action }) {
   });
 
   const onSubmit = (data) => {
-    console.log(data);
 
-    // create_rfid(data, {
-    //   onSuccess: () => {
-    //     Swal.fire({
-    //       icon: "success",
-    //       title: "RFID créé avec succès !",
-    //     });
-    //     action();
-    //   },
-    //   onError: (error) => {
-    //     if (error.response?.status === 401) {
-    //       setInvalidMessage("Identifiant utilisateur n'existe pas");
-    //     } else {
-    //       Swal.fire({
-    //         icon: "error",
-    //         title: "Oops...",
-    //         text: "Une erreur s'est produite. Veuillez réessayer plus tard.",
-    //       });
-    //     }
-    //   },
-    // });
+    update_rfid(data, {
+      onSuccess: () => {
+        Swal.fire({
+          icon: "success",
+          title: "Tarif modifié avec succès !",
+        });
+        action(false);
+      },
+      onError: (error) => {
+        if (error.response?.status === 401) {
+          setInvalidMessage("Identifiant utilisateur n'existe pas");
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Une erreur s'est produite. Veuillez réessayer plus tard.",
+          });
+        }
+      },
+    });
   };
 
   return (
@@ -66,11 +78,13 @@ export default function CreateTarif({ action }) {
         <div className="relative bg-white shadow-xl w-[450px] h-auto p-6 flex items-center justify-center flex-col gap-6 rounded-lg">
           <button
             className="absolute bg-white top-1 right-1"
-            onClick={() => action()}
+            onClick={() => action(false)}
           >
             <IoMdCloseCircle size={40} />
           </button>
-          <h4 className="text-importantText text-2xl mb-2">Créer un Tarif</h4>
+          <h4 className="text-importantText text-2xl mb-2">
+            Modifier ce Tarif
+          </h4>
 
           {/* Nom du tarif */}
           <div className="w-full mb-2">
@@ -161,7 +175,7 @@ export default function CreateTarif({ action }) {
                     type="text"
                     id="start_hour"
                     label="Heure de début"
-                    placeHolder = "00:00:00"
+                    placeHolder="00:00:00"
                     {...field}
                   />
                 )}
@@ -183,7 +197,7 @@ export default function CreateTarif({ action }) {
                     type="text"
                     id="end_hour"
                     label="Heure de fin"
-                    placeHolder = "00:00:00"
+                    placeHolder="00:00:00"
                     {...field}
                   />
                 )}
@@ -270,8 +284,11 @@ export default function CreateTarif({ action }) {
               <ErrorMessage message={errors.textColor.message} />
             )}
           </div>
+          {invalidMessage && (
+            <ErrorMessage message={invalidMessage} className="mb-[1vw]" />
+          )}
 
-          <Boutton isLoading={false} label="CRÉER" />
+          <Boutton isLoading={isModifier} label="CRÉER" />
           <p className="text-center text-simpleText text-base mt-4">
             Copyright, elecdis 2024
           </p>
