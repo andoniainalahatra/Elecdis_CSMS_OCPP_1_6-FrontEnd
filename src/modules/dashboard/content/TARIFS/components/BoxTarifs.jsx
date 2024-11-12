@@ -89,7 +89,7 @@ function BoxTarifs({
           />
 
           {isOption && (
-            <div className="absolute bg-zinc-50 rounded-md p-2 top-5 right-0">
+            <div className="absolute bg-zinc-50 text-gray-700 rounded-md p-2 top-5 right-0">
               <div
                 onClick={() => {confirmDelete(); setIsOption(!isOption)}}
                 className="w-full flex items-center justify-start gap-2 mb-2 hover:text-red-500"
@@ -107,12 +107,14 @@ function BoxTarifs({
         <h2 className="text-2xl font-semibold">{title}</h2>
         <p>{description}</p>
         <div className="bg-gray-400 p-[0.1px] w-full"></div>
+        <div className="">
         <p className="text-2xl font-semibold">
           {price}
           <span className="text-2xl font-semibold">/kWh</span>
         </p>
         <p>ou</p>
-        <p className="text-2xl font-semibold">Majoration : {majoration}</p>
+        <p className="text-2xl font-semibold">Majoration : x{majoration}</p>
+        </div>
       </div>
       
     </div>

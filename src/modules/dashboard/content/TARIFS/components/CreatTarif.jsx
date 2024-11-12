@@ -5,13 +5,25 @@ import Input from "@/modules/Login/components/Input";
 import Boutton from "@/modules/Login/components/Boutton";
 import { IoMdCloseCircle } from "react-icons/io";
 import ErrorMessage from "@/components/ErrorMessage";
-// import { useCreateRfid } from "@/features/RFID/rfidApi";
 import ColorPickerComponent from "@/components/ColorPickerComponent";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import axiosInstance from "@/lib/axiosInstance";
+import Swal from "sweetalert2";
 
 export default function CreateTarif({ action }) {
-  //   const [invalidMessage, setInvalidMessage] = useState("");
-  //   const { mutate: create_rfid, isPending: isCreating } = useCreateRfid();
-
+    const [invalidMessage, setInvalidMessage] = useState("");
+    const useCreateTarif = () => {
+      const queryClient = useQueryClient();
+      return useMutation({
+        mutationFn: (credentials) =>
+          axiosInstance.post("/tarifs", credentials).then((res) => res.data),
+        onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: ["listTarif"], exact: false });
+        },
+      });
+    };
+    const { mutate: create_tarif, isPending: isCreating } = useCreateTarif();
+    
   const {
     control,
     formState: { errors },
@@ -35,26 +47,26 @@ export default function CreateTarif({ action }) {
   const onSubmit = (data) => {
     console.log(data);
 
-    // create_rfid(data, {
-    //   onSuccess: () => {
-    //     Swal.fire({
-    //       icon: "success",
-    //       title: "RFID créé avec succès !",
-    //     });
-    //     action();
-    //   },
-    //   onError: (error) => {
-    //     if (error.response?.status === 401) {
-    //       setInvalidMessage("Identifiant utilisateur n'existe pas");
-    //     } else {
-    //       Swal.fire({
-    //         icon: "error",
-    //         title: "Oops...",
-    //         text: "Une erreur s'est produite. Veuillez réessayer plus tard.",
-    //       });
-    //     }
-    //   },
-    // });
+    create_tarif(data, {
+      onSuccess: () => {
+        Swal.fire({
+          icon: "success",
+          title: "RFID créé avec succès !",
+        });
+        action();
+      },
+      onError: (error) => {
+        if (error.response?.status === 401) {
+          setInvalidMessage("Identifiant utilisateur n'existe pas");
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Une erreur s'est produite. Veuillez réessayer plus tard.",
+          });
+        }
+      },
+    });
   };
 
   return (
@@ -270,8 +282,10 @@ export default function CreateTarif({ action }) {
               <ErrorMessage message={errors.textColor.message} />
             )}
           </div>
-
-          <Boutton isLoading={false} label="CRÉER" />
+          {invalidMessage && (
+              <ErrorMessage message={invalidMessage} />
+            )}
+          <Boutton isLoading={isCreating} label="CRÉER" />
           <p className="text-center text-simpleText text-base mt-4">
             Copyright, elecdis 2024
           </p>
