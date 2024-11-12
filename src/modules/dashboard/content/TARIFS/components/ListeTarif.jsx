@@ -32,7 +32,7 @@ function ListeTarif() {
     setPage(1)
   }
   const lastPage = () => {
-    setPage()
+    setPage(data.pagination?.total_pages)
   }
   if (isPending) {
     return <PulseLoader size={18} color="#F2505D" />;
@@ -53,8 +53,8 @@ function ListeTarif() {
             <BoxTarifs
               key={item.id}
               id={item.id}
-              category="tarif simple"
-              title="Heure de pointe 1"
+              category={item.category}
+              title={item.name}
               description={item.description}
               price={item.price}
               backgroundColor={item.backgroundColor}
@@ -96,7 +96,7 @@ function ListeTarif() {
           <Button
             type="button"
             disabled={page === data.pagination?.total_pages}
-            onClick={() => {}}
+            onClick={() => lastPage()}
             className="bg-transparent text-[#64748b] hover:bg-transparent"
           >
             <MdOutlineLastPage size={20} />
