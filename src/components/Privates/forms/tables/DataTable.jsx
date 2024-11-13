@@ -127,7 +127,7 @@ function DataTable({
 
   return (
     <div className="w-full py-6 shadow-combined rounded-lg overflow-x-auto bg-[#fffe]">
-      <div className="flex items-center w-full gap-2 mb-4">
+      <div className="flex items-center w-full gap-4 mb-4">
         <Filters value={globalFilter} onChange={setGlobalFilter} />
         {onFilter && (
           <ButtonFilterTable filter={filter} listFilter={listFilter} />
