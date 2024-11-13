@@ -9,12 +9,12 @@ import Swal from "sweetalert2";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axiosInstance from "@/lib/axiosInstance";
 
-export default function UpdateTarif({ action, id }) {
+export default function UpdateTarif({ action, data }) {
   const useUpdateTarif = () => {
     const queryClient = useQueryClient();
     return useMutation({
       mutationFn: (credentials) =>
-        axiosInstance.put(`/tarifs/${id}`, credentials).then((res) => res.data),
+        axiosInstance.put(`/tarifs/${data.id}`, credentials).then((res) => res.data),
       onSuccess: () => {
         queryClient.invalidateQueries({
           queryKey: ["listTarif"],
@@ -31,22 +31,23 @@ export default function UpdateTarif({ action, id }) {
     handleSubmit,
   } = useForm({
     defaultValues: {
-      name_tarif: "",
-      description: "",
-      start_hour: "",
-      end_hour: "",
-      price: "",
-      backgroundColor: "#3f3c3c",
-      textColor: "#d5cdcd",
-      facteur_majoration: "",
+      name_tarif: data.name,
+      description: data.description,
+      start_hour: data.start_hour,
+      end_hour: data.end_hour,
+      price: data.price,
+      backgroundColor: data.backgroundColor,
+      textColor: data.textColor,
+      facteur_majoration: data.facteur_majoration,
       category: "",
-      currency: "Ar",
-      energy_unit: "KWh",
+      currency: data.currency,
+      energy_unit: data.energy_unit,
     },
   });
 
   const onSubmit = (data) => {
-
+    console.log(data);
+    
     update_rfid(data, {
       onSuccess: () => {
         Swal.fire({
@@ -124,10 +125,11 @@ export default function UpdateTarif({ action, id }) {
               control={control}
               render={({ field }) => (
                 <Input
-                  type="text"
+                  type="number"
                   id="category"
                   label="Categorie du tarif"
                   {...field}
+                  placeHolder="nombre..."
                 />
               )}
             />
