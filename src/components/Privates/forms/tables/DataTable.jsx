@@ -127,19 +127,19 @@ function DataTable({
 
   return (
     <div className="w-full py-6 shadow-combined rounded-lg overflow-x-auto bg-[#fffe]">
-      <div className="flex items-center w-full gap-2 mb-4">
+      <div className="flex items-center w-full gap-4 mb-4">
         <Filters value={globalFilter} onChange={setGlobalFilter} />
         {onFilter && (
           <ButtonFilterTable filter={filter} listFilter={listFilter} />
         )}
         {calendarFilter && (
-           <div className="flex items-center justify-center gap-1">
-           <div onClick={(e)=>e.stopPropagation()}>
-             <CalendarFilterMonth filter={calendarFilter} />
-           </div>
-           <div onClick={(e)=>e.stopPropagation()}>
-             <CalendarFilterYear filter={calendarFilter} />
-           </div>
+          <div className="flex items-center justify-center gap-2 bg-red-200 p-1 rounded-md ">
+              <div className="bg-primaryChart p-0.5 rounded-md" onClick={(e)=>e.stopPropagation()}>
+                <CalendarFilterMonth filter={calendarFilter} />
+              </div>
+              <div className="bg-primaryChart p-0.5 rounded-md" onClick={(e)=>e.stopPropagation()}>
+                <CalendarFilterYear filter={calendarFilter} />
+              </div>
          </div>
         )}
       </div>
