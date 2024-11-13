@@ -14,6 +14,7 @@ import UserTableSpecificRFID from "./UserTableSpecificRFID";
 import useGetDataNoParams from "@/lib/hoocks/useGetDataNoParams";
 import { PulseLoader } from "react-spinners";
 import UserTableSpecificSession from "@/modules/dashboard/content/ACTIVITE/components/UserTableSpecificSession";
+import { transformValue } from "@/lib/utils";
 function UserProfil({ Id }) {
   const dataTransactionHistorique = [
     {
@@ -62,7 +63,7 @@ function UserProfil({ Id }) {
     return <p>Erreur...</p>
   }
   return (
-    <div className="relative w-full bg-white p-6 h-full text-left">
+    <div className="relative w-full bg-white p-6 h-full overflow-y-auto text-left">
       <h2 className="text-[#2idB36] text-xl mb-10 ">Information {data.user.role}</h2>
       <div className="flex items-center justify-between w-full">
         <div className="flex items-center justify-start gap-6">
@@ -79,7 +80,7 @@ function UserProfil({ Id }) {
             </h3>
             <div className="flex items-center justify-between w-full gap-6">
               <InfoUser Title="Recharge" Value={data.user.nombre_recharges} />
-              <InfoUser Title="Energie Totale" Value={data.user.energie_recharge_total} />
+              <InfoUser Title="Energie Totale" Value={transformValue(data.user.energie_recharge_total)} />
               <InfoUser Title="Temps total" Value={data.user.temps_recharge_total} />
             </div>
           </div>

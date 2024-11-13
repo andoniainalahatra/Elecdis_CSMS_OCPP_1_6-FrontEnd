@@ -1,14 +1,16 @@
+
+
 import { FaPlus } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
 
-const BoutonAdd = ({ open, Composant, setOpen }) => {
+const BoutonAddCSV = ({ open, Composant, setOpen }) => {
     return (
-        <div className="">
+        <div className="flex space-x-3">
             <button onClick={() => setOpen(n => !n)}
                 className=' text-white  h-[45px] bg-[#212B36] hover:bg-[#0d1216] p-5 flex items-center font-semibold max-md:text-sm test-[14px]  rounded-md space-x-2'>
                 <FaPlus className='w-[1.3rem] h-[1.3rem]' />
 
-                <span>Ajouter nouveau</span>
+                <span>Import CSV</span>
             </button>
             {open && (
                 <div className="flex">
@@ -26,4 +28,4 @@ const BoutonAdd = ({ open, Composant, setOpen }) => {
     )
 }
 
-export default BoutonAdd
+export default BoutonAddCSV

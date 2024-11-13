@@ -1,14 +1,14 @@
 import { MoonLoader } from "react-spinners";
 
-export default function Boutton({label, className, isLoading}) {
+export default function Boutton({ label, className, isLoading, onButtonClick }) {
   return (
     <>
-      <button type='submit' className={`${className} flex justify-center items-center w-full h-[6vh] bg-[#F2505D] rounded-md text-white text-base font-medium hover:bg-[#df3846]`}>
+      <button onClick={onButtonClick} type='submit' className={`${className} flex justify-center items-center w-full h-[6vh] bg-[#F2505D] rounded-md text-white text-base font-medium hover:bg-[#df3846]`}>
         {isLoading ? <MoonLoader
-        color="#ffffff"
-        loading={true}
-        size={20}
-      /> : label}
+          color="#ffffff"
+          loading={true}
+          size={20}
+        /> : label}
       </button>
     </>
   )

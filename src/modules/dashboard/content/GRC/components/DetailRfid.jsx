@@ -9,6 +9,7 @@ import { useGetOneRfid } from "@/features/RFID/rfidApi";
 import { convertDate } from "@/lib/utils";
 
 const DetailRfid = ({ Id }) => {
+  console.log(Id);
   const { data: rfidData, error, isPending } = useGetOneRfid(Id);
   if (error) {
     return <p>Une erreur est survenue...</p>;

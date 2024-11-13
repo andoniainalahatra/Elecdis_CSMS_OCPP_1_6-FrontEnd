@@ -173,7 +173,69 @@ function DataTable({
                   const detailData = row.original
                   let cellClass = "";
                   const rowData = row.original;
-                  if (cell.column.id === "consumed_energy") {
+                  //|| cell.column.id ==="energie_consomme"
+                  if (cell.column.id === "phone") {
+                    const rawPhone = cell.getValue();
+                  
+                    if (rawPhone) {
+                      let formattedPhone;
+                  
+                      if (rawPhone.startsWith("+261")) {
+                        // Format +261 34 49 006 42
+                        formattedPhone = rawPhone.replace(/(\+261)(\d{2})(\d{2})(\d{3})(\d{2})/, "$1 $2 $3 $4 $5");
+                      } else if (rawPhone.startsWith("034")) {
+                        // Format 034 49 006 42
+                        formattedPhone = rawPhone.replace(/(034)(\d{2})(\d{3})(\d{2})/, "$1 $2 $3 $4");
+                      } else {
+                        formattedPhone = rawPhone; // Cas où le format est déjà correct ou autre
+                      }
+                  
+                      return (
+                        <TableCell key={cell.id} className="text-center">
+                          {formattedPhone}
+                        </TableCell>
+                      );
+                    }
+                  }
+                  
+                  if (cell.column.id === "time") {
+                    const rawTime = cell.getValue();
+                  
+                    if (rawTime) {
+                      // Convertit l'horodatage ou la chaîne de date en objet Date
+                      const date = new Date(rawTime);
+                  
+                      // Formate l'heure (exemple: jour/mois/année heure:minute)
+                      const formattedTime = date.toLocaleString("fr-FR", {
+                        day: "2-digit",
+                        month: "2-digit",
+                        year: "numeric",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        second: "2-digit",
+                      });
+                  
+                      return (
+                        <TableCell key={cell.id} className="text-center">
+                          {formattedTime}
+                        </TableCell>
+                      );
+                    }
+                  }
+                  
+
+                  if(cell.column.id==="energie_consomme"){
+                    const rawValue=cell.getValue()
+                    const formattedValue = rawValue.toLocaleString("fr-FR");
+                    if(rawValue){
+                      return (
+                        <TableCell key={cell.id} className="text-center">
+                           {formattedValue}
+                        </TableCell>
+                      );
+                    }
+                  }
+                  if (cell.column.id === "consumed_energy" ) {
                     const rawValue = cell.getValue();
 
                     const transformedValue = transformValue(rawValue);
@@ -216,7 +278,7 @@ function DataTable({
                       return (
                         <TableCell key={cell.id} className="text-center">
                           <div className="flex items-center justify-center gap-3">
-                          <ButtonReprendreTransaction idSession={rowData.id} idTag={rowData.rfid} idConnecteur={rowData.connector_id} disabled={false} />
+                          <ButtonReprendreTransaction idSession={rowData.id} idTag={rowData.rfid} idChargePoint={rowData.chargepoint_id} idConnecteur={rowData.connector_id} disabled={false} />
                           <ButtonStopTransaction
                             disabled={true}
                           />
@@ -398,12 +460,13 @@ function DataTable({
       </div>
       {isDetail && (
         <div
-          className="fixed top-0 left-0 z-50 flex items-center justify-center w-full h-screen overflow-auto backdrop-blur-md"
+          className="fixed top-0 left-0 z-10 flex items-center justify-center w-full h-screen overflow-auto backdrop-blur-md"
           style={{ backgroundColor: "rgba(9,16,26,0.3)" }}
         >
           <ComponentModal Id={idDetail} dataObj={dataObj}  />
           <span
             className="absolute z-50 cursor-pointer top-5 right-5"
+            disabled="true"
             onClick={() => setIsDetail(false)}
           >
             <IoMdClose className="text-red-300 hover:text-red-500" size={50} />

@@ -6,6 +6,7 @@ import Page403 from "@/components/Page403";
 import { ContextProvider } from "@/common/config/configs/Context";
 import { RotateLoader } from "react-spinners";
 import UserProfil from "@/components/UserProfil";
+import ModifierPassword from "@/modules/ForgotPassword/ModifierPassword";
 
 const ForgotPassword = lazy(() => import("@/modules/ForgotPassword/ForgotPassword"));
 const ResetPassword = lazy(() => import("@/modules/ForgotPassword/ResetPassword"));
@@ -17,9 +18,9 @@ const Dashboard = lazy(() => import("@/modules/dashboard/Dashboard"));
 export function AppRoutes() {
   return (
     <Router>
-      <Suspense fallback={<div className="w-full h-screen flex justify-center items-center">
-          <RotateLoader color="#F2505D" />
-        </div>}>
+      <Suspense fallback={<div className="flex items-center justify-center w-full h-screen">
+        <RotateLoader color="#F2505D" />
+      </div>}>
         <Routes>
           <Route
             path="/"
@@ -32,6 +33,7 @@ export function AppRoutes() {
           <Route path="/forgotpassword" element={<ForgotPassword />} />
           <Route path="/resetPassword" element={<ResetPassword />} />
           <Route path="/emailSend" element={<EmailSend />} />
+          <Route path="/newPassword" element={<ModifierPassword />} />
           <Route path="/inscription" element={<Inscription />} />
           <Route path="/profil" element={<UserProfil />} />
           <Route

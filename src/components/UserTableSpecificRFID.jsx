@@ -7,6 +7,7 @@ import { PulseLoader } from "react-spinners";
 import Swal from "sweetalert2";
 import DataTable from "./Privates/forms/tables/DataTable";
 import ButtonActionRfid from "@/modules/dashboard/content/GRC/components/ButtonActionRfid";
+import DetailRfid from "@/modules/dashboard/content/GRC/components/DetailRfid";
 function UserTableSpecificRFID({id}) {
     const datasColumn = [
         { accessorKey: "id", header: "Id" },
@@ -16,7 +17,7 @@ function UserTableSpecificRFID({id}) {
         { accessorKey: "Actions", header: "Actions" },
       ];
       const columns = datasColumn;
-      const actions = [{ name: "detail" }, { name: "delete" }];
+      const actions = [{ name: "delete" }];
       const dispatch = useDispatch();
       const stationData = useSelector(selectRfid);
       const currentPage = useSelector(selectPage);
@@ -60,6 +61,8 @@ function UserTableSpecificRFID({id}) {
           resetPage={resetPage}
           nextPage={nextPage}
           previousPage={previousPage}
+          ComponentModal={DetailRfid}
+          onClickRow={true}
         />
       );
 }

@@ -137,3 +137,27 @@ body {
   border:none !important;
   box-shadow: none !important;
 }
+
+
+.main {
+  transform-style: preserve-3d;
+  transition: transform 0.5s;
+}
+
+.main:hover {
+  transform: rotateY(180deg);
+}
+
+.front,
+.back {
+  backface-visibility: hidden;
+}
+
+.front {
+  background-color: #3498db; /* Couleur du recto */
+}
+
+.back {
+  background-color: #e74c3c; /* Couleur du verso */
+  transform: rotateY(180deg); /* Positionner le verso à l'envers */
+}
