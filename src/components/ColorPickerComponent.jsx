@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SketchPicker } from 'react-color';
+import { ChromePicker,  } from 'react-color';
 
 const ColorPickerComponent = ({ value, onChange, label }) => {
     const [displayColorPicker, setDisplayColorPicker] = useState(false);
@@ -26,7 +26,7 @@ const ColorPickerComponent = ({ value, onChange, label }) => {
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
                     <div className="relative bg-white p-4 rounded-lg shadow-lg">
                         
-                        <SketchPicker color={value} onChangeComplete={handleChangeComplete} />
+                        <ChromePicker color={value} onChangeComplete={handleChangeComplete} />
                         <button className='w-full p-2 mt-2 bg-slate-400' onClick={() => setDisplayColorPicker(false)}>OK</button>
                     </div>
                 </div>
