@@ -25,7 +25,7 @@ export const ClientApiNewWithPagination = (url, month, year, queryKey, page, num
       .then((response) => 
         {
         // console.log(response)
-        const {data,pagination}=response.data['clients ']
+        const {data,pagination}=response.data
         // console.log(data)
         return {data,pagination}
       }
