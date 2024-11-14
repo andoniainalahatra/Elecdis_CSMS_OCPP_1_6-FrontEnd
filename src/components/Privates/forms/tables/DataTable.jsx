@@ -29,9 +29,6 @@ import { transformValue } from "@/lib/utils";
 import ButtonReprendreTransaction from "@/modules/dashboard/component/ButtonReprendreTransaction";
 import CalendarFilterMonth from "@/modules/dashboard/component/CalendarFilterMonth";
 import CalendarFilterYear from "@/modules/dashboard/component/CalendarFilterYear";
-import FilterHistoriqueStatusCP from "@/modules/dashboard/content/ACTIFS/components/FilterHistoriqueStatusCP";
-// import { Input } from "@/components/ui/input";
-import CalendarMonth from "../CalendarMonth";
 /**
  * Génère un tableau paginé avec des actions.
  *
@@ -68,13 +65,10 @@ function DataTable({
   onFilter = false,
   onClickRow = false,
   ComponentModal,
-  filterHistoStatus = false,
-  setObjet
-
 }) {
   const [isDetail, setIsDetail] = useState(false);
   const [idDetail, setIdDetail] = useState(null);
-  const [dataObj, setDataObj] = useState(null)
+  const [dataObj, setDataObj] = useState(null);
   const handleClick = (obj) => {
     if (onClickRow) {
       setIsDetail(true);
@@ -138,19 +132,13 @@ function DataTable({
         {onFilter && (
           <ButtonFilterTable filter={filter} listFilter={listFilter} />
         )}
-        {/* fikter historique status  */}
-        {filterHistoStatus && (
-          <FilterHistoriqueStatusCP setObjet={setObjet} />
-        )}
         {calendarFilter && (
-          <div className="flex items-center justify-center gap-1 rounded-md ">
-            <div className="rounded-md" onClick={(e) => e.stopPropagation()}>
-              {/* <CalendarFilterMonth filter={calendarFilter} /> */}
-              {/* {<Input type="month" filter={calendarFilter}/> */}
-              {<CalendarMonth filter={calendarFilter} />}
+          <div className="flex items-center justify-center gap-1">
+            <div onClick={(e) => e.stopPropagation()}>
+              <CalendarFilterMonth filter={calendarFilter} />
             </div>
-            <div className="rounded-md " onClick={(e) => e.stopPropagation()}>
-              {/* <CalendarFilterYear filter={calendarFilter} /> */}
+            <div onClick={(e) => e.stopPropagation()}>
+              <CalendarFilterYear filter={calendarFilter} />
             </div>
           </div>
         )}
@@ -175,8 +163,9 @@ function DataTable({
           <TableBody className="w-full">
             {table.getRowModel().rows.map((row) => (
               <TableRow
-                className={`${onClickRow ? "cursor-pointer" : "cursor-default"
-                  }`}
+                className={`${
+                  onClickRow ? "cursor-pointer" : "cursor-default"
+                }`}
                 key={row.id}
                 onClick={() => handleClick(row.original)}
               >
@@ -242,9 +231,8 @@ function DataTable({
                     }
                   }
 
-
                   if (cell.column.id === "energie_consomme") {
-                    const rawValue = cell.getValue()
+                    const rawValue = cell.getValue();
                     const formattedValue = rawValue.toLocaleString("fr-FR");
                     if (rawValue) {
                       return (
@@ -287,12 +275,25 @@ function DataTable({
                       return (
                         <TableCell key={cell.id} className="text-center">
                           <div className="flex items-center justify-center gap-3">
-                            <ButtonReprendreTransaction disabled={true} />
-                            <ButtonStopTransaction
-                              chargePointId={rowData.chargepoint_id}
-                              sessionId={rowData.id}
-                              disabled={false}
-                            />
+                            {row.original.is_expired ? (
+                              <>
+                                <ButtonReprendreTransaction disabled={true} />
+                                <ButtonStopTransaction
+                                  chargePointId={rowData.chargepoint_id}
+                                  sessionId={rowData.id}
+                                  disabled={true}
+                                />
+                              </>
+                            ) : (
+                              <>
+                                <ButtonReprendreTransaction disabled={true} />
+                                <ButtonStopTransaction
+                                  chargePointId={rowData.chargepoint_id}
+                                  sessionId={rowData.id}
+                                  disabled={false}
+                                />
+                              </>
+                            )}
                           </div>
                         </TableCell>
                       );
@@ -300,10 +301,21 @@ function DataTable({
                       return (
                         <TableCell key={cell.id} className="text-center">
                           <div className="flex items-center justify-center gap-3">
-                            <ButtonReprendreTransaction idSession={rowData.id} idTag={rowData.rfid} idChargePoint={rowData.chargepoint_id} idConnecteur={rowData.connector_id} disabled={false} />
-                            <ButtonStopTransaction
+                            {row.original.is_expired ? (<><ButtonReprendreTransaction
+                              idSession={rowData.id}
+                              idTag={row.original.id_tag}
+                              idChargePoint={rowData.chargepoint_id}
+                              idConnecteur={rowData.connector_id}
                               disabled={true}
                             />
+                            <ButtonStopTransaction disabled={true} /></>) : (<><ButtonReprendreTransaction
+                              idSession={rowData.id}
+                              idTag={row.original.id_tag}
+                              idChargePoint={rowData.chargepoint_id}
+                              idConnecteur={rowData.connector_id}
+                              disabled={false}
+                            />
+                            <ButtonStopTransaction disabled={true} /></>)}
                           </div>
                         </TableCell>
                       );
