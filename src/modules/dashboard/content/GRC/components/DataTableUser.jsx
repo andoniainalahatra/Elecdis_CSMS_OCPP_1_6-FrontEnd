@@ -10,7 +10,7 @@ import { selectClient, selectPage } from "../config/client/clientSelector";
 import { getClient, nextPage, previousPage, resetPage, totalPage } from "../config/client/clientSlice";
 import ButtonActionClient from "./BoutonActionClient";
 import UserProfil from "@/components/UserProfil";
-import {  useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { selectFilterCalendarTable } from "../../T_BORD/features/filterCalendarSelector";
 import { isFullDate, isMonthPresent } from "@/lib/utils";
 
@@ -59,7 +59,9 @@ const columns = datas;
 const actions = [{ name: "detail" }, { name: "edit" }, { name: "delete" }];
 const DataTableUser = () => {
     const date = useSelector(selectFilterCalendarTable);
+
     const currentPage = useSelector(selectPage);
+
     const dispatch = useDispatch();
     const [data, setData] = useState();
     const [month, setMonth] = useState(null);
@@ -67,7 +69,7 @@ const DataTableUser = () => {
     let userData = useSelector(selectClient);
 
     // Appel API pour tous les clients
-    const { 
+    const {
         data: dataForAll,
         isPending: isPendingforAll,
         error: errorForAll,
@@ -79,7 +81,7 @@ const DataTableUser = () => {
         isPending: isPendingForNew,
         error: errorForNew
     } = ClientApiNewWithPagination("users/new_clients", month, year, "newClient", currentPage, 10);
-    
+
     // Mise à jour des données à afficher
     useEffect(() => {
         if (isMonthPresent(date)) {
@@ -88,7 +90,7 @@ const DataTableUser = () => {
             setYear(newYear);
             setData(dataForNew);
         }
-         else {
+        else {
             setData(dataForAll);
         }
     }, [date, dataForNew, dataForAll]);
@@ -101,12 +103,12 @@ const DataTableUser = () => {
 
     // console.log("fullDate:",isFullDate(date))
     // console.log("withMonthPres:",isMonthPresent(date))
-    useEffect(()=>{
-        if(!isFullDate(date) && !isMonthPresent(date)){
+    useEffect(() => {
+        if (!isFullDate(date) && !isMonthPresent(date)) {
             setYear(date)
             setData(dataForNew)
         }
-    },[date,dataForNew])
+    }, [date, dataForNew])
     // Affichage du chargement
     if (isPendingforAll || isPendingForNew) {
         return (

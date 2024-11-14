@@ -18,11 +18,12 @@ export const useForgotPassword = () => {
       });
     },
     onError: (error) => {
+      console.log(error.response.data.detail);
       Swal.fire({
         icon: "error",
         title: "Erreur",
         text: `Une erreur s’est produite : ${
-          error?.response?.data?.message || "Erreur inconnue"
+          error.response.data.detail || "Erreur inconnue"
         }`,
       });
     },
