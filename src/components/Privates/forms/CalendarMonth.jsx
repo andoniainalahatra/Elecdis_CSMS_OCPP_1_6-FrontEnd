@@ -22,7 +22,8 @@ if(actionCreator){
 
   return (
     <div>
-        <Input type="Month" onChange={(e)=>{
+        <Input type="month" className="p-2 m-2" onChange={(e)=>{
+            e.stopPropagation()
             let date=e.target.value.split("-")
             setMonth(date[1])
             setYear(date[0])
