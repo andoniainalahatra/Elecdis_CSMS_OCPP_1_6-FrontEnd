@@ -29,6 +29,7 @@ import { transformValue } from "@/lib/utils";
 import ButtonReprendreTransaction from "@/modules/dashboard/component/ButtonReprendreTransaction";
 import CalendarFilterMonth from "@/modules/dashboard/component/CalendarFilterMonth";
 import CalendarFilterYear from "@/modules/dashboard/component/CalendarFilterYear";
+import CalendarMonth from "../CalendarMonth";
 /**
  * Génère un tableau paginé avec des actions.
  *
@@ -135,10 +136,11 @@ function DataTable({
         {calendarFilter && (
           <div className="flex items-center justify-center gap-1">
             <div onClick={(e) => e.stopPropagation()}>
-              <CalendarFilterMonth filter={calendarFilter} />
+              {/* <CalendarFilterMonth filter={calendarFilter} /> */}
+            <CalendarMonth filter={calendarFilter}/>
             </div>
             <div onClick={(e) => e.stopPropagation()}>
-              <CalendarFilterYear filter={calendarFilter} />
+              {/* <CalendarFilterYear filter={calendarFilter} /> */}
             </div>
           </div>
         )}
