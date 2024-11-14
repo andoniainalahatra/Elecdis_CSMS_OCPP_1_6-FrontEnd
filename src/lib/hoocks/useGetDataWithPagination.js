@@ -13,4 +13,3 @@ const useGetDataWithPagination = (url, queryKey, page, number_items) => {
   });
 };
 export default useGetDataWithPagination;
-
