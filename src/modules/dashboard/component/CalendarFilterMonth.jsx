@@ -44,7 +44,7 @@ function CalendarFilterMonth({ filter }) {
       actionCreator = filterDateForAllRevenu;
     } else if (filter === "newClient") {
       actionCreator = filterDateForNewUser;
-    }
+  }
     else if(filter==="filterClientTable"){
       actionCreator= filterDateForClientTable
     }
