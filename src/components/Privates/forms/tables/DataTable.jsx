@@ -30,6 +30,8 @@ import ButtonReprendreTransaction from "@/modules/dashboard/component/ButtonRepr
 import CalendarFilterMonth from "@/modules/dashboard/component/CalendarFilterMonth";
 import CalendarFilterYear from "@/modules/dashboard/component/CalendarFilterYear";
 import FilterHistoriqueStatusCP from "@/modules/dashboard/content/ACTIFS/components/FilterHistoriqueStatusCP";
+// import { Input } from "@/components/ui/input";
+import CalendarMonth from "../CalendarMonth";
 /**
  * Génère un tableau paginé avec des actions.
  *
@@ -141,12 +143,14 @@ function DataTable({
           <FilterHistoriqueStatusCP setObjet={setObjet} />
         )}
         {calendarFilter && (
-          <div className="flex items-center justify-center gap-1">
-            <div onClick={(e) => e.stopPropagation()}>
-              <CalendarFilterMonth filter={calendarFilter} />
+          <div className="flex items-center justify-center gap-1 rounded-md ">
+            <div className="rounded-md" onClick={(e) => e.stopPropagation()}>
+              {/* <CalendarFilterMonth filter={calendarFilter} /> */}
+              {/* {<Input type="month" filter={calendarFilter}/> */}
+              {<CalendarMonth filter={calendarFilter} />}
             </div>
-            <div onClick={(e) => e.stopPropagation()}>
-              <CalendarFilterYear filter={calendarFilter} />
+            <div className="rounded-md " onClick={(e) => e.stopPropagation()}>
+              {/* <CalendarFilterYear filter={calendarFilter} /> */}
             </div>
           </div>
         )}
