@@ -22,7 +22,7 @@ if(actionCreator){
 
   return (
     <div>
-        <Input type="date" onChange={(e)=>{
+        <Input type="Month" onChange={(e)=>{
             let date=e.target.value.split("-")
             setMonth(date[1])
             setYear(date[0])
