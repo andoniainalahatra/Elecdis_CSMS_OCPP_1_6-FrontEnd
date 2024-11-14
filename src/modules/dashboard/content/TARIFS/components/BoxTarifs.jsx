@@ -17,6 +17,7 @@ function BoxTarifs({
   majoration,
   textColor,
   backgroundColor,
+  data,
 }) {
   const boxStyle = {
     backgroundColor: backgroundColor || "#ffffff",
@@ -119,7 +120,7 @@ function BoxTarifs({
       
     </div>
     {
-        isUpdate && (<UpdateTarif action={setIsUpdate} id={id} />)
+        isUpdate && (<UpdateTarif action={setIsUpdate} data={data} />)
       }
     </>
     

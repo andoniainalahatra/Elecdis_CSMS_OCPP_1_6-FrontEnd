@@ -122,10 +122,11 @@ export default function CreateTarif({ action }) {
               control={control}
               render={({ field }) => (
                 <Input
-                  type="text"
+                  type="number"
                   id="category"
                   label="Categorie du tarif"
                   {...field}
+                  placeHolder="nombre..."
                 />
               )}
             />

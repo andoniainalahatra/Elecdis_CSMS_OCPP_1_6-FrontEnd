@@ -60,6 +60,7 @@ function ListeTarif() {
               backgroundColor={item.backgroundColor}
               textColor={item.textColor}
               majoration={item.facteur_majoration}
+              data ={item}
             />
           ))}
       </div>
