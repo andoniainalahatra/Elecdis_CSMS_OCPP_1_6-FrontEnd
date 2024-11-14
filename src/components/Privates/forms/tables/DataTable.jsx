@@ -77,7 +77,7 @@ function DataTable({
     if (onClickRow) {
       setIsDetail(true);
       setIdDetail(obj.id);
-      setDataObj(obj)
+      setDataObj(obj);
     }
   };
   const [data, setData] = useState([]);
@@ -131,7 +131,7 @@ function DataTable({
 
   return (
     <div className="w-full py-6 shadow-combined rounded-lg overflow-x-auto bg-[#fffe]">
-      <div className="flex items-center w-full gap-2 mb-4">
+      <div className="flex items-center w-full gap-4 mb-4">
         <Filters value={globalFilter} onChange={setGlobalFilter} />
         {onFilter && (
           <ButtonFilterTable filter={filter} listFilter={listFilter} />
@@ -171,14 +171,15 @@ function DataTable({
           <TableBody className="w-full">
             {table.getRowModel().rows.map((row) => (
               <TableRow
-                className={`${onClickRow ? "cursor-pointer" : "cursor-default"}`}
+                className={`${onClickRow ? "cursor-pointer" : "cursor-default"
+                  }`}
                 key={row.id}
                 onClick={() => handleClick(row.original)}
               >
                 {row.getVisibleCells().map((cell) => {
                   const cellValue = cell.getValue();
                   const id = row.original.id;
-                  const detailData = row.original
+                  const detailData = row.original;
                   let cellClass = "";
                   const rowData = row.original;
                   //|| cell.column.id ==="energie_consomme"
@@ -190,10 +191,16 @@ function DataTable({
 
                       if (rawPhone.startsWith("+261")) {
                         // Format +261 34 49 006 42
-                        formattedPhone = rawPhone.replace(/(\+261)(\d{2})(\d{2})(\d{3})(\d{2})/, "$1 $2 $3 $4 $5");
+                        formattedPhone = rawPhone.replace(
+                          /(\+261)(\d{2})(\d{2})(\d{3})(\d{2})/,
+                          "$1 $2 $3 $4 $5"
+                        );
                       } else if (rawPhone.startsWith("034")) {
                         // Format 034 49 006 42
-                        formattedPhone = rawPhone.replace(/(034)(\d{2})(\d{3})(\d{2})/, "$1 $2 $3 $4");
+                        formattedPhone = rawPhone.replace(
+                          /(034)(\d{2})(\d{3})(\d{2})/,
+                          "$1 $2 $3 $4"
+                        );
                       } else {
                         formattedPhone = rawPhone; // Cas où le format est déjà correct ou autre
                       }
@@ -268,7 +275,11 @@ function DataTable({
                     }
                   }
                   if (cell.column.id === "Urgence") {
-                    if (rowData.statuts === "en cours" || rowData.state === "en cours") {
+                    if (
+                      rowData.statuts === "en cours" ||
+                      rowData.state === "en cours"
+                    ) {
+                      // row.original.is_expired
                       return (
                         <TableCell key={cell.id} className="text-center">
                           <div className="flex items-center justify-center gap-3">
@@ -281,8 +292,7 @@ function DataTable({
                           </div>
                         </TableCell>
                       );
-                    }
-                    else if (rowData.statuts || rowData.state === "terminé") {
+                    } else if (rowData.statuts || rowData.state === "terminé") {
                       return (
                         <TableCell key={cell.id} className="text-center">
                           <div className="flex items-center justify-center gap-3">
@@ -341,11 +351,14 @@ function DataTable({
                         key={cell.id}
                         className="text-center"
                       >
-                        <ButtonAction buttonProperty={actions} Id={id} dataObj={detailData} />
+                        <ButtonAction
+                          buttonProperty={actions}
+                          Id={id}
+                          dataObj={detailData}
+                        />
                       </TableCell>
                     );
                   }
-
 
                   if (
                     cell.column.id === "status" ||
