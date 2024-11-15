@@ -10,15 +10,28 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { PulseLoader } from "react-spinners";
 import Swal from "sweetalert2";
-import { useGetSession } from "@/features/sessions/sessionApi";
-import { Context } from "@/common/config/configs/Context";
-import { useContext, useEffect, useState } from "react";
 import ButtonActionSession from "./ButtonSession";
 import SessionDetails from "./SessionDetails";
 import { useGetTransactionRecharge } from "@/features/TransactionRecharge/TransactionRechargeApi";
+import { useEffect, useState } from "react";
 
 export default function SessionTable() {
-  // const { filters } = useContext(Context);
+  const formatDate = (date) => {
+    return date.toISOString().slice(0, 10);
+  };
+  const dateNow = new Date();
+  const [objet, setObjetFilter] = useState({
+    debut_energy : 0,
+    fin_energy : 200,
+    start_cost : 0,
+    end_cost : 200000,
+    start_time: "2022-01-01",
+    end_time: formatDate(dateNow),
+  });
+  console.log(objet);
+  const [status, setStatus] = useState("all");
+  console.log(status);
+  
   const datas = [
     {
       accessorKey : "id",
@@ -41,14 +54,14 @@ export default function SessionTable() {
       accessorKey: "end_time",
       header: "Date et heure de fin",
     },
-    // {
-    //   accessorKey: "consumed_energy",
-    //   header: "Énergie consommée",
-    // },
-    // {
-    //   accessorKey: "total_cost",
-    //   header: "Coût total",
-    // },
+    {
+       accessorKey: "total_energy_unit",
+       header: "Énergie consommée",
+     },
+     {
+       accessorKey: "total_price_unit",
+       header: "Coût total",
+     },
     {
       accessorKey: "state",
       header: "Statut",
@@ -60,7 +73,6 @@ export default function SessionTable() {
   ];
   const columns = datas;
   const actions = [{ name: "detail" }];
-  const listFiltre = ["tous", "en cours", "terminé"];
 
   const currentPage = useSelector(selectPage);
 
@@ -68,22 +80,7 @@ export default function SessionTable() {
     isPending: loadingAll,
     error: errorAll,
     data: dataAll,
-  } = useGetTransactionRecharge("historique_session/", "repoSessionHistorique", currentPage, 10);
-  // const {
-  //   isPending: loadingCurrent,
-  //   error: errorCurrent,
-  //   data: dataCurrent,
-  // } = useGetSession(
-  //   "transaction/current/",
-  //   "repoSessionCurrent",
-  //   currentPage,
-  //   10
-  // );
-  // const {
-  //   isPending: loadingDOne,
-  //   error: errorDone,
-  //   data: dataDone,
-  // } = useGetSession("transaction/done/", "repoSessionDone", currentPage, 10);
+  } = useGetTransactionRecharge('transaction/search_transactions', 'reposTransaction', status, objet.start_time, objet.end_time, objet.start_cost, objet.end_cost, objet.debut_energy, objet.fin_energy, currentPage, 10);
 
   const [data, setData] = useState();
   useEffect(() => {
@@ -94,20 +91,6 @@ export default function SessionTable() {
 
   const dispatch = useDispatch();
   const sessionData = useSelector(selectSession);
-
-  // useEffect(() => {
-  //   if (filters.session === "All" || filters.session === "tous") {
-  //     setData(dataAll);
-  //   }
-  //   if (filters.session === "en cours") {
-  //     setData(dataCurrent);
-  //   }
-  //   if (filters.session === "terminé") {
-  //     setData(dataDone);
-  //   }
-  // }, [filters, dataDone, dataCurrent, dataAll]);
-
- // if (loadingAll || loadingCurrent || loadingDOne) {
   if (loadingAll ) {
     return (
       <div className="w-full flex justify-center items-center h-[70vh]">
@@ -115,7 +98,6 @@ export default function SessionTable() {
       </div>
     );
   }
-  // if (errorAll || errorCurrent || errorDone) {
   if (errorAll) {
     return Swal.fire({
       title: "Oops ! Erreur de connexion .",
@@ -139,11 +121,12 @@ export default function SessionTable() {
         resetPage={resetPageSession}
         nextPage={nextPage}
         previousPage={previousPage}
-        onFilter={true}
-        listFilter={listFiltre}
         filter="session"
         onClickRow={true}
         ComponentModal={SessionDetails}
+        setObjetFilter={setObjetFilter}
+        filterSession={true}
+        setStatus={setStatus}
       />
     </div>
   );
