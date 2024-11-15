@@ -9,7 +9,8 @@ import { IoFilter } from "react-icons/io5";
 
 const SessionFilter = ({setStatus, setObjetFilter}) => {
   
- 
+const dateNow = new Date();
+
 
 const [costFilter, setCostFilter] = useState([])
 const handleCost = (value) => {
@@ -36,7 +37,9 @@ const handleEnergy = (value) => {
   };
 
   const formatDate = (date) => {
-    return date.toISOString().slice(0, 10);
+    const dateFormate = date.toLocaleDateString("fr-FR");
+    const [day, month, year] = dateFormate.split("/");
+    return `${year}-${month}-${day}`;
   };
 
   return (
@@ -48,7 +51,8 @@ const handleEnergy = (value) => {
           onChange={(e) => setStatus(e.target.value)}
           className="p-2 border border-gray-200 rounded-sm outline-none "
         >
-          <option defaultValue="All" value="tous">
+          <option>filtrer</option>
+          <option value="all">
             Tous
           </option>
           <option value="en cours">En cous</option>
@@ -112,10 +116,12 @@ const handleEnergy = (value) => {
                 onClick={() => {
                   setclose((n) => !n);
                   setObjetFilter({
-                    start_cost : "",
-                    end_cost : "",
-                    start_time: "",
-                    end_time: " ",
+                    debut_energy : 0,
+                    fin_energy : 200,
+                    start_cost : 0,
+                    end_cost : 200000,
+                    start_time: "2022-01-01",
+                    end_time: formatDate(dateNow),
                   });
                 }}
                 className="p-2 text-[#0f000f]"
