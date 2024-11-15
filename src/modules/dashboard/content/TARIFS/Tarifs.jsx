@@ -1,7 +1,10 @@
+import SessionFilter from "../ACTIVITE/components/SessionFilter"
 
 const Tarifs = () => {
     return (
-        <div>Tarifs</div>
+        <div>
+            <SessionFilter />
+        </div>
     )
 }
 
