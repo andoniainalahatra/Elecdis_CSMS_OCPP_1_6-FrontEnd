@@ -47,7 +47,7 @@ const handleEnergy = (value) => {
       {/* ID and Status Filters */}
       <div className="flex space-x-4">
         <select
-          value={status}
+          value={statuFilter}
           onChange={(e) => setStatus(e.target.value)}
           className="p-2 border border-gray-200 rounded-sm outline-none "
         >
