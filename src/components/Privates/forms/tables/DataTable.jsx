@@ -225,7 +225,7 @@ function DataTable({
                     }
                   }
 
-                  if (cell.column.id === "time") {
+                  if (cell.column.id === "time" || cell.column.id ==="heure_erreur") {
                     const rawTime = cell.getValue();
 
                     if (rawTime) {

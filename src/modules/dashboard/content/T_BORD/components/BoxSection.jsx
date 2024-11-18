@@ -213,7 +213,7 @@ export default function BoxSection({ setSection }) {
       <Box
         setSection={setSection}
         SectionName="CpNotices"
-        Title="Défaillance et perte de connexion"
+        Title="Défaillance interne"
         Value={dataDefaillance && dataDefaillance[0]?.nombre}
         FirstIcone={BsFillEvStationFill}
         SecondIcone={CgUnavailable}
