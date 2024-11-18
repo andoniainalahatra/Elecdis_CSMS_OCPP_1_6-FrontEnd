@@ -140,6 +140,7 @@ export default function SessionTable() {
         setObjetFilter={setObjetFilter}
         filterSession={true}
         setStatus={setStatus}
+        statuFilter={status}
       />
     </div>
   );
