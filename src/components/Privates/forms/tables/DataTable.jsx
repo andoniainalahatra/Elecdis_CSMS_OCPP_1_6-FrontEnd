@@ -32,6 +32,7 @@ import CalendarFilterYear from "@/modules/dashboard/component/CalendarFilterYear
 import FilterHistoriqueStatusCP from "@/modules/dashboard/content/ACTIFS/components/FilterHistoriqueStatusCP";
 // import { Input } from "@/components/ui/input";
 import CalendarMonth from "../CalendarMonth";
+import SessionFilter from "@/modules/dashboard/content/ACTIVITE/components/SessionFilter";
 /**
  * Génère un tableau paginé avec des actions.
  *
@@ -69,7 +70,10 @@ function DataTable({
   onClickRow = false,
   ComponentModal,
   filterHistoStatus = false,
-  setObjet
+  setObjet,
+  filterSession = false, 
+  setObjetFilter, 
+  setStatus
 
 }) {
   const [isDetail, setIsDetail] = useState(false);
@@ -141,6 +145,9 @@ function DataTable({
         {/* fikter historique status  */}
         {filterHistoStatus && (
           <FilterHistoriqueStatusCP setObjet={setObjet} />
+        )}
+        {filterSession && (
+          <SessionFilter setObjetFilter={setObjetFilter} setStatus={setStatus} />
         )}
         {calendarFilter && (
           <div className="flex items-center justify-center gap-1 rounded-md ">
@@ -254,7 +261,7 @@ function DataTable({
                       );
                     }
                   }
-                  if (cell.column.id === "consumed_energy") {
+                  if (cell.column.id === "consumed_energy" || cell.column.id === "total_energy_unit") {
                     const rawValue = cell.getValue();
 
                     const transformedValue = transformValue(rawValue);
@@ -266,7 +273,7 @@ function DataTable({
                       );
                     }
                   }
-                  if (cell.column.id === "total_cost") {
+                  if (cell.column.id === "total_cost" || cell.column.id === "total_price_unit") {
                     const rawValue = cell.getValue();
 
                     const transformedValue = transformValue(rawValue);
@@ -286,25 +293,37 @@ function DataTable({
                       // row.original.is_expired
                       return (
                         <TableCell key={cell.id} className="text-center">
-                          <div className="flex items-center justify-center gap-3">
+                          {row.original.is_expired ? <div className="flex items-center justify-center gap-3">
+                            <ButtonReprendreTransaction disabled={true} />
+                            <ButtonStopTransaction
+                              chargePointId={rowData.chargepoint_id}
+                              sessionId={rowData.id}
+                              disabled={true}
+                            />
+                          </div> : <div className="flex items-center justify-center gap-3">
                             <ButtonReprendreTransaction disabled={true} />
                             <ButtonStopTransaction
                               chargePointId={rowData.chargepoint_id}
                               sessionId={rowData.id}
                               disabled={false}
                             />
-                          </div>
+                          </div>}
                         </TableCell>
                       );
                     } else if (rowData.statuts || rowData.state === "terminé") {
                       return (
                         <TableCell key={cell.id} className="text-center">
-                          <div className="flex items-center justify-center gap-3">
-                            <ButtonReprendreTransaction idSession={rowData.id} idTag={rowData.rfid} idChargePoint={rowData.chargepoint_id} idConnecteur={rowData.connector_id} disabled={false} />
+                          {row.original.is_expired ? <div className="flex items-center justify-center gap-3">
+                            <ButtonReprendreTransaction idSession={rowData.id} idTag={row.original.id_tag} idChargePoint={rowData.chargepoint_id} idConnecteur={rowData.connector_id} disabled={true} />
                             <ButtonStopTransaction
                               disabled={true}
                             />
-                          </div>
+                          </div> : <div className="flex items-center justify-center gap-3">
+                            <ButtonReprendreTransaction idSession={rowData.id} idTag={row.original.id_tag} idChargePoint={rowData.chargepoint_id} idConnecteur={rowData.connector_id} disabled={false} />
+                            <ButtonStopTransaction
+                              disabled={true}
+                            />
+                          </div>}
                         </TableCell>
                       );
                     }
