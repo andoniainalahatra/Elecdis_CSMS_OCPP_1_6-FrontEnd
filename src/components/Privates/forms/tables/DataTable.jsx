@@ -262,7 +262,7 @@ function DataTable({
                       );
                     }
                   }
-                  if (cell.column.id === "consumed_energy" || cell.column.id === "total_energy_unit") {
+                  if (cell.column.id === "consumed_energy" || cell.column.id === "total_energy_unit" || cell.column.id === "solde_credit") {
                     const rawValue = cell.getValue();
 
                     const transformedValue = transformValue(rawValue);
