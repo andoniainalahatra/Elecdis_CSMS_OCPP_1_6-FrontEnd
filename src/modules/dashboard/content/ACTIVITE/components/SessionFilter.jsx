@@ -7,7 +7,7 @@ import "react-date-range/dist/theme/default.css"; // theme css file
 import { IoFilter } from "react-icons/io5";
 
 
-const SessionFilter = ({setStatus, setObjetFilter}) => {
+const SessionFilter = ({setStatus, setObjetFilter, statuFilter}) => {
   
 const dateNow = new Date();
 
@@ -51,7 +51,7 @@ const handleEnergy = (value) => {
           onChange={(e) => setStatus(e.target.value)}
           className="p-2 border border-gray-200 rounded-sm outline-none "
         >
-          <option>filtrer</option>
+          <option>Filter</option>
           <option value="all">
             Tous
           </option>

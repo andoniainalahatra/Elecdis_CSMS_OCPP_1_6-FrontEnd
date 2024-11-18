@@ -1,9 +1,8 @@
-import SessionFilter from "../ACTIVITE/components/SessionFilter"
 
 const Tarifs = () => {
     return (
         <div>
-            <SessionFilter />
+            <div className="w-full p-6">Tarifs</div>
         </div>
     )
 }

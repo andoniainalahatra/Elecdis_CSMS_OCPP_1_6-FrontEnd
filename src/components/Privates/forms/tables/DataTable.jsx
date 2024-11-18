@@ -73,7 +73,8 @@ function DataTable({
   setObjet,
   filterSession = false, 
   setObjetFilter, 
-  setStatus
+  setStatus,
+  statuFilter
 
 }) {
   const [isDetail, setIsDetail] = useState(false);
@@ -147,7 +148,7 @@ function DataTable({
           <FilterHistoriqueStatusCP setObjet={setObjet} />
         )}
         {filterSession && (
-          <SessionFilter setObjetFilter={setObjetFilter} setStatus={setStatus} />
+          <SessionFilter setObjetFilter={setObjetFilter} statuFilter={statuFilter} setStatus={setStatus} />
         )}
         {calendarFilter && (
           <div className="flex items-center justify-center gap-1 rounded-md ">
