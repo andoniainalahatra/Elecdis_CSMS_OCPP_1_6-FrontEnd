@@ -10,7 +10,7 @@ import { selectClient, selectPage } from "../config/client/clientSelector";
 import { getClient, nextPage, previousPage, resetPage, totalPage } from "../config/client/clientSlice";
 import ButtonActionClient from "./BoutonActionClient";
 import UserProfil from "@/components/UserProfil";
-import {  useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { selectFilterCalendarTable } from "../../T_BORD/features/filterCalendarSelector";
 import { isFullDate, isMonthPresent } from "@/lib/utils";
 
@@ -58,40 +58,30 @@ const datas = [
 const columns = datas;
 const actions = [{ name: "detail" }, { name: "edit" }, { name: "delete" }];
 const DataTableUser = () => {
-    const date = useSelector(selectFilterCalendarTable);
-    const currentPage = useSelector(selectPage);
+    
     const dispatch = useDispatch();
+    const date = useSelector(selectFilterCalendarTable);
+    // console.log("date:",date)
+
+    const currentPage = useSelector(selectPage);
+
     const [data, setData] = useState();
     const [month, setMonth] = useState(null);
     const [year, setYear] = useState(null);
     let userData = useSelector(selectClient);
 
     // Appel API pour tous les clients
-    const { 
+    const {
         data: dataForAll,
         isPending: isPendingforAll,
         error: errorForAll,
     } = ClientApi("users/client", "clientList", currentPage, 10);
 
-    // Appel API pour les nouveaux clients avec pagination
     const {
         data: dataForNew,
         isPending: isPendingForNew,
         error: errorForNew
     } = ClientApiNewWithPagination("users/new_clients", month, year, "newClient", currentPage, 10);
-    
-    // Mise à jour des données à afficher
-    useEffect(() => {
-        if (isMonthPresent(date)) {
-            const [newYear, newMonth] = date.split("-");
-            setMonth(parseInt(newMonth, 10));
-            setYear(newYear);
-            setData(dataForNew);
-        }
-         else {
-            setData(dataForAll);
-        }
-    }, [date, dataForNew, dataForAll]);
 
     useEffect(() => {
         if (data) {
@@ -99,14 +89,29 @@ const DataTableUser = () => {
         }
     }, [data, dispatch]);
 
-    // console.log("fullDate:",isFullDate(date))
-    // console.log("withMonthPres:",isMonthPresent(date))
-    useEffect(()=>{
-        if(!isFullDate(date) && !isMonthPresent(date)){
+   
+    useEffect(() => {
+        if (isMonthPresent(date)) {
+            const [newYear, newMonth] = date.split("-");
+            setMonth(parseInt(newMonth, 10));
+            setYear(newYear);
+            setData(dataForNew);  // Données des nouveaux clients
+        }
+         else {
+            // Si aucun filtre de mois n'est présent, afficher tous les clients
+            setData(dataForAll);
+        }
+    }, [date, dataForAll, dataForNew]);
+    
+    // Vous pouvez aussi ajouter une condition pour ne pas appeler `clientList` si `dataForNew` existe
+    
+
+    useEffect(() => {
+        if (!isFullDate(date) && !isMonthPresent(date)) {
             setYear(date)
             setData(dataForNew)
         }
-    },[date,dataForNew])
+    }, [date, dataForNew])
     // Affichage du chargement
     if (isPendingforAll || isPendingForNew) {
         return (

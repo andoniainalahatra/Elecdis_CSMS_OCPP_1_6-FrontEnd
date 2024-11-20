@@ -29,6 +29,10 @@ import { transformValue } from "@/lib/utils";
 import ButtonReprendreTransaction from "@/modules/dashboard/component/ButtonReprendreTransaction";
 import CalendarFilterMonth from "@/modules/dashboard/component/CalendarFilterMonth";
 import CalendarFilterYear from "@/modules/dashboard/component/CalendarFilterYear";
+import FilterHistoriqueStatusCP from "@/modules/dashboard/content/ACTIFS/components/FilterHistoriqueStatusCP";
+// import { Input } from "@/components/ui/input";
+import CalendarMonth from "../CalendarMonth";
+import SessionFilter from "@/modules/dashboard/content/ACTIVITE/components/SessionFilter";
 /**
  * Génère un tableau paginé avec des actions.
  *
@@ -65,15 +69,22 @@ function DataTable({
   onFilter = false,
   onClickRow = false,
   ComponentModal,
+  filterHistoStatus = false,
+  setObjet,
+  filterSession = false, 
+  setObjetFilter, 
+  setStatus,
+  statuFilter
+
 }) {
   const [isDetail, setIsDetail] = useState(false);
   const [idDetail, setIdDetail] = useState(null);
-  const [dataObj,setDataObj]=useState(null)
+  const [dataObj, setDataObj] = useState(null)
   const handleClick = (obj) => {
     if (onClickRow) {
       setIsDetail(true);
       setIdDetail(obj.id);
-      setDataObj(obj)
+      setDataObj(obj);
     }
   };
   const [data, setData] = useState([]);
@@ -132,15 +143,24 @@ function DataTable({
         {onFilter && (
           <ButtonFilterTable filter={filter} listFilter={listFilter} />
         )}
+        {/* fikter historique status  */}
+        {filterHistoStatus && (
+          <FilterHistoriqueStatusCP setObjet={setObjet} />
+        )}
+        {filterSession && (
+          <SessionFilter setObjetFilter={setObjetFilter} statuFilter={statuFilter} setStatus={setStatus} />
+        )}
         {calendarFilter && (
-          <div className="flex items-center justify-center gap-2 bg-red-200 p-1 rounded-md ">
-              <div className="bg-primaryChart p-0.5 rounded-md" onClick={(e)=>e.stopPropagation()}>
-                <CalendarFilterMonth filter={calendarFilter} />
-              </div>
-              <div className="bg-primaryChart p-0.5 rounded-md" onClick={(e)=>e.stopPropagation()}>
-                <CalendarFilterYear filter={calendarFilter} />
-              </div>
-         </div>
+          <div className="flex items-center justify-center gap-1 rounded-md ">
+            <div className="rounded-md" onClick={(e) => e.stopPropagation()}>
+              {/* <CalendarFilterMonth filter={calendarFilter} /> */}
+              {/* {<Input type="month" filter={calendarFilter}/> */}
+              {<CalendarMonth filter={calendarFilter} />}
+            </div>
+            <div className="rounded-md " onClick={(e) => e.stopPropagation()}>
+              {/* <CalendarFilterYear filter={calendarFilter} /> */}
+            </div>
+          </div>
         )}
       </div>
       <div className="w-full">
@@ -163,33 +183,40 @@ function DataTable({
           <TableBody className="w-full">
             {table.getRowModel().rows.map((row) => (
               <TableRow
-                className={`${onClickRow ? "cursor-pointer" : "cursor-default"}`}
+                className={`${onClickRow ? "cursor-pointer" : "cursor-default"
+                  }`}
                 key={row.id}
                 onClick={() => handleClick(row.original)}
               >
                 {row.getVisibleCells().map((cell) => {
                   const cellValue = cell.getValue();
                   const id = row.original.id;
-                  const detailData = row.original
+                  const detailData = row.original;
                   let cellClass = "";
                   const rowData = row.original;
                   //|| cell.column.id ==="energie_consomme"
                   if (cell.column.id === "phone") {
                     const rawPhone = cell.getValue();
-                  
+
                     if (rawPhone) {
                       let formattedPhone;
-                  
+
                       if (rawPhone.startsWith("+261")) {
                         // Format +261 34 49 006 42
-                        formattedPhone = rawPhone.replace(/(\+261)(\d{2})(\d{2})(\d{3})(\d{2})/, "$1 $2 $3 $4 $5");
+                        formattedPhone = rawPhone.replace(
+                          /(\+261)(\d{2})(\d{2})(\d{3})(\d{2})/,
+                          "$1 $2 $3 $4 $5"
+                        );
                       } else if (rawPhone.startsWith("034")) {
                         // Format 034 49 006 42
-                        formattedPhone = rawPhone.replace(/(034)(\d{2})(\d{3})(\d{2})/, "$1 $2 $3 $4");
+                        formattedPhone = rawPhone.replace(
+                          /(034)(\d{2})(\d{3})(\d{2})/,
+                          "$1 $2 $3 $4"
+                        );
                       } else {
                         formattedPhone = rawPhone; // Cas où le format est déjà correct ou autre
                       }
-                  
+
                       return (
                         <TableCell key={cell.id} className="text-center">
                           {formattedPhone}
@@ -197,14 +224,14 @@ function DataTable({
                       );
                     }
                   }
-                  
-                  if (cell.column.id === "time") {
+
+                  if (cell.column.id === "time" || cell.column.id ==="heure_erreur") {
                     const rawTime = cell.getValue();
-                  
+
                     if (rawTime) {
                       // Convertit l'horodatage ou la chaîne de date en objet Date
                       const date = new Date(rawTime);
-                  
+
                       // Formate l'heure (exemple: jour/mois/année heure:minute)
                       const formattedTime = date.toLocaleString("fr-FR", {
                         day: "2-digit",
@@ -214,7 +241,7 @@ function DataTable({
                         minute: "2-digit",
                         second: "2-digit",
                       });
-                  
+
                       return (
                         <TableCell key={cell.id} className="text-center">
                           {formattedTime}
@@ -222,20 +249,20 @@ function DataTable({
                       );
                     }
                   }
-                  
 
-                  if(cell.column.id==="energie_consomme"){
-                    const rawValue=cell.getValue()
+
+                  if (cell.column.id === "energie_consomme") {
+                    const rawValue = cell.getValue()
                     const formattedValue = rawValue.toLocaleString("fr-FR");
-                    if(rawValue){
+                    if (rawValue) {
                       return (
                         <TableCell key={cell.id} className="text-center">
-                           {formattedValue}
+                          {formattedValue}
                         </TableCell>
                       );
                     }
                   }
-                  if (cell.column.id === "consumed_energy" ) {
+                  if (cell.column.id === "consumed_energy" || cell.column.id === "total_energy_unit" || cell.column.id === "solde_credit") {
                     const rawValue = cell.getValue();
 
                     const transformedValue = transformValue(rawValue);
@@ -247,7 +274,7 @@ function DataTable({
                       );
                     }
                   }
-                  if (cell.column.id === "total_cost") {
+                  if (cell.column.id === "total_cost" || cell.column.id === "total_price_unit") {
                     const rawValue = cell.getValue();
 
                     const transformedValue = transformValue(rawValue);
@@ -260,29 +287,44 @@ function DataTable({
                     }
                   }
                   if (cell.column.id === "Urgence") {
-                    if (rowData.statuts === "en cours" || rowData.state === "en cours") {
+                    if (
+                      rowData.statuts === "en cours" ||
+                      rowData.state === "en cours"
+                    ) {
+                      // row.original.is_expired
                       return (
                         <TableCell key={cell.id} className="text-center">
-                          <div className="flex items-center justify-center gap-3">
-                          <ButtonReprendreTransaction disabled={true} />
-                          <ButtonStopTransaction
-                            chargePointId={rowData.chargepoint_id}
-                            sessionId={rowData.id}
-                            disabled={false}
-                          />
-                          </div>
+                          {row.original.is_expired ? <div className="flex items-center justify-center gap-3">
+                            <ButtonReprendreTransaction disabled={true} />
+                            <ButtonStopTransaction
+                              chargePointId={rowData.chargepoint_id}
+                              sessionId={rowData.id}
+                              disabled={true}
+                            />
+                          </div> : <div className="flex items-center justify-center gap-3">
+                            <ButtonReprendreTransaction disabled={true} />
+                            <ButtonStopTransaction
+                              chargePointId={rowData.chargepoint_id}
+                              sessionId={rowData.id}
+                              disabled={false}
+                            />
+                          </div>}
                         </TableCell>
                       );
-                    }
-                    else if (rowData.statuts || rowData.state === "terminé") {
+                    } else if (rowData.statuts || rowData.state === "terminé") {
                       return (
                         <TableCell key={cell.id} className="text-center">
-                          <div className="flex items-center justify-center gap-3">
-                          <ButtonReprendreTransaction idSession={rowData.id} idTag={rowData.rfid} idChargePoint={rowData.chargepoint_id} idConnecteur={rowData.connector_id} disabled={false} />
-                          <ButtonStopTransaction
-                            disabled={true}
-                          />
-                          </div>
+                          {row.original.is_expired ? <div className="flex items-center justify-center gap-3">
+                            <ButtonReprendreTransaction idSession={rowData.id} idTag={row.original.id_tag} idChargePoint={rowData.chargepoint_id} idConnecteur={rowData.connector_id} disabled={true} />
+                            <ButtonStopTransaction
+                              disabled={true}
+                            />
+                          </div> : <div className="flex items-center justify-center gap-3">
+                            <ButtonReprendreTransaction idSession={rowData.id} idTag={row.original.id_tag} idChargePoint={rowData.chargepoint_id} idConnecteur={rowData.connector_id} disabled={false} />
+                            <ButtonStopTransaction
+                              disabled={true}
+                            />
+                          </div>}
                         </TableCell>
                       );
                     }
@@ -333,11 +375,14 @@ function DataTable({
                         key={cell.id}
                         className="text-center"
                       >
-                        <ButtonAction buttonProperty={actions} Id={id} dataObj={detailData} />
+                        <ButtonAction
+                          buttonProperty={actions}
+                          Id={id}
+                          dataObj={detailData}
+                        />
                       </TableCell>
                     );
                   }
-
 
                   if (
                     cell.column.id === "status" ||
@@ -463,7 +508,7 @@ function DataTable({
           className="fixed top-0 left-0 z-10 flex items-center justify-center w-full h-screen overflow-auto backdrop-blur-md"
           style={{ backgroundColor: "rgba(9,16,26,0.3)" }}
         >
-          <ComponentModal Id={idDetail} dataObj={dataObj}  />
+          <ComponentModal Id={idDetail} dataObj={dataObj} />
           <span
             className="absolute z-50 cursor-pointer top-5 right-5"
             disabled="true"

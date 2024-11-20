@@ -19,7 +19,7 @@ const ButtonAutorisation = ({ buttonProperty, Id }) => {
 
     const handleDelete = (clientId) => {
         Swal.fire({
-            title: "Ete vous sur de supprimer ?",
+            title: "Êtes-vous sûr de vouloir supprimer ?",
             text: "Vous ne pourrez pas revenir en arriere !",
             icon: "warning",
             showCancelButton: true,

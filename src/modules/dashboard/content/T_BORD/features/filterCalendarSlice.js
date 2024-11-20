@@ -7,12 +7,17 @@ const formatDate = (date) => {
     return `${year}-${month}-${day}`;
 };
 
+const monthAndYear=(date)=>{
+    const year=date.getFullYear()
+    const month=String(date.getMonth() + 1).padStart(2, '0');
+    return `${year}-${month}`;
+}
 const initialState = {
     totalSession: formatDate(new Date()),
     energyDelivery: formatDate(new Date()),
     allRevenu: formatDate(new Date()),
     newUser: formatDate(new Date()),
-    filterClientTable:formatDate(new Date()),
+    filterClientTable:monthAndYear(new Date()),
 };
 
 const filterDateSlice = createSlice({
@@ -37,5 +42,7 @@ const filterDateSlice = createSlice({
     }
 })
 
-export const { filterDateForAllRevenu, filterDateForAllSession, filterDateForEnergy, filterDateForNewUser,filterDateForClientTable } = filterDateSlice.actions;
+export const { filterDateForAllRevenu,
+     filterDateForAllSession, filterDateForEnergy, filterDateForNewUser,
+    filterDateForClientTable } = filterDateSlice.actions;
 export default filterDateSlice.reducer;

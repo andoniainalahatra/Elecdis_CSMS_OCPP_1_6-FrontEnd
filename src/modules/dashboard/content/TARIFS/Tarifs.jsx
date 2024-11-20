@@ -1,7 +1,9 @@
 
 const Tarifs = () => {
     return (
-        <div>Tarifs</div>
+        <div>
+            <div className="w-full p-6">Tarifs</div>
+        </div>
     )
 }
 

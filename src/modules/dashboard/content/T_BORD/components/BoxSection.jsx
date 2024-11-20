@@ -177,7 +177,7 @@ export default function BoxSection({ setSection }) {
       <Box
         setSection={setSection}
         SectionName="sessionRecharge"
-        Title="Nombre total de Session"
+        Title="Nombre de Session"
         Value={sessionData.data?.sessions_numbers}
         FirstIcone={BsFillEvStationFill}
         SecondIcone={FaUser}
@@ -189,7 +189,7 @@ export default function BoxSection({ setSection }) {
       <Box
         setSection={setSection}
         SectionName="PointsDecharges"
-        Title="Total énergie délivrée"
+        Title="Energie délivrée"
         Value={energyData.data?.energy}
         FirstIcone={BsFillEvStationFill}
         SecondIcone={TbWorldShare}
@@ -213,7 +213,7 @@ export default function BoxSection({ setSection }) {
       <Box
         setSection={setSection}
         SectionName="CpNotices"
-        Title="Défaillance et perte de connexion"
+        Title="Défaillance interne"
         Value={dataDefaillance && dataDefaillance[0]?.nombre}
         FirstIcone={BsFillEvStationFill}
         SecondIcone={CgUnavailable}
