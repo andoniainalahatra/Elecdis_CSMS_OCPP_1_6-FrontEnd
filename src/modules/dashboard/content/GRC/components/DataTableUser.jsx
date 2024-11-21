@@ -81,13 +81,17 @@ const DataTableUser = () => {
         data: dataForNew,
         isPending: isPendingForNew,
         error: errorForNew
-    } = ClientApiNewWithPagination("users/new_clients", month, year, "newClient", currentPage, 10);
+    } = ClientApiNewWithPagination("users/new_clients", month, year, "newClient", currentPage, 50);
 
     useEffect(() => {
         if (data) {
             dispatch(getClient(data));
         }
-    }, [data, dispatch]);
+        else if(month==null){
+            setData(dataForAll)
+            dispatch(getClient(dataForAll))
+        }
+    }, [data,dataForAll, dispatch]);
 
    
     useEffect(() => {
@@ -100,6 +104,7 @@ const DataTableUser = () => {
          else {
             // Si aucun filtre de mois n'est présent, afficher tous les clients
             setData(dataForAll);
+            dispatch(getClient(dataForAll))
         }
     }, [date, dataForAll, dataForNew]);
     
