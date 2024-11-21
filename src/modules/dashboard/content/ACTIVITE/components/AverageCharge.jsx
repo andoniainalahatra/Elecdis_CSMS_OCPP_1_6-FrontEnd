@@ -24,8 +24,8 @@ export default function AverageCharge({
     100;
 
   return (
-    <div className="max-sm:w-full p-6 shadow-combined rounded-xl w-full bg-white">
-      <h4 className="text-center text-lg font-medium mb-5">
+    <div className="max-sm:w-full p-5 rounded-xl w-full bg-white">
+      <h4 className="text-center text-base font-medium mb-5">
         Durées moyenne de recharge
       </h4>
       <div className="relative w-full mt-20">
