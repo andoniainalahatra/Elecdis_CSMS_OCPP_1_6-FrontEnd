@@ -28,6 +28,7 @@ import { RiFileHistoryLine } from "react-icons/ri";
 import { MdOutlineHistory } from "react-icons/md";
 
 export default function BoxSection({ setSection }) {
+  const year = new Date().getFullYear();
   const { filters } = useContext(Context);
   const nombreSession = useSelector(selectSessionDateSpecific);
   const nombreEnergyDateSpecifique = useSelector(
@@ -177,7 +178,7 @@ export default function BoxSection({ setSection }) {
       <Box
         setSection={setSection}
         SectionName="sessionRecharge"
-        Title="Nombre de Session"
+        Title={`Nombre Totale de Session en ${year}`}
         Value={sessionData.data?.sessions_numbers}
         FirstIcone={BsFillEvStationFill}
         SecondIcone={FaUser}
@@ -189,7 +190,7 @@ export default function BoxSection({ setSection }) {
       <Box
         setSection={setSection}
         SectionName="PointsDecharges"
-        Title="Energie délivrée"
+        Title={`Energie Totale délivrée en ${year}`}
         Value={energyData.data?.energy}
         FirstIcone={BsFillEvStationFill}
         SecondIcone={TbWorldShare}
@@ -201,7 +202,7 @@ export default function BoxSection({ setSection }) {
       <Box
         setSection={setSection}
         SectionName="Transaction"
-        Title="Revenus totaux"
+        Title={`Revenus Totaux en ${year}`}
         Value={revenuData.data?.total_revenus}
         FirstIcone={BsFillEvStationFill}
         SecondIcone={GiReceiveMoney}

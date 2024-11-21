@@ -7,14 +7,28 @@ import { useSelector } from "react-redux";
 import { selectSessionDate } from "../features/chartSessionSelector";
 
 export default function SessionChart() {
+  const dateSession = useSelector(selectSessionDate);
+  const {
+    data: dataSession,
+    error: errorSession,
+    isPending: loadingSession,
+  } = useGetDataByDay(
+    "/transaction/graphes_sessions",
+    "dataSession",
+    dateSession
+  );
 
-  const dateSession = useSelector(selectSessionDate)
-  const { data : dataSession, error : errorSession, isPending : loadingSession } = useGetDataByDay('/transaction/graphes_sessions', 'dataSession', dateSession);
+  const {
+    data: averageData,
+    error: averageError,
+    isPending: averagePending,
+  } = useGetDataNoParams("/transaction/average_duration", "average");
 
-  const { data : averageData, error : averageError, isPending : averagePending } = useGetDataNoParams('/transaction/average_duration', 'average');
-
-  const { data : hpData, error : hpError, isPending : hpPending } = useGetDataNoParams('/transaction/heures_de_pointes', 'hp');
-
+  const {
+    data: hpData,
+    error: hpError,
+    isPending: hpPending,
+  } = useGetDataNoParams("/transaction/heures_de_pointes", "hp");
 
   const sessionConfig = {
     nombreSession: {
@@ -27,14 +41,31 @@ export default function SessionChart() {
     },
   };
   return (
-    <div className="grid grid-cols-3 gap-6 w-full my-5">
-    <div className="col-span-1 flex flex-col gap-6">
-        <AverageCharge erreur={averageError} loading={averagePending} minSession={averageData?.min} maxSession={averageData?.max} averageSession={averageData?.avg} />
-        <HeurePoint erreur={hpError} loading={hpPending} maxHour={'23:00:00'} minHour={'00:00:00'} averageHour={hpData} />
+    <div className="grid grid-cols-3 rounded-xl shadow-combined bg-white gap-6 w-full my-5">
+      <div className="col-span-1 flex flex-col gap-6">
+        <AverageCharge
+          erreur={averageError}
+          loading={averagePending}
+          minSession={averageData?.min}
+          maxSession={averageData?.max}
+          averageSession={averageData?.avg}
+        />
+        <HeurePoint
+          erreur={hpError}
+          loading={hpPending}
+          maxHour={"23:00:00"}
+          minHour={"00:00:00"}
+          averageHour={hpData}
+        />
+      </div>
+      <div className="col-span-2">
+        <SessionBarChart
+          loading={loadingSession}
+          erreur={errorSession}
+          sessionConfig={sessionConfig}
+          data={dataSession}
+        />
+      </div>
     </div>
-    <div className="col-span-2">
-        <SessionBarChart loading={loadingSession} erreur={errorSession} sessionConfig={sessionConfig} data={dataSession} />
-    </div>
-</div>
   );
 }
