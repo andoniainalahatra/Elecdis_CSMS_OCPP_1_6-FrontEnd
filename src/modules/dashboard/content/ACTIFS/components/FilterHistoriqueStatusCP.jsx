@@ -87,23 +87,41 @@ const FilterHistoriqueStatusCP = ({ setObjet }) => {
                             className='p-2 text-white bg-blue-500 rounded'
                         >
                             Soumettre
-                        </button> <button
+                        </button>
+                        <button
                             onClick={() => {
                                 setclose((n) => !n);
-                                setObjet({
-                                    id_cp: '',
-                                    status: "",
-                                    start_time: "",
-                                    end_time: " "
-                                });
+                                // setObjet({
+                                //     id_cp: '',
+                                //     status: "",
+                                //     start_time: "",
+                                //     end_time: " "
+                                // });
                             }}
                             className='p-2 text-white bg-blue-500 rounded'
                         >
                             Fermer
                         </button>
                     </div>
+
+
                 </div>
             </div>)}
+
+            <button
+                onClick={() => {
+                    setclose((n) => !n);
+                    setObjet({
+                        id_cp: id,
+                        status: status,
+                        start_time: formatDate(dateRange[0].startDate),
+                        end_time: formatDate(dateRange[0].endDate)
+                    });
+                }}
+                className='p-2 text-white bg-blue-500 rounded'
+            >
+                Envoyer
+            </button>
 
 
 
