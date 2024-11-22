@@ -13,9 +13,9 @@ const monthAndYear=(date)=>{
     return `${year}-${month}`;
 }
 const initialState = {
-    totalSession: formatDate(new Date()),
-    energyDelivery: formatDate(new Date()),
-    allRevenu: formatDate(new Date()),
+    totalSession: "totale",
+    energyDelivery: "totale",
+    allRevenu: "totale",
     newUser: formatDate(new Date()),
     filterClientTable:monthAndYear(new Date()),
 };
