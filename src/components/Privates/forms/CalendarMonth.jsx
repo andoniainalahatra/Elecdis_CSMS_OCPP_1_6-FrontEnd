@@ -23,6 +23,7 @@ const CalendarMonth = ({ filter }) => {
   return (
     <div>
       <Input
+      className="bg-slate-200 font-semibold border-none "
         type="month"
         value={actualDate}
         onChange={(e)=>{handleClick(e)}}

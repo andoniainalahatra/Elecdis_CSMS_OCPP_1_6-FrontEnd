@@ -17,7 +17,10 @@ const initialState = {
     energyDelivery: "totale",
     allRevenu: "totale",
     newUser: formatDate(new Date()),
-    filterClientTable:monthAndYear(new Date()),
+    // filterClientTable:monthAndYear(new Date()),
+    filterClientTable:"2024"
+
+
 };
 
 const filterDateSlice = createSlice({
