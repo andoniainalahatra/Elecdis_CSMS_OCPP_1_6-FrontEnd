@@ -29,8 +29,11 @@ const FilterHistoriqueStatusCP = ({ setObjet }) => {
     };
 
     const formatDate = (date) => {
-        return date.toISOString().slice(0, 10);
+
+        const offsetDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
+        return offsetDate.toISOString().slice(0, 10);
     };
+
 
     return (
         <div className='relative flex items-center space-x-4'>
