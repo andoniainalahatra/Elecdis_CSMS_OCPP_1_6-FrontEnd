@@ -110,7 +110,7 @@ const FilterHistoriqueStatusCP = ({ setObjet }) => {
 
             <button
                 onClick={() => {
-                    setclose((n) => !n);
+                    // setclose((n) => !n);
                     setObjet({
                         id_cp: id,
                         status: status,
