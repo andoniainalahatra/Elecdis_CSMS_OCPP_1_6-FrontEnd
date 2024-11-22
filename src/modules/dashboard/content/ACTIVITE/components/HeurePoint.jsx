@@ -35,13 +35,13 @@ export default function HeurePoint({
         <div className="relative h-1 bg-gray-300 rounded-full mt-5">
           <div
             className="absolute -top-1 h-3 bg-blue-500 rounded-full"
-            style={{ width: "60px", left: `calc(${sliderPosition}% - 30px)` }}
+            style={{ width: "60px", left: `calc(${sliderPosition}% - 0px)` }}
           />
         </div>
         <div
           className="absolute -top-8"
           style={{
-            left: `calc(${sliderPosition}% - 20px)`,
+            left: `calc(${sliderPosition}% - 0px)`,
             marginTop: "0px",
           }}
         >
