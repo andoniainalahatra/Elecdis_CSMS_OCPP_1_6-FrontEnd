@@ -73,7 +73,8 @@ function DataTable({
   setObjet,
   filterSession = false, 
   setObjetFilter, 
-  setStatus
+  setStatus,
+  statuFilter
 
 }) {
   const [isDetail, setIsDetail] = useState(false);
@@ -147,7 +148,7 @@ function DataTable({
           <FilterHistoriqueStatusCP setObjet={setObjet} />
         )}
         {filterSession && (
-          <SessionFilter setObjetFilter={setObjetFilter} setStatus={setStatus} />
+          <SessionFilter setObjetFilter={setObjetFilter} statuFilter={statuFilter} setStatus={setStatus} />
         )}
         {calendarFilter && (
           <div className="flex items-center justify-center gap-1 rounded-md ">
@@ -224,7 +225,7 @@ function DataTable({
                     }
                   }
 
-                  if (cell.column.id === "time") {
+                  if (cell.column.id === "time" || cell.column.id ==="heure_erreur") {
                     const rawTime = cell.getValue();
 
                     if (rawTime) {
@@ -261,7 +262,7 @@ function DataTable({
                       );
                     }
                   }
-                  if (cell.column.id === "consumed_energy" || cell.column.id === "total_energy_unit") {
+                  if (cell.column.id === "consumed_energy" || cell.column.id === "total_energy_unit" || cell.column.id === "solde_credit") {
                     const rawValue = cell.getValue();
 
                     const transformedValue = transformValue(rawValue);

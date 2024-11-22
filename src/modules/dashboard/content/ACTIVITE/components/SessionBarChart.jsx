@@ -40,7 +40,7 @@ export default function SessionBarChart({
     return () => window.removeEventListener("resize", updateTickLength);
   }, []);
   return (
-    <div className="col-span-2 max-sm:w-full max-sm:col-span-1 shadow-combined rounded-xl w-full h-full bg-white">
+    <div className="col-span-2 max-sm:w-full max-sm:col-span-1 rounded-xl w-full h-full bg-white">
       <div className="flex justify-between w-full items-center flex-wrap px-6 py-5">
         <div className="w-full flex justify-between items-center">
           <h2 className="text-[#212B36] font-bold ">
@@ -48,9 +48,10 @@ export default function SessionBarChart({
           </h2>
           <CalendarFilter
             filter="test"
-            className="right-0"
+            className="text-right"
             action={handleChageDate}
           />
+          
         </div>
       </div>
       <ColorChartInformation

@@ -9,11 +9,11 @@ export const ClientApi = (url, queryKey, page, number_items) =>
   useGetDataWithPagination(url, queryKey, page, number_items);
 
 export const ClientApiNew =(url,queryKey)=>useGetDataNoParams(url,queryKey);
-// export const ClientApiNewWithPagination (url, queryKey, page, number_items)=>useGet
-export const ClientApiNewWithPagination = (url, month, year, queryKey, page, number_items) => {
+
+export const  ClientApiNewWithPagination = (url, month, year, queryKey, page, number_items) =>  {
   return useQuery({
     queryKey: [`${queryKey}`, page, month, year],
-    queryFn: () =>
+    queryFn: async () =>
       axiosInstance.get(`/${url}/`, {
         params: {
           month: month || undefined,  // `month` sera ignoré si `undefined`
@@ -27,12 +27,14 @@ export const ClientApiNewWithPagination = (url, month, year, queryKey, page, num
         // console.log(response)
         const {data,pagination}=response.data
         // console.log(data)
-        return {data,pagination}
+        return {data,pagination,month,year}
       }
       // response.data
     ),
     refetchOnWindowFocus: true,
-    refetchInterval: 1000,
+    refetchInterval: 10000,
+    staleTime:5000
+    
   });
 };
 

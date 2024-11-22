@@ -58,11 +58,13 @@ const datas = [
 const columns = datas;
 const actions = [{ name: "detail" }, { name: "edit" }, { name: "delete" }];
 const DataTableUser = () => {
+    
+    const dispatch = useDispatch();
     const date = useSelector(selectFilterCalendarTable);
+    // console.log("date:",date)
 
     const currentPage = useSelector(selectPage);
 
-    const dispatch = useDispatch();
     const [data, setData] = useState();
     const [month, setMonth] = useState(null);
     const [year, setYear] = useState(null);
@@ -75,34 +77,40 @@ const DataTableUser = () => {
         error: errorForAll,
     } = ClientApi("users/client", "clientList", currentPage, 10);
 
-    // Appel API pour les nouveaux clients avec pagination
     const {
         data: dataForNew,
         isPending: isPendingForNew,
         error: errorForNew
-    } = ClientApiNewWithPagination("users/new_clients", month, year, "newClient", currentPage, 10);
-
-    // Mise à jour des données à afficher
-    useEffect(() => {
-        if (isMonthPresent(date)) {
-            const [newYear, newMonth] = date.split("-");
-            setMonth(parseInt(newMonth, 10));
-            setYear(newYear);
-            setData(dataForNew);
-        }
-        else {
-            setData(dataForAll);
-        }
-    }, [date, dataForNew, dataForAll]);
+    } = ClientApiNewWithPagination("users/new_clients", month, year, "newClient", currentPage, 50);
 
     useEffect(() => {
         if (data) {
             dispatch(getClient(data));
         }
-    }, [data, dispatch]);
+        else if(month==null){
+            setData(dataForAll)
+            dispatch(getClient(dataForAll))
+        }
+    }, [data,dataForAll, dispatch]);
 
-    // console.log("fullDate:",isFullDate(date))
-    // console.log("withMonthPres:",isMonthPresent(date))
+   
+    useEffect(() => {
+        if (isMonthPresent(date)) {
+            const [newYear, newMonth] = date.split("-");
+            setMonth(parseInt(newMonth, 10));
+            setYear(newYear);
+            setData(dataForNew);  // Données des nouveaux clients
+        }
+         else {
+            // Si aucun filtre de mois n'est présent, afficher tous les clients
+            setData(dataForAll);
+            dispatch(getClient(dataForAll))
+        }
+    }, [date, dataForAll, dataForNew]);
+    
+    // Vous pouvez aussi ajouter une condition pour ne pas appeler `clientList` si `dataForNew` existe
+    
+
     useEffect(() => {
         if (!isFullDate(date) && !isMonthPresent(date)) {
             setYear(date)
