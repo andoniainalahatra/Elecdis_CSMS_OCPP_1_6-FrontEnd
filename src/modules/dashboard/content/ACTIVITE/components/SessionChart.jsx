@@ -8,6 +8,7 @@ import { selectSessionDate } from "../features/chartSessionSelector";
 
 export default function SessionChart() {
   const dateSession = useSelector(selectSessionDate);
+  
   const {
     data: dataSession,
     error: errorSession,
@@ -22,13 +23,13 @@ export default function SessionChart() {
     data: averageData,
     error: averageError,
     isPending: averagePending,
-  } = useGetDataNoParams("/transaction/average_duration", "average");
+  } = useGetDataNoParams(`/transaction/average_duration?date_selected=${dateSession}`, `average${dateSession}`);
 
   const {
     data: hpData,
     error: hpError,
     isPending: hpPending,
-  } = useGetDataNoParams("/transaction/heures_de_pointes", "hp");
+  } = useGetDataNoParams(`/transaction/heures_de_pointes?date_selected=${dateSession}`, `hp${dateSession}`);
 
   const sessionConfig = {
     nombreSession: {

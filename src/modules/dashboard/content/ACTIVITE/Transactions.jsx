@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import {
-  FaDollarSign,  // Import de l'icône pour les revenus
+  FaDollarSign, // Import de l'icône pour les revenus
 } from "react-icons/fa";
 import TransactionList from "./components/TransactionList";
 
@@ -9,7 +9,7 @@ const transactionsData = [
   {
     id: "TXN001",
     client: "John Doe",
-    montant: 50.00,
+    montant: 50.0,
     date: "2024-10-05",
     heure: "14:35",
     type: "Recharge",
@@ -19,7 +19,7 @@ const transactionsData = [
   {
     id: "TXN002",
     client: "Jane Smith",
-    montant: 30.50,
+    montant: 30.5,
     date: "2024-10-04",
     heure: "11:20",
     type: "Recharge",
@@ -39,7 +39,7 @@ const transactionsData = [
   {
     id: "TXN004",
     client: "Michael Brown",
-    montant: 80.00,
+    montant: 80.0,
     date: "2024-10-02",
     heure: "09:45",
     type: "Recharge",
@@ -59,7 +59,7 @@ const transactionsData = [
   {
     id: "TXN006",
     client: "Robert Wilson",
-    montant: 45.50,
+    montant: 45.5,
     date: "2024-09-30",
     heure: "15:50",
     type: "Recharge",
@@ -69,7 +69,7 @@ const transactionsData = [
   {
     id: "TXN007",
     client: "Emily Davis",
-    montant: 72.00,
+    montant: 72.0,
     date: "2024-09-29",
     heure: "18:20",
     type: "Recharge",
@@ -90,8 +90,6 @@ const transactionsData = [
 ];
 
 const Transactions = () => {
- 
-
   const totalRevenue = useMemo(() => {
     return transactionsData
       .filter((transaction) => transaction.statut === "Success")
@@ -99,22 +97,22 @@ const Transactions = () => {
       .toFixed(2);
   }, []);
 
-
   return (
     <div className="w-full h-auto p-6">
       <div className="bg-gradient-to-r from-blue-500 to-green-500 text-white p-6 rounded-lg shadow-lg mb-6 flex items-center justify-between">
         <div className="flex items-center">
           <FaDollarSign className="text-4xl mr-4" />
           <div>
-            <h3 className="text-[24px] text-[#212B36] font-semibold">Revenus totaux</h3>
+            <h3 className="text-[24px] text-[#212B36] font-semibold">
+              Revenus totaux
+            </h3>
             <p className="text-lg">{totalRevenue} €</p>
           </div>
         </div>
       </div>
 
       <h2 className="text-[#212B36] text-xl mb-6">Transactions de paiement</h2>
-<TransactionList transactionsData={transactionsData} />
-      
+      <TransactionList transactionsData={transactionsData} />
     </div>
   );
 };
