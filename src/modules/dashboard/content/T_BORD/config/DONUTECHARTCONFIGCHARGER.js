@@ -7,11 +7,11 @@ export const DONUTECHARTCONFIGGER = {
       label: "Hors service",
       color: "#F2505D",
     },
-    all:{
+    occuped:{
       label : "Occupé",
       color : "#3D9DF2"
     },
-    simple: {
+    part_occuped: {
       label : "Partiellement occupé",
       color : "#e8ff00"
     }

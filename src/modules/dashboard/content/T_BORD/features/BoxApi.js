@@ -44,3 +44,10 @@ export const useGetDataHistorique = (url, querykey) =>
     refetchInterval: 10000,
     refetchOnWindowFocus: true,
   });
+
+export const useGetTotal = (url, querykey) => useQuery({
+  queryKey: [querykey],
+  queryFn: () => axiosInstance.get(`${url}`).then((res) => res.data),
+  refetchInterval: 10000,
+  refetchOnWindowFocus: true,
+})

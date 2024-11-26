@@ -14,6 +14,7 @@ import {
   useGetDataByYear,
   useGetDataFilter,
   useGetDataHistorique,
+  useGetTotal,
 } from "../features/BoxApi";
 import { useSelector } from "react-redux";
 import {
@@ -22,7 +23,7 @@ import {
   selectNewUserDateSpecific,
   selectSessionDateSpecific,
 } from "../features/filterCalendarSelector";
-import { isFullDate, isMonthPresent } from "@/lib/utils";
+import { isFullDate, isMonthPresent, isOnlyYear } from "@/lib/utils";
 
 import { RiFileHistoryLine } from "react-icons/ri";
 import { MdOutlineHistory } from "react-icons/md";
@@ -52,12 +53,18 @@ export default function BoxSection({ setSection }) {
         month,
         year
       );
-    } else {
+    } else if(isOnlyYear(nombreSession)) {
       return useGetDataByYear(
         "/dashboard/sessions_by_year_month",
         "dataSessionYear",
         nombreSession
       );
+    }
+    else{
+      return useGetTotal(
+        "/dashboard/total_sessions",
+        "totalSession"
+      )
     }
   };
 
@@ -76,12 +83,18 @@ export default function BoxSection({ setSection }) {
         month,
         year
       );
-    } else {
+    } else if(isOnlyYear(nombreEnergyDateSpecifique)) {
       return useGetDataByYear(
         "/dashboard/energy_by_year_month",
         "dataEnergyYear",
         nombreEnergyDateSpecifique
       );
+    }
+    else{
+      return useGetTotal(
+        "/dashboard/total_energy",
+        "totalEnergy"
+      )
     }
   };
 
@@ -100,43 +113,49 @@ export default function BoxSection({ setSection }) {
         month,
         year
       );
-    } else {
+    } else if(isOnlyYear(nombreRevenuDateSpecifique)) {
       return useGetDataByYear(
         "/dashboard/total_revenus_year",
         "dataRevenuYear",
         nombreRevenuDateSpecifique
       );
     }
-  };
-
-  const getNewUserData = () => {
-    if (isFullDate(nombreNewUserDateSpecifique)) {
-      return useGetDataByDay(
-        "/dashboard/new_users_date",
-        "dataNewUserDay",
-        nombreNewUserDateSpecifique
-      );
-    } else if (isMonthPresent(nombreNewUserDateSpecifique)) {
-      const [year, month] = nombreNewUserDateSpecifique.split("-");
-      return useGetDataByMonth(
-        "/dashboard/new_users_year",
-        "dataNewUserMonth",
-        month,
-        year
-      );
-    } else {
-      return useGetDataByYear(
-        "/dashboard/new_users_year",
-        "dataNewUserYear",
-        nombreNewUserDateSpecifique
+    else{
+      return useGetTotal(
+        "/dashboard/total_revenus",
+        "totaleRevenu"
       );
     }
   };
 
+  // const getNewUserData = () => {
+  //   if (isFullDate(nombreNewUserDateSpecifique)) {
+  //     return useGetDataByDay(
+  //       "/dashboard/new_users_date",
+  //       "dataNewUserDay",
+  //       nombreNewUserDateSpecifique
+  //     );
+  //   } else if (isMonthPresent(nombreNewUserDateSpecifique)) {
+  //     const [year, month] = nombreNewUserDateSpecifique.split("-");
+  //     return useGetDataByMonth(
+  //       "/dashboard/new_users_year",
+  //       "dataNewUserMonth",
+  //       month,
+  //       year
+  //     );
+  //   } else {
+  //     return useGetDataByYear(
+  //       "/dashboard/new_users_year",
+  //       "dataNewUserYear",
+  //       nombreNewUserDateSpecifique
+  //     );
+  //   }
+  // };
+
   const sessionData = getSessionData();
   const energyData = getEnergyData();
   const revenuData = getRevenuData();
-  const newUserData = getNewUserData();
+  // const newUserData = getNewUserData();
 
   const { percentVal, colorPercent } = usePercent(0);
   const [litleDescri, setlitleDescri] = useState(null);
@@ -169,7 +188,7 @@ export default function BoxSection({ setSection }) {
       }
     }
   }, [colorPercent, percentVal, filters]);
-  if (errorCurrentSession || errorFail || sessionData.error || revenuData.error || newUserData.error || energyData.error || errorCp) {
+  if (errorCurrentSession || errorFail || sessionData.error || revenuData.error || energyData.error || errorCp) {
     return <div className="">erreur...</div>;
   }
 
@@ -178,7 +197,7 @@ export default function BoxSection({ setSection }) {
       <Box
         setSection={setSection}
         SectionName="sessionRecharge"
-        Title={`Nombre Totale de Session en ${year}`}
+        Title={`Nombre Totale de Session`}
         Value={sessionData.data?.sessions_numbers}
         FirstIcone={BsFillEvStationFill}
         SecondIcone={FaUser}
@@ -190,7 +209,7 @@ export default function BoxSection({ setSection }) {
       <Box
         setSection={setSection}
         SectionName="PointsDecharges"
-        Title={`Energie Totale délivrée en ${year}`}
+        Title={`Energie Totale délivrée`}
         Value={energyData.data?.energy}
         FirstIcone={BsFillEvStationFill}
         SecondIcone={TbWorldShare}
@@ -202,7 +221,7 @@ export default function BoxSection({ setSection }) {
       <Box
         setSection={setSection}
         SectionName="Transaction"
-        Title={`Revenus Totaux en ${year}`}
+        Title={`Revenus Totaux`}
         Value={revenuData.data?.total_revenus}
         FirstIcone={BsFillEvStationFill}
         SecondIcone={GiReceiveMoney}

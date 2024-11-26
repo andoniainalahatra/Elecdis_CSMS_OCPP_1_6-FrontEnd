@@ -384,6 +384,7 @@ function DataTable({
                     );
                   }
 
+
                   if (
                     cell.column.id === "status" ||
                     cell.column.id === "statuts" ||
@@ -439,6 +440,20 @@ function DataTable({
                         <Badge className={cellClass}>{cellValue}</Badge>
                       </TableCell>
                     );
+                  }
+                  if(cell.column.id ==="subscription"){
+                    switch(cellValue){
+                      case "abonnement à crédit":
+                        cellClass=green;
+                        break;
+                        case "abonnement pour les particuliers":
+                          cellClass=yellow;
+                          break;
+                      default:cellClass=defaultColor
+                    }
+                    return (<TableCell key={cell.id} className="text-center">
+                      <Badge className={`${cellClass} truncate`}>{cellValue}</Badge>
+                    </TableCell>)
                   }
 
                   return (
