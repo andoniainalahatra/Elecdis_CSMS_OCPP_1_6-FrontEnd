@@ -29,8 +29,11 @@ const FilterHistoriqueStatusCP = ({ setObjet }) => {
     };
 
     const formatDate = (date) => {
-        return date.toISOString().slice(0, 10);
+
+        const offsetDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
+        return offsetDate.toISOString().slice(0, 10);
     };
+
 
     return (
         <div className='relative flex items-center space-x-4'>
@@ -84,23 +87,41 @@ const FilterHistoriqueStatusCP = ({ setObjet }) => {
                             className='p-2 text-white bg-blue-500 rounded'
                         >
                             Soumettre
-                        </button> <button
+                        </button>
+                        <button
                             onClick={() => {
                                 setclose((n) => !n);
-                                setObjet({
-                                    id_cp: '',
-                                    status: "",
-                                    start_time: "",
-                                    end_time: " "
-                                });
+                                // setObjet({
+                                //     id_cp: '',
+                                //     status: "",
+                                //     start_time: "",
+                                //     end_time: " "
+                                // });
                             }}
                             className='p-2 text-white bg-blue-500 rounded'
                         >
                             Fermer
                         </button>
                     </div>
+
+
                 </div>
             </div>)}
+
+            <button
+                onClick={() => {
+                    // setclose((n) => !n);
+                    setObjet({
+                        id_cp: id,
+                        status: status,
+                        start_time: formatDate(dateRange[0].startDate),
+                        end_time: formatDate(dateRange[0].endDate)
+                    });
+                }}
+                className='p-2 text-white bg-blue-500 rounded'
+            >
+                Envoyer
+            </button>
 
 
 

@@ -20,6 +20,8 @@ const HistoriqueStatusCp = () => {
         end_time: ''
     });
 
+    console.log(objet)
+
     const columns = [
         { accessorKey: "id_charge_point", header: "Id Charge Point" },
         { accessorKey: "statut", header: "Statut" },
@@ -68,7 +70,7 @@ const HistoriqueStatusCp = () => {
             if (data1) {
                 dispatch(getHistoriqueCp(data1));
             }
-        } else if (objet.status === 'Available' || objet.status === 'Unavailable') {
+        } else if (objet.status) {
             if (data) {
                 dispatch(getHistoriqueCp(data));
             }

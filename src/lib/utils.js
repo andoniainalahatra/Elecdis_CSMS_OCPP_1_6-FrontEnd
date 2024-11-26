@@ -29,6 +29,9 @@ export const isFullDate = (dateString) => {
 export const isMonthPresent = (dateString) => {
   return (dateString.match(/-/g) || []).length === 1; // Un tiret pour YYYY-MM
 };
+export const isOnlyYear = (dateString) => {
+  return /^\d{4}$/.test(dateString); // Vérifie si c'est une chaîne de 4 chiffres
+};
 export const formatValue = (value) => {
   const roundedValue = Number(value.toFixed(2));
   if (roundedValue >= 1e6) {

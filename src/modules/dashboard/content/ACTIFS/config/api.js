@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 
 const useHistoriqueCp = (
   url,
-  id_cp = "",
+  id_cp = "" || undefined,
   status = "",
   start_time = "",
   end_time = ""
@@ -17,9 +17,14 @@ const useHistoriqueCp = (
     const fetchData = async () => {
       setIsLoading(true); // Début du chargement
       try {
-        const response = await axiosInstance.get(
-          `${url}?id_cp=${id_cp}&status=${status}&start_time=${start_time}&end_time=${end_time}`
-        );
+        const response = await axiosInstance.get(`${url}`, {
+          params: {
+            id_cp: id_cp || undefined,
+            status: status || undefined,
+            start_time: start_time,
+            end_time: end_time,
+          },
+        });
         setData(response.data); // Met à jour les données
       } catch (err) {
         setError(err); // Enregistre l'erreur si la requête échoue

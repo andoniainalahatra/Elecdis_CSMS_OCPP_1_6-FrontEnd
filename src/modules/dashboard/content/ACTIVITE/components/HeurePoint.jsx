@@ -29,19 +29,19 @@ export default function HeurePoint({
     100;
 
   return (
-    <div className="max-sm:w-full h-full p-6 shadow-combined rounded-xl w-full bg-white">
+    <div className="max-sm:w-full h-full p-6 rounded-xl w-full bg-white">
       <h4 className="text-center text-lg font-medium mb-5">Heure de pointe</h4>
-      <div className="relative w-full mt-20">
+      <div className="relative w-full mt-16">
         <div className="relative h-1 bg-gray-300 rounded-full mt-5">
           <div
             className="absolute -top-1 h-3 bg-blue-500 rounded-full"
-            style={{ width: "60px", left: `calc(${sliderPosition}% - 30px)` }}
+            style={{ width: "60px", left: `calc(${sliderPosition}% - 0px)` }}
           />
         </div>
         <div
           className="absolute -top-8"
           style={{
-            left: `calc(${sliderPosition}% - 20px)`,
+            left: `calc(${sliderPosition}% - 0px)`,
             marginTop: "0px",
           }}
         >
