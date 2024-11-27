@@ -65,10 +65,11 @@ const DataTableUser = () => {
 
     const currentPage = useSelector(selectPage);
 
-    const [data, setData] = useState();
+    const [data, setData] = useState(null);
     const [month, setMonth] = useState(null);
     const [year, setYear] = useState(null);
-    let userData = useSelector(selectClient);
+
+    const userData = useSelector(selectClient);
 
     // Appel API pour tous les clients
     const {
