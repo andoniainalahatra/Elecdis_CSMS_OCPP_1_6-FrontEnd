@@ -18,6 +18,7 @@ import ConnectorStatus from "./ConnectorStatus";
 import { MdEmergencyShare } from "react-icons/md";
 import { FaChargingStation } from "react-icons/fa6";
 import { TbVersionsFilled } from "react-icons/tb";
+import { ImUnlocked } from "react-icons/im";
 
 
 
@@ -213,25 +214,9 @@ function DetailStation({ Id }) {
                 <div className="col-span-2 bg-[#ffffff] shadow-lg rounded-2xl max-sm:col-span-1">
                     <div className="grid grid-cols-2 p-4 max-md:grid-cols-1 max-md:w-full">
                         {adminData.map((item, index) => (
-                            <div key={index}>
-                                <div className="flex items-start justify-center gap-4 ">
+                            <div className="flex items-start justify-center" key={index}>
+                                <div className=" gap-4 ">
                                     {
-                                        // (item.status_connector.toLowerCase() === "unavailable") &&
-                                        //  (
-                                        //     <div className="flex space-x-5">
-                                        //         <div>
-                                        //             <CgUnavailable color="#F44336" size={117} />
-                                        //             <p className="text-[#F44336] font-medium mb-6 mt-2 ">{item.status_connector}</p>
-                                        //         </div>
-                                        //         <div className="text-center">
-                                        //             <h1 className="mb-2 font-medium text-center">Connecteur {item.id_connecteur}</h1>
-                                        //             <div
-                                        //                 className="flex flex-col items-center justify-center gap-4 p-6 font-medium rounded-md bg-gradient-to-r from-red-200 to-red-300">
-                                        //                 <p>Energie</p>
-                                        //                 <p>{item.energie_delivre} Wh</p>
-                                        //             </div>
-                                        //         </div>
-                                        //     </div>)
                                         <ConnectorStatus status={item.status_connector} color="#F44336" label="unavailable"
                                         connectorId={item.id_connecteur} icon={CgUnavailable} energy={item.energie_delivre?.toLocaleString("fr-FR")} bg="red"/>
                                     }
@@ -260,90 +245,34 @@ function DetailStation({ Id }) {
                                     }
                                     {
                                         (item.status_connector.toLowerCase() === "available") && 
-                                        // (
-                                        //     <div className="flex space-x-5">
-                                        //         <div className=" justify-items-center">
-                                        //             <FaRegCheckCircle color="#4CAF50" size={117} />
-                                        //             <p className="text-[#4CAF50] font-bold mt-2 "> {item.status_connector}</p>
-                                        //         </div>
-                                        //         <div className="text-center">
-                                        //             <h1 className="mb-2 font-medium text-center">Connecteur {item.id_connecteur}</h1>
-                                        //             <div
-                                        //                 className="flex flex-col items-center justify-center gap-4 p-6 font-medium rounded-md bg-gradient-to-r from-green-200 to-green-300">
-                                        //                 <p>Energie</p>
-                                        //                 <p>{item.energie_delivre} Wh</p>
-                                        //             </div>
-                                        //         </div>
-                                        //     </div>)
                                         <ConnectorStatus status={item.status_connector} color="#4CAF50" label="available" energy={item.energie_delivre?.toLocaleString("fr-FR")}
                                          connectorId={item.id_connecteur} icon={FaRegCheckCircle} bg="green"/>
                                     }
                                     {
                                         (item.status_connector.toLowerCase() === "charging") && 
-                                        // (
-                                        //     <div className="flex space-x-5">
-                                        //         <div>
-                                        //             <RiChargingPile2Line color="#2196F3" size={117} />
-                                        //             <p className="text-[#2196F3] font-bold mt-2 ">{item.status_connector}</p>
-                                        //         </div>
-                                        //         <div className="text-center">
-                                        //             <h1 className="mb-2 font-medium text-center">Connecteur {item.id_connecteur}</h1>
-                                        //             <div
-                                        //                 className="flex flex-col items-center justify-center gap-4 p-6 font-medium rounded-md bg-gradient-to-r from-blue-200 to-blue-300">
-                                        //                 <p>Energie</p>
-                                        //                 <p>{item.energie_delivre} Wh</p>
-                                        //             </div>
-                                        //         </div>
-                                        //     </div>)
                                         <ConnectorStatus status={item.status_connector} color="#2196F3" label="charging" energy={item.energie_delivre?.toLocaleString("fr-FR")}
                                         connectorId={item.id_connecteur} icon={RiChargingPile2Line} bg="blue"
                                         />
                                     }
                                     {
                                         (item.status_connector.toLowerCase() === "preparing") && 
-                                        // (
-                                        //     <div className="flex space-x-5">
-                                        //         <div>
-                                        //             <BiLoaderCircle color="#2196F3" size={117} />
-                                        //             <p className="text-[#2196F3] font-bold mt-2 ">{item.status_connector}</p>
-                                        //         </div>
-                                        //         <div className="text-center">
-                                        //             <h1 className="mb-2 font-medium text-center">Connecteur {item.id_connecteur}</h1>
-                                        //             <div
-                                        //                 className="flex flex-col items-center justify-center gap-4 p-6 font-medium rounded-md bg-gradient-to-r from-blue-200 to-blue-300">
-                                        //                 <p>Energie</p>
-                                        //                 <p>{item.energie_delivre} Wh</p>
-                                        //             </div>
-                                        //         </div>
-                                        //     </div>)
                                         <ConnectorStatus status={item.status_connector} color="#2196F3" icon={BiLoaderCircle} 
                                         energy={item.energie_delivre?.toLocaleString("fr-FR")} label="preparing" connectorId={item.id_connecteur} bg="blue"/>
                                     }
+
+                                    
+                                    <button className={`m-2  flex-row p-2 py gap-4 bg-[#FC210D] text-white shadow-md shadow-blue-200 rounded-md`}> <ImUnlocked size={20} className="inline-block px-1" />Deverouiller</button>
+
                                 </div>
+
                             </div>
                         ))}
 
-                        {/* <div>
 
-                            <div className="flex items-start justify-center gap-4 ">
-                                <div>
-                                    <IoMdAddCircleOutline color="#2196F3" size={117} />
-                                    <p className="text-[#53A7E3] font-bold mt-2 ">En Charge</p>
-                                </div>
-                                <div className="text-center">
-                                    <h1 className="mb-2 font-medium">Connecteur 3</h1>
-                                    <div
-                                        className="flex flex-col items-center justify-center gap-4 p-6 font-medium rounded-md bg-gradient-to-r from-blue-200 to-blue-300">
-                                        <p>Energie</p>
-                                        <p>209 Wh</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> */}
                     </div>
                 </div>
             </div>
-            {/* ))} */}
+            
 
             <div
                 className="text-[#637381] bg-[#fefefe] shadow-lg border rounded-2xl max-md:place-items-center grid grid-cols-3 max-sm:grid-cols-1 max-sm:p-4 gap-6">
