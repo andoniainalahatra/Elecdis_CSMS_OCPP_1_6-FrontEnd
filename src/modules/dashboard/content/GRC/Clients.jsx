@@ -13,8 +13,8 @@ const Clients = () => {
       <div className="flex justify-between m-6">
         <span className="text-[24px] text-[#212B36]">Liste des clients</span>
         <div className="flex space-x-3">
-          <BoutonAdd Composant={AddClient} open={open} setOpen={setOpen} />
           <BoutonAddCSV Composant={CsvUploader} open={open2} setOpen={setOpen2} />
+          <BoutonAdd Composant={AddClient} open={open} setOpen={setOpen} />
         </div>
       </div>
       <div className="p-6">
