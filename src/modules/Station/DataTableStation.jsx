@@ -22,7 +22,7 @@ const datas = [
     { accessorKey: "id", header: "ID du point de recharge" }, { accessorKey: "adresse", header: "Adresse" }, { accessorKey: "status", header: "Statut" }, { accessorKey: "charge_point_model", header: "Modèle du chargeur" }, { accessorKey: "charge_point_vendors", header: "Fournisseur du chargeur" }, { accessorKey: "energie_consomme", header: "Energie delivrée" }, { accessorKey: "Actions", header: "Actions" }
 ];
 const columns = datas;
-const actions = [{ name: "edit" }, { name: "delete" }];
+const actions = [{ name: "edit" }, { name: "delete" }, { name: "settings" }];
 const DataTableStation = () => {
     const currentPage = useSelector(selectPage);
     const { isPending, error, data } = StationApi(

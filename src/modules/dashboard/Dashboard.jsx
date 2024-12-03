@@ -24,6 +24,7 @@ import Tarifs from './content/TARIFS/Tarifs';
 import Clients from './content/GRC/Clients';
 import UserProfil from '@/components/UserProfil';
 import HistoriqueStatusCp from './content/ACTIFS/HistoriqueStatusCp';
+import Parametres from './content/SETTINGS/Parametres';
 
 
 const Dashboard = () => {
@@ -98,6 +99,8 @@ const Dashboard = () => {
                             {currentSection === "GroupesDestarifs" && <GroupesDesTarifs />}
                             {currentSection === "Tarifs" && <Tarifs />}
                             {currentSection === "UserProfil" && <UserProfil />}
+                            {currentSection === "Configurations" && <Parametres />}
+
 
                         </div>
                     </div>

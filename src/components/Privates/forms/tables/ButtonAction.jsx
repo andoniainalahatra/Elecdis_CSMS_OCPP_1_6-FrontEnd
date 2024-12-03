@@ -9,6 +9,8 @@ import DeleteStation from "@/modules/Station/DeleteStation";
 import { SiIfixit } from "react-icons/si";
 import axiosInstance from "@/lib/axiosInstance";
 import { useMutation } from "@tanstack/react-query";
+import { IoSettings } from "react-icons/io5";
+import Parametres from "@/modules/dashboard/content/SETTINGS/Parametres";
 const ButtonAction = ({ buttonProperty, Id }) => {
     const [section, setSection] = useState("");
 
@@ -94,6 +96,19 @@ const ButtonAction = ({ buttonProperty, Id }) => {
                     </span>
                 );
 
+            case "settings":
+                return (
+                    <span
+                        key={key}
+                        className="m-1 bg-transparent hover:bg-transparent hover:text-red-600"
+                        onClick={() => {
+                            setSection("settings");
+                        }}
+                    >
+                        <IoSettings />
+                    </span>
+                );
+
             default:
                 return null;
         }
@@ -146,6 +161,21 @@ const ButtonAction = ({ buttonProperty, Id }) => {
                         </span>
                     </div>)
             }
+            {section === "settings" && (
+                <div
+                    className="fixed top-0 left-0 z-20 flex items-center justify-center w-full h-screen overflow-auto backdrop-blur-md"
+                    style={{ backgroundColor: "rgba(9,16,26,0.7)" }}
+                >
+                    {/* <EditStation IdStation={Id} onclick={() => setSection("")} /> */}
+                    <Parametres IdStation={Id} onclick={() => setSection("")} />
+                    <span
+                        className="absolute cursor-pointer top-5 right-5"
+                        onClick={() => setSection("")}
+                    >
+                        <IoMdClose className="text-white hover:text-amber-400" size={50} />
+                    </span>
+                </div>
+            )}
             {
                 section === "Non resolu" && (
                     <p>
@@ -153,9 +183,6 @@ const ButtonAction = ({ buttonProperty, Id }) => {
                     </p>
                 )
             }
-
-
-
         </div>
     );
 };

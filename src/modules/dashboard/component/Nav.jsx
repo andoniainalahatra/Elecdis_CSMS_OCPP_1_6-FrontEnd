@@ -16,6 +16,7 @@ import Logo from "@/assets/logo1.png"
 import { Context } from '@/common/config/configs/Context';
 import { useContext } from 'react';
 import Cookies from 'js-cookie';
+import { IoSettings } from 'react-icons/io5';
 
 const Nav = ({ setSection }) => {
     const { setActive } = useContext(Context);
@@ -74,6 +75,11 @@ const Nav = ({ setSection }) => {
                 <BoutonNav IconButton={IoMdPersonAdd} label='Inscription' setSection={setSection} namePage='Inscription' />
                 <BoutonNav IconButton={MdLockReset} label='Réinitialiser mot de passe' setSection={setSection} namePage='RéinitialiserMotDepasse' />
             </div> */}
+
+            <div className='mt-5 font-semibold text-[#637381] '>
+                <span className='text-[#4188eb] font-bold ml-4 '>PARAMETRES</span>
+                <BoutonNav IconButton={IoSettings} label='Configurations' setSection={setSection} namePage='Configurations' />
+            </div>
         </div>
     )
 }
