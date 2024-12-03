@@ -238,7 +238,7 @@ export default function BoxSection({ setSection }) {
         FirstIcone={BsFillEvStationFill}
         SecondIcone={CgUnavailable}
         litleStatistique={null}
-        color="#F2505D"
+        color="#FC210D"
         filter={null}
         isLoading={pendingFail}
       />
@@ -250,7 +250,7 @@ export default function BoxSection({ setSection }) {
         FirstIcone={BsFillEvStationFill}
         SecondIcone={TbRecharging}
         litleStatistique={null}
-        color="#F29F05"
+        color="#18A5A7"
         filter={null}
         isLoading={loadingCurrentSession}
       />
@@ -275,7 +275,7 @@ export default function BoxSection({ setSection }) {
         FirstIcone={RiFileHistoryLine}
         SecondIcone={MdOutlineHistory}
         litleStatistique={null}
-        color="#26BF78"
+        color="#EECC51"
         filter={null}
         isLoading={pendingCp}
       />

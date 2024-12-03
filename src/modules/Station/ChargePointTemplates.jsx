@@ -101,7 +101,7 @@ function ChargePointTemplates() {
                             <h2 className='m-8 font-semibold text-simpleText'>Informations concernant la localisation du
                                 point de charge</h2>
 
-                            <div className="m-8 grid grid-cols-3 gap-4 p-4">
+                            <div className="m-8 grid grid-cols-3 gap-4">
                                 <div className="">
                                     <label htmlFor="adresse" className='text-gray-600'> Adresse</label>
                                     <Controller
@@ -133,9 +133,11 @@ function ChargePointTemplates() {
                                     />
                                 </div>
                             </div>
-                           <Button className='bg-primaryChart text-[#fefefe] hover:bg-red-500 mt-3 ml-4 '>
-                               Creer le point de charge
-                           </Button>
+                            <div className='m-4 gap-4'>
+                                    <Button className='bg-primaryChart text-[#fefefe] hover:bg-red-500 mt-3 ml-4 '>
+                                        Creer le point de charge
+                                    </Button>
+                            </div>
                         </form>
                     </div>
                 </div>
