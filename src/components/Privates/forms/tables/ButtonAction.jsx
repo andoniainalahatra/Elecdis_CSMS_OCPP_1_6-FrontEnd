@@ -93,7 +93,6 @@ const ButtonAction = ({ buttonProperty, Id }) => {
                         <FiEdit />
                     </span>
                 );
-
             default:
                 return null;
         }
