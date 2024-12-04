@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ChangeConfiguration = ({ setSection }) => {
+const Reset = ({ setSection }) => {
 
 
     return (
@@ -11,18 +11,12 @@ const ChangeConfiguration = ({ setSection }) => {
 
                 <div className='mx-auto border w-[80%] flex flex-col items-center space-y-5 p-5'>
 
-                    <span className=' text-[25px]'>CHANGER CONFIGURATION</span>
+                    <span className=' text-[25px]'>REINITIALISATION</span>
 
                     <div className='flex flex-col justify-center w-full font-semibold '>
                         <div className='flex items-center space-x-2'>
-                            <span> Cle : </span>
-                            <input className='h-[50px] outline-none border-b' type='text' placeholder='key' />
-                        </div>
-                    </div>
-                    <div className='flex flex-col justify-center w-full font-semibold'>
-                        <div className='flex items-center w-full space-x-2'>
-                            <span>Valuer : </span>
-                            <input className='h-[50px] outline-none border-b' type='text' placeholder='value' />
+                            <span> Type de Reset : </span>
+                            <input className='h-[50px] outline-none border-b' type='text' placeholder='reset_type ' />
                         </div>
                     </div>
 
@@ -46,4 +40,4 @@ const ChangeConfiguration = ({ setSection }) => {
     )
 }
 
-export default ChangeConfiguration
+export default Reset

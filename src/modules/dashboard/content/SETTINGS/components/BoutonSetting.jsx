@@ -2,7 +2,7 @@ const BoutonSetting = ({ IconButton, label, setSection, namePage }) => {
 
 
     return (
-        <button className='border rounded-md hover:ring-2 hover:ring-black h-[50px] w-[300px] bg-white hover:bg-gray-400'
+        <button className='border rounded-md hover:ring-2 hover:ring-black h-[50px] w-[300px] bg-white hover:bg-gray-400 '
             onClick={() => {
                 setSection(namePage);
                 setActive(namePage);

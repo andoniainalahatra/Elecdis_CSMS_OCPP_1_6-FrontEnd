@@ -12,6 +12,7 @@ import rfidSpecificReducer from "@/components/features/SpecificRFID/rfidSpecific
 import sessionSpecificReducer from "@/components/features/SpecificSession/sessionSpecificSlice";
 import transactionRechargeReducer from "@/features/TransactionRecharge/TransactionRechargeSlice";
 import HistoriqueCpReducer from "@/features/historiqueStatusCp/historiqueCpSlice";
+import ReservationReducer from "@/features/Reservation/ReservationSlice";
 
 const store = configureStore({
   reducer: {
@@ -28,6 +29,7 @@ const store = configureStore({
     sessionSpecific: sessionSpecificReducer,
     historiqueStatusCp: HistoriqueCpReducer,
     transactionRecharge: transactionRechargeReducer,
+    reservation:ReservationReducer,
   },
 });
 

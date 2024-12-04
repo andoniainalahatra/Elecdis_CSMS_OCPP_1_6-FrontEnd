@@ -1,8 +1,6 @@
 import React from 'react'
 
-const ChangeConfiguration = ({ setSection }) => {
-
-
+const ChangeAvailability = ({ setSection }) => {
     return (
         <div className="fixed top-0 left-0 z-20 flex items-center justify-center w-full h-screen overflow-auto backdrop-blur-md"
             style={{ backgroundColor: "rgba(9,16,26,0.7)" }}>
@@ -11,18 +9,18 @@ const ChangeConfiguration = ({ setSection }) => {
 
                 <div className='mx-auto border w-[80%] flex flex-col items-center space-y-5 p-5'>
 
-                    <span className=' text-[25px]'>CHANGER CONFIGURATION</span>
+                    <span className=' text-[25px]'>CHANGER AVAILABILITE</span>
 
                     <div className='flex flex-col justify-center w-full font-semibold '>
                         <div className='flex items-center space-x-2'>
-                            <span> Cle : </span>
-                            <input className='h-[50px] outline-none border-b' type='text' placeholder='key' />
+                            <span> Type d'etat : </span>
+                            <input className='h-[50px] outline-none border-b' type='text' placeholder='state_type' />
                         </div>
                     </div>
                     <div className='flex flex-col justify-center w-full font-semibold'>
                         <div className='flex items-center w-full space-x-2'>
-                            <span>Valuer : </span>
-                            <input className='h-[50px] outline-none border-b' type='text' placeholder='value' />
+                            <span>Id Connecteur : </span>
+                            <input className='h-[50px] outline-none border-b' type='text' placeholder='id_connector' />
                         </div>
                     </div>
 
@@ -42,8 +40,7 @@ const ChangeConfiguration = ({ setSection }) => {
 
             </div>
         </div>
-
     )
 }
 
-export default ChangeConfiguration
+export default ChangeAvailability
