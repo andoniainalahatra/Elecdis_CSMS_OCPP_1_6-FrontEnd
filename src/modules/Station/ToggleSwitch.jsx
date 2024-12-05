@@ -4,7 +4,8 @@ import { IoMdLock, IoMdUnlock } from "react-icons/io";
 
 const ToggleSwitch = ({ isChecked, onToggle }) => {
   return (
-    <div className="flex items-center">
+    <div className="ml-2 flex flex-col gap-2 items-center">
+      <p className="text-sm">Verouillage</p>
       <input
         id="toggle"
         type="checkbox"

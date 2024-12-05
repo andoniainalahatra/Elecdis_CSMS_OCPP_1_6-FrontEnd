@@ -67,19 +67,7 @@ export default function Box({
             </p>
           )}
 
-          {filter && (
-            <div className="flex items-center justify-center gap-1">
-              <div onClick={stopClickPropagation}>
-                <CalendarFilterDay filter={filter} />
-              </div>
-              <div onClick={stopClickPropagation}>
-                <CalendarFilterMonth filter={filter} />
-              </div>
-              <div onClick={stopClickPropagation}>
-                <CalendarFilterYear filter={filter} />
-              </div>
-            </div>
-          )}
+          
         </div>
 
         <p className="text-[3vw] cursor-pointer sm:text-[2vw] md:text-[1.5vw] lg:text-[2vw] xl:text-[14px] font-bold text-[#919EAB]">
