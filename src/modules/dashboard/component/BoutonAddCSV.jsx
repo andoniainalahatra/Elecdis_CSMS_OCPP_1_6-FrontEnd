@@ -10,7 +10,7 @@ const BoutonAddCSV = ({ open, Composant, setOpen }) => {
             {
                 <button 
                 onClick={() => setOpen(n => !n)}
-                className="border-blue-700 hover:border-blue-700 hover:bg-blue-800 border-solid border-2 h-[45px] text-[#212B36] hover:text-white px-5 flex items-center font-semibold
+                className="border-blue-700 hover:border-blue-800 hover:bg-blue-800 border-solid border-2 h-[45px] text-[#212B36] hover:text-white px-5 flex items-center font-semibold
                   max-md:text-sm text-[14px] rounded-full space-x-8 relative shadow-sm shadow-blue-300 transition duration-300 ease-in-out"
               >
                 <span>Importer CSV</span>
