@@ -1,5 +1,3 @@
-export const selectSessionDateSpecific = (state) => state.filterCalendarDate.totalSession
-export const selectEnergyDeliveryDateSpecific = (state) => state.filterCalendarDate.energyDelivery
-export const selectAllRevenuDateSpecific = (state) => state.filterCalendarDate.allRevenu
+export const selectBoxDateSpecific = (state) => state.filterCalendarDate.filterBox
 export const selectNewUserDateSpecific = (state) => state.filterCalendarDate.newUser
 export const selectFilterCalendarTable=(state)=>state.filterCalendarDate.filterClientTable

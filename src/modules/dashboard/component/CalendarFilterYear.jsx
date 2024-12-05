@@ -1,10 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import {
-  filterDateForAllRevenu,
-  filterDateForAllSession,
   filterDateForClientTable,
-  filterDateForEnergy,
+  filterDateForBox,
   filterDateForNewUser,
 } from "../content/T_BORD/features/filterCalendarSlice";
 import ButttonFilterDate from "./ButttonFilterDate";
@@ -29,17 +27,13 @@ function CalendarFilterYear({ filter }) {
   const handleYearSubmit = () => {
     const formattedDate = year.toString();
     let actionCreator;
-    if (filter === "nombreSession") {
-      actionCreator = filterDateForAllSession;
-    } else if (filter === "energyDelivery") {
-      actionCreator = filterDateForEnergy;
-    } else if (filter === "revenu") {
-      actionCreator = filterDateForAllRevenu;
-    } else if (filter === "newClient") {
+    if (filter === "newClient") {
       actionCreator = filterDateForNewUser;
     }
     else if(filter==="filterClientTable"){
       actionCreator = filterDateForClientTable
+    }else{
+      actionCreator = filterDateForBox
     }
 
     if (actionCreator) {
@@ -63,11 +57,11 @@ function CalendarFilterYear({ filter }) {
   return (
     <div className="relative" ref={inputRef}>
       <button onClick={toggleInput} className="text-xl">
-        <ButttonFilterDate text="A" />
+        <ButttonFilterDate text="Année" />
       </button>
 
       {showInput && (
-        <div className="absolute -right-2 z-50 mt-2 p-4 bg-white border-[0.5px] border-[#918f8f] rounded-lg shadow-md">
+        <div className="absolute -right-30 z-50 mt-2 p-4 bg-white border-[0.5px] border-[#918f8f] rounded-lg shadow-md">
           <input
             type="text"
             value={year}

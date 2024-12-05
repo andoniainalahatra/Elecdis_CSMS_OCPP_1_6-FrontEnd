@@ -18,10 +18,8 @@ import {
 } from "../features/BoxApi";
 import { useSelector } from "react-redux";
 import {
-  selectAllRevenuDateSpecific,
-  selectEnergyDeliveryDateSpecific,
+  selectBoxDateSpecific,
   selectNewUserDateSpecific,
-  selectSessionDateSpecific,
 } from "../features/filterCalendarSelector";
 import { isFullDate, isMonthPresent, isOnlyYear } from "@/lib/utils";
 
@@ -31,33 +29,29 @@ import { MdOutlineHistory } from "react-icons/md";
 export default function BoxSection({ setSection }) {
   const year = new Date().getFullYear();
   const { filters } = useContext(Context);
-  const nombreSession = useSelector(selectSessionDateSpecific);
-  const nombreEnergyDateSpecifique = useSelector(
-    selectEnergyDeliveryDateSpecific
-  );
-  const nombreRevenuDateSpecifique = useSelector(selectAllRevenuDateSpecific);
+  const filterBox = useSelector(selectBoxDateSpecific);
   const nombreNewUserDateSpecifique = useSelector(selectNewUserDateSpecific);
 
   const getSessionData = () => {
-    if (isFullDate(nombreSession)) {
+    if (isFullDate(filterBox)) {
       return useGetDataByDay(
         "/dashboard/sessions_by_date",
         "dataSessionDay",
-        nombreSession
+        filterBox
       );
-    } else if (isMonthPresent(nombreSession)) {
-      const [year, month] = nombreSession.split("-");
+    } else if (isMonthPresent(filterBox)) {
+      const [year, month] = filterBox.split("-");
       return useGetDataByMonth(
         "/dashboard/sessions_by_year_month",
         "dataSessionMonth",
         month,
         year
       );
-    } else if(isOnlyYear(nombreSession)) {
+    } else if(isOnlyYear(filterBox)) {
       return useGetDataByYear(
         "/dashboard/sessions_by_year_month",
         "dataSessionYear",
-        nombreSession
+        filterBox
       );
     }
     else{
@@ -69,25 +63,25 @@ export default function BoxSection({ setSection }) {
   };
 
   const getEnergyData = () => {
-    if (isFullDate(nombreEnergyDateSpecifique)) {
+    if (isFullDate(filterBox)) {
       return useGetDataByDay(
         "/dashboard/energy_by_date",
         "dataEnergyDay",
-        nombreEnergyDateSpecifique
+        filterBox
       );
-    } else if (isMonthPresent(nombreEnergyDateSpecifique)) {
-      const [year, month] = nombreEnergyDateSpecifique.split("-");
+    } else if (isMonthPresent(filterBox)) {
+      const [year, month] = filterBox.split("-");
       return useGetDataByMonth(
         "/dashboard/energy_by_year_month",
         "dataEnergyMonth",
         month,
         year
       );
-    } else if(isOnlyYear(nombreEnergyDateSpecifique)) {
+    } else if(isOnlyYear(filterBox)) {
       return useGetDataByYear(
         "/dashboard/energy_by_year_month",
         "dataEnergyYear",
-        nombreEnergyDateSpecifique
+        filterBox
       );
     }
     else{
@@ -99,25 +93,25 @@ export default function BoxSection({ setSection }) {
   };
 
   const getRevenuData = () => {
-    if (isFullDate(nombreRevenuDateSpecifique)) {
+    if (isFullDate(filterBox)) {
       return useGetDataByDay(
         "/dashboard/total_revenus_date",
         "dataRevenuDay",
-        nombreRevenuDateSpecifique
+        filterBox
       );
-    } else if (isMonthPresent(nombreRevenuDateSpecifique)) {
-      const [year, month] = nombreRevenuDateSpecifique.split("-");
+    } else if (isMonthPresent(filterBox)) {
+      const [year, month] = filterBox.split("-");
       return useGetDataByMonth(
         "/dashboard/total_revenus_year",
         "dataRevenuMonth",
         month,
         year
       );
-    } else if(isOnlyYear(nombreRevenuDateSpecifique)) {
+    } else if(isOnlyYear(filterBox)) {
       return useGetDataByYear(
         "/dashboard/total_revenus_year",
         "dataRevenuYear",
-        nombreRevenuDateSpecifique
+        filterBox
       );
     }
     else{

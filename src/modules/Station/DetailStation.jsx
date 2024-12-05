@@ -293,7 +293,7 @@ function DetailStation({ Id }) {
                     connectorId={item.id_connecteur}
                     {...getStatusProps(item.status_connector)}
                   />
-                  <div className="w-full flex justify-between items-center mt-4">
+                  <div className="w-full flex justify-between items-end mt-4">
                     <ToggleSwitch
                       isChecked={toggleStates[index]}
                       onToggle={(newState) =>
