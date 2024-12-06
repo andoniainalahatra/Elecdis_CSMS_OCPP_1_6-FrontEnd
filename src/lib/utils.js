@@ -30,18 +30,27 @@ export const isMonthPresent = (dateString) => {
   return (dateString.match(/-/g) || []).length === 1; // Un tiret pour YYYY-MM
 };
 export const isOnlyYear = (dateString) => {
-  return /^\d{4}$/.test(dateString); // Vérifie si c'est une chaîne de 4 chiffres
+  return /^\d{4}$/.test(dateString); 
 };
 export const formatValue = (value) => {
   const roundedValue = Number(value.toFixed(2));
-  if (roundedValue >= 1e6) {
-    return `${(roundedValue / 1e6).toFixed(1)}M`; // Millions
-  } else if (roundedValue >= 1e3) {
-    return `${(roundedValue / 1e3).toFixed(1)}K`; // Milliers
-  } else {
-    return roundedValue.toString(); // Valeur inférieure à 1000
-  }
+  const formatWithSpaces = (num) =>
+    num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+
+  return roundedValue % 1 === 0
+    ? formatWithSpaces(roundedValue.toFixed(0)) 
+    : formatWithSpaces(roundedValue.toFixed(2));
 };
+// const formatValue = (value) => {
+//   const roundedValue = Number(value.toFixed(2));
+//   if (roundedValue >= 1e6) {
+//     return ${(roundedValue / 1e6).toFixed(1)}M; // Millions
+//   } else if (roundedValue >= 1e3) {
+//     return ${(roundedValue / 1e3).toFixed(1)}K; // Milliers
+//   } else {
+//     return roundedValue.toString(); // Valeur inférieure à 1000
+//   }
+// };
 
 export const convertToMinutes = (timeString) => {
   const [hours, minutes] = timeString

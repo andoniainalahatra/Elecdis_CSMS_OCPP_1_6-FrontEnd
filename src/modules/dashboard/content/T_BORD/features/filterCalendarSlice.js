@@ -2,9 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const formatDate = (date) => {
     const year = date.getFullYear();
-    // const month = String(date.getMonth() + 1).padStart(2, '0'); // Les mois commencent à 0 donc on ajoute +1
-    // const day = String(date.getDate()).padStart(2, '0');
-    return `${year}`;
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Les mois commencent à 0 donc on ajoute +1
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
 };
 
 const monthAndYear=(date)=>{
@@ -13,7 +13,7 @@ const monthAndYear=(date)=>{
     return `${year}-${month}`;
 }
 const initialState = {
-    filterBox: "totale",
+    filterBox: formatDate(new Date()),
     newUser: formatDate(new Date()),
     // filterClientTable:monthAndYear(new Date()),
     filterClientTable:"2024"
