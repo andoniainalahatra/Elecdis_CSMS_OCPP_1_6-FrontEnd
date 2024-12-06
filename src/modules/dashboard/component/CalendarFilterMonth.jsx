@@ -1,10 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import {
-  filterDateForAllRevenu,
-  filterDateForAllSession,
   filterDateForClientTable,
-  filterDateForEnergy,
+  filterDateForBox,
   filterDateForNewUser,
 } from "../content/T_BORD/features/filterCalendarSlice";
 import ButttonFilterDate from "./ButttonFilterDate"; 
@@ -36,17 +34,13 @@ function CalendarFilterMonth({ filter }) {
     const month = (monthIndex + 1).toString().padStart(2, "0"); 
     const formattedDate = `${year}-${month}`;
     let actionCreator;
-    if (filter === "nombreSession") {
-      actionCreator = filterDateForAllSession;
-    } else if (filter === "energyDelivery") {
-      actionCreator = filterDateForEnergy;
-    } else if (filter === "revenu") {
-      actionCreator = filterDateForAllRevenu;
-    } else if (filter === "newClient") {
+    if (filter === "newClient") {
       actionCreator = filterDateForNewUser;
-  }
+    }
     else if(filter==="filterClientTable"){
       actionCreator= filterDateForClientTable
+    }else{
+      actionCreator = filterDateForBox
     }
 
     if (actionCreator) {
@@ -71,11 +65,11 @@ function CalendarFilterMonth({ filter }) {
   return (
     <div className="relative" ref={calendarRef}>
       <button onClick={toggleMonths} className="text-xl">
-        <ButttonFilterDate text="M" />
+        <ButttonFilterDate text="Mois" />
       </button>
 
       {showMonths && (
-        <div className="w-[200px] bg-white border-[0.5px] border-[#918f8f] absolute -right-2 z-50 mt-2 p-4 rounded-lg shadow-md">
+        <div className="w-[200px] bg-white border-[0.5px] border-[#918f8f] absolute -right-30 top-10 z-50 mt-2 p-4 rounded-lg shadow-md">
           <div className="flex items-center justify-center mb-4">
             <input
               type="number"

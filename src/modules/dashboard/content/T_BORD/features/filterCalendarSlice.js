@@ -13,9 +13,7 @@ const monthAndYear=(date)=>{
     return `${year}-${month}`;
 }
 const initialState = {
-    totalSession: "totale",
-    energyDelivery: "totale",
-    allRevenu: "totale",
+    filterBox: "totale",
     newUser: formatDate(new Date()),
     // filterClientTable:monthAndYear(new Date()),
     filterClientTable:"2024"
@@ -27,14 +25,8 @@ const filterDateSlice = createSlice({
     name : "filterCalendarDate",
     initialState,
     reducers : {
-        filterDateForAllSession : (state, action) => {
-            state.totalSession = action.payload
-        },
-        filterDateForEnergy : (state, action) => {
-            state.energyDelivery = action.payload
-        },
-        filterDateForAllRevenu : (state, action) => {
-            state.allRevenu = action.payload
+        filterDateForBox : (state, action) => {
+            state.filterBox = action.payload
         },
         filterDateForNewUser : (state, action) => {
             state.newUser = action.payload
@@ -45,7 +37,7 @@ const filterDateSlice = createSlice({
     }
 })
 
-export const { filterDateForAllRevenu,
-     filterDateForAllSession, filterDateForEnergy, filterDateForNewUser,
+export const { filterDateForBox,
+      filterDateForNewUser,
     filterDateForClientTable } = filterDateSlice.actions;
 export default filterDateSlice.reducer;

@@ -3,14 +3,12 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { useDispatch } from "react-redux";
 import {
-  filterDateForAllRevenu,
-  filterDateForAllSession,
-  filterDateForEnergy,
-  filterDateForNewUser,
+  filterDateForBox,
+  filterDateForNewUser
 } from "../content/T_BORD/features/filterCalendarSlice";
 import ButttonFilterDate from "./ButttonFilterDate";
 
-function CalendarFilter({ filter, className = "", action = "null" }) {
+function CalendarFilterDay({ filter, className = "" }) {
   const [showCalendar, setShowCalendar] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const dispatch = useDispatch();
@@ -30,16 +28,10 @@ function CalendarFilter({ filter, className = "", action = "null" }) {
   const handleDateChange = (date) => {
     const formattedDate = formatDate(date);
     let actionCreator;
-    if (filter === "nombreSession") {
-      actionCreator = filterDateForAllSession;
-    } else if (filter === "energyDelivery") {
-      actionCreator = filterDateForEnergy;
-    } else if (filter === "revenu") {
-      actionCreator = filterDateForAllRevenu;
-    } else if (filter === "newClient") {
+    if (filter === "newClient") {
       actionCreator = filterDateForNewUser;
     } else{
-      actionCreator = action;
+      actionCreator = filterDateForBox;
     }
 
     if (actionCreator) {
@@ -65,11 +57,11 @@ function CalendarFilter({ filter, className = "", action = "null" }) {
   return (
     <div className="relative">
       <button onClick={toggleCalendar} className="text-xl">
-        <ButttonFilterDate text="J" />
+        <ButttonFilterDate text="Jour" />
       </button>
       {showCalendar && (
         <div
-          className={`${className} calendar-container absolute z-50 -right-24 transition-opacity duration-300 ease-in-out opacity-100`}
+          className={`${className} calendar-container absolute z-50 -right-30 top-10 transition-opacity duration-300 ease-in-out opacity-100`}
           ref={calendarRef}
         >
           <Calendar
@@ -84,4 +76,4 @@ function CalendarFilter({ filter, className = "", action = "null" }) {
   );
 }
 
-export default CalendarFilter;
+export default CalendarFilterDay;
