@@ -71,15 +71,14 @@ function DataTable({
   ComponentModal,
   filterHistoStatus = false,
   setObjet,
-  filterSession = false, 
-  setObjetFilter, 
+  filterSession = false,
+  setObjetFilter,
   setStatus,
-  statuFilter
-
+  statuFilter,
 }) {
   const [isDetail, setIsDetail] = useState(false);
   const [idDetail, setIdDetail] = useState(null);
-  const [dataObj, setDataObj] = useState(null)
+  const [dataObj, setDataObj] = useState(null);
   const handleClick = (obj) => {
     if (onClickRow) {
       setIsDetail(true);
@@ -144,11 +143,13 @@ function DataTable({
           <ButtonFilterTable filter={filter} listFilter={listFilter} />
         )}
         {/* fikter historique status  */}
-        {filterHistoStatus && (
-          <FilterHistoriqueStatusCP setObjet={setObjet} />
-        )}
+        {filterHistoStatus && <FilterHistoriqueStatusCP setObjet={setObjet} />}
         {filterSession && (
-          <SessionFilter setObjetFilter={setObjetFilter} statuFilter={statuFilter} setStatus={setStatus} />
+          <SessionFilter
+            setObjetFilter={setObjetFilter}
+            statuFilter={statuFilter}
+            setStatus={setStatus}
+          />
         )}
         {calendarFilter && (
           <div className="flex items-center justify-center gap-1 rounded-md ">
@@ -183,8 +184,9 @@ function DataTable({
           <TableBody className="w-full">
             {table.getRowModel().rows.map((row) => (
               <TableRow
-                className={`${onClickRow ? "cursor-pointer" : "cursor-default"
-                  }`}
+                className={`${
+                  onClickRow ? "cursor-pointer" : "cursor-default"
+                }`}
                 key={row.id}
                 onClick={() => handleClick(row.original)}
               >
@@ -225,7 +227,10 @@ function DataTable({
                     }
                   }
 
-                  if (cell.column.id === "time" || cell.column.id ==="heure_erreur") {
+                  if (
+                    cell.column.id === "time" ||
+                    cell.column.id === "heure_erreur"
+                  ) {
                     const rawTime = cell.getValue();
 
                     if (rawTime) {
@@ -250,9 +255,8 @@ function DataTable({
                     }
                   }
 
-
                   if (cell.column.id === "energie_consomme") {
-                    const rawValue = cell.getValue()
+                    const rawValue = cell.getValue();
                     const formattedValue = rawValue.toLocaleString("fr-FR");
                     if (rawValue) {
                       return (
@@ -262,7 +266,11 @@ function DataTable({
                       );
                     }
                   }
-                  if (cell.column.id === "consumed_energy" || cell.column.id === "total_energy_unit" || cell.column.id === "solde_credit") {
+                  if (
+                    cell.column.id === "consumed_energy" ||
+                    cell.column.id === "total_energy_unit" ||
+                    cell.column.id === "solde_credit"
+                  ) {
                     const rawValue = cell.getValue();
 
                     const transformedValue = transformValue(rawValue);
@@ -274,7 +282,10 @@ function DataTable({
                       );
                     }
                   }
-                  if (cell.column.id === "total_cost" || cell.column.id === "total_price_unit") {
+                  if (
+                    cell.column.id === "total_cost" ||
+                    cell.column.id === "total_price_unit"
+                  ) {
                     const rawValue = cell.getValue();
 
                     const transformedValue = transformValue(rawValue);
@@ -294,37 +305,53 @@ function DataTable({
                       // row.original.is_expired
                       return (
                         <TableCell key={cell.id} className="text-center">
-                          {row.original.is_expired ? <div className="flex items-center justify-center gap-3">
-                            <ButtonReprendreTransaction disabled={true} />
-                            <ButtonStopTransaction
-                              chargePointId={rowData.chargepoint_id}
-                              sessionId={rowData.id}
-                              disabled={true}
-                            />
-                          </div> : <div className="flex items-center justify-center gap-3">
-                            <ButtonReprendreTransaction disabled={true} />
-                            <ButtonStopTransaction
-                              chargePointId={rowData.chargepoint_id}
-                              sessionId={rowData.id}
-                              disabled={false}
-                            />
-                          </div>}
+                          {row.original.is_expired ? (
+                            <div className="flex items-center justify-center gap-3">
+                              <ButtonReprendreTransaction disabled={true} />
+                              <ButtonStopTransaction
+                                chargePointId={rowData.chargepoint_id}
+                                sessionId={rowData.id}
+                                disabled={true}
+                              />
+                            </div>
+                          ) : (
+                            <div className="flex items-center justify-center gap-3">
+                              <ButtonReprendreTransaction disabled={true} />
+                              <ButtonStopTransaction
+                                chargePointId={rowData.chargepoint_id}
+                                sessionId={rowData.id}
+                                disabled={false}
+                              />
+                            </div>
+                          )}
                         </TableCell>
                       );
                     } else if (rowData.statuts || rowData.state === "terminé") {
                       return (
                         <TableCell key={cell.id} className="text-center">
-                          {row.original.is_expired ? <div className="flex items-center justify-center gap-3">
-                            <ButtonReprendreTransaction idSession={rowData.id} idTag={row.original.id_tag} idChargePoint={rowData.chargepoint_id} idConnecteur={rowData.connector_id} disabled={true} />
-                            <ButtonStopTransaction
-                              disabled={true}
-                            />
-                          </div> : <div className="flex items-center justify-center gap-3">
-                            <ButtonReprendreTransaction idSession={rowData.id} idTag={row.original.id_tag} idChargePoint={rowData.chargepoint_id} idConnecteur={rowData.connector_id} disabled={false} />
-                            <ButtonStopTransaction
-                              disabled={true}
-                            />
-                          </div>}
+                          {row.original.is_expired ? (
+                            <div className="flex items-center justify-center gap-3">
+                              <ButtonReprendreTransaction
+                                idSession={rowData.id}
+                                idTag={row.original.id_tag}
+                                idChargePoint={rowData.chargepoint_id}
+                                idConnecteur={rowData.connector_id}
+                                disabled={true}
+                              />
+                              <ButtonStopTransaction disabled={true} />
+                            </div>
+                          ) : (
+                            <div className="flex items-center justify-center gap-3">
+                              <ButtonReprendreTransaction
+                                idSession={rowData.id}
+                                idTag={row.original.id_tag}
+                                idChargePoint={rowData.chargepoint_id}
+                                idConnecteur={rowData.connector_id}
+                                disabled={false}
+                              />
+                              <ButtonStopTransaction disabled={true} />
+                            </div>
+                          )}
                         </TableCell>
                       );
                     }
@@ -384,7 +411,6 @@ function DataTable({
                     );
                   }
 
-
                   if (
                     cell.column.id === "status" ||
                     cell.column.id === "statuts" ||
@@ -441,19 +467,24 @@ function DataTable({
                       </TableCell>
                     );
                   }
-                  if(cell.column.id ==="subscription"){
-                    switch(cellValue){
+                  if (cell.column.id === "subscription") {
+                    switch (cellValue) {
                       case "abonnement à crédit":
-                        cellClass=green;
+                        cellClass = green;
                         break;
-                        case "abonnement pour les particuliers":
-                          cellClass=yellow;
-                          break;
-                      default:cellClass=defaultColor
+                      case "abonnement pour les particuliers":
+                        cellClass = yellow;
+                        break;
+                      default:
+                        cellClass = defaultColor;
                     }
-                    return (<TableCell key={cell.id} className="text-center">
-                      <Badge className={`${cellClass} truncate`}>{cellValue}</Badge>
-                    </TableCell>)
+                    return (
+                      <TableCell key={cell.id} className="text-center">
+                        <Badge className={`${cellClass} truncate`}>
+                          {cellValue}
+                        </Badge>
+                      </TableCell>
+                    );
                   }
 
                   return (
@@ -525,11 +556,11 @@ function DataTable({
         >
           <ComponentModal Id={idDetail} dataObj={dataObj} />
           <span
-            className="absolute z-50 cursor-pointer top-5 right-5"
+            className="absolute z-50 cursor-pointer top-5 right-5 bg-[#ff2164] hover:bg-red-600 transition duration-300 ease-in-out  rounded-full"
             disabled="true"
             onClick={() => setIsDetail(false)}
           >
-            <IoMdClose className="text-red-300 hover:text-red-500" size={50} />
+            <IoMdClose className="text-white hover:text-white" size={20} />
           </span>
         </div>
       )}
