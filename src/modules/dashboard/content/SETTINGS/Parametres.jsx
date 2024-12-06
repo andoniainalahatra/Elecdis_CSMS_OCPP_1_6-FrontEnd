@@ -13,7 +13,6 @@ const Parametres = () => {
                 <BoutonSetting label='Get Composite Schedule' setSection={setSection} namePage='GetCompositeSchedule' />
                 <BoutonSetting label='Réinitialisation' setSection={setSection} namePage='Reset' />
                 <BoutonSetting label='Send local list' setSection={setSection} namePage='SendlocalList' />
-
             </div>
 
             <Pages currentSection={currentSection} setSection={setSection} />

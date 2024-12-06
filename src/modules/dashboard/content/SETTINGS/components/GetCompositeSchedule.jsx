@@ -1,6 +1,8 @@
 
 
 import React from 'react'
+import { IoCheckmarkDoneSharp } from 'react-icons/io5'
+import { MdOutlineCancel } from 'react-icons/md'
 
 const GetCompositeSchedule = ({ setSection }) => {
 
@@ -33,12 +35,12 @@ const GetCompositeSchedule = ({ setSection }) => {
                             <input className='h-[50px] outline-none border-b' type='connectorId ' placeholder='value' />
                         </div>
                     </div>
-                    <div className='flex justify-center text-white md:space-x-2 max-md:flex-col'>
-                        <button onClick={() => setSection('')} className='border rounded-md hover:ring-2 hover:ring-black h-[50px] w-[200px] bg-green-700 hover:bg-gray-700'>
-                            Valider
+                    <div className='flex justify-center space-x-2 text-white '>
+                        <button onClick={() => setSection('')} className='border rounded-md hover:ring-2 hover:ring-black h-[50px]  bg-green-700 hover:bg-gray-700'>
+                            <IoCheckmarkDoneSharp size={50} />
                         </button>
-                        <button onClick={() => setSection('')} className='border rounded-md hover:ring-2 hover:ring-black h-[50px] w-[200px] bg-red-700 hover:bg-gray-700'>
-                            Annuler
+                        <button onClick={() => setSection('')} className='border rounded-md hover:ring-2 hover:ring-black h-[50px]  bg-red-700 hover:bg-gray-700'>
+                            <MdOutlineCancel size={50} />
                         </button>
                     </div>
 
