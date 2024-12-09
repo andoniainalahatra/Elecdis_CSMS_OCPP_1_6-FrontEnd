@@ -184,9 +184,8 @@ function DataTable({
           <TableBody className="w-full">
             {table.getRowModel().rows.map((row) => (
               <TableRow
-                className={`${
-                  onClickRow ? "cursor-pointer" : "cursor-default"
-                }`}
+                className={`${onClickRow ? "cursor-pointer" : "cursor-default"
+                  }`}
                 key={row.id}
                 onClick={() => handleClick(row.original)}
               >

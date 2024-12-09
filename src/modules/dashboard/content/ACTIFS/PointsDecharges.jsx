@@ -12,7 +12,7 @@ const PointsDecharges = () => {
 
     return (
         <div className="w-full h-auto p-4">
-            <div className="flex items-center justify-between w-full mb-12 bg-white p-6 rounded-lg">
+            <div className="flex items-center justify-between w-full p-6 mb-12 bg-white rounded-lg">
                 <h2 className="text-[24px] text-[#212B36]">Charge Point</h2>
                 <div className="flex flex-row gap-2 ">
                     <BouttonImporterCSV action={() => setOpenCsv(true)} />

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import BoutonSetting from './components/BoutonSetting'
 import Pages from './components/Pages';
 
-const Parametres = () => {
+const Parametres = ({ IdStation }) => {
     const [currentSection, setSection] = useState('');
     return (
         <div className='w-screen h-screen p-2 '>
@@ -13,10 +13,9 @@ const Parametres = () => {
                 <BoutonSetting label='Get Composite Schedule' setSection={setSection} namePage='GetCompositeSchedule' />
                 <BoutonSetting label='Réinitialisation' setSection={setSection} namePage='Reset' />
                 <BoutonSetting label='Send local list' setSection={setSection} namePage='SendlocalList' />
-
             </div>
 
-            <Pages currentSection={currentSection} setSection={setSection} />
+            <Pages currentSection={currentSection} setSection={setSection} IdStation={IdStation} />
         </div>
     )
 }

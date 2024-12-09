@@ -1,56 +1,114 @@
+import React, { useState } from 'react';
+import { IoCheckmarkDoneSharp } from 'react-icons/io5';
+import { MdOutlineCancel } from 'react-icons/md';
+import { useQuery } from '@tanstack/react-query';
+import axiosInstance from '@/lib/axiosInstance';
+import Swal from 'sweetalert2';
+import { MoonLoader } from 'react-spinners';
+import { usegetCompositeSchedule } from '../config/api';
 
+const GetCompositeSchedule = ({ setSection, IdStation }) => {
+    const [data, setData] = useState({
+        duration: '',
+        chargingRateUnit: '',
+        connectorId: '',
+        charge_point_id: IdStation,
+    });
 
-import React from 'react'
+    // Requête pour récupérer les données adminData
+    const {
+        isPending: isrepostat,
+        data: adminData,
+        error: errorStat,
+    } = useQuery({
+        queryKey: ["repoStat", IdStation],
+        queryFn: () =>
+            axiosInstance.get(`/cp/read_cp/${IdStation}`).then((res) => res.data),
+        refetchInterval: 1000,
+    });
 
-const GetCompositeSchedule = ({ setSection }) => {
+    const { mutate: GetCompositeSchedule, isPending, isSuccess } = usegetCompositeSchedule();
 
+    const onSubmit = () => {
+        if (data.duration && data.chargingRateUnit && data.connectorId && data.charge_point_id) {
+            GetCompositeSchedule(data); // Envoi des données correctes
+        } else {
+            Swal.fire({
+                icon: "warning",
+                title: "Attention",
+                text: "Veuillez vérifier vos données.",
+            });
+        }
+    };
+
+    if (isSuccess) {
+        setSection('');
+    }
+
+    if (isrepostat) {
+        return <div className="flex items-center justify-center h-screen"><MoonLoader color="#36d7b7" /></div>;
+    }
+    if (errorStat) {
+        return <div className="text-red-500">Une erreur est survenue, veuillez réessayer.</div>;
+    }
 
     return (
-        <div className="fixed top-0 left-0 z-20 flex items-center justify-center w-full h-screen overflow-auto backdrop-blur-md"
-            style={{ backgroundColor: "rgba(9,16,26,0.7)" }}>
+        <div className="fixed top-0 left-0 z-20 flex items-center justify-center w-full h-screen overflow-auto backdrop-blur-md">
+            <div className="w-1/3 p-8 bg-white rounded-lg shadow-lg">
+                <h2 className="mb-4 text-xl font-bold">Modifier la disponibilité</h2>
 
-            <div className='flex items-center w-1/2 bg-white rounded-md h-1/2 max-md:w-screen max-md:h-screen '>
+                {/* Formulaire */}
+                <div>
+                    <label className="block mb-2" htmlFor="connectorId">Duree</label>
+                    <input className="w-full p-2 mb-4 border" type='text' placeholder='key'
+                        value={data.key}
+                        onChange={(e) => setData({ ...data, duration: e.target.value })} />
 
-                <div className='mx-auto border w-[80%] flex flex-col items-center space-y-5 p-5'>
-
-                    <span className=' text-[25px]'>GET COMPOSITE SCHEDULE</span>
-
-                    <div className='flex flex-col justify-center w-full font-semibold '>
-                        <div className='flex items-center space-x-2'>
-                            <span> Duration : </span>
-                            <input className='h-[50px] outline-none border-b' type='text' placeholder='Duration' />
-                        </div>
-                    </div>
-                    <div className='flex flex-col justify-center w-full font-semibold'>
-                        <div className='flex items-center w-full space-x-2'>
-                            <span>chargingRateUnit : </span>
-                            <input className='h-[50px] outline-none border-b' type='chargingRateUnit' placeholder='value' />
-                        </div>
-                    </div>
-                    <div className='flex flex-col justify-center w-full font-semibold'>
-                        <div className='flex items-center w-full space-x-2'>
-                            <span>connecteur Id  : </span>
-                            <input className='h-[50px] outline-none border-b' type='connectorId ' placeholder='value' />
-                        </div>
-                    </div>
-                    <div className='flex justify-center text-white md:space-x-2 max-md:flex-col'>
-                        <button onClick={() => setSection('')} className='border rounded-md hover:ring-2 hover:ring-black h-[50px] w-[200px] bg-green-700 hover:bg-gray-700'>
-                            Valider
-                        </button>
-                        <button onClick={() => setSection('')} className='border rounded-md hover:ring-2 hover:ring-black h-[50px] w-[200px] bg-red-700 hover:bg-gray-700'>
-                            Annuler
-                        </button>
-                    </div>
-
+                    <label className="block mb-2" htmlFor="connectorId">chargingRateUnit </label>
+                    <input className="w-full p-2 mb-4 border" type='text' placeholder='chargingRateUnit '
+                        value={data.key}
+                        onChange={(e) => setData({ ...data, chargingRateUnit: e.target.value })} />
+                    <label className="block mb-2" htmlFor="connectorId">Connecteur</label>
+                    <select
+                        id="connectorId"
+                        value={data.connectorId}
+                        onChange={(e) => setData({ ...data, connectorId: e.target.value })}
+                        className="w-full p-2 mb-4 border"
+                    >
+                        <option value="">Sélectionner un connecteur</option>
+                        {adminData && adminData.map((item) => (
+                            <option key={item.id_connecteur} value={item.id_connecteur}>
+                                {item.id_connecteur}
+                            </option>
+                        ))}
+                    </select>
                 </div>
 
-
-
-
+                {/* Boutons */}
+                <div className="flex justify-between">
+                    <button
+                        className="flex items-center px-4 py-2 text-white bg-green-500 rounded"
+                        onClick={onSubmit}
+                        disabled={isPending}
+                    >
+                        {isPending ? (
+                            <MoonLoader size={15} color="#fff" />
+                        ) : (
+                            <IoCheckmarkDoneSharp />
+                        )}
+                        {isPending ? ' En cours' : 'Valider'}
+                    </button>
+                    <button
+                        className="flex items-center px-4 py-2 text-white bg-red-500 rounded"
+                        onClick={() => setSection('')}
+                    >
+                        <MdOutlineCancel />
+                        Annuler
+                    </button>
+                </div>
             </div>
         </div>
+    );
+};
 
-    )
-}
-
-export default GetCompositeSchedule
+export default GetCompositeSchedule;

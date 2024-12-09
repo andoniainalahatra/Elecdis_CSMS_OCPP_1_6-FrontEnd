@@ -99,9 +99,9 @@ const Transactions = () => {
 
   return (
     <div className="w-full h-auto p-6">
-      <div className="bg-gradient-to-r from-blue-500 to-green-500 text-white p-6 rounded-lg shadow-lg mb-6 flex items-center justify-between">
+      <div className="flex items-center justify-between p-6 mb-6 text-white rounded-lg shadow-lg bg-gradient-to-r from-blue-500 to-green-500">
         <div className="flex items-center">
-          <FaDollarSign className="text-4xl mr-4" />
+          <FaDollarSign className="mr-4 text-4xl" />
           <div>
             <h3 className="text-[24px] text-[#212B36] font-semibold">
               Revenus totaux
