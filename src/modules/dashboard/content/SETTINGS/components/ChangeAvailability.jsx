@@ -1,20 +1,35 @@
-import React, { useState } from 'react'
-import { IoCheckmarkDoneSharp } from 'react-icons/io5'
-import { MdOutlineCancel } from 'react-icons/md'
+import React, { useState } from 'react';
+import { IoCheckmarkDoneSharp } from 'react-icons/io5';
+import { MdOutlineCancel } from 'react-icons/md';
 import { usechangeAvailability } from '../config/api';
+import { useQuery } from '@tanstack/react-query';
+import axiosInstance from '@/lib/axiosInstance';
+import Swal from 'sweetalert2';
+import { MoonLoader } from 'react-spinners';
 
 const ChangeAvailability = ({ setSection, IdStation }) => {
     const [data, setData] = useState({
         state_type: '',
-        id_connector: '',
-        charge_point_id: IdStation
+        connectorId: '',
+        charge_point_id: IdStation,
     });
-    console.log(data)
+
+    // Requête pour récupérer les données adminData
+    const {
+        isPending: isrepostat,
+        data: adminData,
+        error: errorStat,
+    } = useQuery({
+        queryKey: ["repoStat", IdStation],
+        queryFn: () =>
+            axiosInstance.get(`/cp/read_cp/${IdStation}`).then((res) => res.data),
+        refetchInterval: 1000,
+    });
 
     const { mutate: changeAvailability, isPending, isSuccess } = usechangeAvailability();
 
     const onSubmit = () => {
-        if (data.state_type && data.id_connector && data.charge_point_id) {
+        if (data.state_type && data.connectorId && data.charge_point_id) {
             changeAvailability(data); // Envoi des données correctes
         } else {
             Swal.fire({
@@ -26,55 +41,76 @@ const ChangeAvailability = ({ setSection, IdStation }) => {
     };
 
     if (isSuccess) {
-        setSection('')
+        setSection('');
+    }
+
+    if (isrepostat) {
+        return <div className="flex items-center justify-center h-screen"><MoonLoader color="#36d7b7" /></div>;
+    }
+    if (errorStat) {
+        return <div className="text-red-500">Une erreur est survenue, veuillez réessayer.</div>;
     }
 
     return (
-        <div className="fixed top-0 left-0 z-20 flex items-center justify-center w-full h-screen overflow-auto backdrop-blur-md"
-            style={{ backgroundColor: "rgba(9,16,26,0.7)" }}>
+        <div className="fixed top-0 left-0 z-20 flex items-center justify-center w-full h-screen overflow-auto backdrop-blur-md">
+            <div className="w-1/3 p-8 bg-white rounded-lg shadow-lg">
+                <h2 className="mb-4 text-xl font-bold">Modifier la disponibilité</h2>
 
-            <div className='flex items-center w-1/2 bg-white rounded-md h-1/2 max-md:w-screen max-md:h-screen '>
-                <div className='mx-auto border w-[80%] flex flex-col items-center space-y-5 p-5'>
-                    <span className=' text-[25px]'>CHANGER AVAILABILITE</span>
-                    <div className='flex flex-col justify-center w-full font-semibold '>
-                        {/* permet de modifier l'etat d'un connecteur : deux états possible : Inoperative ou Operative */}
-                        <div className='flex items-center w-full space-x-2'>
-                            <span> Type d'etat : </span>
-                            {/* <input className='h-[50px] outline-none border-b' type='text' placeholder='state_type'
-                                onChange={(e) => setData({ ...data, state_type: e.target.value })} /> */}
+                {/* Formulaire */}
+                <div>
+                    <label className="block mb-2" htmlFor="connectorId">Connecteur</label>
+                    <select
+                        id="connectorId"
+                        value={data.connectorId}
+                        onChange={(e) => setData({ ...data, connectorId: e.target.value })}
+                        className="w-full p-2 mb-4 border"
+                    >
+                        <option value="">Sélectionner un connecteur</option>
+                        {adminData && adminData.map((item) => (
+                            <option key={item.id_connecteur} value={item.id_connecteur}>
+                                {item.id_connecteur}
+                            </option>
+                        ))}
+                    </select>
 
-                            <select className='h-[50px] outline-none border-b' onChange={(e) => setData({ ...data, state_type: e.target.value })}>
-                                <option value=''></option>
-                                <option value='Inoperative '>Inoperative</option>
-                                <option value='Operative '>Operative</option>
-                            </select>
+                    <label className="block mb-2" htmlFor="state_type">État</label>
+                    <select
+                        id="state_type"
+                        value={data.state_type}
+                        onChange={(e) => setData({ ...data, state_type: e.target.value })}
+                        className="w-full p-2 mb-4 border"
+                    >
+                        <option value="">Sélectionner un état</option>
+                        <option value="available">Disponible</option>
+                        <option value="unavailable">Indisponible</option>
+                    </select>
+                </div>
 
-                        </div>
-                    </div>
-                    <div className='flex flex-col justify-center w-full font-semibold'>
-                        <div className='flex items-center w-full space-x-2'>
-                            <span>Id Connecteur : </span>
-                            <input className='h-[50px] outline-none border-b' type='text' placeholder='id_connector'
-                                onChange={(e) => setData({ ...data, id_connector: e.target.value })} />
-                        </div>
-                    </div>
-                    <div className='flex justify-center space-x-2 text-white '>
-                        <button onClick={() => onSubmit()} className='border rounded-md hover:ring-2 hover:ring-black h-[50px]  bg-green-700 hover:bg-gray-700'>
-                            {isPending ? <MoonLoader
-                                color="#ffffff"
-                                loading={true}
-                                size={20}
-                            /> : <IoCheckmarkDoneSharp size={50} />
-                            }
-                        </button>
-                        <button onClick={() => setSection('')} className='border rounded-md hover:ring-2 hover:ring-black h-[50px]  bg-red-700 hover:bg-gray-700'>
-                            <MdOutlineCancel size={50} />
-                        </button>
-                    </div>
+                {/* Boutons */}
+                <div className="flex justify-between">
+                    <button
+                        className="flex items-center px-4 py-2 text-white bg-green-500 rounded"
+                        onClick={onSubmit}
+                        disabled={isPending}
+                    >
+                        {isPending ? (
+                            <MoonLoader size={15} color="#fff" />
+                        ) : (
+                            <IoCheckmarkDoneSharp />
+                        )}
+                        {isPending ? ' En cours' : 'Valider'}
+                    </button>
+                    <button
+                        className="flex items-center px-4 py-2 text-white bg-red-500 rounded"
+                        onClick={() => setSection('')}
+                    >
+                        <MdOutlineCancel />
+                        Annuler
+                    </button>
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default ChangeAvailability
+export default ChangeAvailability;

@@ -1,12 +1,13 @@
 /* eslint-disable default-case */
 
-import { useState, createContext, useCallback} from "react";
+import { useState, createContext, useCallback } from "react";
 
 export const Context = createContext();
 const currentYear = new Date().getFullYear();
 
 export const ContextProvider = ({ children }) => {
   const [isActive, setActive] = useState("");
+  const [admin, setAdmin] = useState();
   const [nav, setNav] = useState(false);
   const openNav = () => setNav(true);
   const closeNav = () => setNav(false);
@@ -14,7 +15,7 @@ export const ContextProvider = ({ children }) => {
 
   const [filterYear, setFilterYear] = useState(currentYear);
   const [filters, setFilters] = useState({
-    session:"all",
+    session: "all",
     bar: "mensuel",
     nombreSession: "journalier",
     energyDelivery: "journalier",
@@ -48,6 +49,8 @@ export const ContextProvider = ({ children }) => {
         handleFilterYear,
         filters,
         handleFilterChange,
+        admin,
+        setAdmin
       }}
     >
       {children}

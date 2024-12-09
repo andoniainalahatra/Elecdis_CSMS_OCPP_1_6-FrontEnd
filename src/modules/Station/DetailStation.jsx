@@ -164,7 +164,7 @@ function DetailStation({ Id }) {
     enabled: false,
   });
 
-  
+
   // --------------------------- Etat ToggleSwitch --------------------------------
 
   const [toggleStates, setToggleStates] = useState([]);
@@ -260,9 +260,9 @@ function DetailStation({ Id }) {
     <div className="container h-screen">
       <div className="text-[#637381] grid grid-cols-3 max-md:grid-cols-1 mb-6 pt-10 gap-6 max-sm:grid-cols-1 max-sm:p-4 max-md:mt-[50px] mt-[50px]">
         <div className="text-[#637381] col-span-1 bg-[#ffffff] shadow-lg rounded-2xl p-6 ">
-          <div className="flex justify-items-start text-gray-800 gap-2">
+          <div className="flex gap-2 text-gray-800 justify-items-start">
             <FaChargingStation size={25} />
-            <h1 className="text-2xl font-medium mb-6 text-gray-800 text-start">
+            <h1 className="mb-6 text-2xl font-medium text-gray-800 text-start">
               Stations
             </h1>
           </div>
@@ -286,14 +286,14 @@ function DetailStation({ Id }) {
           <div className="grid grid-cols-2 p-4 max-md:grid-cols-1 max-md:w-full">
             {adminData.map((item, index) => (
               <div className="flex items-start justify-center" key={index}>
-                <div className=" gap-4 ">
+                <div className="gap-4 ">
                   <ConnectorStatus
                     status={item.status_connector}
                     energy={item.energie_delivre?.toLocaleString("fr-FR")}
                     connectorId={item.id_connecteur}
                     {...getStatusProps(item.status_connector)}
                   />
-                  <div className="w-full flex justify-between items-end mt-4">
+                  <div className="flex items-end justify-between w-full mt-4">
                     <ToggleSwitch
                       isChecked={toggleStates[index]}
                       onToggle={(newState) =>
@@ -302,7 +302,7 @@ function DetailStation({ Id }) {
                     />
                     <button
                       onClick={handleReserve}
-                      className="text-sm px-4 py-2 bg-green-500 hover:bg-green-400 font-semibold text-white rounded-full"
+                      className="px-4 py-2 text-sm font-semibold text-white bg-green-500 rounded-full hover:bg-green-400"
                     >
                       Reserver
                     </button>
@@ -316,9 +316,9 @@ function DetailStation({ Id }) {
 
       <div className="text-[#637381] bg-[#fefefe] shadow-lg border rounded-2xl max-md:place-items-center grid grid-cols-3 max-sm:grid-cols-1 max-sm:p-4 gap-6">
         <div className="w-full col-span-1 p-6 text-gray-800 rounded-2xl ">
-          <div className="flex justify-items-start text-gray-800 gap-2">
+          <div className="flex gap-2 text-gray-800 justify-items-start">
             <RiBaseStationFill size={25} />
-            <h1 className="text-2xl font-medium mb-6 text-gray-800 text-start">
+            <h1 className="mb-6 text-2xl font-medium text-gray-800 text-start">
               Websocket
             </h1>
           </div>
@@ -344,9 +344,9 @@ function DetailStation({ Id }) {
         </div>
 
         <div className="text-[#fefefe] col-span-1 rounded-2xl p-6 w-full ">
-          <div className="flex text-gray-800 justify-items-start gap-2">
+          <div className="flex gap-2 text-gray-800 justify-items-start">
             <TbVersionsFilled size={25} />
-            <h1 className="text-2xl font-medium mb-6 text-gray-800 text-start">
+            <h1 className="mb-6 text-2xl font-medium text-gray-800 text-start">
               Firmware
             </h1>
           </div>
@@ -363,9 +363,9 @@ function DetailStation({ Id }) {
         </div>
 
         <div className="text-[#fefefe] rounded-2xl p-6 w-full">
-          <div className="flex text-gray-800 justify-items-start gap-2">
+          <div className="flex gap-2 text-gray-800 justify-items-start">
             <MdEmergencyShare size={25} />
-            <h1 className="text-2xl font-medium mb-6 text-gray-800">Urgence</h1>
+            <h1 className="mb-6 text-2xl font-medium text-gray-800">Urgence</h1>
           </div>
           <div className="grid w-full grid-cols-1 gap-4 mt-2 text-gray-800 text-start max-md:gap-6">
             <div className="flex gap-8">
@@ -413,7 +413,7 @@ function DetailStation({ Id }) {
           <div className="mt-6">
             <div
               onClick={() => setIsGetDiag(!isGetDiag)}
-              className=" text-gray-800 hover:text-gray-600 cursor-pointer flex justify-start items-center gap-2"
+              className="flex items-center justify-start gap-2 text-gray-800 cursor-pointer  hover:text-gray-600"
             >
               <FaDownload />
               <p>Diagnostic</p>

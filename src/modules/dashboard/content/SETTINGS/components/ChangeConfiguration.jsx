@@ -33,51 +33,48 @@ const ChangeConfiguration = ({ setSection, IdStation }) => {
 
 
     return (
-        <div className="fixed top-0 left-0 z-20 flex items-center justify-center w-full h-screen overflow-auto backdrop-blur-md"
-            style={{ backgroundColor: "rgba(9,16,26,0.7)" }}>
+        <div className="fixed top-0 left-0 z-20 flex items-center justify-center w-full h-screen overflow-auto backdrop-blur-md">
 
-            <div className='flex items-center w-1/2 bg-white rounded-md h-1/2 max-md:w-screen max-md:h-screen '>
+            <div className="fixed top-0 left-0 z-20 flex items-center justify-center w-full h-screen overflow-auto backdrop-blur-md">
+                <div className="w-1/3 p-8 bg-white rounded-lg shadow-lg">
+                    <h2 className="mb-4 text-xl font-bold">Modifier la Configuration</h2>
 
-                <div className='mx-auto border w-[80%] flex flex-col items-center space-y-5 p-5'>
+                    {/* Formulaire */}
+                    <div>
+                        <label className="block mb-2" htmlFor="connectorId">Cle</label>
+                        <input className="w-full p-2 mb-4 border" type='text' placeholder='key'
+                            value={data.key}
+                            onChange={(e) => setData({ ...data, key: e.target.value })} />
 
-                    <span className=' text-[25px]'>CHANGER CONFIGURATION</span>
-
-                    <div className='flex flex-col justify-center w-full font-semibold '>
-                        <div className='flex items-center space-x-2'>
-                            <span> Cle : </span>
-                            <input className='h-[50px] outline-none border-b' type='text' placeholder='key'
-                                value={data.key}
-                                onChange={(e) => setData({ ...data, key: e.target.value })} />
-                        </div>
-                    </div>
-                    <div className='flex flex-col justify-center w-full font-semibold'>
-                        <div className='flex items-center w-full space-x-2'>
-                            <span>Valuer : </span>
-                            <input className='h-[50px] outline-none border-b' type='text' placeholder='value'
-                                value={data.value}
-                                onChange={(e) => setData({ ...data, value: e.target.value })} />
-                        </div>
+                        <label className="block mb-2" htmlFor="state_type">Valuer</label>
+                        <input className='w-full p-2 mb-4 border' type='text' placeholder='value'
+                            value={data.value}
+                            onChange={(e) => setData({ ...data, value: e.target.value })} />
                     </div>
 
-                    <div className='flex justify-center space-x-2 text-white '>
-                        <button onClick={() => onSubmit()} className='border rounded-md hover:ring-2 hover:ring-black h-[50px]  bg-green-700 hover:bg-gray-700'>
-                            {isPending ? <MoonLoader
-                                color="#ffffff"
-                                loading={true}
-                                size={20}
-                            /> : <IoCheckmarkDoneSharp size={50} />
-                            }
+                    {/* Boutons */}
+                    <div className="flex justify-between">
+                        <button
+                            className="flex items-center px-4 py-2 text-white bg-green-500 rounded"
+                            onClick={onSubmit}
+                            disabled={isPending}
+                        >
+                            {isPending ? (
+                                <MoonLoader size={15} color="#fff" />
+                            ) : (
+                                <IoCheckmarkDoneSharp />
+                            )}
+                            {isPending ? ' En cours' : 'Valider'}
                         </button>
-                        <button onClick={() => setSection('')} className='border rounded-md hover:ring-2 hover:ring-black h-[50px]  bg-red-700 hover:bg-gray-700'>
-                            <MdOutlineCancel size={50} />
+                        <button
+                            className="flex items-center px-4 py-2 text-white bg-red-500 rounded"
+                            onClick={() => setSection('')}
+                        >
+                            <MdOutlineCancel />
+                            Annuler
                         </button>
                     </div>
-
                 </div>
-
-
-
-
             </div>
         </div>
 

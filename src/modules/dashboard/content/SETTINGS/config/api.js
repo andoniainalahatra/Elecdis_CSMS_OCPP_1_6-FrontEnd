@@ -36,10 +36,14 @@ export const useChangeConfiguration = () => {
 
 export const usechangeAvailability = () => {
   return useMutation({
-    mutationFn: (configData) =>
+    mutationFn: (data) =>
       axiosInstance
         .post(`/configuration/change_availability`, null, {
-          params: { configData },
+          params: {
+            state_type: data.state_type,
+            connectorId: data.connectorId,
+            charge_point_id: data.charge_point_id,
+          },
         }) // Envoi comme paramètre de requête
         .then((res) => res.data),
 
@@ -69,7 +73,14 @@ export const usegetCompositeSchedule = () => {
       axiosInstance
         //get_composite_scheduleChange Availability
         .post(`/configuration/get_composite_scheduleChange`, null, {
-          params: { duration, chargingRateUnit, connectorId, charge_point_id },
+          params: {
+            "data[duration]": encodeURIComponent(data.duration), // Utilisation de encodeURIComponent pour l'encodage
+            "data[chargingRateUnit ]": encodeURIComponent(
+              data.chargingRateUnit
+            ),
+            "data[connectorId]": encodeURIComponent(data.connectorId),
+            "data[charge_point_id]": encodeURIComponent(data.charge_point_id),
+          },
         }) // Envoi comme paramètre de requête
         .then((res) => res.data),
 
@@ -95,11 +106,14 @@ export const usegetCompositeSchedule = () => {
 
 export const usereset = () => {
   return useMutation({
-    mutationFn: () =>
+    mutationFn: (data) =>
       axiosInstance
         //get_composite_scheduleChange Availability
         .post(`/configuration/reset`, null, {
-          params: { charge_point_id, reset_type },
+          params: {
+            reset_type: data.reset_type, // Utilisation de encodeURIComponent pour l'encodage
+            charge_point_id: data.charge_point_id,
+          },
         }) // Envoi comme paramètre de requête
         .then((res) => res.data),
 
@@ -125,11 +139,14 @@ export const usereset = () => {
 
 export const usesendLocalList = () => {
   return useMutation({
-    mutationFn: () =>
+    mutationFn: (data) =>
       axiosInstance
         //get_composite_scheduleChange Availability
-        .post(`/configuration/reset`, null, {
-          params: { charge_point_id, reset_type },
+        .post(`/configuration/send_local_list`, null, {
+          params: {
+            charge_point_id: data.charge_point_id,
+            reset_type: data.reset_type,
+          },
         }) // Envoi comme paramètre de requête
         .then((res) => res.data),
 

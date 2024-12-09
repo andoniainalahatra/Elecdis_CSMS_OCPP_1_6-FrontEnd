@@ -34,7 +34,7 @@ export default function Box({
   };
   return (
     <div
-      className="relative rounded-2xl px-[10px] py-[2vw] shadow-combined bg-[#ffffff] flex justify-center items-start gap-[2vw] 
+      className="relative rounded-2xl px-[10px] py-[2vw] bg-[#ffffff] flex justify-center items-start gap-[2vw] 
         transition-transform hover:shadow-2xl duration-300" onClick={handleClick}
     >
       <div className="w-[20%] flex justify-center max-2xl:mt-[1vw] items-center relative">
