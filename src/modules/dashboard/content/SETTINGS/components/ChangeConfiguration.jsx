@@ -1,8 +1,35 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { IoCheckmarkDoneSharp } from 'react-icons/io5'
 import { MdOutlineCancel } from 'react-icons/md'
+import { useChangeConfiguration } from '../config/api'
+import { MoonLoader } from 'react-spinners'
 
-const ChangeConfiguration = ({ setSection }) => {
+const ChangeConfiguration = ({ setSection, IdStation }) => {
+    const [data, setData] = useState({
+        key: '',
+        value: '',
+        charge_point_id: IdStation
+    });
+
+    console.log(data)
+
+    const { mutate: changeConfiguration, isPending, isSuccess } = useChangeConfiguration();
+
+    const onSubmit = () => {
+        if (data.key && data.value && data.charge_point_id) {
+            changeConfiguration(data); // Envoi des données correctes
+        } else {
+            Swal.fire({
+                icon: "warning",
+                title: "Attention",
+                text: "Veuillez vérifier vos données.",
+            });
+        }
+    };
+
+    if (isSuccess) {
+        setSection('')
+    }
 
 
     return (
@@ -18,19 +45,28 @@ const ChangeConfiguration = ({ setSection }) => {
                     <div className='flex flex-col justify-center w-full font-semibold '>
                         <div className='flex items-center space-x-2'>
                             <span> Cle : </span>
-                            <input className='h-[50px] outline-none border-b' type='text' placeholder='key' />
+                            <input className='h-[50px] outline-none border-b' type='text' placeholder='key'
+                                value={data.key}
+                                onChange={(e) => setData({ ...data, key: e.target.value })} />
                         </div>
                     </div>
                     <div className='flex flex-col justify-center w-full font-semibold'>
                         <div className='flex items-center w-full space-x-2'>
                             <span>Valuer : </span>
-                            <input className='h-[50px] outline-none border-b' type='text' placeholder='value' />
+                            <input className='h-[50px] outline-none border-b' type='text' placeholder='value'
+                                value={data.value}
+                                onChange={(e) => setData({ ...data, value: e.target.value })} />
                         </div>
                     </div>
 
                     <div className='flex justify-center space-x-2 text-white '>
-                        <button onClick={() => setSection('')} className='border rounded-md hover:ring-2 hover:ring-black h-[50px]  bg-green-700 hover:bg-gray-700'>
-                            <IoCheckmarkDoneSharp size={50} />
+                        <button onClick={() => onSubmit()} className='border rounded-md hover:ring-2 hover:ring-black h-[50px]  bg-green-700 hover:bg-gray-700'>
+                            {isPending ? <MoonLoader
+                                color="#ffffff"
+                                loading={true}
+                                size={20}
+                            /> : <IoCheckmarkDoneSharp size={50} />
+                            }
                         </button>
                         <button onClick={() => setSection('')} className='border rounded-md hover:ring-2 hover:ring-black h-[50px]  bg-red-700 hover:bg-gray-700'>
                             <MdOutlineCancel size={50} />

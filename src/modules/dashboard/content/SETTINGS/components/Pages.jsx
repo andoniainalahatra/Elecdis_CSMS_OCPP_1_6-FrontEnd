@@ -5,14 +5,14 @@ import GetCompositeSchedule from './GetCompositeSchedule'
 import Reset from './Reset'
 import SendLocalList from './SendLocalList'
 
-const Pages = ({ currentSection, setSection }) => {
+const Pages = ({ currentSection, setSection, IdStation }) => {
     return (
         <div className=''>
-            {currentSection === "ChangeConfiguration" && <ChangeConfiguration setSection={setSection} />}
-            {currentSection === "ChangeAvailability" && <ChangeAvailability setSection={setSection} />}
-            {currentSection === "GetCompositeSchedule" && <GetCompositeSchedule setSection={setSection} />}
-            {currentSection === "Reset" && <Reset setSection={setSection} />}
-            {currentSection === "SendlocalList" && <SendLocalList setSection={setSection} />}
+            {currentSection === "ChangeConfiguration" && <ChangeConfiguration setSection={setSection} IdStation={IdStation} />}
+            {currentSection === "ChangeAvailability" && <ChangeAvailability setSection={setSection} IdStation={IdStation} />}
+            {currentSection === "GetCompositeSchedule" && <GetCompositeSchedule setSection={setSection} IdStation={IdStation} />}
+            {currentSection === "Reset" && <Reset setSection={setSection} IdStation={IdStation} />}
+            {currentSection === "SendlocalList" && <SendLocalList setSection={setSection} IdStation={IdStation} />}
         </div>
     )
 }
