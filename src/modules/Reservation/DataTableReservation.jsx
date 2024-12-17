@@ -5,27 +5,26 @@ import { PulseLoader } from "react-spinners";
 import Swal from "sweetalert2";
 import { useDispatch, useSelector } from "react-redux";
 import {
-    getStation,
+    getReservation,
     nextPage,
     previousPage,
     resetPage,
     totalPage,
-} from "@/features/Stations/stationSlice.js";
+} from "@/features/Reservation/ReservationSlice";
 
-import {
-    selectPage,
-    selectStation,
-} from "@/features/Stations/stationSelector.js";
-import DetailStation from "./DetailStation";
+import { selectPage, selectReservation } from "@/features/Reservation/ReservationSelector";
+import { ReservationApi } from "@/features/Reservation/ReservationAPI";
+
 
 const datas = [
-    { accessorKey: "id", header: "ID du point de recharge" }, { accessorKey: "adresse", header: "Adresse" }, { accessorKey: "status", header: "Statut" }, { accessorKey: "charge_point_model", header: "Modèle du chargeur" }, { accessorKey: "charge_point_vendors", header: "Fournisseur du chargeur" }, { accessorKey: "energie_consomme", header: "Energie delivrée" }, { accessorKey: "Actions", header: "Actions" }
+    { accessorKey: "reservationId", header: "ID-Reservation" }, { accessorKey: "connectorId", header: "Id-connecteur" }, { accessorKey: "IdTag", header: "IdTag" }, { accessorKey: "charge_point_id", header: "Id-ChargePoint" }, { accessorKey: "Actions", header: "Actions" }
 ];
 const columns = datas;
-const actions = [{ name: "edit" }, { name: "delete" }, { name: "settings" }];
-const DataTableStation = () => {
+const actions = [{ name: "edit" }, { name: "delete" },{name:"cancel"}];
+
+const DataTableReservation = () => {
     const currentPage = useSelector(selectPage);
-    const { isPending, error, data } = StationApi(
+    const { isPending, error, data } = ReservationApi(
         "cp/read_cp",
         "repoStation",
         currentPage,
@@ -33,7 +32,7 @@ const DataTableStation = () => {
     );
 
     const dispatch = useDispatch();
-    const stationData = useSelector(selectStation);
+    const reservationData = useSelector(selectReservation);
 
     if (isPending) {
         return (
@@ -49,14 +48,14 @@ const DataTableStation = () => {
         });
     }
     if (data) {
-        dispatch(getStation(data));
+        dispatch(getReservation(data));
     }
 
     return (
         <div className="w-full overflow-x-auto">
             <DataTable
                 columns={columns}
-                datas={stationData}
+                datas={reservationData}
                 actions={actions}
                 ButtonAction={ButtonAction}
                 totalPage={totalPage}
@@ -64,11 +63,11 @@ const DataTableStation = () => {
                 resetPage={resetPage}
                 nextPage={nextPage}
                 previousPage={previousPage}
-                onClickRow={true}
-                ComponentModal={DetailStation}
+                onClickRow={false}
+                // ComponentModal={DetailStation}
             />
         </div>
     );
 };
 
-export default DataTableStation;
+export default DataTableReservation;

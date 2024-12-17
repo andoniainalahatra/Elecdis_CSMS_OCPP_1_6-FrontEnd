@@ -7,103 +7,97 @@ import { useState } from "react";
 import DeleteStation from "@/modules/Station/DeleteStation";
 import TransactionRechargeDetail from "./TransactionRechargeDetail";
 
-const ButtonActionSession = ({ buttonProperty, Id, dataObj}) => {
+const ButtonActionSession = ({ buttonProperty, Id, dataObj }) => {
+  const [section, setSection] = useState("");
 
-    const [section, setSection] = useState("");
+  const renderButton = (name, key) => {
+    switch (name) {
+      case "detail":
+        return (
+          <span
+            key={key}
+            onClick={() => {
+              setSection("detail");
+            }}
+            className="m-1 text-blue-500 bg-transparent hover:bg-transparent hover:text-blue-600"
+          >
+            <BiSolidDashboard size={18} />
+          </span>
+        );
+      case "delete":
+        return (
+          <span
+            key={key}
+            className="m-1 text-red-500 bg-transparent hover:bg-transparent hover:text-red-600"
+            onClick={() => {
+              setSection("delete");
+            }}
+          >
+            <RiDeleteBin6Line />
+          </span>
+        );
+      case "edit":
+        return (
+          <span
+            key={key}
+            onClick={() => {
+              setSection("edit");
+            }}
+            className="m-1 text-black bg-transparent hover:bg-transparent hover:text-yellow-600"
+          >
+            <FiEdit />
+          </span>
+        );
+      default:
+        return null;
+    }
+  };
 
-    const renderButton = (name, key) => {
-        switch (name) {
-            case "detail":
-                return (
-                    <span
-                        key={key}
-                        onClick={() => {
-                            setSection("detail");
-                        }}
-                        className="m-1 text-blue-500 bg-transparent hover:bg-transparent hover:text-blue-600"
-                    >
-                        <BiSolidDashboard size={18} />
-                    </span>
-                );
-            case "delete":
-                return (
-                    <span
-                        key={key}
-                        className="m-1 text-red-500 bg-transparent hover:bg-transparent hover:text-red-600"
-                        onClick={()=>{
-                            setSection("delete");
-                        }}
-                    >
-                        <RiDeleteBin6Line />
-                    </span>
-                );
-            case "edit":
-                return (
-                    <span
-                        key={key}
-                        onClick={() => {
-                            setSection("edit");
-                        }}
-                        className="m-1 text-black bg-transparent hover:bg-transparent hover:text-yellow-600"
-                    >
-                        <FiEdit />
-                    </span>
-                );
-            default:
-                return null;
-        }
-    };
-
-    return (
-        <div className="flex items-center justify-center gap-2 max-md:flex-col">
-            {buttonProperty.map((data, key) => renderButton(data.name, key))}
-            {section === "detail" && (
-                <div
-                    className="fixed top-0 left-0 z-20 flex items-center justify-center w-full h-screen overflow-auto bg-black bg-opacity-40"
-                   
-                >
-                    <TransactionRechargeDetail close={setSection} dataObj={dataObj} />
-                    {/* <span
+  return (
+    <div className="flex items-center justify-center gap-2 max-md:flex-col">
+      {buttonProperty.map((data, key) => renderButton(data.name, key))}
+      {section === "detail" && (
+        <div className="fixed top-0 left-0 z-20 flex items-center justify-center w-full h-screen overflow-auto bg-black bg-opacity-40">
+          <TransactionRechargeDetail close={setSection} dataObj={dataObj} />
+          {/* <span
                         className="absolute cursor-pointer top-5 right-5"
                         onClick={() => setSection("")}
                     > */}
-                        {/* <IoMdClose className="text-white hover:text-amber-400" size={50} /> */}
-                    {/* </span> */}
-                </div>
-            )}
-            {section === "edit" && (
-                <div
-                    className="fixed top-0 left-0 flex items-center justify-center w-full h-screen overflow-auto z-20 backdrop-blur-md"
-                    style={{ backgroundColor: "rgba(9,16,26,0.7)" }}
-                >
-                    <EditStation IdStation={Id} onclick={()=>setSection("")}/>
-                    <span
-                        className="absolute cursor-pointer top-5 right-5"
-                        onClick={() => setSection("")}
-                    >
-                        <IoMdClose className="text-white hover:text-amber-400" size={50} />
-                    </span>
-                </div>
-            )} 
-           {
-             section === "delete" && (
-                    <div
-                        className="fixed top-0 left-0 flex items-center justify-center w-full h-screen overflow-auto z-20 backdrop-blur-md"
-                        style={{ backgroundColor: "rgba(9,16,26,0.7)" }}
-                    >
-                        {/* <EditStation IdStation={Id} onclick={()=>setSection("")}/> */}
-                        <DeleteStation IdStation={Id} onclick={()=>setSection("")}/>
-                        <span
-                            className="absolute cursor-pointer top-5 right-5"
-                            onClick={() => setSection("")}
-                        >
-                            <IoMdClose className="text-white hover:text-amber-400" size={50} />
-                        </span>
-                    </div>
-                )} 
-
+          {/* <IoMdClose className="text-white hover:text-amber-400" size={50} /> */}
+          {/* </span> */}
         </div>
-    );
+      )}
+      {section === "edit" && (
+        <div
+          className="fixed top-0 left-0 flex items-center justify-center w-full h-screen overflow-auto z-20 backdrop-blur-md"
+          style={{ backgroundColor: "rgba(9,16,26,0.7)" }}
+        >
+          <EditStation IdStation={Id} onclick={() => setSection("")} />
+          <span
+            className="absolute cursor-pointer top-5 right-5"
+            onClick={() => setSection("")}
+          >
+            <IoMdClose className="text-white hover:text-amber-400" size={50} />
+          </span>
+        </div>
+      )}
+      {section === "delete" && (
+        <div
+          className="fixed top-0 left-0 flex items-center justify-center w-full h-screen overflow-auto z-20 backdrop-blur-md"
+          style={{ backgroundColor: "rgba(9,16,26,0.7)" }}
+        >
+          {/* <EditStation IdStation={Id} onclick={()=>setSection("")}/> */}
+          <DeleteStation IdStation={Id} onclick={() => setSection("")} />
+          <span
+            className="absolute cursor-pointer top-5 right-5"
+            onClick={() => setSection("")}
+          >
+            <IoMdClose className="text-white hover:text-amber-400" size={50} />
+          </span>
+        </div>
+      )}
+    </div>
+  );
 };
 
 export default ButtonActionSession;

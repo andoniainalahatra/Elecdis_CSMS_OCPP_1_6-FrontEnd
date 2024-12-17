@@ -23,7 +23,7 @@ const transactionRechargeSlice = createSlice({
           },
           totalPage: (state, action) => {
             state.pageIndex = action.payload;
-          },
+        },
     }
 })
 

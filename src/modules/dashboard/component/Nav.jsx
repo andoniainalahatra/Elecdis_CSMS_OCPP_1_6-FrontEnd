@@ -9,13 +9,14 @@ import { AiOutlineGroup } from "react-icons/ai";
 // import { TbLogout2 } from "react-icons/tb";
 // import { IoMdPersonAdd } from "react-icons/io";
 // import { MdLockReset } from "react-icons/md";
-import { RiDashboard2Fill, RiFileHistoryLine } from "react-icons/ri";
+import { RiDashboard2Fill, RiFileHistoryLine, RiReservedFill } from "react-icons/ri";
 import { BsFillEvStationFill } from "react-icons/bs";
 import BoutonNav from './BoutonNav'
 import Logo from "@/assets/logo1.png"
 import { Context } from '@/common/config/configs/Context';
 import { useContext } from 'react';
 import Cookies from 'js-cookie';
+import { IoSettings } from 'react-icons/io5';
 
 const Nav = ({ setSection }) => {
     const { setActive } = useContext(Context);
@@ -24,7 +25,7 @@ const Nav = ({ setSection }) => {
         setActive("TableauDeBord")
     }
     const name = JSON.parse(Cookies.get('user')).first_name + " " + JSON.parse(Cookies.get('user')).last_name
-    
+
     return (
         <div className='w-full flex flex-col text-[14px] pl-3 truncate'>
             <div className='mt-2' onClick={() => handleClick()}>
@@ -40,7 +41,7 @@ const Nav = ({ setSection }) => {
             <div className='mt-5 font-semibold text-[#637381] '>
                 <span className='text-[#4188eb] font-bold ml-4'>ACTIVITE</span>
                 <BoutonNav IconButton={LockClosedIcon} label='Administrateurs' setSection={setSection} namePage='Administrateurs' />
-                {/* <BoutonNav IconButton={RiReservedFill} label='Réservations' setSection={setSection} namePage='Réservations' /> */}
+                <BoutonNav IconButton={RiReservedFill} label='Réservations' setSection={setSection} namePage='Réservations' />
                 <BoutonNav IconButton={BoltIcon} label='Transaction de recharge' setSection={setSection} namePage='sessionRecharge' />
                 <BoutonNav IconButton={ArrowsRightLeftIcon} label='Paiements' setSection={setSection} namePage='Transaction' />
             </div>
@@ -73,6 +74,11 @@ const Nav = ({ setSection }) => {
                 <BoutonNav IconButton={TbLogout2} label='Connexion' setSection={setSection} namePage='Connexion' />
                 <BoutonNav IconButton={IoMdPersonAdd} label='Inscription' setSection={setSection} namePage='Inscription' />
                 <BoutonNav IconButton={MdLockReset} label='Réinitialiser mot de passe' setSection={setSection} namePage='RéinitialiserMotDepasse' />
+            </div> */}
+
+            {/* <div className='mt-5 font-semibold text-[#637381] '>
+                <span className='text-[#4188eb] font-bold ml-4 '>PARAMETRES</span>
+                <BoutonNav IconButton={IoSettings} label='Configurations' setSection={setSection} namePage='Configurations' />
             </div> */}
         </div>
     )

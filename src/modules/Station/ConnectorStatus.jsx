@@ -10,16 +10,15 @@ const ConnectorStatus = ({ status, icon: Icon, color,bg, label, energy, connecto
 
 
     const gradientClass = colorClasses[bg];
-    console.log(gradientClass)
     
     return (
         (status.toLowerCase() === label.toLowerCase()) && (
             <div className="flex space-x-5">
-                <div className='flex flex-col items-center '>
-                    <Icon color={color} size={117} />
+                <div className='flex flex-col items-end justify-end'>
+                    <Icon color={color} size={80} />
                     <p className={`font-bold mt-2 text-[${color}]`}>{status}</p>
                 </div>
-                <div className="text-center ">
+                <div className="text-center">
                     <h1 className="mb-2 font-medium text-center">Connecteur {connectorId}</h1>
                     <div
                         className={`flex flex-col items-center text-gray-500 justify-center gap-4 p-6 font-medium rounded-md bg-gradient-to-r ${gradientClass}`}>
