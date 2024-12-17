@@ -76,10 +76,10 @@ const Nav = ({ setSection }) => {
                 <BoutonNav IconButton={MdLockReset} label='Réinitialiser mot de passe' setSection={setSection} namePage='RéinitialiserMotDepasse' />
             </div> */}
 
-            <div className='mt-5 font-semibold text-[#637381] '>
+            {/* <div className='mt-5 font-semibold text-[#637381] '>
                 <span className='text-[#4188eb] font-bold ml-4 '>PARAMETRES</span>
                 <BoutonNav IconButton={IoSettings} label='Configurations' setSection={setSection} namePage='Configurations' />
-            </div>
+            </div> */}
         </div>
     )
 }
